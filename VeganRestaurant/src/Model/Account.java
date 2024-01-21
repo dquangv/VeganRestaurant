@@ -11,5 +11,4 @@ package Model;
 public class Account {
     String tenDangNhap;
     String matKhau;
-    String vaiTro;
 }
