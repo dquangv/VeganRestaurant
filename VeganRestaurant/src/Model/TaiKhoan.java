@@ -8,8 +8,8 @@ package Model;
  *
  * @author Quang
  */
-public class Account {
-    String tenTaiKhoan;
+public class TaiKhoan {
+    String tenDangNhap;
     String matKhau;
     String vaiTro;
 }
