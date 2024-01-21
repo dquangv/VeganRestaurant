@@ -9,5 +9,5 @@ package Model;
  * @author Quang
  */
 public class Account {
-    
+    String maNhanVien;
 }
