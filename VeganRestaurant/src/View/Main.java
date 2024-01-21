@@ -97,7 +97,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-
+    void test(){
+        System.out.println("alo");
+        System.out.println("1234");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
