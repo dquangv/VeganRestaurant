@@ -9,5 +9,6 @@ package Model;
  * @author Quang
  */
 public class Account {
-    
+    String tenDangNhap;
+    String matKhau;
 }
