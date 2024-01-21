@@ -8,6 +8,6 @@ package Controller;
  *
  * @author Quang
  */
-public class AccountDAO {
+public class TaiKhoanDAO {
     
 }
