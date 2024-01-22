@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package Model;
 
 /**
  *
  * @author Quang
  */
-public class AccountDAO {
-    
+public class TaiKhoan {
+    String tenDangNhap;
+    String matKhau;
+    String vaiTro;
+    int num;
+    int nam;
 }
