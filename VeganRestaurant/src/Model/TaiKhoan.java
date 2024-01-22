@@ -9,10 +9,5 @@ package Model;
  * @author Quang
  */
 public class TaiKhoan {
-    String tenDangNhap;
-    String matKhau;
-    String vaiTro;
-    int num;
-    int nam;
-    String test;
+    
 }
