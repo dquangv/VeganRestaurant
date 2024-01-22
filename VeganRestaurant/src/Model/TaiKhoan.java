@@ -14,4 +14,6 @@ public class TaiKhoan {
     String vaiTro;
     int num;
     int nam;
+    String test;
+    String test2;
 }
