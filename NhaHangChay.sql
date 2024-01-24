@@ -31,6 +31,7 @@ create table KhachHang (
 	DiemThuong float);
 go
 
+/*
 create table DanhGia (
 	MaDanhGia varchar(10) primary key,
 	CauHoi1 int, 
@@ -38,6 +39,7 @@ create table DanhGia (
 	CauHoi3 int,
 	DanhGia nvarchar(300));
 go
+*/
 
 create table KhuyenMai (
 	MaKhuyenMai varchar(10) primary key,
@@ -66,7 +68,6 @@ go
 create table ThucDon (
 	MaThucDon varchar(10) primary key,
 	TenThucDon nvarchar(50) not null,
-	DonGia money not null,
 	NgayPhucVu nvarchar(100) not null,
 	HinhAnh varchar(500),
 	TrangThai nvarchar(30) not null);
@@ -91,7 +92,7 @@ go
 create table ChiTietMA (
 	MaMonAn varchar(10) not null,
 	MaNguyenVatLieu varchar(10) not null,
-	SoLuong int not null);
+	SoLuong float not null);
 go
 
 create table HoaDon (
@@ -115,6 +116,7 @@ create table ChiTietHD (
 	MaMonAn varchar(10) not null,
 	SoLuong int not null,
 	ThanhTien money not null,
+	DanhGia int,
 	primary key (MaHoaDon, MaMonAn));
 go
 
@@ -174,11 +176,7 @@ add
 
 	constraint fk_hd_nv
 	foreign key (MaNhanVien)
-	references NhanVien(MaNhanVien),
-
-	constraint fk_hd_dg
-	foreign key (MaDanhGia)
-	references DanhGia(MaDanhGia);
+	references NhanVien(MaNhanVien);
 go
 
 insert into TaiKhoan values
@@ -191,14 +189,15 @@ insert into TaiKhoan values
 go
 
 insert into NhanVien values
-	('NV01', N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndt@fpt.edu.vn', 4500, 'LyNDT'),
-	('NV02', N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvt@fpt.edu.vn', 5000, 'TungVT'),
-	('NV03', N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvd@fpt.edu.vn', 3000, 'QuangVD'),
-	('NV04', N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvh@fpt.edu.vn', 3500, 'ChuongVH'),
-	('NV05', N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbm@fpt.edu.vn', 4000, 'QuangBM'),
-	('NV06', N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpn@fpt.edu.vn', 3500, 'ronpn');
+	('NV01', N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndt@fpt.edu.vn', 45000000, 'LyNDT'),
+	('NV02', N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvt@fpt.edu.vn', 50000000, 'TungVT'),
+	('NV03', N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvd@fpt.edu.vn', 30000000, 'QuangVD'),
+	('NV04', N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvh@fpt.edu.vn', 35000000, 'ChuongVH'),
+	('NV05', N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbm@fpt.edu.vn', 40000000, 'QuangBM'),
+	('NV06', N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpn@fpt.edu.vn', 35000000, 'ronpn');
 go
 
+/*
 insert into DanhGia values
 	('DG01', 3, 1, 5, null),
 	('DG02', 4, 5, 5, N'Quá tuyệt vời'),
@@ -206,6 +205,7 @@ insert into DanhGia values
 	('DG04', 1, 1, 1, null),
 	('DG05', 4, 5, 4, N'Đồ ăn ngon, không gian đẹp, nhân viên dễ thương');
 go
+*/
 
 insert into KhuyenMai values
 	('KM01', N'Mừng khai trương', 30, 200, N'Ngày lễ', '01-02-2024', '01-09-2024'),
@@ -311,6 +311,49 @@ insert into MonAn values
 	('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cari-1.png', N'Hoạt động');
 go
 
+insert into ThucDon values
+	('TD246', N'Thực đơn 2-4-6', N'Thứ 2-4-6', null, N'Đang phục vụ'),
+	('TD357', N'Thực đơn 3-5-7', N'Thứ 3-5-7', null, N'Đang phục vụ'),
+	('TD8', N'Thực đơn CN', N'Chúa nhật', null, N'Đang phục vụ'),
+	('TDL01', N'Thực đơn mừng lễ khai trương', '01/02/2024', null, N'Ngừng phục vụ'),
+	('TDL02', N'Thực đơn tất niên', N'02/09/2024-02/10-2024', null, N'Chưa phục vụ');
+go
 
---insert into ThucDon values
---	(
+insert into ChiTietTD values
+	('TD246', 'MA01'),
+	('TD246', 'MA03'),
+	('TD246', 'MA05'),
+	('TD246', 'MA07'),
+	('TD246', 'MA09'),
+	('TD246', 'MA11'),
+	('TD246', 'MA13'),
+	('TD246', 'MA15'),
+	('TD246', 'MA17'),
+	('TD246', 'MA19'),
+	('TD246', 'MA21'),
+	('TD246', 'MA23'),
+	('TD246', 'MA25'),
+	('TD246', 'MA27'),
+	('TD246', 'MA29'),
+	('TD246', 'MA31'),
+	('TD357', 'MA02'),
+	('TD357', 'MA04'),
+	('TD357', 'MA06'),
+	('TD357', 'MA08'),
+	('TD357', 'MA10'),
+	('TD357', 'MA12'),
+	('TD357', 'MA14'),
+	('TD357', 'MA16'),
+	('TD357', 'MA18'),
+	('TD357', 'MA20'),
+	('TD357', 'MA22'),
+	('TD357', 'MA24'),
+	('TD357', 'MA26'),
+	('TD357', 'MA28'),
+	('TD357', 'MA30');
+go
+
+insert into ChiTietMA values
+	('MA12', 'NVL01', 2),
+	('MA12', 'NVL03', 3),
+	('MA13', 'NVL04', 0.3),
