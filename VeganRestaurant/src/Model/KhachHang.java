@@ -13,6 +13,7 @@ import java.util.Date;
 public class KhachHang {
     private String maKhachHang;
     private String tenKhachHang;
+    private String SDT;
     private Date ngayDkThanhVien = new Date();
     private double diemThuong;
 
@@ -30,6 +31,14 @@ public class KhachHang {
 
     public void setTenKhachHang(String tenKhachHang) {
         this.tenKhachHang = tenKhachHang;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
     public Date getNgayDkThanhVien() {
