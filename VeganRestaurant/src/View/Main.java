@@ -4,6 +4,8 @@
  */
 package View;
 
+
+
 /**
  *
  * @author Quang
@@ -16,7 +18,9 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
+   
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
