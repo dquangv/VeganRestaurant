@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
-
+ 
 import Controller.ThongKeDAO;
 import java.awt.Color;
 import java.awt.Font;

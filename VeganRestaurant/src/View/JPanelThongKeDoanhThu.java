@@ -35,7 +35,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
         initComponents();
         init();
     }
-
+    
     void init() {
         fillToComBoBoxNam();
         fillToTable();
