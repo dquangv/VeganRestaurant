@@ -8,13 +8,15 @@ import java.util.Date;
 
 /**
  *
- * @author Võ Thanh Tùng
+ * @author buimi
  */
 public class KhachHang {
     private String maKhachHang;
     private String tenKhachHang;
-    private Date ngayDkThanhVien = new Date();
-    private double diemThuong;
+    private String sdt;
+    private Date ngayDkThanhVien;
+    private float diemThuong;
+
 
     public String getMaKhachHang() {
         return maKhachHang;
@@ -32,6 +34,14 @@ public class KhachHang {
         this.tenKhachHang = tenKhachHang;
     }
 
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
     public Date getNgayDkThanhVien() {
         return ngayDkThanhVien;
     }
@@ -40,12 +50,12 @@ public class KhachHang {
         this.ngayDkThanhVien = ngayDkThanhVien;
     }
 
-    public double getDiemThuong() {
+    public float getDiemThuong() {
         return diemThuong;
     }
 
-    public void setDiemThuong(double diemThuong) {
+    public void setDiemThuong(float diemThuong) {
         this.diemThuong = diemThuong;
     }
-    
 }
+
