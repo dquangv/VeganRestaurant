@@ -21,6 +21,7 @@ public class Main extends javax.swing.JFrame {
         setLayout(new FlowLayout(WIDTH));
         setSize(800, 500);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
