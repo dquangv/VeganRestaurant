@@ -407,7 +407,6 @@ public class KhachHang extends javax.swing.JPanel {
         clearTable();
         KhachHangDAO khachHangDAO = new KhachHangDAO(new XJdbc());
         List<Model.KhachHang> khachHangList = khachHangDAO.getAllKhachHang();
-
         fillTable(khachHangList);
     }
 

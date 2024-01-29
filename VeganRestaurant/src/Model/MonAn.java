@@ -4,16 +4,19 @@
  */
 package Model;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Võ Thanh Tùng
  */
 public class MonAn {
+
     private String maMonAn;
     private String tenMonAn;
     private double donGia;
     private String loaiMonAn;
-    private String hinhAnh; 
+    private String hinhAnh;
     private String trangThai;
 
     public String getMaMonAn() {
@@ -34,6 +37,12 @@ public class MonAn {
 
     public double getDonGia() {
         return donGia;
+    }
+
+    // Phương thức mới trả về giá trị đã được định dạng
+    public String getFormattedDonGia() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(donGia);
     }
 
     public void setDonGia(double donGia) {
@@ -63,5 +72,5 @@ public class MonAn {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-    
+
 }
