@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import com.utils.XJdbc;
+import Utils.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

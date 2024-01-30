@@ -5,7 +5,7 @@
 package View;
 
 import Controller.KhachHangDAO;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -407,7 +407,6 @@ public class KhachHang extends javax.swing.JPanel {
         clearTable();
         KhachHangDAO khachHangDAO = new KhachHangDAO(new XJdbc());
         List<Model.KhachHang> khachHangList = khachHangDAO.getAllKhachHang();
-
         fillTable(khachHangList);
     }
 
