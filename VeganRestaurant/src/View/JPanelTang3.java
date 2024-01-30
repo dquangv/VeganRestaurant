@@ -21,9 +21,29 @@ public class JPanelTang3 extends javax.swing.JPanel {
     public JPanelTang3() {
         initComponents();
         TrangThaiBan();
+        capNhatTrangThaiBan();
         System.out.println("tang 3");
     }
+    public void capNhatTrangThaiBan() {
+        class TrangThaiBan extends Thread {
 
+            @Override
+            public void run() {
+                while (true) {
+                    TrangThaiBan();
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        // Tạo và khởi chạy một luồng TrangThaiBan
+        TrangThaiBan thread = new TrangThaiBan();
+        thread.start();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -289,63 +309,51 @@ public class JPanelTang3 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B10");
     }//GEN-LAST:event_btnban10ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B04");
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B11");
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B12");
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B05");
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B01");
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B02");
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B07");
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B08");
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B06");
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B03");
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
-        // TODO add your handling code here:
-           ShowDialog();
+        kiemTraTrangThaiBan("T3B09");
     }//GEN-LAST:event_btnban9ActionPerformed
 
 
@@ -433,7 +441,56 @@ public class JPanelTang3 extends javax.swing.JPanel {
             }
         }
     }
-       void ShowDialog(){
-           new JDiaLogDatBan(new javax.swing.JFrame(), true).setVisible(true);
-       }
+     
+    void showDiaLogTrangThaiDaDat(String maBan) {
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+        dialog.setBan(maBan);
+        dialog.setVisible(true);
+    }
+
+    void ShowDialogDatBan(String maBan) {
+        JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
+        dialog.setBan(maBan);
+        dialog.setVisible(true);
+
+    }
+
+    void showDiaLogBaoTri(String maBan) {
+        JDialogBaoTriXong dialog = new JDialogBaoTriXong(new javax.swing.JFrame(), true);
+        dialog.setBan(maBan);
+        dialog.setVisible(true);
+
+    }
+
+    void showDiaLogDangPhucVu(String maBan) {
+        JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(new javax.swing.JFrame(), true);
+        dialog.setBan(maBan);
+        dialog.setVisible(true);
+    }
+
+    void kiemTraTrangThaiBan(String maBan) {
+        List<Object[]> banList = dBDao.loadData();
+        for (Object[] ban : banList) {
+            String maBanDB = (String) ban[0];
+            String trangThai = (String) ban[1];
+            if (maBan.equals(maBanDB)) {
+                switch (trangThai) {
+                    case DatBanDao.Trong:
+                        ShowDialogDatBan(maBan);
+                        return;
+                    case DatBanDao.DANG_PHUC_VU:
+                        showDiaLogDangPhucVu(maBan);
+                        break;
+                    case DatBanDao.DA_DAT:
+                        showDiaLogTrangThaiDaDat(maBan);
+                        return;
+                    case DatBanDao.BAO_TRI:
+                        showDiaLogBaoTri(maBan);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 }
