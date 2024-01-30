@@ -194,7 +194,6 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
 
         // Tạo dữ liệu cho biểu đồ
         DefaultXYDataset dataset = new DefaultXYDataset();
-        String[] months = {"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"};
         double[][] data = new double[2][list.size()];
         for (int i = 0; i < list.size(); i++) {
             Object[] row = list.get(i);
@@ -203,10 +202,8 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
         }
         dataset.addSeries("Doanh thu", data);
 
-        dataset.addSeries("Doanh thu", data);
-
-        // Tạo biểu đồ Elliott Wave
         
+
 
         // Tạo biểu đồ Elliott Wave
         JFreeChart chart = ChartFactory.createXYLineChart(

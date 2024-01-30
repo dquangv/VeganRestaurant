@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package View;
- 
+
 import Controller.ThongKeDAO;
 import java.awt.Color;
 import java.awt.Font;
@@ -168,9 +168,13 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
                 dataset,
                 PlotOrientation.VERTICAL,
                 false, true, false);
-
-        CategoryPlot plot = chart.getCategoryPlot();
+ CategoryPlot plot = chart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        // Thiết lập màu sắc cho từng cột thủ công
+        renderer.setSeriesPaint(0, Color.MAGENTA);
+        renderer.setSeriesPaint(1, Color.RED);
+        renderer.setSeriesPaint(2, Color.BLUE);
 
         CategoryItemLabelGenerator labelGenerator = new StandardCategoryItemLabelGenerator() {
 
@@ -181,10 +185,9 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
         renderer.setBaseItemLabelGenerator(labelGenerator);
         renderer.setBaseItemLabelsVisible(true);
 
-        Font labelFont = new Font("Arial", Font.BOLD, 14); // Thay đổi kích thước và kiểu font tại đây
+        Font labelFont = new Font("Arial", Font.BOLD, 14);
         renderer.setBaseItemLabelFont(labelFont);
 
-        renderer.setSeriesPaint(0, Color.MAGENTA);
         chart.setBackgroundPaint(Color.white);
         chart.getTitle().setPaint(Color.BLUE);
         return chart;
