@@ -14,8 +14,11 @@ public class MainTKMA {
      public static void main(String[] args) {
         JFrame frame = new JFrame("Thống kê món ăn");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new JpanelThongKeMonAn());
+//        frame.getContentPane().add(new JpanelThongKeMonAn());
 //        frame.getContentPane().add(new JPanelThongKeDoanhThu());
+//        frame.getContentPane().add(new JPanelDatBan());
+        frame.getContentPane().add(new JPanelTang1());
+
         frame.pack();
         frame.setVisible(true);
     }
