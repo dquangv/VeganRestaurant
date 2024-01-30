@@ -18,6 +18,25 @@ public class MonAn {
     private String loaiMonAn;
     private String hinhAnh;
     private String trangThai;
+    private String ngayPhucVu;
+
+    public String getNgayPhucVu() {
+        return ngayPhucVu;
+    }
+
+    public MonAn() {
+    }
+
+    public MonAn(String tenMonAn, String loaiMonAn, String hinhAnh, String ngayPhucVu) {
+        this.tenMonAn = tenMonAn;
+        this.loaiMonAn = loaiMonAn;
+        this.hinhAnh = hinhAnh;
+        this.ngayPhucVu = ngayPhucVu;
+    }
+
+    public void setNgayPhucVu(String ngayPhucVu) {
+        this.ngayPhucVu = ngayPhucVu;
+    }
 
     public String getMaMonAn() {
         return maMonAn;
