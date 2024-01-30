@@ -8,7 +8,7 @@ import Controller.DatBanDao;
 import static Controller.DatBanDao.BAO_TRI;
 import static Controller.DatBanDao.DANG_PHUC_VU;
 
-import com.utils.MsgBox;
+import Utils.MsgBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.List;
