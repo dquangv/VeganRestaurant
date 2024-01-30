@@ -6,6 +6,7 @@ package View;
 
 import Controller.ThucDonDAO;
 import Model.MonAn;
+import Utils.Auth;
 import Utils.XImage;
 import Utils.XJdbc;
 import java.awt.BorderLayout;
@@ -40,8 +41,11 @@ public class GoiMon extends javax.swing.JPanel {
         thucDonDAO = new ThucDonDAO(new XJdbc());
         // Gọi phương thức để hiển thị thông tin món ăn vào JComboBox và các components khác
         loadThucDonToComboBox();
+        
     }
-
+     public void setBan(String maBan){
+        lbmaBan.setText("Bàn: "+maBan);
+    }
     private void loadThucDonToComboBox() {
         List<MonAn> danhSachMonAn = thucDonDAO.layDanhSachMonAn();
 
@@ -82,7 +86,7 @@ public class GoiMon extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pnlThanhToan = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lbmaBan = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbbLoaiMon = new javax.swing.JComboBox<>();
@@ -102,49 +106,46 @@ public class GoiMon extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(246, 246, 246)
+                .addGap(281, 281, 281)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pnlThanhToan.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Bàn 01");
+        lbmaBan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbmaBan.setText("Bàn 01");
 
         javax.swing.GroupLayout pnlThanhToanLayout = new javax.swing.GroupLayout(pnlThanhToan);
         pnlThanhToan.setLayout(pnlThanhToanLayout);
         pnlThanhToanLayout.setHorizontalGroup(
             pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlThanhToanLayout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(135, 135, 135))
+            .addGroup(pnlThanhToanLayout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(lbmaBan)
+                .addContainerGap(185, Short.MAX_VALUE))
         );
         pnlThanhToanLayout.setVerticalGroup(
             pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlThanhToanLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel3)
+                .addContainerGap()
+                .addComponent(lbmaBan)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Thực đơn hôm nay");
 
         cbbLoaiMon.setBackground(new java.awt.Color(153, 153, 153));
-        cbbLoaiMon.setForeground(new java.awt.Color(0, 0, 0));
         cbbLoaiMon.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbLoaiMonItemStateChanged(evt);
@@ -275,10 +276,10 @@ public class GoiMon extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbbLoaiMon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbmaBan;
     private javax.swing.JPanel pnlMonAn;
     private javax.swing.JPanel pnlThanhToan;
     // End of variables declaration//GEN-END:variables

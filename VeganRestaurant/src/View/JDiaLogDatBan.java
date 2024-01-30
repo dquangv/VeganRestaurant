@@ -131,8 +131,11 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbDatBanTruocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDatBanTruocMouseClicked
+       String maBan = lbMaBan.getText().substring(5);
         JDiaLogNhapThongTin dlnt = new JDiaLogNhapThongTin(new javax.swing.JFrame(), true);
+        dlnt.setBan(maBan);
         dlnt.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lbDatBanTruocMouseClicked
 
     private void lbBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBaoTriMouseClicked

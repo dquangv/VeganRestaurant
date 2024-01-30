@@ -4,6 +4,8 @@
  */
 package View;
 
+import Controller.DatBanDao;
+import static Controller.DatBanDao.DA_DAT;
 import Utils.MsgBox;
 import javax.swing.JTextField;
 
@@ -12,7 +14,7 @@ import javax.swing.JTextField;
  * @author Võ Thanh Tùng
  */
 public class JDiaLogNhapThongTin extends javax.swing.JDialog {
-
+    DatBanDao dbDAO = new DatBanDao();
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -25,6 +27,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         ((JTextField) txtThoiGian.getDateEditor().getUiComponent()).setEditable(false);
 
         
+    }
+      public void setBan(String maBan) {
+        lbmaBan.setText("Bàn: " + maBan);
     }
 
     /**
@@ -44,6 +49,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         txtTenKhach = new javax.swing.JTextField();
         txtSDT = new javax.swing.JTextField();
         txtThoiGian = new com.toedter.calendar.JDateChooser();
+        lbmaBan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +78,10 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             }
         });
 
+        lbmaBan.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbmaBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbmaBan.setText("Bàn 1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,14 +105,20 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                             .addComponent(txtTenKhach, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(lbmaBan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,7 +131,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                     .addComponent(txtThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,8 +142,11 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTenKhachActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
             MsgBox.alert(this, "Đặt bàn thành công");
+            thayDoiTrangThai(maBan);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -179,6 +198,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lbmaBan;
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTenKhach;
     private com.toedter.calendar.JDateChooser txtThoiGian;
@@ -204,5 +224,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         }
         return true;
     }
-
+ public void thayDoiTrangThai(String maBan) {
+        dbDAO.updateTrangThai(DA_DAT, maBan);
+    }
 }
