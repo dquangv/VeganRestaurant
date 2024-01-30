@@ -9,7 +9,7 @@ package Controller;
  * @author buimi
  */
 import Model.KhachHang;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

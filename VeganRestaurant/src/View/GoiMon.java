@@ -6,8 +6,8 @@ package View;
 
 import Controller.ThucDonDAO;
 import Model.MonAn;
-import com.utils.XImage;
-import com.utils.XJdbc;
+import Utils.XImage;
+import Utils.XJdbc;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Model.MonAn;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 
 public class ThucDonDAO {
 

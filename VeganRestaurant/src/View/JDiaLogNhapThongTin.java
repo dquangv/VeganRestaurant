@@ -4,7 +4,7 @@
  */
 package View;
 
-import com.utils.MsgBox;
+import Utils.MsgBox;
 import javax.swing.JTextField;
 
 /**

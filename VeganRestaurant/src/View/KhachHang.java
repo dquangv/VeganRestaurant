@@ -5,7 +5,7 @@
 package View;
 
 import Controller.KhachHangDAO;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
