@@ -1,6 +1,7 @@
 ﻿create database NhaHangChay_CohesiveStars;
 go
 
+drop database NhaHangChay_CohesiveStars
 use NhaHangChay_CohesiveStars;
 go
 
@@ -814,6 +815,7 @@ insert into ChiTietHD values
     ('HD71', 'MA24', 2, 210000, 5),
     ('HD71', 'MA25', 1, 40000, 5);
 	--2/2024
+
 INSERT INTO HoaDon
 VALUES 
     ('HD72', '2024-02-01', 500000, 25000, 0, 0, 525000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
@@ -864,3 +866,5 @@ VALUES
     ('HD72', 'MA03', 1, 200000, 3),
     ('HD90', 'MA04', 3, 175000, 2),
     ('HD91', 'MA05', 2, 180000, 1);
+	 
+	select  * from hoadon order by NgayLap desc
