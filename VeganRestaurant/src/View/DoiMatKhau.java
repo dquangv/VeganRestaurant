@@ -2,8 +2,8 @@
 package View;
 
 import Controller.TaiKhoanDAO;
-import com.utils.Auth;
-import com.utils.MsgBox;
+import Utils.Auth;
+import Utils.MsgBox;
 
 
 

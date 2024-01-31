@@ -4,9 +4,11 @@
  */
 package Controller;
 
-import Model.NhanVien;
+
+import Model.NhanVIen;
 import Model.TaiKhoan;
-import com.utils.XJdbc;
+import Utils.XJdbc;
+import Utils.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -83,8 +85,9 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
         }
     }
 
-    public void update(NhanVien user) {
+    public void update(NhanVIen user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
 }
