@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/com/utils/XJdbc.java</file>
-            <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/Controller/NhaHangChayDAO.java</file>
+            <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/Controller/ChiTietHD_DAO.java</file>
             <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/Controller/HoaDonDAO.java</file>
-            <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/Model/HoaDon.java</file>
             <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/View/HoaDonJDialog.java</file>
+            <file>file:/C:/Users/hoang/Desktop/SOF102/NhaHangChay/VeganRestaurant/src/Model/ChiTietHD.java</file>
         </group>
     </open-files>
 </project-private>

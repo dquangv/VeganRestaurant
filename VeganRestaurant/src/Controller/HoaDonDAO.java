@@ -14,13 +14,13 @@ import java.util.ArrayList;
  *
  * @author hoang
  */
-public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Object> {
+public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
 
     String INSERT_SQl = "INSERT INTO HoaDon(MaHoaDon,NgayLap,TienMonAn,TienPhatSinh,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,TrangThai,MaKhachHang,MaBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienPhatSinh=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,TrangThai=? ,MaKhachHang=? ,MaBan=? ,MaKhuyenMai=? ,MaNhanVien=? WHERE MaHoaDon =?";
     String DELETE_SQL = "DELETE FROM HoaDon WHERE MaHoaDon = ?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
-    String SELECT_BY_IDKhach_SQL = "SELECT * FROM HoaDon WHERE MaKhachHang =? ";
+    String SELECT_BY_IDKhach_SQL = "SELECT * FROM HoaDon WHERE MaHoaDon =? ";
 
     //thêm
     @Override
@@ -60,12 +60,12 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Object> {
 
     //xóa
     @Override
-    public void delete(Object maHD) {
+    public void delete(String maHD) {
         XJdbc.executeUpdate(DELETE_SQL, maHD);
     }
 
     @Override
-    public HoaDon selectById(Object id) {
+    public HoaDon selectById(String id) {
         List<HoaDon> list = this.selectBySQL(SELECT_BY_IDKhach_SQL, id);
         if (list.isEmpty()) {
             return null;
@@ -110,9 +110,9 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Object> {
         }
     }
     
-//    public List<HoaDon> selectByMaKH(String idKH){
-//        String sql = "exec SP_hoadon ?";
-//        return this.selectBySQL(sql, idKH);
-//    }
+    public List<HoaDon> selectByMaKH(String keyword){
+        String sql = "SELECT * FROM HOADON WHERE MaHoaDon like ?";
+        return this.selectBySQL(sql,"%"+keyword+"%");
+    }
     
 }

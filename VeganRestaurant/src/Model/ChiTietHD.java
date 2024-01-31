@@ -13,6 +13,7 @@ public class ChiTietHD {
     private String maMonAn;
     private int soLuong;
     private double thanhTien;
+    private int danhGia;
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -44,6 +45,14 @@ public class ChiTietHD {
 
     public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
+    }
+
+    public int getDanhGia() {
+        return danhGia;
+    }
+
+    public void setDanhGia(int danhGia) {
+        this.danhGia = danhGia;
     }
     
 }
