@@ -123,6 +123,13 @@ create table ChiTietHD (
 	primary key (MaHoaDon, MaMonAn));
 go
 
+create table ChiTietDatBan (
+	MaBan int not null,
+	ThoiGianDat datetime not null,
+	MaKhachHang int not null,
+	primary key (MaBan, ThoiGianDat));
+go
+
 alter table NhanVien
 add
 	constraint fk_nv_tk
@@ -180,6 +187,17 @@ add
 	constraint fk_hd_nv
 	foreign key (MaNhanVien)
 	references NhanVien(MaNhanVien);
+go
+
+alter table ChiTietDatBan
+add 
+	constraint fk_db_kh
+	foreign key (MaKhachHang)
+	references KhachHang(MaKhachHang),
+	
+	constraint fk_db_b
+	foreign key (MaBan)
+	references Ban(MaBan);
 go
 
 insert into TaiKhoan values
@@ -867,4 +885,4 @@ VALUES
     ('HD90', 'MA04', 3, 175000, 2),
     ('HD91', 'MA05', 2, 180000, 1);
 	 
-	select  * from hoadon order by NgayLap desc
+	

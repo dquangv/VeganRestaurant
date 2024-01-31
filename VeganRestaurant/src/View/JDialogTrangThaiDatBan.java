@@ -6,6 +6,7 @@ package View;
 
 import Controller.DatBanDao;
 import static Controller.DatBanDao.Trong;
+import Utils.MsgBox;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
@@ -131,15 +132,15 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
 
     private void lbHuyDatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHuyDatBanMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Đã hũy bàn thành công");
         thayDoiTrangThai(maBan);
-        System.out.println(maBan);
         this.setVisible(false);
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
-        System.out.println(maBan);
         this.setVisible(false);
     }//GEN-LAST:event_lbBDPVMouseClicked
 

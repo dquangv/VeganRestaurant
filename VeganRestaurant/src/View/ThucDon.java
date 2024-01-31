@@ -91,6 +91,12 @@ public class ThucDon extends javax.swing.JPanel {
 
         jLabel2.setText("Thực Đơn");
 
+        cbbThucDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbThucDonActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Tên món:");
 
         jLabel5.setText("Loại món");
@@ -111,7 +117,6 @@ public class ThucDon extends javax.swing.JPanel {
         chk357.setToolTipText("TD357");
 
         btnLuu.setBackground(new java.awt.Color(255, 51, 102));
-        btnLuu.setForeground(new java.awt.Color(0, 0, 0));
         btnLuu.setText("Lưu");
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +159,6 @@ public class ThucDon extends javax.swing.JPanel {
         });
 
         btnTim.setBackground(new java.awt.Color(255, 51, 102));
-        btnTim.setForeground(new java.awt.Color(0, 0, 0));
         btnTim.setText("Tìm");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -163,44 +167,46 @@ public class ThucDon extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnLuu)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(276, 276, 276)))
-                                .addGap(44, 44, 44)
-                                .addComponent(btnTim))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cbbThucDon, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                        .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(296, 296, 296)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTenMon, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnLuu)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addGap(276, 276, 276)))
+                                        .addGap(44, 44, 44)
+                                        .addComponent(btnTim))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cbbThucDon, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(chk246)
-                                .addGap(18, 18, 18)
-                                .addComponent(chk357)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(chkCaTuan))
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(296, 296, 296)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTenMon, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chk246)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chk357)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chkCaTuan))
+                                    .addComponent(jLabel1))))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,11 +243,11 @@ public class ThucDon extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void chk246ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk246ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_chk246ActionPerformed
 
     private void chkCaTuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCaTuanActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_chkCaTuanActionPerformed
 
     private void tblThucDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThucDonMouseClicked
@@ -312,6 +318,10 @@ public class ThucDon extends javax.swing.JPanel {
         loadDanhSachMonAn();
         JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
     }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void cbbThucDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbThucDonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbThucDonActionPerformed
 
     public void loadDanhSachTheoMaThucDonLenTable(String maThucDon) {
         ThucDonDAO td = new ThucDonDAO();

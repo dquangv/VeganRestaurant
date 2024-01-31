@@ -30,13 +30,14 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbMaBan" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbBDPV" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbHuyDatBan" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbTrangThai" alignment="0" min="-2" pref="296" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Component id="jLabel2" alignment="0" pref="332" max="32767" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" pref="332" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -50,12 +51,14 @@
               <Component id="lbTrangThai" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="lbHuyDatBan" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <Component id="lbBDPV" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -91,7 +94,7 @@
         <Property name="text" type="java.lang.String" value="B&#xe0;n  1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="lbBDPV">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="ff" red="33" type="rgb"/>
@@ -103,8 +106,14 @@
           <Image iconType="3" name="/Image/Dang phuc vu.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="B&#x1ea5;t &#x111;&#x1ea7;u ph&#x1ee5;c v&#x1ee5;"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
         <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbBDPVMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbTrangThai">
       <Properties>
@@ -122,7 +131,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng: D&#x1b0;&#x1a1;ng Quang Ngh&#x129;a"/>
+        <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -130,7 +139,15 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="SDT: 0932211424"/>
+        <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="SDT: "/>
       </Properties>
     </Component>
   </SubComponents>

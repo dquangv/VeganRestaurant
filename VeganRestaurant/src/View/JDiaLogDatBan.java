@@ -140,6 +140,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
 
     private void lbBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBaoTriMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Đã chuyên sang bảo trì");
         thayDoiTrangThai(maBan);
         System.out.println(maBan);
         this.setVisible(false);
@@ -147,6 +148,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Bất đầu phục vụ");
         thayDoiTrangThaiBatDauPhucVu(maBan);
         System.out.println(maBan);
         this.setVisible(false);
