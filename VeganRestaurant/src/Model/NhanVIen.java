@@ -81,6 +81,18 @@ public class NhanVIen {
     public void setTenTaikhoan(String tenTaikhoan) {
         this.tenTaikhoan = tenTaikhoan;
     }
+
+    public String getTenTaiKhoan() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getMatKhau() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setMatKhau(String newPassword) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
