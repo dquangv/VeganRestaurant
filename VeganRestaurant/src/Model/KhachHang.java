@@ -13,6 +13,9 @@ import java.util.Date;
 public class KhachHang {
     private String maKhachHang;
     private String tenKhachHang;
+    private String SDT;
+    private Date ngayDkThanhVien = new Date();
+    private double diemThuong;
     private String sdt;
     private Date ngayDkThanhVien;
     private float diemThuong;
@@ -34,6 +37,12 @@ public class KhachHang {
         this.tenKhachHang = tenKhachHang;
     }
 
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     public String getSdt() {
         return sdt;
     }

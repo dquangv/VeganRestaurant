@@ -23,7 +23,6 @@ public class HoaDon {
     private String maBan;
     private String maKhuyenMai;
     private String maNhanVien;
-    private String maDanhGia;
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -120,14 +119,5 @@ public class HoaDon {
     public void setMaNhanVien(String maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
-
-    public String getMaDanhGia() {
-        return maDanhGia;
-    }
-
-    public void setMaDanhGia(String maDanhGia) {
-        this.maDanhGia = maDanhGia;
-    }
-    
-    
+   
 }
