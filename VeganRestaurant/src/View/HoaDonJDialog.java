@@ -143,6 +143,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         try {
             hdDAO.insert(hd);
             this.themVaoTableHD();
+            
             MsgBox.alert(this, "Lưu Hóa Đơn Thành Công!");
         } catch (Exception e) {
             MsgBox.alert(this, "Lưu Hóa Đơn Thất Bại");
@@ -531,7 +532,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnInHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHDActionPerformed
-        
+        this.luuFile();
     }//GEN-LAST:event_btnInHDActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
