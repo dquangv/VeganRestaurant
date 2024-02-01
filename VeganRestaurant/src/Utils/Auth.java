@@ -6,6 +6,7 @@ package Utils;
 
 import Model.Ban;
 import Model.NhanVIen;
+import Model.TaiKhoan;
 
 /**
  *
@@ -13,7 +14,13 @@ import Model.NhanVIen;
  */
 public class Auth {
     public static Ban maBan = null;
-    public static NhanVIen user = null;
+    //public static NhanVIen user = null;
+    
+    /**
+     *
+     */
+    public static TaiKhoan user = new TaiKhoan();
+    
     
    public static void setMaBan(Ban ban) {
         Auth.maBan = ban;
@@ -32,7 +39,11 @@ public class Auth {
     }
 
     public static boolean isManager() {
-        return Auth.isLogin() && user.isChucVu();
+        return Auth.isLogin() && user.isVaiTro();
+    }
+
+    public static boolean isLoginJFrame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
