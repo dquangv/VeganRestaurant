@@ -7,7 +7,7 @@ package View;
 import Controller.ChiTietHD_DAO;
 import Controller.HoaDonDAO;
 import Model.HoaDon;
-import com.utils.MsgBox;
+import Utils.MsgBox;
 import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -98,17 +98,17 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtTongTien.setText(hd.getTongTien() + "");
     }
 
-    void thietLapTableCT(String hd) {
-        DefaultTableModel model = (DefaultTableModel) tblChiTiet.getModel();
-        model.setRowCount(0);
-        
-        List<Object[]> list = cthdDAO.getChiTiet(hd);
-        for (Object[] row : list) {
-            model.addRow(new Object[]{
-               row[0],row[1],row[2] 
-            });
-        }
-    }
+//    void thietLapTableCT(String hd) {
+//        DefaultTableModel model = (DefaultTableModel) tblChiTiet.getModel();
+//        model.setRowCount(0);
+//        
+//        List<Object[]> list = cthdDAO.getChiTiet(hd);
+//        for (Object[] row : list) {
+//            model.addRow(new Object[]{
+//               row[0],row[1],row[2] 
+//            });
+//        }
+//    }
 
     HoaDon layForm() {
         HoaDon hd = new HoaDon();
@@ -133,7 +133,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         HoaDon hd = hdDAO.selectById(maHD);
         
         this.thietLapForm(hd);
-        this.thietLapTableCT(maHD);
+//        this.thietLapTableCT(maHD);
         tpane.setSelectedIndex(0);
 
     }

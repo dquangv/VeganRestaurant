@@ -14,11 +14,26 @@ public class KhachHang {
     private String maKhachHang;
     private String tenKhachHang;
     private String SDT;
-    private Date ngayDkThanhVien = new Date();
+    private Date ngayDKTHANHVIEN = new Date();
     private double diemThuong;
     private String sdt;
     private Date ngayDkThanhVien;
-    private float diemThuong;
+
+    public Date getNgayDKTHANHVIEN() {
+        return ngayDKTHANHVIEN;
+    }
+
+    public void setNgayDKTHANHVIEN(Date ngayDKTHANHVIEN) {
+        this.ngayDKTHANHVIEN = ngayDKTHANHVIEN;
+    }
+
+    public double getDiemThuong() {
+        return diemThuong;
+    }
+
+    public void setDiemThuong(double diemThuong) {
+        this.diemThuong = diemThuong;
+    }
 
 
     public String getMaKhachHang() {
@@ -42,7 +57,8 @@ public class KhachHang {
     }
 
     public void setSDT(String SDT) {
-        this.SDT = SDT;
+        this.SDT = SDT;}
+    
     public String getSdt() {
         return sdt;
     }
@@ -59,12 +75,6 @@ public class KhachHang {
         this.ngayDkThanhVien = ngayDkThanhVien;
     }
 
-    public float getDiemThuong() {
-        return diemThuong;
-    }
-
-    public void setDiemThuong(float diemThuong) {
-        this.diemThuong = diemThuong;
-    }
+    
 }
 

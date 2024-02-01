@@ -5,7 +5,7 @@
 package Controller;
 
 import Model.HoaDon;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
