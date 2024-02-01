@@ -16,8 +16,8 @@ public class MainTKMA {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.getContentPane().add(new JpanelThongKeMonAn());
 //        frame.getContentPane().add(new JPanelThongKeDoanhThu());
-//        frame.getContentPane().add(new JPanelDatBan());
-        frame.getContentPane().add(new JPanelTang1());
+        frame.getContentPane().add(new JPanelDatBan());
+//        frame.getContentPane().add(new JPanelTang1());
 
         frame.pack();
         frame.setVisible(true);

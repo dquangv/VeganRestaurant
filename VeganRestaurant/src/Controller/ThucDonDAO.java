@@ -140,6 +140,26 @@ public class ThucDonDAO {
         return danhSachMonAn;
     }
 
+    public List<MonAn> layDanhSachTheoThucDonChuNhat() {
+        String sql = " SELECT MonAn.TenMonAn, MonAn.LoaiMonAn, MonAn.HinhAnh, 'CaTuan' as MaThucDon\n"
+                + "FROM MonAn \n"
+                + "JOIN ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn \n"
+                + "GROUP BY MonAn.TenMonAn, MonAn.LoaiMonAn, MonAn.HinhAnh\n"
+                + "HAVING COUNT(DISTINCT ChiTietTD.MaThucDon) >= 2;";
+
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+        try (ResultSet resultSet = xJdbc.executeQuery(sql)) {
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
+                danhSachMonAn.add(monAn);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In thông báo lỗi để kiểm tra
+        }
+        return danhSachMonAn;
+    }
+
     public List<MonAn> layDanhSachTheoLoai(String loaiMon) {
         String sql = "SELECT "
                 + "    MonAn.TenMonAn, "
@@ -173,7 +193,6 @@ public class ThucDonDAO {
         return danhSachMonAn;
     }
 
-   
     public List<String> layDanhSachTenThucDon() {
         List<String> danhSachTenThucDon = new ArrayList<>();
         danhSachTenThucDon.add("Tất cả");

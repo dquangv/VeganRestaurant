@@ -282,6 +282,8 @@ public class ThucDon extends javax.swing.JPanel {
             danhSachMonAn = thucDonDAO.layDanhSachTheoMaThucDon("TD246");
         } else if (cbbThucDon.getSelectedItem().toString().equals("Thứ 3,5,7")) {
             danhSachMonAn = thucDonDAO.layDanhSachTheoMaThucDon("TD357");
+        } else if (cbbThucDon.getSelectedItem().toString().equals("Cả Tuần")) {
+            danhSachMonAn = thucDonDAO.layDanhSachTheoThucDonChuNhat();
         } else {
             danhSachMonAn = thucDonDAO.layDanhSachThucDon();
         }
@@ -363,18 +365,18 @@ public class ThucDon extends javax.swing.JPanel {
 
     private void cbbLoaiMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbLoaiMonItemStateChanged
         // TODO add your handling code here:
-        List<MonAn> danhSachMonAn;
-        if (cbbLoaiMon.getSelectedItem().toString().equals("Khai vị")) {
-            danhSachMonAn = thucDonDAO.layDanhSachMonTheoLoai("Khai vị");
-        } else if (cbbLoaiMon.getSelectedItem().toString().equals("Cơm & Mì")) {
-            danhSachMonAn = thucDonDAO.layDanhSachMonTheoLoai("Cơm & mì");
-        } else if (cbbLoaiMon.getSelectedItem().toString().equals("Món chính")) {
-            danhSachMonAn = thucDonDAO.layDanhSachMonTheoLoai("Món chính");
-        } else {
-            danhSachMonAn = thucDonDAO.layDanhSachThucDon();
-        }
-
-        loadDanhSachMonLenTable(danhSachMonAn);
+//        List<MonAn> danhSachMonAn;
+//        if (cbbLoaiMon.getSelectedItem().toString().equals("Khai vị")) {
+//            danhSachMonAn = thucDonDAO.layDanhSachMonTheoLoai("Khai vị");
+//        } else if (cbbLoaiMon.getSelectedItem().toString().equals("Cơm & Mì")) {
+//            danhSachMonAn = thucDonDAO.layDanhSachMonTheoLoai("Cơm & mì");
+//        } else if (cbbLoaiMon.getSelectedItem().toString().equals("Món chính")) {
+//            danhSachMonAn = thucDonDAO.layDanhSachMonTheoLoai("Món chính");
+//        } else {
+//            danhSachMonAn = thucDonDAO.layDanhSachThucDon();
+//        }
+//
+//        loadDanhSachMonLenTable(danhSachMonAn);
     }//GEN-LAST:event_cbbLoaiMonItemStateChanged
 
 

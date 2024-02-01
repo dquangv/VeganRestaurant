@@ -1,7 +1,7 @@
 ﻿create database NhaHangChay_CohesiveStars;
 go
 
-drop database NhaHangChay_CohesiveStars
+
 use NhaHangChay_CohesiveStars;
 go
 
@@ -272,39 +272,40 @@ insert into NguyenVatLieu values
 	('NVL10', N'Rau tần ô', 15, N'Bó', 230);
 go
 
-insert into MonAn values
-	('MA01', N'Salad mít non', 125000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\xa-lach-mit-non-1.png', N'Hoạt động'),
-	('MA02', N'Mozzarella Salad', 135000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mozzarella-salad-1.png', N'Hoạt động'),
-	('MA03', N'Gỏi cuốn rau củ', 90000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\goi-cuon-rau-cu-1.png', N'Hoạt động'),
-	('MA04', N'Chả giò', 95000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\cha-gio-3.png', N'Hoạt động'),
-	('MA05', N'Há cảo Nhật - Gyoza', 95000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\ha-cao-nhat-1.png', N'Hoạt động'),
-	('MA06', N'Chả nấm mối', 120000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\cha-nam-moi-1.png', N'Hoạt động'),
-	('MA07', N'Bún nưa trộn', 105000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\bun-nua-tron-1.png', N'Hoạt động'),
-	('MA08', N'Gỏi củ hủ dừa', 115000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\goi-cu-hu-dua-2.png', N'Hoạt động'),
-	('MA09', N'Gỏi đu đủ', 105000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\goi-du-du-1.webp', N'Hoạt động'),
-	('MA10', N'Salad Sung', 135000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\salad-sung-1.webp', N'Hoạt động'),
-	('MA11', N'Bánh tart artiso', 105000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\salad-sung-1.webp', N'Ngừng phục vụ'),
-	('MA12', N'Đậu hủ bó xôi sốt trứng muối', 125000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\dau-hu-bo-xoi-1.webp', N'Hoạt động'),
-	('MA13', N'Nấm đông cô sốt tiêu', 95000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\nam-dong-co-1.webp', N'Hoạt động'),
-	('MA14', N'Đậu rồng xào tỏi đen', 90000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\dau-rong-xao-1.webp', N'Hoạt động'),
-	('MA15', N'Tàu hủ ky sốt chao', 110000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\tau-ku-ky-1.webp', N'Hoạt động'),
-	('MA16', N'Mướp xào', 90000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\muop-xao-1.webp', N'Hoạt động'),
-	('MA17', N'Nấm mối xào lá lốt', 125000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\nam-moi-xao-1.webp', N'Hoạt động'),
-	('MA18', N'Đu đủ xào', 90000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\du-du-xao-1.webp', N'Hoạt động'),
---thiếu món 19
-	('MA20', N'Măng xào củ kiệu', 105000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mang-xao-cu-kieu-1.webp', N'Hoạt động'),
-	('MA21', N'Khổ qua kho ngũ vị', 95000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\kho-qua-kho-1.webp', N'Hoạt động'),
-	('MA22', N'Đậu hủ kim chi', 95000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\dau-ku-kim-chi-1.webp', N'Hoạt động'),
-	('MA23', N'Rau củ om Thái', 110000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\rau-cu-om-thai-1.webp', N'Hoạt động'),
-	('MA24', N'Nấm kho', 105000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\nam-kho-2.webp', N'Ngừng phục vụ'),
-	('MA25', N'Cơm nếp than', 40000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cac-loai.webp', N'Hoạt động'),
-	('MA26', N'Cơm trắng', 40000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cac-loai.webp', N'Hoạt động'),
-	('MA27', N'Cơm bó xôi hạt sen', 40000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cac-loai.webp', N'Hoạt động'),
-	('MA28', N'Mì Ý sốt rau củ', 150000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mi-y-sot-rau-cu-1.webp', N'Hoạt động'),
-	('MA29', N'Bún nưa xào', 125000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\bun-nua-xao-1.webp', N'Hoạt động'),
-	('MA30', N'Mì sốt kem nấm', 150000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mi-sot-kem-nam-2.webp', N'Hoạt động'),
-	('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cari-1.png', N'Hoạt động');
-go
+INSERT INTO MonAn (MaMonAn, TenMonAn, DonGia, LoaiMonAn, HinhAnh, TrangThai)
+VALUES
+    ('MA01', N'Salad mít non', 125000, N'Khai vị', 'xa-lach-mit-non-2.png', N'Hoạt động'),
+    ('MA02', N'Mozzarella Salad', 135000, N'Khai vị', 'saladmozarella.png', N'Hoạt động'),
+    ('MA03', N'Gỏi cuốn rau củ', 90000, N'Khai vị', 'goicuonraucu.png', N'Hoạt động'),
+    ('MA04', N'Chả giò', 95000, N'Khai vị', 'chagio.png', N'Hoạt động'),
+    ('MA05', N'Há cảo Nhật - Gyoza', 95000, N'Khai vị', 'hacaonhat.png', N'Hoạt động'),
+    ('MA06', N'Chả nấm mối', 120000, N'Khai vị', 'chachammuoi.png', N'Hoạt động'),
+    ('MA07', N'Bún nưa trộn', 105000, N'Khai vị', 'bunnuatron.png', N'Hoạt động'),
+    ('MA08', N'Gỏi củ hủ dừa', 115000, N'Khai vị', 'coicuhudua.png', N'Hoạt động'),
+    ('MA09', N'Gỏi đu đủ', 105000, N'Khai vị', 'goidudu.png', N'Hoạt động'),
+    ('MA10', N'Salad Sung', 135000, N'Khai vị', 'saladsung.png', N'Hoạt động'),
+    ('MA11', N'Bánh tart artiso', 105000, N'Khai vị', 'banhtart.png', N'Ngừng phục vụ'),
+    ('MA12', N'Đậu hủ bó xôi sốt trứng muối', 125000, N'Món chính', 'dauhuboxoi.png', N'Hoạt động'),
+    ('MA13', N'Nấm đông cô sốt tiêu', 95000, N'Món chính', 'namdongcosottieu.png', N'Hoạt động'),
+    ('MA14', N'Đậu rồng xào tỏi đen', 90000, N'Món chính', 'dau-rong-xao-1.png', N'Hoạt động'),
+    ('MA15', N'Tàu hủ ky sốt chao', 110000, N'Món chính', 'tau-ku-ky-1.png', N'Hoạt động'),
+    ('MA16', N'Mướp xào', 90000, N'Món chính', 'muop-xao-1.png', N'Hoạt động'),
+    ('MA17', N'Nấm mối xào lá lốt', 125000, N'Món chính', 'nam-moi-xao-1.png', N'Hoạt động'),
+    ('MA18', N'Đu đủ xào', 90000, N'Món chính', 'du-du-xao-1.png', N'Hoạt động'),
+    ('MA20', N'Măng xào củ kiệu', 105000, N'Món chính', 'mang-xao-cu-kieu-1.png', N'Hoạt động'),
+    ('MA21', N'Khổ qua kho ngũ vị', 95000, N'Món chính', 'kho-qua-kho-1.png', N'Hoạt động'),
+    ('MA22', N'Đậu hủ kim chi', 95000, N'Món chính', 'dau-hu-kim-chi-1.png', N'Hoạt động'),
+    ('MA23', N'Rau củ om Thái', 110000, N'Món chính', 'rau-cu-om-thai-1.png', N'Hoạt động'),
+    ('MA24', N'Nấm kho', 105000, N'Món chính', 'nam-kho-2.png', N'Ngừng phục vụ'),
+    ('MA25', N'Cơm nếp than', 40000, N'Cơm & Mì', 'com-cac-loai.png', N'Hoạt động'),
+    ('MA26', N'Cơm trắng', 40000, N'Cơm & Mì', 'com-cac-loai.png', N'Hoạt động'),
+    ('MA27', N'Cơm bó xôi hạt sen', 40000, N'Cơm & Mì', 'com-cac-loai.png', N'Hoạt động'),
+    ('MA28', N'Mì Ý sốt rau củ', 150000, N'Cơm & Mì', 'mi-y-sot-rau-cu-1.png', N'Hoạt động'),
+    ('MA29', N'Bún nưa xào', 125000, N'Cơm & Mì', 'bun-nua-xao-1.png', N'Hoạt động'),
+    ('MA30', N'Mì sốt kem nấm', 150000, N'Cơm & Mì', 'mi-sot-kem-nam-2.png', N'Hoạt động'),
+    ('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'com-cari-1.png', N'Hoạt động');
+GO
+
 
 insert into ThucDon values
 	('TD246', N'Thực đơn 2-4-6', N'Thứ 2-4-6', null, N'Đang phục vụ'),
@@ -324,7 +325,7 @@ insert into ChiTietTD values
 	('TD246', 'MA13'),
 	('TD246', 'MA15'),
 	('TD246', 'MA17'),
---('TD246','MA19') thiếu trong bản MonAn
+--	('TD246','MA19') ,
 	('TD246', 'MA21'),
 	('TD246', 'MA23'),
 	('TD246', 'MA25'),
