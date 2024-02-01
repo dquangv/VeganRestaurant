@@ -84,8 +84,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnTaoMoi" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="btnXemDG" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnInHD" min="-2" max="-2" attributes="0"/>
@@ -117,7 +116,6 @@
                           <Component id="btnThanhToan" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnInHD" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnXemDG" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnTaoMoi" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -415,24 +413,22 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Thanh To&#xe1;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToanActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnInHD">
               <Properties>
                 <Property name="text" type="java.lang.String" value="In H&#xf3;a &#x110;&#x1a1;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInHDActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnXemDG">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Xem &#x110;&#xe1;nh Gi&#xe1;"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnTaoMoi">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="T&#x1ea1;o m&#x1edb;i"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaoMoiActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

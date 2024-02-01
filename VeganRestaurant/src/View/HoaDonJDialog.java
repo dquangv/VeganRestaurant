@@ -6,11 +6,11 @@ package View;
 
 import Controller.ChiTietHD_DAO;
 import Controller.HoaDonDAO;
-import Model.ChiTietHD;
 import Model.HoaDon;
-import Model.MonAn;
-import java.util.Date;
+import com.utils.MsgBox;
+import java.io.File;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -98,19 +98,17 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtTongTien.setText(hd.getTongTien() + "");
     }
 
-//    void thietLapTableCT(String hd) {
-//        MonAn ma = new MonAn();
-//        DefaultTableModel model = (DefaultTableModel) tblChiTiet.getModel();
-//        model.setRowCount(0);
-//        List<ChiTietHD> list = (List<ChiTietHD>) cthdDAO.selectById(hd);
-//        for (ChiTietHD cthd : list) {
-//            model.addRow(new Object[]{
-//            cthd.getMaMonAn(),
-//            cthd.getSoLuong(),
-//            cthd.getThanhTien()
-//            });
-//        }
-//    }
+    void thietLapTableCT(String hd) {
+        DefaultTableModel model = (DefaultTableModel) tblChiTiet.getModel();
+        model.setRowCount(0);
+        
+        List<Object[]> list = cthdDAO.getChiTiet(hd);
+        for (Object[] row : list) {
+            model.addRow(new Object[]{
+               row[0],row[1],row[2] 
+            });
+        }
+    }
 
     HoaDon layForm() {
         HoaDon hd = new HoaDon();
@@ -130,28 +128,35 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         return hd;
     }
 
-    void xoaForm() {
-        txtMaHoaDon.setText("");
-        txtMaKH.setText("");
-        txtBan.setText("");
-        txtNhanVien.setText("");
-        txtNgayLap.setDate(new Date());
-        txtMaGiamGia.setText("");
-        txtTienPhatSinh.setText("");
-        lblDiemThuong.setText("Điểm thưởng:.........");
-        txtTrangThai.setText("");
-        txtTongTien.setText("");
-        
-    }
-
     void chinhSuaForm() {
         String maHD = (String) tblHoaDon.getValueAt(this.row, 0);
         HoaDon hd = hdDAO.selectById(maHD);
         
         this.thietLapForm(hd);
-
+        this.thietLapTableCT(maHD);
         tpane.setSelectedIndex(0);
 
+    }
+
+    void themHD() {
+        HoaDon hd = layForm();
+        try {
+            hdDAO.insert(hd);
+            this.themVaoTableHD();
+            MsgBox.alert(this, "Lưu Hóa Đơn Thành Công!");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lưu Hóa Đơn Thất Bại");
+        }
+    }
+    
+    File luuFile(){
+        JFileChooser ch = new JFileChooser();
+        int luaChon = ch.showSaveDialog(this);
+        if (luaChon == JFileChooser.APPROVE_OPTION) {
+            return ch.getSelectedFile();
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -194,7 +199,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         btnThanhToan = new javax.swing.JButton();
         btnInHD = new javax.swing.JButton();
         btnXemDG = new javax.swing.JButton();
-        btnTaoMoi = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
@@ -370,17 +374,20 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         jScrollPane2.setViewportView(tblChiTiet);
 
         btnThanhToan.setText("Thanh Toán");
-
-        btnInHD.setText("In Hóa Đơn");
-
-        btnXemDG.setText("Xem Đánh Giá");
-
-        btnTaoMoi.setText("Tạo mới");
-        btnTaoMoi.addActionListener(new java.awt.event.ActionListener() {
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTaoMoiActionPerformed(evt);
+                btnThanhToanActionPerformed(evt);
             }
         });
+
+        btnInHD.setText("In Hóa Đơn");
+        btnInHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInHDActionPerformed(evt);
+            }
+        });
+
+        btnXemDG.setText("Xem Đánh Giá");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -391,8 +398,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnTaoMoi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnXemDG)
                         .addGap(18, 18, 18)
                         .addComponent(btnInHD)
@@ -417,8 +423,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThanhToan)
                     .addComponent(btnInHD)
-                    .addComponent(btnXemDG)
-                    .addComponent(btnTaoMoi))
+                    .addComponent(btnXemDG))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -525,10 +530,14 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
-    private void btnTaoMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoMoiActionPerformed
+    private void btnInHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHDActionPerformed
+        
+    }//GEN-LAST:event_btnInHDActionPerformed
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        this.xoaForm();
-    }//GEN-LAST:event_btnTaoMoiActionPerformed
+        this.themHD();
+    }//GEN-LAST:event_btnThanhToanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -574,7 +583,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInHD;
-    private javax.swing.JButton btnTaoMoi;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnXemDG;
     private javax.swing.JCheckBox chkTichDiem;
