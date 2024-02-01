@@ -4,18 +4,35 @@
  */
 package View;
 
+import java.awt.Dimension;
+import java.awt.Panel;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Quang
  */
 public class Main extends javax.swing.JFrame {
 
+    private JPanel monAnPanel;
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+//        setUndecorated(true);
+    }
+
+    public void qlMonAn() {
+        monAnPanel = new MonAnPanel();
+
+        jPanel1.removeAll();
+        jPanel1.add(monAnPanel);
+        jPanel1.validate();
     }
 
     /**
@@ -27,21 +44,255 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
+        lblThoat = new javax.swing.JLabel();
+        lblMonAn = new javax.swing.JLabel();
+        lblDatBan = new javax.swing.JLabel();
+        lblThucDon = new javax.swing.JLabel();
+        lblNhanVien = new javax.swing.JLabel();
+        lblDoanhThu = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        menuHeThong = new javax.swing.JMenu();
+        mnItemDoiMatKhau = new javax.swing.JMenuItem();
+        mnItemDangXuat = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        mnItemKhachHang = new javax.swing.JMenuItem();
+        mnItemDanhGia = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToolBar1.setRollover(true);
+        jToolBar1.setPreferredSize(new java.awt.Dimension(100, 35));
+
+        lblThoat.setBackground(new java.awt.Color(255, 204, 204));
+        lblThoat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblThoat.setForeground(new java.awt.Color(0, 0, 0));
+        lblThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon/icon/edit.png"))); // NOI18N
+        lblThoat.setText("Thoát");
+        lblThoat.setMaximumSize(new java.awt.Dimension(120, 35));
+        lblThoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblThoatMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblThoat);
+
+        lblMonAn.setBackground(new java.awt.Color(255, 204, 204));
+        lblMonAn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMonAn.setForeground(new java.awt.Color(0, 0, 0));
+        lblMonAn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon/icon/exit.png"))); // NOI18N
+        lblMonAn.setText("Món ăn");
+        lblMonAn.setMaximumSize(new java.awt.Dimension(120, 35));
+        lblMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMonAnMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblMonAn);
+
+        lblDatBan.setBackground(new java.awt.Color(255, 204, 204));
+        lblDatBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDatBan.setForeground(new java.awt.Color(0, 0, 0));
+        lblDatBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon/icon/new.png"))); // NOI18N
+        lblDatBan.setText("Đặt bàn");
+        lblDatBan.setMaximumSize(new java.awt.Dimension(120, 35));
+        lblDatBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDatBanMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblDatBan);
+
+        lblThucDon.setBackground(new java.awt.Color(255, 204, 204));
+        lblThucDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblThucDon.setForeground(new java.awt.Color(0, 0, 0));
+        lblThucDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon/icon/reset.png"))); // NOI18N
+        lblThucDon.setText("Thực đơn");
+        lblThucDon.setMaximumSize(new java.awt.Dimension(120, 35));
+        lblThucDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblThucDonMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblThucDon);
+
+        lblNhanVien.setBackground(new java.awt.Color(255, 204, 204));
+        lblNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNhanVien.setForeground(new java.awt.Color(0, 0, 0));
+        lblNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon/icon/login.png"))); // NOI18N
+        lblNhanVien.setText("Nhân viên");
+        lblNhanVien.setMaximumSize(new java.awt.Dimension(120, 35));
+        lblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNhanVienMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblNhanVien);
+
+        lblDoanhThu.setBackground(new java.awt.Color(255, 204, 204));
+        lblDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDoanhThu.setForeground(new java.awt.Color(0, 0, 0));
+        lblDoanhThu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon/icon/setting.png"))); // NOI18N
+        lblDoanhThu.setText("Doanh thu");
+        lblDoanhThu.setMaximumSize(new java.awt.Dimension(120, 35));
+        lblDoanhThu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDoanhThuMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(lblDoanhThu);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jMenuBar2.setBackground(new java.awt.Color(204, 204, 204));
+        jMenuBar2.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuBar2.setPreferredSize(new java.awt.Dimension(360, 35));
+
+        menuHeThong.setBackground(new java.awt.Color(102, 102, 102));
+        menuHeThong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        menuHeThong.setForeground(new java.awt.Color(0, 0, 0));
+        menuHeThong.setText("Hệ thống");
+        menuHeThong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuHeThong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuHeThong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        menuHeThong.setPreferredSize(new java.awt.Dimension(120, 35));
+
+        mnItemDoiMatKhau.setText("Đổi mật khẩu");
+        mnItemDoiMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnItemDoiMatKhau.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnItemDoiMatKhau.setPreferredSize(new java.awt.Dimension(120, 35));
+        mnItemDoiMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItemDoiMatKhauActionPerformed(evt);
+            }
+        });
+        menuHeThong.add(mnItemDoiMatKhau);
+
+        mnItemDangXuat.setText("Đăng xuất");
+        mnItemDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnItemDangXuat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnItemDangXuat.setPreferredSize(new java.awt.Dimension(120, 35));
+        mnItemDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItemDangXuatActionPerformed(evt);
+            }
+        });
+        menuHeThong.add(mnItemDangXuat);
+
+        jMenuBar2.add(menuHeThong);
+
+        jMenu5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        jMenu5.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu5.setText("Quản lý");
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMenu5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu5.setPreferredSize(new java.awt.Dimension(120, 35));
+
+        mnItemKhachHang.setText("Khách hàng");
+        mnItemKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnItemKhachHang.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnItemKhachHang.setPreferredSize(new java.awt.Dimension(120, 35));
+        mnItemKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItemKhachHangActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mnItemKhachHang);
+
+        mnItemDanhGia.setText("Đánh giá");
+        mnItemDanhGia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mnItemDanhGia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        mnItemDanhGia.setPreferredSize(new java.awt.Dimension(120, 35));
+        mnItemDanhGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItemDanhGiaActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mnItemDanhGia);
+
+        jMenuBar2.add(jMenu5);
+
+        jMenu6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        jMenu6.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu6.setText("Thống kê");
+        jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMenu6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu6.setPreferredSize(new java.awt.Dimension(120, 35));
+        jMenu6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu6ActionPerformed(evt);
+            }
+        });
+        jMenuBar2.add(jMenu6);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 458, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mnItemDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemDoiMatKhauActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnItemDoiMatKhauActionPerformed
+
+    private void mnItemDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemDangXuatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnItemDangXuatActionPerformed
+
+    private void mnItemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemKhachHangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnItemKhachHangActionPerformed
+
+    private void mnItemDanhGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemDanhGiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnItemDanhGiaActionPerformed
+
+    private void jMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu6ActionPerformed
+
+    private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblThoatMouseClicked
+
+    private void lblMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMonAnMouseClicked
+        qlMonAn();
+    }//GEN-LAST:event_lblMonAnMouseClicked
+
+    private void lblDatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDatBanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDatBanMouseClicked
+
+    private void lblThucDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThucDonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblThucDonMouseClicked
+
+    private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblNhanVienMouseClicked
+
+    private void lblDoanhThuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoanhThuMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDoanhThuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -54,7 +305,7 @@ public class Main extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -77,7 +328,23 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblDatBan;
+    private javax.swing.JLabel lblDoanhThu;
+    private javax.swing.JLabel lblMonAn;
+    private javax.swing.JLabel lblNhanVien;
+    private javax.swing.JLabel lblThoat;
+    private javax.swing.JLabel lblThucDon;
+    private javax.swing.JMenu menuHeThong;
+    private javax.swing.JMenuItem mnItemDangXuat;
+    private javax.swing.JMenuItem mnItemDanhGia;
+    private javax.swing.JMenuItem mnItemDoiMatKhau;
+    private javax.swing.JMenuItem mnItemKhachHang;
     // End of variables declaration//GEN-END:variables
 }
