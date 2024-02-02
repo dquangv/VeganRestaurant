@@ -90,11 +90,35 @@ public class ChiTietHD_DAO extends NhaHangChayDAO<ChiTietHD, String> {
         }
     }
 
-    public List<ChiTietHD> selectByChiTiet(String keyword) {
-        String sql = """
-                     select TenMonAn,SoLuong,ThanhTien,DanhGia from ChiTietHD cthd
-                     join MonAn ma on cthd.MaMonAn = ma.MaMonAn
-                     where MaHoaDon = ? """;
-        return this.selectBySQL(sql, "%" + keyword + "%");
+    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+    
+    public List<Object[]> getChiTiet(String hd) {
+        String sql = "{CALL sp_HoaDon(?)}";
+        String[] cols = {"TenMonAn", "SoLuong", "ThanhTien"};
+        return this.getListOfArray(sql, cols, hd);
+    }
+//    public List<ChiTietHD> selectByChiTiet(String keyword) {
+//        String sql = """
+//                     select cthd.MaMonAn,SoLuong,ThanhTien,DanhGia from ChiTietHD cthd
+//                     join MonAn ma on cthd.MaMonAn = ma.MaMonAn
+//                     join HoaDon hd on hd.MaHoaDon = cthd.MaHoaDon
+//                     where hd.MaHoaDon = ? """;
+//        return this.selectBySQL(sql, "%" + keyword + "%");
+//    }
 }
