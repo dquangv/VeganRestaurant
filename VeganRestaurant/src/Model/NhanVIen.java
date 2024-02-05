@@ -12,11 +12,30 @@ public class NhanVIen {
     private String maNhanVien;
     private String tenNhanVIen;
     private boolean chucVu;
-    private String trangThai;
+    private boolean trangThai;
     private boolean gioiTinh;
+    private String sDT;
     private String email;
     private double luong;
     private String tenTaikhoan;
+    private String hinhAnh;
+
+
+    public NhanVIen() {
+    }
+
+    public NhanVIen(String maNhanVien, String tenNhanVIen, boolean chucVu, boolean trangThai, boolean gioiTinh, String sDT, String email, double luong, String tenTaikhoan, String hinhAnh) {
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVIen = tenNhanVIen;
+        this.chucVu = chucVu;
+        this.trangThai = trangThai;
+        this.gioiTinh = gioiTinh;
+        this.sDT = sDT;
+        this.email = email;
+        this.luong = luong;
+        this.tenTaikhoan = tenTaikhoan;
+        this.hinhAnh = hinhAnh;
+    }
 
     public String getMaNhanVien() {
         return maNhanVien;
@@ -42,11 +61,11 @@ public class NhanVIen {
         this.chucVu = chucVu;
     }
 
-    public String getTrangThai() {
+    public boolean isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -56,6 +75,14 @@ public class NhanVIen {
 
     public void setGioiTinh(boolean gioiTinh) {
         this.gioiTinh = gioiTinh;
+    }
+
+    public String getsDT() {
+        return sDT;
+    }
+
+    public void setsDT(String sDT) {
+        this.sDT = sDT;
     }
 
     public String getEmail() {
@@ -82,17 +109,15 @@ public class NhanVIen {
         this.tenTaikhoan = tenTaikhoan;
     }
 
-    public String getTenTaiKhoan() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getHinhAnh() {
+        return hinhAnh;
     }
 
-    public Object getMatKhau() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
-    public void setMatKhau(String newPassword) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
     
     
 }

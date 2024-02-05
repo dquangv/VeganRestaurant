@@ -24,17 +24,19 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.SQLException;
+
 /**
  *
  * @author Admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
+
     public static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     public static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false";
     public static String username = "sa";
     public static String password = "songlong";
     public static final String CONFIG_FILE_PATH = "D:\\VEGAN\\config.properties";
-     
+
     public LoginJFrame() {
         initComponents();
         setLocationRelativeTo(null);
@@ -71,6 +73,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Password: ");
 
+        txtUsername.setText("tungvt");
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
@@ -100,6 +103,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
+        txtPassword.setText("123");
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -166,7 +170,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 0, 102));
         jLabel1.setText("ĐĂNG NHẬP HỆ THỐNG");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Restaurant.gif")); // NOI18N
         jLabel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,75 +217,84 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
 // Tạo SwingWorker để thực hiện công việc đăng nhập
-    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-        @Override
-        protected Void doInBackground() throws Exception {
-            // Hiển thị progress bar
-            pror.setIndeterminate(true);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Hiển thị progress bar
+                pror.setIndeterminate(true);
 
-            if (chkSave.isSelected()) {
-                saveLoginInfo(txtUsername.getText(), new String(txtPassword.getPassword()));
-            }
-            if (txtUsername.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa nhập tên người dùng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                txtUsername.requestFocus();
-                return null;
-            } else if (new String(txtPassword.getPassword()).isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa nhập mật khẩu", "Lỗi!", JOptionPane.ERROR_MESSAGE);
-                txtPassword.requestFocus();
-                return null;
-            } else {
-                try (Connection conn = DriverManager.getConnection(dburl, username, password);
-                     PreparedStatement pstmt = conn.prepareStatement("SELECT role FROM USERS WHERE username = ? AND password = ?")) {
+                if (chkSave.isSelected()) {
+                    saveLoginInfo(txtUsername.getText(), new String(txtPassword.getPassword()));
+                }
+                if (txtUsername.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa nhập tên người dùng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    txtUsername.requestFocus();
+                    return null;
+                } else if (new String(txtPassword.getPassword()).isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Chưa nhập mật khẩu", "Lỗi!", JOptionPane.ERROR_MESSAGE);
+                    txtPassword.requestFocus();
+                    return null;
+                } else {
+                    try ( Connection conn = DriverManager.getConnection(dburl, username, password);  PreparedStatement pstmt = conn.prepareStatement("SELECT vaitro FROM taikhoan WHERE tentaikhoan = ? AND matkhau = ?")) {
 
-                    pstmt.setString(1, txtUsername.getText());
-                    pstmt.setString(2, new String(txtPassword.getPassword()));
+                        pstmt.setString(1, txtUsername.getText());
+                        pstmt.setString(2, new String(txtPassword.getPassword()));
 
-                    try (ResultSet rs = pstmt.executeQuery()) {
-                        boolean flag = false;
-                        while (rs.next()) {
-                            String role = rs.getString("role");
-                            if (role.equals("Quản lý")) {
-                                JOptionPane.showMessageDialog(null, "Đăng nhập form Quản lý thành công!");
+                        try ( ResultSet rs = pstmt.executeQuery()) {
+                            boolean flag = false;
+                            while (rs.next()) {
+                                boolean role = rs.getBoolean("vaitro");
+                                System.out.println(role);
+                                if (!role) {
+                                    JOptionPane.showMessageDialog(null, "Đăng nhập form Quản lý thành công!");
 
-                                System.out.println("Form Quản lý đang mở");
-                                TaiKhoan ql = new TaiKhoan();
-                                ql.setVisible(true);
-                                dispose();
-                                flag = true;
-                                break;
-                            } else if (role.equals("Nhân viên")) {
-                                JOptionPane.showMessageDialog(null, "Đăng nhập Nhân viên thành công!");
-                                System.out.println("Form đào tạo đang mở");
-                                TaiKhoan nv = new TaiKhoan();
-                                nv.setVisible(true);
-                                dispose();
-                                flag = true;
-                                break;
+                                    System.out.println("Form Quản lý đang mở");
+//                                TaiKhoan ql = new TaiKhoan();
+//                                ql.setVisible(true);
+
+                                    dispose();
+
+                                    Main fraimMain = new Main();
+                                    fraimMain.setVisible(true);
+
+                                    flag = true;
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Đăng nhập Nhân viên thành công!");
+                                    System.out.println("Form đào tạo đang mở");
+//                                    TaiKhoan nv = new TaiKhoan();
+//                                    nv.setVisible(true);
+
+                                    dispose();
+
+                                    Main fraimMain = new Main();
+                                    fraimMain.setVisible(true);
+                                    flag = true;
+                                    break;
+                                }
+                            }
+
+                            if (!flag) {
+                                JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
                             }
                         }
-
-                        if (!flag) {
-                            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
-                        }
+                    } catch (SQLException se) {
+                        se.printStackTrace();
                     }
-                } catch (SQLException se) {
-                    se.printStackTrace();
                 }
+
+                return null;
             }
 
-            return null;
-        }
-        
-        @Override
-        protected void done() {
-            // Ẩn progress bar khi công việc hoàn tất
-            pror.setIndeterminate(false);
-        }
-    };
+            @Override
+            protected void done() {
+                // Ẩn progress bar khi công việc hoàn tất
+                pror.setIndeterminate(false);
+            }
+        };
 
-    // Thực thi SwingWorker
-    worker.execute();
+        // Thực thi SwingWorker
+        worker.execute();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void chkSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSaveActionPerformed
@@ -303,9 +315,8 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChangePassActionPerformed
 
     /**
-                 * @param args the command line arguments
-                 */
-
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -314,7 +325,7 @@ public class LoginJFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -355,7 +366,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-    
+
     public void saveLoginInfo(String username, String password) {
         try {
             File configFile = new File(CONFIG_FILE_PATH);
@@ -411,5 +422,4 @@ public class LoginJFrame extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-  
 }

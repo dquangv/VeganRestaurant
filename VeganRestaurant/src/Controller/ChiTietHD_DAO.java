@@ -97,4 +97,28 @@ public class ChiTietHD_DAO extends NhaHangChayDAO<ChiTietHD, String> {
                      where MaHoaDon = ? """;
         return this.selectBySQL(sql, "%" + keyword + "%");
     }
+    
+    public List<Object[]> getChiTiet(String hd) {
+        String sql = "{CALL sp_HoaDon(?)}";
+        String[] cols = {"TenMonAn", "SoLuong", "ThanhTien"};
+        return this.getListOfArray(sql, cols, hd);
+    }
+    
+    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

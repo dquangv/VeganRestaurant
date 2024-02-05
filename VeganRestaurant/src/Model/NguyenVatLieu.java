@@ -1,26 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author Võ Thanh Tùng
- */
+import java.math.BigDecimal;
+
 public class NguyenVatLieu {
-    private String maNgyuenVatLieu;
+    private String maNguyenVatLieu;
     private String tenNguyenVatLieu;
     private int soLuong;
     private String donViTinh;
-    private double donGia;
+    private BigDecimal donGia;
 
-    public String getMaNgyuenVatLieu() {
-        return maNgyuenVatLieu;
+    public NguyenVatLieu() {
     }
 
-    public void setMaNgyuenVatLieu(String maNgyuenVatLieu) {
-        this.maNgyuenVatLieu = maNgyuenVatLieu;
+    public NguyenVatLieu(String maNguyenVatLieu, String tenNguyenVatLieu, int soLuong, String donViTinh, BigDecimal donGia) {
+        this.maNguyenVatLieu = maNguyenVatLieu;
+        this.tenNguyenVatLieu = tenNguyenVatLieu;
+        this.soLuong = soLuong;
+        this.donViTinh = donViTinh;
+        this.donGia = donGia;
+    }
+    
+    public String getMaNguyenVatLieu() {
+        return maNguyenVatLieu;
+    }
+
+    public void setMaNguyenVatLieu(String maNguyenVatLieu) {
+        this.maNguyenVatLieu = maNguyenVatLieu;
     }
 
     public String getTenNguyenVatLieu() {
@@ -47,12 +52,39 @@ public class NguyenVatLieu {
         this.donViTinh = donViTinh;
     }
 
-    public double getDonGia() {
+    public BigDecimal getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(BigDecimal donGia) {
         this.donGia = donGia;
     }
-    
+
+    @Override
+    public String toString() {
+        return "NguyenVatLieu{" +
+                "maNguyenVatLieu='" + maNguyenVatLieu + '\'' +
+                ", tenNguyenVatLieu='" + tenNguyenVatLieu + '\'' +
+                ", soLuong=" + soLuong +
+                ", donViTinh='" + donViTinh + '\'' +
+                ", donGia=" + donGia +
+                '}';
+    }
+
+    public void setMaNgyuenVatLieu(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void initTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void LoadDataToArray() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void fillTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
