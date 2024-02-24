@@ -99,7 +99,7 @@ public class NhanVien extends javax.swing.JFrame {
                     nv.getTenNhanVIen(),
                     nv.isChucVu() ? "Quản lý" : "Nhân viên",
                     nv.isTrangThai() ? "Nghỉ" : "Hoạt động",
-                    nv.isGioiTinh() ? "Nữ" : "Nam",
+                    nv.isGioiTinh() ? "Nữ" : " Nam",
                     nv.getsDT(),
                     nv.getEmail(),
                     nv.getLuong(),

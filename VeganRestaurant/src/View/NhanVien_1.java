@@ -128,9 +128,9 @@ public class NhanVien_1 extends javax.swing.JPanel {
 
         // Giới tính
         if (!nv.isGioiTinh()) {
-            rdoNu.setSelected(true);
-        } else {
             rdoNam.setSelected(true);
+        } else {
+            rdoNu.setSelected(true);
         }
 
         txtSDT.setText(nv.getsDT());
