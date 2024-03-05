@@ -1,17 +1,22 @@
-﻿create database NhaHangChay_CohesiveStars;
+﻿
+/*
+database gop co 3 phan 
+1 tao database va cac bang 
+2 them du lieu vao database
+3 cac proc va trigger 
+cac muc lan luot tu tren xuong duoi
+*/
+-- tao database
+create database NhaHangChay_CohesiveStars;
 go
-
 
 use NhaHangChay_CohesiveStars;
 go
-
-
-
+-- tao cac bang trong database
 create table TaiKhoan (
 	TenTaiKhoan varchar(20) primary key,
 	MatKhau varchar(50) not null,
-	VaiTro bit not null,
-	TrangThai nvarchar(20) not null);
+	VaiTro bit not null);
 go
 
 create table NhanVien (
@@ -22,7 +27,6 @@ create table NhanVien (
 	GioiTinh bit not null,
 	SDT varchar(15) not null,
 	Email varchar(50),
-	Luong money not null,
 	TenTaiKhoan varchar(20));
 go
 
@@ -64,16 +68,14 @@ create table NguyenVatLieu (
 	MaNguyenVatLieu varchar(10) primary key,
 	TenNguyenVatLieu nvarchar(30) not null,
 	SoLuong int not null,
-	DonViTinh nvarchar(20) not null,
-	DonGia money not null);
+	DonViTinh nvarchar(20) not null);
 go
 
 create table ThucDon (
 	MaThucDon varchar(10) primary key,
 	TenThucDon nvarchar(50) not null,
 	NgayPhucVu nvarchar(100) not null,
-	HinhAnh varchar(500),
-	TrangThai nvarchar(30) not null);
+	HinhAnh varchar(500));
 go
 
 create table MonAn (
@@ -107,11 +109,10 @@ create table HoaDon (
 	TienGiamKhuyenMai money default 0,
 	TongTien money not null,
 	TrangThai nvarchar(30) not null,
-	MaKhachHang varchar(10) not null,
+--	MaKhachHang varchar(10) not null,
 	MaBan varchar(10) not null,
 	MaKhuyenMai varchar(10),
 	MaNhanVien varchar(10) not null);
---MaDanhGia varchar(10) trong ERD ko có
 go
 
 create table ChiTietHD (
@@ -123,6 +124,13 @@ create table ChiTietHD (
 	primary key (MaHoaDon, MaMonAn));
 go
 
+create table ChiTietDB (
+	MaBan varchar(10) not null,
+	ThoiGianDat datetime,
+	MaKhachHang varchar(10) not null,
+	primary key (MaBan, ThoiGianDat));
+go
+-- cac quan he giua cac ban khoa chinh va khoa ngoai
 alter table NhanVien
 add
 	constraint fk_nv_tk
@@ -163,12 +171,19 @@ add
 	references MonAn (MaMonAn);
 go
 
+alter table ChiTietDB
+add
+	constraint fk_ctdb_b
+	foreign key (MaBan)
+	references Ban(MaBan),
+
+	constraint fk_ctdb_kh
+	foreign key (MaKhachHang)
+	references KhachHang(MaKhachHang);
+go
+
 alter table HoaDon
 add
-	constraint fk_hd_kh
-	foreign key (MaKhachHang)
-	references KhachHang(MaKhachHang),
-
 	constraint fk_hd_b
 	foreign key (MaBan)
 	references Ban(MaBan),
@@ -181,43 +196,43 @@ add
 	foreign key (MaNhanVien)
 	references NhanVien(MaNhanVien);
 go
-
+-- them du lieu vao cac bang dua tren cac bang
 insert into TaiKhoan values
-	('LyNDT', '123', 0, N'Hoạt động'),
-	('TungVT', '123', 0, N'Hoạt động'),
-	('QuangVD', '123', 1, N'Đã nghỉ'),
-	('ChuongVH', '123', 1, N'Hoạt động'),
-	('QuangBM', '123', 1, N'Hoạt động'),
-	('RonPN', '123', 1, N'Hoạt động');
+	('LyNDT', '123', 0),
+	('TungVT', '123', 0),
+	('QuangVD', '123', 1),
+	('ChuongVH', '123', 1),
+	('QuangBM', '123', 1),
+	('RonPN', '123', 1);
 go
 
 insert into NhanVien values
-	('NV01', N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndt@fpt.edu.vn', 45000000, 'LyNDT'),
-	('NV02', N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvt@fpt.edu.vn', 50000000, 'TungVT'),
-	('NV03', N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvd@fpt.edu.vn', 30000000, 'QuangVD'),
-	('NV04', N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvh@fpt.edu.vn', 35000000, 'ChuongVH'),
-	('NV05', N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbm@fpt.edu.vn', 40000000, 'QuangBM'),
-	('NV06', N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpn@fpt.edu.vn', 35000000, 'ronpn');
+	('NV01', N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndt@fpt.edu.vn', 'LyNDT'),
+	('NV02', N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvt@fpt.edu.vn', 'TungVT'),
+	('NV03', N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvd@fpt.edu.vn', 'QuangVD'),
+	('NV04', N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvh@fpt.edu.vn', 'ChuongVH'),
+	('NV05', N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbm@fpt.edu.vn', 'QuangBM'),
+	('NV06', N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpn@fpt.edu.vn', 'ronpn');
 go
 
 
 insert into KhuyenMai values
 	('KM01', N'Mừng khai trương', 30, 200, N'Ngày lễ', '01-02-2024', '01-09-2024'),
-	('KM02', N'Bán vì đam mê', 20, 300, N'Quảng bá', '01-18-2024', '01-31-2024'),
-	('KM03', N'Mừng thôi nôi', 10, 500, N'Quảng bá', '02-02-2024', '02-09-2024');
+	('KM02', N'Bán vì đam mê', 20, 300, N'Quảng cáo', '01-18-2024', '01-31-2024'),
+	('KM03', N'Mừng thôi nôi', 10, 500, N'Quảng cáo', '02-02-2024', '02-09-2024');
 go
 
 insert into KhachHang values
 	('KH01', N'Nghĩa', '1010101010', null, null),
-	('KH02', N'Triều', '2020202020', '01-02-2024', 0.3),
+	('KH02', N'Triều', '2020202020', '01-02-2024', 300),
 	('KH03', N'Khánh', '3030303030', null, null),
-	('KH04', N'Đủ', '4040404040', '01-18-2024', 0.1),
-	('KH05', N'Cường', '5050505050', '01-20-2024', 0.5),
-	('KH06', N'Thạch', '6060606060', '01-02-2024', 1),
-	('KH07', N'Quân', '7070707070', '01-02-2024', 1.5),
-	('KH08', N'Long', '8080808080', '01-10-2024', 0.3),
+	('KH04', N'Đủ', '4040404040', '01-18-2024', 1000),
+	('KH05', N'Cường', '5050505050', '01-20-2024', 50),
+	('KH06', N'Thạch', '6060606060', '01-02-2024', 1000),
+	('KH07', N'Quân', '7070707070', '01-02-2024', 1500),
+	('KH08', N'Long', '8080808080', '01-10-2024', 300),
 	('KH09', N'Minh', '9090909090', null, null),
-	('KH10', N'Khoa', '1111111111', '01-02-2024', 0.8);
+	('KH10', N'Khoa', '1111111111', '01-02-2024', 800);
 go
 
 insert into Ban values
@@ -260,59 +275,58 @@ insert into Ban values
 go
 
 insert into NguyenVatLieu values
-	('NVL01', N'Trứng', 500, N'Trái', 100),
-	('NVL02', N'Chả', 30, N'Kg', 500),
-	('NVL03', N'Đậu hũ', 1000, N'Miếng', 100),
-	('NVL04', N'Nấm đông cô', 30, N'Kg', 300),
-	('NVL05', N'Mướp', 100, N'Trái', 250),
-	('NVL06', N'Đu đủ', 25, N'Trái', 200),
-	('NVL07', N'Khổ qua', 25, N'Trái', 150),
-	('NVL08', N'Mỳ ống', 200, N'Bịch', 350),
-	('NVL09', N'Khế', 25, N'Trái', 170),
-	('NVL10', N'Rau tần ô', 15, N'Bó', 230);
+	('NVL01', N'Trứng', 500, N'Trái'),
+	('NVL02', N'Chả', 30, N'Kg'),
+	('NVL03', N'Đậu hũ', 1000, N'Miếng'),
+	('NVL04', N'Nấm đông cô', 30, N'Kg'),
+	('NVL05', N'Mướp', 100, N'Trái'),
+	('NVL06', N'Đu đủ', 25, N'Trái'),
+	('NVL07', N'Khổ qua', 25, N'Trái'),
+	('NVL08', N'Mỳ ống', 200, N'Bịch'),
+	('NVL09', N'Khế', 25, N'Trái'),
+	('NVL10', N'Rau tần ô', 15, N'Bó');
 go
 
-INSERT INTO MonAn (MaMonAn, TenMonAn, DonGia, LoaiMonAn, HinhAnh, TrangThai)
-VALUES
-    ('MA01', N'Salad mít non', 125000, N'Khai vị', 'xa-lach-mit-non-2.png', N'Hoạt động'),
-    ('MA02', N'Mozzarella Salad', 135000, N'Khai vị', 'saladmozarella.png', N'Hoạt động'),
-    ('MA03', N'Gỏi cuốn rau củ', 90000, N'Khai vị', 'goicuonraucu.png', N'Hoạt động'),
-    ('MA04', N'Chả giò', 95000, N'Khai vị', 'chagio.png', N'Hoạt động'),
-    ('MA05', N'Há cảo Nhật - Gyoza', 95000, N'Khai vị', 'hacaonhat.png', N'Hoạt động'),
-    ('MA06', N'Chả nấm mối', 120000, N'Khai vị', 'chachammuoi.png', N'Hoạt động'),
-    ('MA07', N'Bún nưa trộn', 105000, N'Khai vị', 'bunnuatron.png', N'Hoạt động'),
-    ('MA08', N'Gỏi củ hủ dừa', 115000, N'Khai vị', 'coicuhudua.png', N'Hoạt động'),
-    ('MA09', N'Gỏi đu đủ', 105000, N'Khai vị', 'goidudu.png', N'Hoạt động'),
-    ('MA10', N'Salad Sung', 135000, N'Khai vị', 'saladsung.png', N'Hoạt động'),
-    ('MA11', N'Bánh tart artiso', 105000, N'Khai vị', 'banhtart.png', N'Ngừng phục vụ'),
-    ('MA12', N'Đậu hủ bó xôi sốt trứng muối', 125000, N'Món chính', 'dauhuboxoi.png', N'Hoạt động'),
-    ('MA13', N'Nấm đông cô sốt tiêu', 95000, N'Món chính', 'namdongcosottieu.png', N'Hoạt động'),
-    ('MA14', N'Đậu rồng xào tỏi đen', 90000, N'Món chính', 'dau-rong-xao-1.png', N'Hoạt động'),
-    ('MA15', N'Tàu hủ ky sốt chao', 110000, N'Món chính', 'tau-ku-ky-1.png', N'Hoạt động'),
-    ('MA16', N'Mướp xào', 90000, N'Món chính', 'muop-xao-1.png', N'Hoạt động'),
-    ('MA17', N'Nấm mối xào lá lốt', 125000, N'Món chính', 'nam-moi-xao-1.png', N'Hoạt động'),
-    ('MA18', N'Đu đủ xào', 90000, N'Món chính', 'du-du-xao-1.png', N'Hoạt động'),
-    ('MA20', N'Măng xào củ kiệu', 105000, N'Món chính', 'mang-xao-cu-kieu-1.png', N'Hoạt động'),
-    ('MA21', N'Khổ qua kho ngũ vị', 95000, N'Món chính', 'kho-qua-kho-1.png', N'Hoạt động'),
-    ('MA22', N'Đậu hủ kim chi', 95000, N'Món chính', 'dau-hu-kim-chi-1.png', N'Hoạt động'),
-    ('MA23', N'Rau củ om Thái', 110000, N'Món chính', 'rau-cu-om-thai-1.png', N'Hoạt động'),
-    ('MA24', N'Nấm kho', 105000, N'Món chính', 'nam-kho-2.png', N'Ngừng phục vụ'),
-    ('MA25', N'Cơm nếp than', 40000, N'Cơm & Mì', 'com-cac-loai.png', N'Hoạt động'),
-    ('MA26', N'Cơm trắng', 40000, N'Cơm & Mì', 'com-cac-loai.png', N'Hoạt động'),
-    ('MA27', N'Cơm bó xôi hạt sen', 40000, N'Cơm & Mì', 'com-cac-loai.png', N'Hoạt động'),
-    ('MA28', N'Mì Ý sốt rau củ', 150000, N'Cơm & Mì', 'mi-y-sot-rau-cu-1.png', N'Hoạt động'),
-    ('MA29', N'Bún nưa xào', 125000, N'Cơm & Mì', 'bun-nua-xao-1.png', N'Hoạt động'),
-    ('MA30', N'Mì sốt kem nấm', 150000, N'Cơm & Mì', 'mi-sot-kem-nam-2.png', N'Hoạt động'),
-    ('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'com-cari-1.png', N'Hoạt động');
-GO
-
+insert into MonAn values
+	('MA01', N'Salad mít non', 125000, N'Khai vị', 'xa-lach-mit-non-1.png', N'Hoạt động'),
+	('MA02', N'Mozzarella Salad', 135000, N'Khai vị', 'mozzarella-salad-1.png', N'Hoạt động'),
+	('MA03', N'Gỏi cuốn rau củ', 90000, N'Khai vị', 'goi-cuon-rau-cu-1.png', N'Hoạt động'),
+	('MA04', N'Chả giò', 95000, N'Khai vị', 'cha-gio-3.png', N'Hoạt động'),
+	('MA05', N'Há cảo Nhật - Gyoza', 95000, N'Khai vị', 'ha-cao-nhat-1.png', N'Hoạt động'),
+	('MA06', N'Chả nấm mối', 120000, N'Khai vị', 'cha-nam-moi-1.png', N'Hoạt động'),
+	('MA07', N'Bún nưa trộn', 105000, N'Khai vị', 'bun-nua-tron-1.png', N'Hoạt động'),
+	('MA08', N'Gỏi củ hủ dừa', 115000, N'Khai vị', 'goi-cu-hu-dua-2.png', N'Hoạt động'),
+	('MA09', N'Gỏi đu đủ', 105000, N'Khai vị', 'goi-du-du-1.webp', N'Hoạt động'),
+	('MA10', N'Salad Sung', 135000, N'Khai vị', 'salad-sung-1.webp', N'Hoạt động'),
+	('MA11', N'Bánh tart artiso', 105000, N'Khai vị', 'salad-sung-1.webp', N'Ngừng phục vụ'),
+	('MA12', N'Đậu hủ bó xôi sốt trứng muối', 125000, N'Món chính', 'dau-hu-bo-xoi-1.webp', N'Hoạt động'),
+	('MA13', N'Nấm đông cô sốt tiêu', 95000, N'Món chính', 'nam-dong-co-1.webp', N'Hoạt động'),
+	('MA14', N'Đậu rồng xào tỏi đen', 90000, N'Món chính', 'dau-rong-xao-1.webp', N'Hoạt động'),
+	('MA15', N'Tàu hủ ky sốt chao', 110000, N'Món chính', 'tau-ku-ky-1.webp', N'Hoạt động'),
+	('MA16', N'Mướp xào', 90000, N'Món chính', 'muop-xao-1.webp', N'Hoạt động'),
+	('MA17', N'Nấm mối xào lá lốt', 125000, N'Món chính', 'nam-moi-xao-1.webp', N'Hoạt động'),
+	('MA18', N'Đu đủ xào', 90000, N'Món chính', 'du-du-xao-1.webp', N'Hoạt động'),
+	('MA19', N'Bún Huế', 120000, N'Món chính', null, N'Hoạt động'),	
+	('MA20', N'Măng xào củ kiệu', 105000, N'Món chính', 'mang-xao-cu-kieu-1.webp', N'Hoạt động'),
+	('MA21', N'Khổ qua kho ngũ vị', 95000, N'Món chính', 'kho-qua-kho-1.webp', N'Hoạt động'),
+	('MA22', N'Đậu hủ kim chi', 95000, N'Món chính', 'dau-ku-kim-chi-1.webp', N'Hoạt động'),
+	('MA23', N'Rau củ om Thái', 110000, N'Món chính', 'rau-cu-om-thai-1.webp', N'Hoạt động'),
+	('MA24', N'Nấm kho', 105000, N'Món chính', 'nam-kho-2.webp', N'Ngừng phục vụ'),
+	('MA25', N'Cơm nếp than', 40000, N'Cơm & Mì', 'com-cac-loai.webp', N'Hoạt động'),
+	('MA26', N'Cơm trắng', 40000, N'Cơm & Mì', 'com-cac-loai.webp', N'Hoạt động'),
+	('MA27', N'Cơm bó xôi hạt sen', 40000, N'Cơm & Mì', 'com-cac-loai.webp', N'Hoạt động'),
+	('MA28', N'Mì Ý sốt rau củ', 150000, N'Cơm & Mì', 'mi-y-sot-rau-cu-1.webp', N'Hoạt động'),
+	('MA29', N'Bún nưa xào', 125000, N'Cơm & Mì', 'bun-nua-xao-1.webp', N'Hoạt động'),
+	('MA30', N'Mì sốt kem nấm', 150000, N'Cơm & Mì', 'mi-sot-kem-nam-2.webp', N'Hoạt động'),
+	('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'com-cari-1.png', N'Hoạt động');
+go
 
 insert into ThucDon values
-	('TD246', N'Thực đơn 2-4-6', N'Thứ 2-4-6', null, N'Đang phục vụ'),
-	('TD357', N'Thực đơn 3-5-7', N'Thứ 3-5-7', null, N'Đang phục vụ'),
-	('TD8', N'Thực đơn CN', N'Chúa nhật', null, N'Đang phục vụ'),
-	('TDL01', N'Thực đơn mừng lễ khai trương', '01/02/2024', null, N'Ngừng phục vụ'),
-	('TDL02', N'Thực đơn tất niên', N'02/09/2024-02/10-2024', null, N'Chưa phục vụ');
+	('TD246', N'Thực đơn 2-4-6', N'Thứ 2-4-6', null),
+	('TD357', N'Thực đơn 3-5-7', N'Thứ 3-5-7', null),
+	('TD8', N'Thực đơn CN', N'Chúa nhật', null),
+	('TDL01', N'Thực đơn mừng lễ khai trương', '01/02/2024', null),
+	('TDL02', N'Thực đơn tất niên', N'02/09/2024-02/10-2024', null);
 go
 
 insert into ChiTietTD values
@@ -325,7 +339,7 @@ insert into ChiTietTD values
 	('TD246', 'MA13'),
 	('TD246', 'MA15'),
 	('TD246', 'MA17'),
---	('TD246','MA19') ,
+	('TD246', 'MA19'),
 	('TD246', 'MA21'),
 	('TD246', 'MA23'),
 	('TD246', 'MA25'),
@@ -355,38 +369,40 @@ insert into ChiTietMA values
 	('MA13', 'NVL04', 0.3)
 go
 
-
 insert into HoaDon values
-	('HD01','1-03-2024',345000,0,0,0,345000,N'Thanh Toán','KH03','T1B01',null,'NV02'),
-	('HD02','1-04-2024',685000,0,0,205500,479500,N'Thanh Toán','KH02','T1B09','KM01','NV03'),
-	('HD03','1-24-2024',590000,5000,0,119000,476000,N'Thanh Toán','KH01','T2B07','KM02','NV06'),
-	('HD04','1-25-2024',550000,30000,0,116000,464000,N'Thanh Toán','KH10','T3B02','KM02','NV04'),
-	('HD05','1-26-2024',325000,5000,0,0,330000,N'Chưa Thanh Toán','KH05','T3B06',null,'NV01'),
-	('HD06','1-26-2024',235000,5000,0,0,240000,N'Chưa Thanh Toán','KH08','T3B12',null,'NV05')
+	('HD01', '1-03-2024', 345000, 0, 0, 0, 345000, N'Thanh Toán', 'T1B01', null, 'NV02'),
+	('HD02', '1-04-2024', 685000, 0, 0, 205500, 479500, N'Thanh Toán', 'T1B09', 'KM01', 'NV03'),
+	('HD03', '1-24-2024', 590000, 5000, 0, 119000, 476000, N'Thanh Toán', 'T2B07','KM02','NV06'),
+	('HD04', '1-25-2024', 550000, 30000, 0, 116000, 464000, N'Thanh Toán', 'T3B02', 'KM02', 'NV04'),
+	('HD05', '1-26-2024', 325000, 5000, 0, 0, 330000, N'Chưa Thanh Toán', 'T3B06', null, 'NV01'),
+	('HD06', '1-26-2024', 235000, 5000, 0, 0, 240000, N'Chưa Thanh Toán', 'T3B12', null, 'NV05')
 go
 
-
-
 insert into ChiTietHD values
-	('HD01','MA01',1,125000,5),
-	('HD01','MA15',2,220000,5),
-	('HD02','MA04',4,380000,5),
-	('HD02','MA12',1,125000,5),
-	('HD02','MA16',2,180000,5),
-	('HD03','MA01',2,250000,5),
-	('HD03','MA05',2,190000,5),
-	('HD03','MA15',1,110000,5),
-	('HD03','MA25',1,40000,5),
-	('HD04','MA02',1,135000,5),
-	('HD04','MA04',2,190000,5),
-	('HD04','MA16',1,90000,5),
-	('HD04','MA22',1,95000,5),
-	('HD04','MA26',2,40000,5),
-	('HD05','MA07',1,105000,5),
-	('HD05','MA15',2,220000,5),
-	('HD06','MA01',1,125000,5),
-	('HD06','MA15',1,110000,5)
+	('HD01', 'MA01', 1, 125000, 5),
+	('HD01', 'MA15', 2, 220000, 5),
+	('HD02', 'MA04', 4, 380000, 5),
+	('HD02', 'MA12', 1, 125000, 5),
+	('HD02', 'MA16', 2, 180000, 5),
+	('HD03', 'MA01', 2, 250000, 5),
+	('HD03', 'MA05', 2, 190000, 5),
+	('HD03', 'MA15', 1, 110000, 5),
+	('HD03', 'MA25', 1, 40000, 5),
+	('HD04', 'MA02', 1, 135000, 5),
+	('HD04', 'MA04', 2, 190000, 5),
+	('HD04','MA16', 1, 90000, 5),
+	('HD04','MA22', 1, 95000, 5),
+	('HD04','MA26', 2, 40000, 5),
+	('HD05','MA07', 1, 105000, 5),
+	('HD05','MA15', 2, 220000, 5),
+	('HD06','MA01', 1, 125000, 5),
+	('HD06','MA15', 1, 110000, 5)
 	--('MaHD','MaMonAn',soluong,tongtien,'đánh giá') nếu cần thêm
+go
+
+insert into ChiTietDB values
+	('T1B01', '2024-01-25', 'KH01'),
+	('T1B03', '2024-02-01', 'KH05');
 go
 
 --select * from Ban
@@ -404,110 +420,112 @@ go
 
 -- Tháng 2/2023
 insert into HoaDon values
-	('HD07', '2-01-2023', 500000, 20000, 0, 150000, 365000, N'Thanh Toán', 'KH01', 'T1B01', 'KM01', 'NV02'),
-	('HD08', '2-02-2023', 650000, 30000, 0, 250000, 370000, N'Thanh Toán', 'KH02', 'T1B02', 'KM02', 'NV03'),
-	('HD09', '2-03-2023', 700000, 40000, 0, 300000, 360000, N'Thanh Toán', 'KH03', 'T1B03', 'KM01', 'NV04'),
-	('HD10', '2-04-2023', 800000, 50000, 0, 350000, 400000, N'Thanh Toán', 'KH04', 'T1B04', 'KM02', 'NV05'),
-	('HD11', '2-05-2023', 900000, 60000, 0, 400000, 440000, N'Thanh Toán', 'KH05', 'T1B05', 'KM01', 'NV06');
-
+	('HD07', '2-01-2023', 500000, 20000, 0, 150000, 365000, N'Thanh Toán', 'T1B01', 'KM01', 'NV02'),
+	('HD08', '2-02-2023', 650000, 30000, 0, 250000, 370000, N'Thanh Toán', 'T1B02', 'KM02', 'NV03'),
+	('HD09', '2-03-2023', 700000, 40000, 0, 300000, 360000, N'Thanh Toán', 'T1B03', 'KM01', 'NV04'),
+	('HD10', '2-04-2023', 800000, 50000, 0, 350000, 400000, N'Thanh Toán', 'T1B04', 'KM02', 'NV05'),
+	('HD11', '2-05-2023', 900000, 60000, 0, 400000, 440000, N'Thanh Toán', 'T1B05', 'KM01', 'NV06');
+go
+select * from HoaDon
 -- Tháng 3/2023
 insert into HoaDon values
-	('HD12', '3-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD13', '3-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD14', '3-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD15', '3-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD16', '3-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
+	('HD12', '3-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán',  'T1B06', 'KM02', 'NV01'),
+	('HD13', '3-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán',  'T1B07', 'KM01', 'NV02'),
+	('HD14', '3-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán',  'T1B08', 'KM02', 'NV03'),
+	('HD15', '3-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán',  'T1B09', 'KM01', 'NV04'),
+	('HD16', '3-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán',  'T1B10', 'KM02', 'NV05');
+go
+-- Tháng 4/2023
+INSERT INTO HoaDon VALUES
+    ('HD17', '4-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD18', '4-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD19', '4-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD20', '4-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD21', '4-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
 
-	-- Tháng 4/2023
-insert into HoaDon values
-	('HD17', '4-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD18', '4-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD19', '4-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD20', '4-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD21', '4-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	
-	-- Tháng 5/2023
-insert into HoaDon values
-	('HD22', '5-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD23', '5-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD24', '5-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD25', '5-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD26', '5-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	
-	-- Tháng 6/2023
-insert into HoaDon values
-	('HD27', '6-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD28', '6-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD29', '6-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD30', '7-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD31', '4-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	
-	-- Tháng 7/2023
-insert into HoaDon values
-	('HD32', '7-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD33', '7-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD34', '7-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD35', '7-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD36', '7-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
+-- Tháng 5/2023
+INSERT INTO HoaDon VALUES
+    ('HD22', '5-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD23', '5-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD24', '5-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD25', '5-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD26', '5-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
 
-	-- Tháng 8/2023
-insert into HoaDon values
-	('HD37', '8-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD38', '8-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD39', '8-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD40', '8-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD41', '8-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
+-- Tháng 6/2023
+INSERT INTO HoaDon VALUES
+    ('HD27', '6-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD28', '6-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD29', '6-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD30', '7-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD31', '4-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
 
-	
-	-- Tháng 9/2023
-insert into HoaDon values
-	('HD42', '9-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD43', '9-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD44', '9-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD45', '9-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD46', '9-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	
-	-- Tháng 10/2023
-insert into HoaDon values
-	('HD47', '10-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD48', '10-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD49', '10-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD50', '10-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD51', '10-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	
-	-- Tháng 11/2023
-insert into HoaDon values
-	('HD52', '11-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD53', '11-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD54', '11-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD55', '11-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD56', '11-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	
+-- Tháng 7/2023
+INSERT INTO HoaDon VALUES
+    ('HD32', '7-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD33', '7-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD34', '7-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD35', '7-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD36', '7-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
 
-	-- Tháng 12/2023
-insert into HoaDon values
-	('HD57', '12-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD58', '12-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD59', '12-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD60', '12-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD61', '12-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
-	-- thang 1/23 
-	insert into HoaDon values
-	('HD62', '1-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-    ('HD63', '1-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-    ('HD64', '1-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-    ('HD65', '1-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-    ('HD66', '1-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
+-- Tháng 8/2023
+INSERT INTO HoaDon VALUES
+    ('HD37', '8-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD38', '8-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD39', '8-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD40', '8-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD41', '8-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
 
--- thang 12 2023 bo sung	
-insert into HoaDon values
-	('HD67', '12-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'KH06', 'T1B06', 'KM02', 'NV01'),
-	('HD68', '12-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'KH07', 'T1B07', 'KM01', 'NV02'),
-	('HD69', '12-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'KH08', 'T1B08', 'KM02', 'NV03'),
-	('HD70', '12-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
-	('HD71', '12-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
+-- Tháng 9/2023
+INSERT INTO HoaDon VALUES
+    ('HD42', '9-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD43', '9-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD44', '9-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD45', '9-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD46', '9-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
+
+-- Tháng 10/2023
+INSERT INTO HoaDon VALUES
+    ('HD47', '10-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD48', '10-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD49', '10-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD50', '10-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD51', '10-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
+
+-- Tháng 11/2023
+INSERT INTO HoaDon VALUES
+    ('HD52', '11-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD53', '11-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD54', '11-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD55', '11-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD56', '11-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
+
+-- Tháng 12/2023
+INSERT INTO HoaDon VALUES
+    ('HD57', '12-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD58', '12-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD59', '12-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD60', '12-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD61', '12-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
+
+-- tháng 1/23 
+INSERT INTO HoaDon VALUES
+    ('HD62', '1-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD63', '1-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD64', '1-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD65', '1-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD66', '1-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
+
+-- tháng 12 2023 bo sung    
+INSERT INTO HoaDon VALUES
+    ('HD67', '12-01-2023', 750000, 40000, 0, 200000, 510000, N'Thanh Toán', 'T1B06', 'KM02', 'NV01'),
+    ('HD68', '12-02-2023', 600000, 30000, 0, 180000, 372000, N'Thanh Toán', 'T1B07', 'KM01', 'NV02'),
+    ('HD69', '12-03-2023', 850000, 20000, 0, 160000, 669000, N'Thanh Toán', 'T1B08', 'KM02', 'NV03'),
+    ('HD70', '12-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'T1B09', 'KM01', 'NV04'),
+    ('HD71', '12-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'T1B10', 'KM02', 'NV05');
+
+
 -- Tháng 2/2023
-select * from hoadon
+
 insert into ChiTietHD values
 	('HD07', 'MA01', 1, 125000, 5),
 	('HD07', 'MA02', 1, 135000, 5),
@@ -534,6 +552,7 @@ insert into ChiTietHD values
 	('HD11', 'MA23', 1, 110000, 5),
 	('HD11', 'MA24', 2, 210000, 5),
 	('HD11', 'MA25', 1, 40000, 5);
+go
 
 -- Tháng 3/2023
 insert into ChiTietHD values
@@ -562,6 +581,7 @@ insert into ChiTietHD values
 	('HD16', 'MA18', 1, 90000, 5),
 	('HD16', 'MA12', 2, 260000, 5),
 	('HD16', 'MA20', 1, 105000, 5);
+go
 
 	-- Chi tiết hóa đơn từ số 17 đến số 61
 -- Tháng 4/2023
@@ -758,7 +778,7 @@ insert into ChiTietHD values
 	('HD54', 'MA18', 1, 90000, 5),
 	('HD54', 'MA12', 2, 260000, 5),
 	('HD54', 'MA20', 1, 105000, 5);
-
+go
 	
 	-- Thêm chi tiết hóa đơn cho các hóa đơn tháng 1
 insert into ChiTietHD values
@@ -787,6 +807,7 @@ insert into ChiTietHD values
     ('HD66', 'MA23', 1, 110000, 5),
     ('HD66', 'MA24', 2, 210000, 5),
     ('HD66', 'MA25', 1, 40000, 5);
+go
 	
 -- Thêm chi tiết hóa đơn tháng 12
 insert into ChiTietHD values
@@ -816,30 +837,33 @@ insert into ChiTietHD values
     ('HD71', 'MA24', 2, 210000, 5),
     ('HD71', 'MA25', 1, 40000, 5);
 	--2/2024
+go
 
 INSERT INTO HoaDon
 VALUES 
-    ('HD72', '2024-02-01', 500000, 25000, 0, 0, 525000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD73', '2024-02-02', 600000, 30000, 0, 0, 630000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD74', '2024-02-03', 700000, 35000, 0, 0, 735000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD75', '2024-02-04', 800000, 40000, 0, 0, 840000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD76', '2024-02-05', 900000, 45000, 0, 0, 945000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD77', '2024-03-01', 1000000, 50000, 0, 0, 1050000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD78', '2024-03-02', 1100000, 55000, 0, 0, 1155000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD79', '2024-03-03', 1200000, 60000, 0, 0, 1260000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD80', '2024-03-04', 1300000, 65000, 0, 0, 1365000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD81', '2024-03-05', 1400000, 70000, 0, 0, 1470000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD82', '2024-04-01', 1500000, 75000, 0, 0, 1575000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD83', '2024-04-02', 1600000, 80000, 0, 0, 1680000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD84', '2024-04-03', 1700000, 85000, 0, 0, 1785000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD85', '2024-04-04', 1800000, 90000, 0, 0, 1890000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD86', '2024-04-05', 1900000, 95000, 0, 0, 1995000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD87', '2024-05-01', 2000000, 100000, 0, 0, 2100000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD88', '2024-05-02', 2100000, 105000, 0, 0, 2205000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD89', '2024-05-03', 2200000, 110000, 0, 0, 2310000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD90', '2024-05-04', 2300000, 115000, 0, 0, 2415000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01'),
-    ('HD91', '2024-05-05', 2400000, 120000, 0, 0, 2520000, N'Đã thanh toán', 'KH06', 'T1B06', NULL, 'NV01');
-	-- cthd 2 / 2024
+    ('HD72', '2024-02-01', 500000, 25000, 0, 0, 525000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD73', '2024-02-02', 600000, 30000, 0, 0, 630000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD74', '2024-02-03', 700000, 35000, 0, 0, 735000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD75', '2024-02-04', 800000, 40000, 0, 0, 840000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD76', '2024-02-05', 900000, 45000, 0, 0, 945000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD77', '2024-03-01', 1000000, 50000, 0, 0, 1050000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD78', '2024-03-02', 1100000, 55000, 0, 0, 1155000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD79', '2024-03-03', 1200000, 60000, 0, 0, 1260000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD80', '2024-03-04', 1300000, 65000, 0, 0, 1365000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD81', '2024-03-05', 1400000, 70000, 0, 0, 1470000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD82', '2024-04-01', 1500000, 75000, 0, 0, 1575000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD83', '2024-04-02', 1600000, 80000, 0, 0, 1680000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD84', '2024-04-03', 1700000, 85000, 0, 0, 1785000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD85', '2024-04-04', 1800000, 90000, 0, 0, 1890000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD86', '2024-04-05', 1900000, 95000, 0, 0, 1995000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD87', '2024-05-01', 2000000, 100000, 0, 0, 2100000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD88', '2024-05-02', 2100000, 105000, 0, 0, 2205000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD89', '2024-05-03', 2200000, 110000, 0, 0, 2310000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD90', '2024-05-04', 2300000, 115000, 0, 0, 2415000, N'Đã thanh toán', 'T1B06', NULL, 'NV01'),
+    ('HD91', '2024-05-05', 2400000, 120000, 0, 0, 2520000, N'Đã thanh toán', 'T1B06', NULL, 'NV01');
+go
+select * from HoaDon
+
 INSERT INTO ChiTietHD 
 VALUES 
     ('HD72', 'MA06', 1, 200000, 5),
@@ -867,5 +891,55 @@ VALUES
     ('HD72', 'MA03', 1, 200000, 3),
     ('HD90', 'MA04', 3, 175000, 2),
     ('HD91', 'MA05', 2, 180000, 1);
-	 
-	select  * from hoadon order by NgayLap desc
+go
+
+/*
+	đây là những proc 
+
+	mn chú ý 
+*/
+-- thong ke mon an
+create or alter proc Sp_ThongKeMonAn
+as 
+begin 
+	select top 7 TenMonAn ,sum(cthd.soluong) as SoLuongDaBan
+	from MonAn ma
+	join ChiTietHD cthd on cthd.MaMonAn = ma.MaMonAn
+	group by TenMonAn
+	order by SoLuongDaBan desc	
+end 
+go
+
+-- thong ke doanh thu
+CREATE PROCEDURE SP_DoanhThuThang (@nam int)
+AS
+BEGIN
+    SELECT 
+        MONTH(hd.NgayLap) AS Thang,
+        SUM(cthd.ThanhTien) AS TongThanhTien
+    FROM 
+        HoaDon hd
+    JOIN 
+        ChiTietHD cthd ON cthd.MaHoaDon = hd.MaHoaDon
+    WHERE 
+        YEAR(hd.NgayLap) = @nam
+    GROUP BY 
+        MONTH(hd.NgayLap);
+END
+go
+
+ -- lay nam cua ngay lap hoa don
+ SELECT DISTINCT year(NgayLap) Year FROM hoadon ORDER BY Year DESC
+
+ -- lay chuoi cua so tang trong bang ban
+ select distinct SUBSTRING(vitri,1,CHARINDEX(',',vitri)-1) from Ban
+
+ -- proc hoa don 
+ go
+ create or alter proc sp_HoaDon @maHD varchar(10)
+as
+select ma.TenMonAn,SoLuong,ThanhTien from ChiTietHD cthd
+join MonAn ma on cthd.MaMonAn = ma.MaMonAn
+join HoaDon hd on hd.MaHoaDon = cthd.MaHoaDon
+where hd.MaHoaDon = @maHD
+go
