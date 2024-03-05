@@ -8,12 +8,10 @@ begin
 	group by TenMonAn
 	order by SoLuongDaBan desc	
 end 
-exec Sp_ThongKeMonAn
 
-exec SP_DoanhThuThang 2024
 go
 -- thong ke doanh thu
-CREATE OR ALTER PROCEDURE SP_DoanhThuThang (@nam int)
+CREATE proc SP_DoanhThuThang (@nam int)
 AS
 BEGIN
     SELECT 
@@ -24,26 +22,24 @@ BEGIN
     JOIN 
         ChiTietHD cthd ON cthd.MaHoaDon = hd.MaHoaDon
     WHERE 
-        YEAR(hd.NgayLap) = 2023
+        YEAR(hd.NgayLap) = @nam
     GROUP BY 
         MONTH(hd.NgayLap);
 END
+GO
+
 
  -- lay nam cua ngay lap hoa don
  SELECT DISTINCT year(NgayLap) Year FROM hoadon ORDER BY Year DESC
 
  -- lay chuoi cua so tang trong bang ban
  select distinct SUBSTRING(vitri,1,CHARINDEX(',',vitri)-1) from Ban
-
- select * from ban
- update Ban set TrangThai = N'Đang phục vụ' where MaBan = 'T2B11'
- update Ban set TrangThai = N'Đang phục vụ' where MaBan = 'T1B12'
- update Ban set TrangThai = N'Đã đặt' where MaBan = 'T2B01'
- update Ban set TrangThai = N'Đang hoạt động' where MaBan = 'T2B03'
- update Ban set TrangThai = N'Đã đặt' where MaBan = 'T1B03'
- update Ban set TrangThai = N'Đang phục vụ' where MaBan = 'T2B07'
- update Ban set TrangThai = N'Đang bảo trì' where MaBan = 'T2B12'
-
- select * from KhachHang
-
- select * from HoaDon order by NgayLap desc
+ go
+ -- lay thong tin khach hay 
+ create proc SP_ThongKhachHangDatBan (@maBan int)
+ as 
+ begin
+	select TenKhachHang,sdt,ThoiGianDat from ChiTietDatBan ctdb
+join KhachHang kh on kh.MaKhachHang = ctdb.MaKhachHang
+where MaBan = @maBan
+ end

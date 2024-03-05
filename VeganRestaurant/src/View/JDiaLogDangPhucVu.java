@@ -25,7 +25,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public void setBan(String maBan) {
+    public void setBan(int maBan) {
         lbmaBan.setText("Bàn: " + maBan);
     }
 

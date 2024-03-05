@@ -132,16 +132,16 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B01.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B01.setText("T1B01");
+        lbT1B01.setText("Bàn 1");
 
         lbT1B02.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B02.setText("T1B02");
+        lbT1B02.setText("Bàn 2");
 
         lbT1B03.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B03.setText("T1B03");
+        lbT1B03.setText("Bàn 3");
 
         lbT1B04.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B04.setText("T1B04");
+        lbT1B04.setText("Bàn 4");
 
         btnban2.setBackground(new java.awt.Color(255, 0, 51));
         btnban2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -152,7 +152,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B05.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B05.setText("T1B05");
+        lbT1B05.setText("Bàn 5");
 
         btnban6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
         btnban6.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +162,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B06.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B06.setText("T1B06");
+        lbT1B06.setText("Bàn 6");
 
         btnban4.setBackground(new java.awt.Color(51, 51, 51));
         btnban4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -173,7 +173,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B12.setText("T1B12");
+        lbT1B12.setText("Bàn 12");
 
         btnban5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
         btnban5.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B07.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B07.setText("T1B07");
+        lbT1B07.setText("Bàn 7");
 
         btnban1.setBackground(new java.awt.Color(51, 255, 0));
         btnban1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -194,16 +194,16 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B08.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B08.setText("T1B08");
+        lbT1B08.setText("Bàn 8");
 
         lbT1B09.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B09.setText("T1B09");
+        lbT1B09.setText("Bàn 9");
 
         lbT1B10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B10.setText("T1B10");
+        lbT1B10.setText("Bàn 10");
 
         lbT1B11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B11.setText("T1B11");
+        lbT1B11.setText("Bàn 11");
 
         btnban3.setBackground(new java.awt.Color(255, 204, 204));
         btnban3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -316,52 +316,52 @@ public class JPanelTang1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
-        kiemTraTrangThaiBan("T1B09");
+        kiemTraTrangThaiBan(9);
     }//GEN-LAST:event_btnban9ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
-        kiemTraTrangThaiBan("T1B03");
+        kiemTraTrangThaiBan(3);
 
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
-        kiemTraTrangThaiBan("T1B06");
+        kiemTraTrangThaiBan(6);
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
-        kiemTraTrangThaiBan("T1B08");
+        kiemTraTrangThaiBan(8);
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
-        kiemTraTrangThaiBan("T1B07");
+        kiemTraTrangThaiBan(7);
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
-        kiemTraTrangThaiBan("T1B02");
+        kiemTraTrangThaiBan(2);
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
-        kiemTraTrangThaiBan("T1B01");
+        kiemTraTrangThaiBan(1);
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
-        kiemTraTrangThaiBan("T1B05");
+        kiemTraTrangThaiBan(5);
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
-        kiemTraTrangThaiBan("T1B12");
+        kiemTraTrangThaiBan(12);
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
-        kiemTraTrangThaiBan("T1B11");
+        kiemTraTrangThaiBan(11);
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
-        kiemTraTrangThaiBan("T1B04");
+        kiemTraTrangThaiBan(4);
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
-        kiemTraTrangThaiBan("T1B10");
+        kiemTraTrangThaiBan(10);
     }//GEN-LAST:event_btnban10ActionPerformed
 
 
@@ -392,31 +392,31 @@ public class JPanelTang1 extends javax.swing.JPanel {
     private javax.swing.JLabel lbT1B12;
     // End of variables declaration//GEN-END:variables
 
-    public JButton timButtonByMaBan(String maBan) {
+    public JButton timButtonByMaBan(int maBan) {
         switch (maBan) {
-            case "T1B01":
+            case 1:
                 return btnban1;
-            case "T1B02":
+            case 2:
                 return btnban2;
-            case "T1B03":
+            case 3:
                 return btnban3;
-            case "T1B04":
+            case 4:
                 return btnban4;
-            case "T1B05":
+            case 5:
                 return btnban5;
-            case "T1B06":
+            case 6:
                 return btnban6;
-            case "T1B07":
+            case 7:
                 return btnban7;
-            case "T1B08":
+            case 8:
                 return btnban8;
-            case "T1B09":
+            case 9:
                 return btnban9;
-            case "T1B10":
+            case 10:
                 return btnban10;
-            case "T1B11":
+            case 11:
                 return btnban11;
-            case "T1B12":
+            case 12:
                 return btnban12;
             default:
                 return null;
@@ -426,7 +426,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
     void TrangThaiBan() {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
-            String maBan = (String) ban[0];
+            int maBan =  (int) ban[0];
             String trangThai = (String) ban[1];
             JButton button = timButtonByMaBan(maBan);
             if (button != null) {
@@ -451,38 +451,38 @@ public class JPanelTang1 extends javax.swing.JPanel {
     }
      
 
-    void showDiaLogTrangThaiDaDat(String maBan) {
+    void showDiaLogTrangThaiDaDat(int maBan) {
         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
     }
 
-    void ShowDialogDatBan(String maBan) {
+    void ShowDialogDatBan(int maBan) {
         JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
 
     }
 
-    void showDiaLogBaoTri(String maBan) {
+    void showDiaLogBaoTri(int maBan) {
         JDialogBaoTriXong dialog = new JDialogBaoTriXong(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
 
     }
 
-    void showDiaLogDangPhucVu(String maBan) {
+    void showDiaLogDangPhucVu(int maBan) {
         JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
     }
 
-    void kiemTraTrangThaiBan(String maBan) {
+    void kiemTraTrangThaiBan(int maBan) {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
-            String maBanDB = (String) ban[0];
+            int maBanDB =  (int) ban[0];
             String trangThai = (String) ban[1];
-            if (maBan.equals(maBanDB)) {
+            if (maBan == maBanDB) {
                 switch (trangThai) {
                     case DatBanDao.Trong:
                         ShowDialogDatBan(maBan);

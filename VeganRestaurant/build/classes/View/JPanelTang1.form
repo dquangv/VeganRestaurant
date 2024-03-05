@@ -207,7 +207,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B01"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbT1B02">
@@ -215,7 +215,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B02"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbT1B03">
@@ -223,7 +223,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B03"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 3"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbT1B04">
@@ -231,7 +231,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B04"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 4"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnban2">
@@ -252,7 +252,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B05"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 5"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnban6">
@@ -270,7 +270,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B06"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 6"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnban4">
@@ -291,7 +291,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B12"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 12"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnban5">
@@ -309,7 +309,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B07"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 7"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnban1">
@@ -330,7 +330,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B08"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 8"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbT1B09">
@@ -338,7 +338,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B09"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 9"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbT1B10">
@@ -346,7 +346,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B10"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 10"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbT1B11">
@@ -354,7 +354,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="T1B11"/>
+        <Property name="text" type="java.lang.String" value="B&#xe0;n 11"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnban3">

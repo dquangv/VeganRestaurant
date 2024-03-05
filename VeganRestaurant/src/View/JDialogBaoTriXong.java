@@ -25,7 +25,7 @@ public class JDialogBaoTriXong extends javax.swing.JDialog {
     }
 
     
-    public void setBan(String maBan) {
+    public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
     }
     /**

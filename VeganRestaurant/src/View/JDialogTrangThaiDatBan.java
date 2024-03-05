@@ -27,7 +27,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
     }
-     public void setBan(String maBan) {
+     public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
     }
     /**

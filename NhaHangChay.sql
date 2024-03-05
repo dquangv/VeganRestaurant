@@ -1,7 +1,8 @@
 ﻿create database NhaHangChay_CohesiveStars;
 go
 
-drop database NhaHangChay_CohesiveStars
+
+
 use NhaHangChay_CohesiveStars;
 go
 
@@ -23,7 +24,9 @@ create table NhanVien (
 	SDT varchar(15) not null,
 	Email varchar(50),
 	Luong money not null,
-	TenTaiKhoan varchar(20));
+	TenTaiKhoan varchar(20),
+	 Hinh varchar(200)
+	 );
 go
 
 create table KhachHang (
@@ -124,11 +127,12 @@ create table ChiTietHD (
 go
 
 create table ChiTietDatBan (
-	MaBan int not null,
+	MaBan varchar(10) not null,
 	ThoiGianDat datetime not null,
-	MaKhachHang int not null,
+	MaKhachHang varchar(10) not null,
 	primary key (MaBan, ThoiGianDat));
 go
+
 
 alter table NhanVien
 add
@@ -210,13 +214,14 @@ insert into TaiKhoan values
 go
 
 insert into NhanVien values
-	('NV01', N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndt@fpt.edu.vn', 45000000, 'LyNDT'),
-	('NV02', N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvt@fpt.edu.vn', 50000000, 'TungVT'),
-	('NV03', N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvd@fpt.edu.vn', 30000000, 'QuangVD'),
-	('NV04', N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvh@fpt.edu.vn', 35000000, 'ChuongVH'),
-	('NV05', N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbm@fpt.edu.vn', 40000000, 'QuangBM'),
-	('NV06', N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpn@fpt.edu.vn', 35000000, 'ronpn');
+	('NV01', N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndt@fpt.edu.vn', 45000000, 'LyNDT','D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\CLy.jpg'),
+	('NV02', N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvt@fpt.edu.vn', 50000000, 'TungVT','D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\ATung.jpg'),
+	('NV03', N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvd@fpt.edu.vn', 30000000, 'QuangVD','D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\AQuangB.png'),
+	('NV04', N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvh@fpt.edu.vn', 35000000, 'ChuongVH','D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\AChuong.jpg'),
+	('NV05', N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbm@fpt.edu.vn', 40000000, 'QuangBM','D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\AQuangN.png'),
+	('NV06', N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpn@fpt.edu.vn', 35000000, 'ronpn','D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\Td.jp');
 go
+
 
 
 insert into KhuyenMai values
@@ -290,38 +295,39 @@ insert into NguyenVatLieu values
 	('NVL10', N'Rau tần ô', 15, N'Bó', 230);
 go
 
+
 insert into MonAn values
-	('MA01', N'Salad mít non', 125000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\xa-lach-mit-non-1.png', N'Hoạt động'),
-	('MA02', N'Mozzarella Salad', 135000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mozzarella-salad-1.png', N'Hoạt động'),
-	('MA03', N'Gỏi cuốn rau củ', 90000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\goi-cuon-rau-cu-1.png', N'Hoạt động'),
-	('MA04', N'Chả giò', 95000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\cha-gio-3.png', N'Hoạt động'),
-	('MA05', N'Há cảo Nhật - Gyoza', 95000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\ha-cao-nhat-1.png', N'Hoạt động'),
-	('MA06', N'Chả nấm mối', 120000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\cha-nam-moi-1.png', N'Hoạt động'),
-	('MA07', N'Bún nưa trộn', 105000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\bun-nua-tron-1.png', N'Hoạt động'),
-	('MA08', N'Gỏi củ hủ dừa', 115000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\goi-cu-hu-dua-2.png', N'Hoạt động'),
-	('MA09', N'Gỏi đu đủ', 105000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\goi-du-du-1.webp', N'Hoạt động'),
-	('MA10', N'Salad Sung', 135000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\salad-sung-1.webp', N'Hoạt động'),
-	('MA11', N'Bánh tart artiso', 105000, N'Khai vị', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\salad-sung-1.webp', N'Ngừng phục vụ'),
-	('MA12', N'Đậu hủ bó xôi sốt trứng muối', 125000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\dau-hu-bo-xoi-1.webp', N'Hoạt động'),
-	('MA13', N'Nấm đông cô sốt tiêu', 95000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\nam-dong-co-1.webp', N'Hoạt động'),
-	('MA14', N'Đậu rồng xào tỏi đen', 90000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\dau-rong-xao-1.webp', N'Hoạt động'),
-	('MA15', N'Tàu hủ ky sốt chao', 110000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\tau-ku-ky-1.webp', N'Hoạt động'),
-	('MA16', N'Mướp xào', 90000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\muop-xao-1.webp', N'Hoạt động'),
-	('MA17', N'Nấm mối xào lá lốt', 125000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\nam-moi-xao-1.webp', N'Hoạt động'),
-	('MA18', N'Đu đủ xào', 90000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\du-du-xao-1.webp', N'Hoạt động'),
+	('MA01', N'Salad mít non', 125000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\xa-lach-mit-non-1.png', N'Hoạt động'),
+	('MA02', N'Mozzarella Salad', 135000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\mozzarella-salad-1.png', N'Hoạt động'),
+	('MA03', N'Gỏi cuốn rau củ', 90000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\goi-cuon-rau-cu-1.png', N'Hoạt động'),
+	('MA04', N'Chả giò', 95000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\cha-gio-3.png', N'Hoạt động'),
+	('MA05', N'Há cảo Nhật - Gyoza', 95000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\ha-cao-nhat-1.png', N'Hoạt động'),
+	('MA06', N'Chả nấm mối', 120000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\cha-nam-moi-1.png', N'Hoạt động'),
+	('MA07', N'Bún nưa trộn', 105000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\bun-nua-tron-1.png', N'Hoạt động'),
+	('MA08', N'Gỏi củ hủ dừa', 115000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\goi-cu-hu-dua-2.png', N'Hoạt động'),
+	('MA09', N'Gỏi đu đủ', 105000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\goi-du-du-1.webp', N'Hoạt động'),
+	('MA10', N'Salad Sung', 135000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\salad-sung-1.webp', N'Hoạt động'),
+	('MA11', N'Bánh tart artiso', 105000, N'Khai vị', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\salad-sung-1.webp', N'Ngừng phục vụ'),
+	('MA12', N'Đậu hủ bó xôi sốt trứng muối', 125000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\dau-hu-bo-xoi-1.webp', N'Hoạt động'),
+	('MA13', N'Nấm đông cô sốt tiêu', 95000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\nam-dong-co-1.webp', N'Hoạt động'),
+	('MA14', N'Đậu rồng xào tỏi đen', 90000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\dau-rong-xao-1.webp', N'Hoạt động'),
+	('MA15', N'Tàu hủ ky sốt chao', 110000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\tau-ku-ky-1.webp', N'Hoạt động'),
+	('MA16', N'Mướp xào', 90000, N'Món chính', 'C:D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\muop-xao-1.webp', N'Hoạt động'),
+	('MA17', N'Nấm mối xào lá lốt', 125000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\nam-moi-xao-1.webp', N'Hoạt động'),
+	('MA18', N'Đu đủ xào', 90000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\du-du-xao-1.webp', N'Hoạt động'),
 --thiếu món 19
-	('MA20', N'Măng xào củ kiệu', 105000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mang-xao-cu-kieu-1.webp', N'Hoạt động'),
-	('MA21', N'Khổ qua kho ngũ vị', 95000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\kho-qua-kho-1.webp', N'Hoạt động'),
-	('MA22', N'Đậu hủ kim chi', 95000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\dau-ku-kim-chi-1.webp', N'Hoạt động'),
+	('MA20', N'Măng xào củ kiệu', 105000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\mang-xao-cu-kieu-1.webp', N'Hoạt động'),
+	('MA21', N'Khổ qua kho ngũ vị', 95000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\kho-qua-kho-1.webp', N'Hoạt động'),
+	('MA22', N'Đậu hủ kim chi', 95000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\dau-ku-kim-chi-1.webp', N'Hoạt động'),
 	('MA23', N'Rau củ om Thái', 110000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\rau-cu-om-thai-1.webp', N'Hoạt động'),
-	('MA24', N'Nấm kho', 105000, N'Món chính', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\nam-kho-2.webp', N'Ngừng phục vụ'),
-	('MA25', N'Cơm nếp than', 40000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cac-loai.webp', N'Hoạt động'),
-	('MA26', N'Cơm trắng', 40000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cac-loai.webp', N'Hoạt động'),
-	('MA27', N'Cơm bó xôi hạt sen', 40000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cac-loai.webp', N'Hoạt động'),
-	('MA28', N'Mì Ý sốt rau củ', 150000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mi-y-sot-rau-cu-1.webp', N'Hoạt động'),
-	('MA29', N'Bún nưa xào', 125000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\bun-nua-xao-1.webp', N'Hoạt động'),
-	('MA30', N'Mì sốt kem nấm', 150000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\mi-sot-kem-nam-2.webp', N'Hoạt động'),
-	('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'C:\Users\Quang\OneDrive - FPT Polytechnic\Desktop\fpl\hk4\nhapmonkythuatphanmem\officical\asm\Hinh Anh\com-cari-1.png', N'Hoạt động');
+	('MA24', N'Nấm kho', 105000, N'Món chính', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos', N'Ngừng phục vụ'),
+	('MA25', N'Cơm nếp than', 40000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos', N'Hoạt động'),
+	('MA26', N'Cơm trắng', 40000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\com-cac-loai.webp', N'Hoạt động'),
+	('MA27', N'Cơm bó xôi hạt sen', 40000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\com-cac-loai.webp', N'Hoạt động'),
+	('MA28', N'Mì Ý sốt rau củ', 150000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\mi-y-sot-rau-cu-1.webp', N'Hoạt động'),
+	('MA29', N'Bún nưa xào', 125000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\bun-nua-xao-1.webp', N'Hoạt động'),
+	('MA30', N'Mì sốt kem nấm', 150000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\mi-sot-kem-nam-2.webp', N'Hoạt động'),
+	('MA31', N'Cơm cà ri', 125000, N'Cơm & Mì', 'D:\FPT\tai lieu\nhap mon ki thuat phan mem\Quang\Fpoly-VeganRestaurant\VeganRestaurant\Logos\com-cari-1.png', N'Hoạt động');
 go
 
 insert into ThucDon values
@@ -405,19 +411,6 @@ insert into ChiTietHD values
 	('HD06','MA15',1,110000,5)
 	--('MaHD','MaMonAn',soluong,tongtien,'đánh giá') nếu cần thêm
 go
-
---select * from Ban
---select * from ChiTietHD 
---select * from ChiTietMA
---select * from ChiTietTD
---select * from HoaDon 
---select * from KhachHang
---select * from KhuyenMai
---select * from MonAn
---select * from NguyenVatLieu
---select * from NhanVien
---select * from TaiKhoan
---select * from ThucDon
 
 -- Tháng 2/2023
 insert into HoaDon values
@@ -524,7 +517,7 @@ insert into HoaDon values
 	('HD70', '12-04-2023', 950000, 10000, 0, 140000, 713000, N'Thanh Toán', 'KH09', 'T1B09', 'KM01', 'NV04'),
 	('HD71', '12-05-2023', 1000000, 5000, 0, 120000, 887000, N'Thanh Toán', 'KH10', 'T1B10', 'KM02', 'NV05');
 -- Tháng 2/2023
-select * from hoadon
+
 insert into ChiTietHD values
 	('HD07', 'MA01', 1, 125000, 5),
 	('HD07', 'MA02', 1, 135000, 5),
@@ -885,4 +878,3 @@ VALUES
     ('HD90', 'MA04', 3, 175000, 2),
     ('HD91', 'MA05', 2, 180000, 1);
 	 
-	
