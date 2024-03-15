@@ -14,7 +14,6 @@ import View.JPanelThongKeDoanhThu;
 import View.JpanelThongKeMonAn;
 import View.KhachHang;
 import View.NguyenVatLieu;
-import View.NhanVien;
 import View.NhanVien_1;
 import View.ThucDon;
 import java.awt.BorderLayout;

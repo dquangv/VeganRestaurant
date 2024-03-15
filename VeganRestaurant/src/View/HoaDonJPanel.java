@@ -43,12 +43,11 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     hd.getMaHoaDon(),
                     hd.getNgayLap(),
                     hd.getTienMonAn(),
-                    hd.getTienPhatSinh(),
                     hd.getTienGiamDiemThuong(),
                     hd.getTienGiamKhuyenMai(),
                     hd.getTongTien(),
                     hd.getTrangThai(),
-                    hd.getMaKhachHang(),
+                    "KH"+hd.getMaKhachHang(),
                     hd.getMaBan(),
                     hd.getMaKhuyenMai(),
                     hd.getMaNhanVien()};
@@ -71,12 +70,11 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 hd.getMaHoaDon(),
                 hd.getNgayLap(),
                 hd.getTienMonAn(),
-                hd.getTienPhatSinh(),
                 hd.getTienGiamDiemThuong(),
                 hd.getTienGiamKhuyenMai(),
                 hd.getTongTien(),
                 hd.getTrangThai(),
-                hd.getMaKhachHang(),
+                "KH"+hd.getMaKhachHang(),
                 hd.getMaBan(),
                 hd.getMaKhuyenMai(),
                 hd.getMaNhanVien()});
@@ -90,7 +88,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         txtNhanVien.setText(hd.getMaNhanVien());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText(hd.getMaKhuyenMai());
-        txtTienPhatSinh.setText(hd.getTienPhatSinh() + "");
         lblDiemThuong.setText("Điểm thưởng:" + hd.getTienGiamDiemThuong() + "");
         txtTrangThai.setText(hd.getTrangThai());
         txtTongTien.setText(hd.getTongTien() + "");
@@ -117,7 +114,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         hd.setMaNhanVien(txtNhanVien.getText());
         hd.setNgayLap(txtNgayLap.getDate());
         hd.setMaKhuyenMai(txtMaGiamGia.getText());
-        hd.setTienPhatSinh(Double.parseDouble(txtTienPhatSinh.getText()));
 //        hd.setTienGiamDiemThuong(Double.parseDouble(txtDiemThuong.getText()));
         hd.setTrangThai(txtTrangThai.getText());
         hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
@@ -425,17 +421,17 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hóa Đơn", "Ngày Lập", "Tiền Món Ăn", "Tiền Phát Sinh", "Điểm Thưởng", "Khuyến Mãi", "Tổng tiền", "Trạng thái", "Khách Hàng", "Bàn", "Mã Khuyến Mãi", "Nhân Viên"
+                "Mã Hóa Đơn", "Ngày Lập", "Tiền Món Ăn", "Điểm Thưởng", "Khuyến Mãi", "Tổng tiền", "Trạng thái", "Khách Hàng", "Bàn", "Mã Khuyến Mãi", "Nhân Viên"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

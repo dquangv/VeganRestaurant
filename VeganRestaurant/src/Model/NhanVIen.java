@@ -12,19 +12,18 @@ public class NhanVIen {
     private String maNhanVien;
     private String tenNhanVIen;
     private boolean chucVu;
-    private boolean trangThai;
+    private String trangThai;
     private boolean gioiTinh;
     private String sDT;
     private String email;
-    private double luong;
-    private String tenTaikhoan;
+//    private String tenTaikhoan;
     private String hinhAnh;
 
 
     public NhanVIen() {
     }
 
-    public NhanVIen(String maNhanVien, String tenNhanVIen, boolean chucVu, boolean trangThai, boolean gioiTinh, String sDT, String email, double luong, String tenTaikhoan, String hinhAnh) {
+    public NhanVIen(String maNhanVien, String tenNhanVIen, boolean chucVu, String trangThai, boolean gioiTinh, String sDT, String email, String hinhAnh) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVIen = tenNhanVIen;
         this.chucVu = chucVu;
@@ -32,8 +31,7 @@ public class NhanVIen {
         this.gioiTinh = gioiTinh;
         this.sDT = sDT;
         this.email = email;
-        this.luong = luong;
-        this.tenTaikhoan = tenTaikhoan;
+//        this.tenTaikhoan = tenTaikhoan;
         this.hinhAnh = hinhAnh;
     }
 
@@ -61,11 +59,11 @@ public class NhanVIen {
         this.chucVu = chucVu;
     }
 
-    public boolean isTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -93,21 +91,13 @@ public class NhanVIen {
         this.email = email;
     }
 
-    public double getLuong() {
-        return luong;
-    }
-
-    public void setLuong(double luong) {
-        this.luong = luong;
-    }
-
-    public String getTenTaikhoan() {
-        return tenTaikhoan;
-    }
-
-    public void setTenTaikhoan(String tenTaikhoan) {
-        this.tenTaikhoan = tenTaikhoan;
-    }
+//    public String getTenTaikhoan() {
+//        return tenTaikhoan;
+//    }
+//
+//    public void setTenTaikhoan(String tenTaikhoan) {
+//        this.tenTaikhoan = tenTaikhoan;
+//    }
 
     public String getHinhAnh() {
         return hinhAnh;

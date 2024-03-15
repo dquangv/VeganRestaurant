@@ -45,7 +45,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     hd.getMaHoaDon(),
                     hd.getNgayLap(),
                     hd.getTienMonAn(),
-                    hd.getTienPhatSinh(),
                     hd.getTienGiamDiemThuong(),
                     hd.getTienGiamKhuyenMai(),
                     hd.getTongTien(),
@@ -73,7 +72,6 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 hd.getMaHoaDon(),
                 hd.getNgayLap(),
                 hd.getTienMonAn(),
-                hd.getTienPhatSinh(),
                 hd.getTienGiamDiemThuong(),
                 hd.getTienGiamKhuyenMai(),
                 hd.getTongTien(),
@@ -92,7 +90,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         txtNhanVien.setText(hd.getMaNhanVien());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText(hd.getMaKhuyenMai());
-        txtTienPhatSinh.setText(hd.getTienPhatSinh() + "");
+        
         lblDiemThuong.setText("Điểm thưởng:" + hd.getTienGiamDiemThuong() + "");
         txtTrangThai.setText(hd.getTrangThai());
         txtTongTien.setText(hd.getTongTien() + "");
@@ -119,7 +117,7 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         hd.setMaNhanVien(txtNhanVien.getText());
         hd.setNgayLap(txtNgayLap.getDate());
         hd.setMaKhuyenMai(txtMaGiamGia.getText());
-        hd.setTienPhatSinh(Double.parseDouble(txtTienPhatSinh.getText()));
+        
 //        hd.setTienGiamDiemThuong(Double.parseDouble(txtDiemThuong.getText()));
         hd.setTrangThai(txtTrangThai.getText());
         hd.setTongTien(Double.parseDouble(txtTongTien.getText()));

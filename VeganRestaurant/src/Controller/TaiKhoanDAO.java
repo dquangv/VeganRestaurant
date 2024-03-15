@@ -21,11 +21,12 @@ import java.util.List;
 public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
   
 
-    String INSERT_SQL = "INSERT INTO TaiKhoan(TenTaiKhoan, MatKhau, VaiTro, TrangThai) VALUES(?,?,?,?)";
-    String UPDATE_SQL = "UPDATE TaiKhoan SET MatKhau=?, VaiTro=?, TrangThai=? WHERE TenTaiKhoan=?";
+    String INSERT_SQL = "INSERT INTO TaiKhoan(TenTaiKhoan, MatKhau, VaiTro, MaNhanVien) VALUES(?,?,?,?)";
+    String UPDATE_SQL = "UPDATE TaiKhoan SET MatKhau=?, VaiTro=?, MaNhanVien=? WHERE TenTaiKhoan=?";
     String DELETE_SQL = "DELETE FROM TaiKhoan WHERE TenTaiKhoan=?";
     String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
-    String SELECT_BY_ID_SQL = "SELECT * FROM TaiKhoan WHERE TenTaiKhoan=?";
+    String SELECT_BY_ID_SQL = "SELECT * FROM TaiKhoan WHERE tentaikhoan=?";
+    String SELECT_BY_MaNv_SQL = "SELECT * FROM TaiKhoan WHERE manhanvien=?";
 
     @Override
     public void insert(TaiKhoan entity) {
@@ -33,16 +34,19 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
                 entity.getTenTaiKhoan(),
                 entity.getMatKhau(),
                 entity.isVaiTro(),
-                entity.getTrangThai());
+                entity.getMaNhanVien()
+//                entity.getTrangThai()
+        );
     }
 
     @Override
     public void update(TaiKhoan entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
                 entity.getMatKhau(),
-                entity.isVaiTro(),                
-                entity.getTrangThai(),
-                entity.getTenTaiKhoan());
+                entity.isVaiTro(),     
+                entity.getMaNhanVien(),
+                entity.getTenTaiKhoan()
+        );
     }
 
     @Override
@@ -56,6 +60,15 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
         if (list.isEmpty()) {
             return null;
         }
+        
+        return list.get(0);
+    }
+    public TaiKhoan selectByIdMaNV(String id) {
+        List<TaiKhoan> list = this.selectBySQL(SELECT_BY_MaNv_SQL, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        
         return list.get(0);
     }
 
@@ -74,7 +87,8 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
                 entity.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
                 entity.setMatKhau(rs.getString("MatKhau"));
                 entity.setVaiTro(rs.getBoolean("VaiTro"));
-                entity.setTrangThai(rs.getString("TrangThai"));
+                entity.setMaNhanVien(rs.getString("MaNhanVien"));
+//                entity.setTrangThai(rs.getString("TrangThai"));
 
                 list.add(entity);
             }
@@ -85,9 +99,7 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
         }
     }
 
-    public void update(NhanVIen user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
 
 }

@@ -14,7 +14,7 @@ public class HoaDon {
     private String maHoaDon;
     private Date ngayLap = new Date();
     private double tienMonAn;
-    private double tienPhatSinh;
+
     private double tienGiamDiemThuong;
     private double tienGiamKhuyenMai;
     private double tongTien;
@@ -48,13 +48,6 @@ public class HoaDon {
         this.tienMonAn = tienMonAn;
     }
 
-    public double getTienPhatSinh() {
-        return tienPhatSinh;
-    }
-
-    public void setTienPhatSinh(double tienPhatSinh) {
-        this.tienPhatSinh = tienPhatSinh;
-    }
 
     public double getTienGiamDiemThuong() {
         return tienGiamDiemThuong;

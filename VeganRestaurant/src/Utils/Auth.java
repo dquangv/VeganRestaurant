@@ -13,25 +13,17 @@ import Model.TaiKhoan;
  * @author balis
  */
 public class Auth {
-    public static Ban maBan = null;
-    //public static NhanVIen user = null;
-    
+       
     /**
      *
      */
     public static TaiKhoan user = new TaiKhoan();
     
     
-   public static void setMaBan(Ban ban) {
-        Auth.maBan = ban;
-    }
 
-    public static Ban getMaBan() {
-        return Auth.maBan;
-    }
     public static void clear() {
         Auth.user = null;
-        Auth.maBan = null;
+     
     }
     
     public static boolean isLogin() {
@@ -42,8 +34,6 @@ public class Auth {
         return Auth.isLogin() && user.isVaiTro();
     }
 
-    public static boolean isLoginJFrame() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
     
 }

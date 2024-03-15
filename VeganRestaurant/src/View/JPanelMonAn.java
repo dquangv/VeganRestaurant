@@ -149,9 +149,12 @@ public class JPanelMonAn extends javax.swing.JPanel {
 
         txtThemLoaiMA.setText("");
         txtThemTrangThai.setText("");
+        lblHinhAnh.setIcon(null);
+        lblHinhAnh.setText("Hình Ảnh");
     }
 
     void ChoosePicture() {
+            jFileChooser.setCurrentDirectory(new File ("D:\\FPT\\tai lieu\\DuAn1\\Fpoly-VeganRestaurant\\VeganRestaurant\\Logos"));
         if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             jFileChooser.setDialogTitle("Choose Image");
             File file = jFileChooser.getSelectedFile();

@@ -6,6 +6,9 @@ package View;
 
 import Controller.ChuyenManHinh;
 import Controller.DanhMuc;
+import Controller.TaiKhoanDAO;
+import Model.TaiKhoan;
+import Utils.Auth;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ import javax.swing.JPanel;
  * @author Quang
  */
 public class Main extends javax.swing.JFrame {
-
+    TaiKhoanDAO daoTK = new TaiKhoanDAO();
 //    /**
 //     * Creates new form Main
 //     */
@@ -57,14 +60,39 @@ public class Main extends javax.swing.JFrame {
 
 //        item.add(new DanhMuc("KhachHang", jpnKhachHang, lblKhachHang));
         control.setEvent(item);
+         capNhatVaiTro();
     }
-
     public void qlMonAn() {
         monAnPanel = new JPanelMonAn();
 
         jpnView.removeAll();
         jpnView.add(monAnPanel);
         jpnView.validate();
+    }
+
+    void capNhatVaiTro(){
+        class vaiTro extends Thread{
+
+            @Override
+            public void run() {
+                while (true) {
+                    init();
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        vaiTro th = new vaiTro();
+        th.start();
+    }
+
+    void init() {
+         TaiKhoan tk = daoTK.selectById(Auth.user.getTenTaiKhoan());
+         Auth.user = tk;
+        lbVaiTro.setText((Auth.isManager() ? "Quản lý" : "Nhân viên") + ": " + Auth.user.getTenTaiKhoan());
     }
 
     /**
@@ -104,7 +132,7 @@ public class Main extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lbVaiTro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -430,8 +458,8 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Quản lý: Thanh Tùng");
+        lbVaiTro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbVaiTro.setText("Quản lý: Thanh Tùng");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -442,15 +470,15 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1133, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1133, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(46, 46, 46))
+                .addComponent(lbVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(lbVaiTro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -464,7 +492,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 160, Short.MAX_VALUE))
+                .addGap(0, 117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,7 +514,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        System.out.println("b");
+
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
@@ -501,6 +529,7 @@ public class Main extends javax.swing.JFrame {
         this.dispose();
         LoginJFrame login = new LoginJFrame();
         login.setVisible(true);
+        Auth.clear();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
@@ -546,7 +575,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -568,5 +596,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jpnView;
+    private javax.swing.JLabel lbVaiTro;
     // End of variables declaration//GEN-END:variables
 }
