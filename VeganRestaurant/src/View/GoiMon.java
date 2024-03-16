@@ -38,6 +38,7 @@ public class GoiMon extends javax.swing.JPanel {
     public GoiMon() {
         initComponents();
         thucDonDAO = new ThucDonDAO(new XJdbc());
+        // test
         // Gọi phương thức để hiển thị thông tin món ăn vào JComboBox và các components khác
         loadThucDonToComboBox();
     }
