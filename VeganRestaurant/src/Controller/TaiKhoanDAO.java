@@ -4,7 +4,6 @@
  */
 package Controller;
 
-
 import Model.NhanVIen;
 import Model.TaiKhoan;
 import Utils.XJdbc;
@@ -19,7 +18,6 @@ import java.util.List;
  * @author Quang
  */
 public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
-  
 
     String INSERT_SQL = "INSERT INTO TaiKhoan(TenTaiKhoan, MatKhau, VaiTro, MaNhanVien) VALUES(?,?,?,?)";
     String UPDATE_SQL = "UPDATE TaiKhoan SET MatKhau=?, VaiTro=?, MaNhanVien=? WHERE TenTaiKhoan=?";
@@ -27,15 +25,22 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
     String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
     String SELECT_BY_ID_SQL = "SELECT * FROM TaiKhoan WHERE tentaikhoan=?";
     String SELECT_BY_MaNv_SQL = "SELECT * FROM TaiKhoan WHERE manhanvien=?";
+    String CheckUser = "SELECT tentaikhoan" +
+                   "FROM TaiKhoan " +
+                   "INNER JOIN NhanVien ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien " +
+                   "WHERE Email = ? AND TenTaiKhoan = ?";
+
+    String select_matKhau = "select matkhau from TaiKhoan where TenTaiKhoan = ?";
 
     @Override
+
     public void insert(TaiKhoan entity) {
         XJdbc.executeUpdate(INSERT_SQL,
                 entity.getTenTaiKhoan(),
                 entity.getMatKhau(),
                 entity.isVaiTro(),
                 entity.getMaNhanVien()
-//                entity.getTrangThai()
+        //                entity.getTrangThai()
         );
     }
 
@@ -43,7 +48,7 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
     public void update(TaiKhoan entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
                 entity.getMatKhau(),
-                entity.isVaiTro(),     
+                entity.isVaiTro(),
                 entity.getMaNhanVien(),
                 entity.getTenTaiKhoan()
         );
@@ -60,15 +65,16 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
         if (list.isEmpty()) {
             return null;
         }
-        
+
         return list.get(0);
     }
+
     public TaiKhoan selectByIdMaNV(String id) {
         List<TaiKhoan> list = this.selectBySQL(SELECT_BY_MaNv_SQL, id);
         if (list.isEmpty()) {
             return null;
         }
-        
+
         return list.get(0);
     }
 
@@ -99,7 +105,31 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
         }
     }
 
+    public String selectMatKhau(String username) {
+        String matKhau = ""; 
 
+        try {
+            ResultSet rs = XJdbc.executeQuery(select_matKhau,username);
+            if (rs.next()) {
+                matKhau = rs.getString("MatKhau"); 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        return matKhau; 
+    }
+
+    public String checkUser(String username, String email) {
+        try {
+            ResultSet rs = XJdbc.executeQuery(CheckUser, username, email);
+            if (rs.next()) {
+                return rs.getString("tentaikhoan");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; 
+    }
 
 }
