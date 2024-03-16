@@ -121,7 +121,7 @@ public class QuenMatKhau extends javax.swing.JDialog {
             if (daoTK.checkUser(email,User)) {
                 SendMail();
             } else {
-                MsgBox.alert(this, "Wrong username or email");
+                MsgBox.alert(this, "Tên tài khoản hoặc email đã sai");
                 return;
             }
         }
@@ -205,7 +205,7 @@ public class QuenMatKhau extends javax.swing.JDialog {
             TaiKhoanDAO dAOTk = new TaiKhoanDAO();
             String password = dAOTk.selectMatKhau(username);
             // Tạo nội dung email
-            String body = "Your password: " + password;
+            String body = "Mật khẩu của bạn là: " + password;
 
             // Tạo đối tượng Message
             Message msg = new MimeMessage(s);
@@ -216,21 +216,21 @@ public class QuenMatKhau extends javax.swing.JDialog {
 
             Transport.send(msg);
 
-            MsgBox.alert(this, "Email sent successfully!");
+            MsgBox.alert(this, "Đã gửi Email thành công");
 
         } catch (MessagingException e) {
             e.printStackTrace();
-            MsgBox.alert(this, "Error sending email. Please try again later.");
+            MsgBox.alert(this, "Quá trình gửi email bị lỗi vui lòng kiểm trả lại email.");
         }
     }
 
     boolean validate2() {
         if (txtUserName.getText().equals("")) {
-            MsgBox.alert(this, "User not null");
+            MsgBox.alert(this, "Tên tài khỏa không được bỏ trống");
             return true;
         }
         if (txtEmail.getText().equals("")) {
-            MsgBox.alert(this, "Email not null");
+            MsgBox.alert(this, "Email tài khỏa không được bỏ trống");
             return true;
         }
         return false;
