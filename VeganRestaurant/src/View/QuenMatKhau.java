@@ -67,6 +67,12 @@ public class QuenMatKhau extends javax.swing.JDialog {
 
         jLabel3.setText("Username");
 
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,15 +117,19 @@ public class QuenMatKhau extends javax.swing.JDialog {
         String User = txtUserName.getText();
         String email = txtEmail.getText();
         if (!validate2()) {
-//            if (daoTK.checkUser(User,email)) {
-//                SendMail();
-//            } else {
-//                MsgBox.alert(this, "Wrong username or email");
-//                return;
-//            }
-            System.out.println(daoTK.checkUser(User, email));
+            
+            if (daoTK.checkUser(email,User)) {
+                SendMail();
+            } else {
+                MsgBox.alert(this, "Wrong username or email");
+                return;
+            }
         }
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserNameActionPerformed
 
     /**
      * @param args the command line arguments
