@@ -5,7 +5,7 @@
 package Controller;
 
 import Model.ChiTietHD;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
@@ -90,6 +90,20 @@ public class ChiTietHD_DAO extends NhaHangChayDAO<ChiTietHD, String> {
         }
     }
 
+    public List<ChiTietHD> selectByChiTiet(String keyword) {
+        String sql = """
+                     select TenMonAn,SoLuong,ThanhTien,DanhGia from ChiTietHD cthd
+                     join MonAn ma on cthd.MaMonAn = ma.MaMonAn
+                     where MaHoaDon = ? """;
+        return this.selectBySQL(sql, "%" + keyword + "%");
+    }
+    
+    public List<Object[]> getChiTiet(String hd) {
+        String sql = "{CALL sp_HoaDon(?)}";
+        String[] cols = {"TenMonAn", "SoLuong", "ThanhTien"};
+        return this.getListOfArray(sql, cols, hd);
+    }
+    
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
             List<Object[]> list = new ArrayList<>();
@@ -107,18 +121,4 @@ public class ChiTietHD_DAO extends NhaHangChayDAO<ChiTietHD, String> {
             throw new RuntimeException(e);
         }
     }
-    
-    public List<Object[]> getChiTiet(String hd) {
-        String sql = "{CALL sp_HoaDon(?)}";
-        String[] cols = {"TenMonAn", "SoLuong", "ThanhTien"};
-        return this.getListOfArray(sql, cols, hd);
-    }
-//    public List<ChiTietHD> selectByChiTiet(String keyword) {
-//        String sql = """
-//                     select cthd.MaMonAn,SoLuong,ThanhTien,DanhGia from ChiTietHD cthd
-//                     join MonAn ma on cthd.MaMonAn = ma.MaMonAn
-//                     join HoaDon hd on hd.MaHoaDon = cthd.MaHoaDon
-//                     where hd.MaHoaDon = ? """;
-//        return this.selectBySQL(sql, "%" + keyword + "%");
-//    }
 }

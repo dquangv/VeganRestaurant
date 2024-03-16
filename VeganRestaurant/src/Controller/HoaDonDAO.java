@@ -5,7 +5,7 @@
 package Controller;
 
 import Model.HoaDon;
-import com.utils.XJdbc;
+import Utils.XJdbc;
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
 
-    String INSERT_SQl = "INSERT INTO HoaDon(MaHoaDon,NgayLap,TienMonAn,TienPhatSinh,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,TrangThai,MaKhachHang,MaBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienPhatSinh=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,TrangThai=? ,MaKhachHang=? ,MaBan=? ,MaKhuyenMai=? ,MaNhanVien=? WHERE MaHoaDon =?";
+    String INSERT_SQl = "INSERT INTO HoaDon(MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,MaBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,MaBan=? ,MaKhuyenMai=? ,MaNhanVien=? WHERE MaHoaDon =?";
     String DELETE_SQL = "DELETE FROM HoaDon WHERE MaHoaDon = ?";
     String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
     String SELECT_BY_IDKhach_SQL = "SELECT * FROM HoaDon WHERE MaHoaDon =? ";
@@ -29,12 +29,9 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
                 entity.getMaHoaDon(),
                 entity.getNgayLap(),
                 entity.getTienMonAn(),
-                entity.getTienPhatSinh(),
                 entity.getTienGiamDiemThuong(),
                 entity.getTienGiamKhuyenMai(),
                 entity.getTongTien(),
-                entity.getTrangThai(),
-                entity.getMaKhachHang(),
                 entity.getMaBan(),
                 entity.getMaKhuyenMai(),
                 entity.getMaNhanVien());
@@ -46,12 +43,9 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
         XJdbc.executeUpdate(UPDATE_SQL,
                 entity.getNgayLap(),
                 entity.getTienMonAn(),
-                entity.getTienPhatSinh(),
                 entity.getTienGiamDiemThuong(),
                 entity.getTienGiamKhuyenMai(),
                 entity.getTongTien(),
-                entity.getTrangThai(),
-                entity.getMaKhachHang(),
                 entity.getMaBan(),
                 entity.getMaKhuyenMai(),
                 entity.getMaNhanVien(),
@@ -91,12 +85,9 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
                 entity.setMaHoaDon(rs.getString("MaHoaDon"));
                 entity.setNgayLap(rs.getDate("NgayLap"));
                 entity.setTienMonAn(rs.getDouble("TienMonAn"));
-                entity.setTienPhatSinh(rs.getDouble("TienPhatSinh"));
                 entity.setTienGiamDiemThuong(rs.getDouble("TienGiamDiemThuong"));
                 entity.setTienGiamKhuyenMai(rs.getDouble("TienGiamKhuyenMai"));
                 entity.setTongTien(rs.getDouble("TongTien"));
-                entity.setTrangThai(rs.getString("TrangThai"));
-                entity.setMaKhachHang(rs.getString("MaKhachHang"));
                 entity.setMaBan(rs.getString("MaBan"));
                 entity.setMaKhuyenMai(rs.getString("MaKhuyenMai"));
                 entity.setMaNhanVien(rs.getString("MaNhanVien"));

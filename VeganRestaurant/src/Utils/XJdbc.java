@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utils;
+package Utils;
 
 import java.sql.*;
 
@@ -23,6 +23,18 @@ public class XJdbc {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(dburl, username, password);
+    }
+    public static void main(String[] args) throws SQLException {
+        Connection conn = getConnection();
+        if (conn == null){
+            System.out.println("Fail");
+        }else{
+            System.out.println("Sucess");
         }
     }
 
