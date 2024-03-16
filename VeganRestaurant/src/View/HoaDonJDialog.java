@@ -7,7 +7,7 @@ package View;
 import Controller.ChiTietHD_DAO;
 import Controller.HoaDonDAO;
 import Model.HoaDon;
-import com.utils.MsgBox;
+import Utils.MsgBox;
 import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -45,12 +45,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                     hd.getMaHoaDon(),
                     hd.getNgayLap(),
                     hd.getTienMonAn(),
-                    hd.getTienPhatSinh(),
                     hd.getTienGiamDiemThuong(),
                     hd.getTienGiamKhuyenMai(),
                     hd.getTongTien(),
-                    hd.getTrangThai(),
-                    hd.getMaKhachHang(),
                     hd.getMaBan(),
                     hd.getMaKhuyenMai(),
                     hd.getMaNhanVien()};
@@ -73,12 +70,9 @@ public class HoaDonJDialog extends javax.swing.JDialog {
                 hd.getMaHoaDon(),
                 hd.getNgayLap(),
                 hd.getTienMonAn(),
-                hd.getTienPhatSinh(),
                 hd.getTienGiamDiemThuong(),
                 hd.getTienGiamKhuyenMai(),
                 hd.getTongTien(),
-                hd.getTrangThai(),
-                hd.getMaKhachHang(),
                 hd.getMaBan(),
                 hd.getMaKhuyenMai(),
                 hd.getMaNhanVien()});
@@ -87,14 +81,11 @@ public class HoaDonJDialog extends javax.swing.JDialog {
 
     void thietLapForm(HoaDon hd) {
         txtMaHoaDon.setText(hd.getMaHoaDon());
-        txtMaKH.setText(hd.getMaKhachHang());
         txtBan.setText(hd.getMaBan());
         txtNhanVien.setText(hd.getMaNhanVien());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText(hd.getMaKhuyenMai());
-        txtTienPhatSinh.setText(hd.getTienPhatSinh() + "");
         lblDiemThuong.setText("Điểm thưởng:" + hd.getTienGiamDiemThuong() + "");
-        txtTrangThai.setText(hd.getTrangThai());
         txtTongTien.setText(hd.getTongTien() + "");
     }
 
@@ -114,14 +105,11 @@ public class HoaDonJDialog extends javax.swing.JDialog {
         HoaDon hd = new HoaDon();
 
         hd.setMaHoaDon(txtMaHoaDon.getText());
-        hd.setMaKhachHang(txtMaKH.getText());
         hd.setMaBan(txtBan.getText());
         hd.setMaNhanVien(txtNhanVien.getText());
         hd.setNgayLap(txtNgayLap.getDate());
         hd.setMaKhuyenMai(txtMaGiamGia.getText());
-        hd.setTienPhatSinh(Double.parseDouble(txtTienPhatSinh.getText()));
 //        hd.setTienGiamDiemThuong(Double.parseDouble(txtDiemThuong.getText()));
-        hd.setTrangThai(txtTrangThai.getText());
         hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
 
         //hd.setTienMonAn();
