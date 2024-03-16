@@ -12,11 +12,15 @@ package View;
 import Controller.ChiTietHD_DAO;
 import Controller.HoaDonDAO;
 import Model.HoaDon;
-import com.utils.MsgBox;
-import java.io.File;
+import Utils.MsgBox;
 import java.util.List;
-import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.*;
+
 
 public class HoaDonJPanel extends javax.swing.JPanel {
 
@@ -43,12 +47,9 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     hd.getMaHoaDon(),
                     hd.getNgayLap(),
                     hd.getTienMonAn(),
-                    hd.getTienPhatSinh(),
                     hd.getTienGiamDiemThuong(),
                     hd.getTienGiamKhuyenMai(),
                     hd.getTongTien(),
-                    hd.getTrangThai(),
-                    hd.getMaKhachHang(),
                     hd.getMaBan(),
                     hd.getMaKhuyenMai(),
                     hd.getMaNhanVien()};
@@ -71,12 +72,9 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 hd.getMaHoaDon(),
                 hd.getNgayLap(),
                 hd.getTienMonAn(),
-                hd.getTienPhatSinh(),
                 hd.getTienGiamDiemThuong(),
                 hd.getTienGiamKhuyenMai(),
                 hd.getTongTien(),
-                hd.getTrangThai(),
-                hd.getMaKhachHang(),
                 hd.getMaBan(),
                 hd.getMaKhuyenMai(),
                 hd.getMaNhanVien()});
@@ -85,25 +83,23 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
     void thietLapForm(HoaDon hd) {
         txtMaHoaDon.setText(hd.getMaHoaDon());
-        txtMaKH.setText(hd.getMaKhachHang());
         txtBan.setText(hd.getMaBan());
         txtNhanVien.setText(hd.getMaNhanVien());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText(hd.getMaKhuyenMai());
-        txtTienPhatSinh.setText(hd.getTienPhatSinh() + "");
+//        txtTienPhatSinh.setText(hd.getTienPhatSinh() + "");
         lblDiemThuong.setText("Điểm thưởng:" + hd.getTienGiamDiemThuong() + "");
-        txtTrangThai.setText(hd.getTrangThai());
         txtTongTien.setText(hd.getTongTien() + "");
     }
 
     void thietLapTableCT(String hd) {
         DefaultTableModel model = (DefaultTableModel) tblChiTiet.getModel();
         model.setRowCount(0);
-        
+
         List<Object[]> list = cthdDAO.getChiTiet(hd);
         for (Object[] row : list) {
             model.addRow(new Object[]{
-               row[0],row[1],row[2] 
+                row[0], row[1], row[2]
             });
         }
     }
@@ -112,24 +108,19 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         HoaDon hd = new HoaDon();
 
         hd.setMaHoaDon(txtMaHoaDon.getText());
-        hd.setMaKhachHang(txtMaKH.getText());
         hd.setMaBan(txtBan.getText());
         hd.setMaNhanVien(txtNhanVien.getText());
         hd.setNgayLap(txtNgayLap.getDate());
         hd.setMaKhuyenMai(txtMaGiamGia.getText());
-        hd.setTienPhatSinh(Double.parseDouble(txtTienPhatSinh.getText()));
-//        hd.setTienGiamDiemThuong(Double.parseDouble(txtDiemThuong.getText()));
-        hd.setTrangThai(txtTrangThai.getText());
         hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
 
-        //hd.setTienMonAn();
         return hd;
     }
 
     void chinhSuaForm() {
         String maHD = (String) tblHoaDon.getValueAt(this.row, 0);
         HoaDon hd = hdDAO.selectById(maHD);
-        
+
         this.thietLapForm(hd);
         this.thietLapTableCT(maHD);
         tpane.setSelectedIndex(0);
@@ -141,20 +132,39 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         try {
             hdDAO.insert(hd);
             this.themVaoTableHD();
-            
+
             MsgBox.alert(this, "Lưu Hóa Đơn Thành Công!");
         } catch (Exception e) {
             MsgBox.alert(this, "Lưu Hóa Đơn Thất Bại");
         }
     }
-    
-    File luuFile(){
-        JFileChooser ch = new JFileChooser();
-        int luaChon = ch.showSaveDialog(this);
-        if (luaChon == JFileChooser.APPROVE_OPTION) {
-            return ch.getSelectedFile();
-        }else{
-            return null;
+
+//    File luuFile() {
+//        JFileChooser ch = new JFileChooser();
+//        int luaChon = ch.showSaveDialog(this);
+//        if (luaChon == JFileChooser.APPROVE_OPTION) {
+//            return ch.getSelectedFile();
+//        } else {
+//            return null;
+//        }
+//    }
+    void inHoaDon() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            try (Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false", "sa", "songlong")) {
+                String reportPath = "src\\View\\hoadongiay.jrxml";
+
+                String mahd = txtMaHoaDon.getText();
+
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("P_MaHD", mahd);
+
+                JasperReport jcomp = JasperCompileManager.compileReport(reportPath);
+                JasperPrint jprint = JasperFillManager.fillReport(jcomp, parameters, con);
+                JasperViewer.viewReport(jprint,false);
+                JasperPrintManager.printReport(jprint, true);
+            }
+        } catch (ClassNotFoundException | SQLException | JRException ex) {
         }
     }
     
@@ -425,17 +435,17 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hóa Đơn", "Ngày Lập", "Tiền Món Ăn", "Tiền Phát Sinh", "Điểm Thưởng", "Khuyến Mãi", "Tổng tiền", "Trạng thái", "Khách Hàng", "Bàn", "Mã Khuyến Mãi", "Nhân Viên"
+                "Mã Hóa Đơn", "Ngày Lập", "Tiền Món Ăn", "Điểm Thưởng", "Khuyến Mãi", "Tổng tiền", "Trạng thái", "Khách Hàng", "Bàn", "Mã Khuyến Mãi", "Nhân Viên"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -516,7 +526,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnInHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHDActionPerformed
-        this.luuFile();
+        this.inHoaDon();
     }//GEN-LAST:event_btnInHDActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
@@ -525,6 +535,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             this.row = tblHoaDon.getSelectedRow();
             if (this.row >= 0) {
                 this.chinhSuaForm();
+                tpane.setSelectedIndex(0);
             }
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
