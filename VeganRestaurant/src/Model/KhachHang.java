@@ -8,13 +8,33 @@ import java.util.Date;
 
 /**
  *
- * @author Võ Thanh Tùng
+ * @author buimi
  */
 public class KhachHang {
     private String maKhachHang;
     private String tenKhachHang;
-    private Date ngayDkThanhVien = new Date();
+    private String SDT;
+    private Date ngayDKTHANHVIEN = new Date();
     private double diemThuong;
+    private String sdt;
+    private Date ngayDkThanhVien;
+
+    public Date getNgayDKTHANHVIEN() {
+        return ngayDKTHANHVIEN;
+    }
+
+    public void setNgayDKTHANHVIEN(Date ngayDKTHANHVIEN) {
+        this.ngayDKTHANHVIEN = ngayDKTHANHVIEN;
+    }
+
+    public double getDiemThuong() {
+        return diemThuong;
+    }
+
+    public void setDiemThuong(double diemThuong) {
+        this.diemThuong = diemThuong;
+    }
+
 
     public String getMaKhachHang() {
         return maKhachHang;
@@ -32,6 +52,21 @@ public class KhachHang {
         this.tenKhachHang = tenKhachHang;
     }
 
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;}
+    
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
     public Date getNgayDkThanhVien() {
         return ngayDkThanhVien;
     }
@@ -40,12 +75,6 @@ public class KhachHang {
         this.ngayDkThanhVien = ngayDkThanhVien;
     }
 
-    public double getDiemThuong() {
-        return diemThuong;
-    }
-
-    public void setDiemThuong(double diemThuong) {
-        this.diemThuong = diemThuong;
-    }
     
 }
+

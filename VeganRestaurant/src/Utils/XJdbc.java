@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utils;
+package Utils;
 
 import java.sql.*;
 
@@ -14,7 +14,7 @@ import java.sql.*;
 public class XJdbc {
 
     public static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=EduSys_PS27852;encrypt = false";
+    public static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false";
     public static String username = "sa";
     public static String password = "songlong";
 
@@ -23,6 +23,18 @@ public class XJdbc {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(dburl, username, password);
+    }
+    public static void main(String[] args) throws SQLException {
+        Connection conn = getConnection();
+        if (conn == null){
+            System.out.println("Fail");
+        }else{
+            System.out.println("Sucess");
         }
     }
 

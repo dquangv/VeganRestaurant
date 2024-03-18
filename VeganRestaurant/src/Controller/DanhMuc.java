@@ -12,6 +12,7 @@ import javax.swing.JPanel;
  * @author Quang
  */
 public class DanhMuc {
+
     private String kind;
     private JPanel jpn;
     private JLabel jlb;
@@ -25,8 +26,6 @@ public class DanhMuc {
         this.jlb = jlb;
     }
 
-    
-    
     public String getKind() {
         return kind;
     }
@@ -50,5 +49,4 @@ public class DanhMuc {
     public void setJlb(JLabel jlb) {
         this.jlb = jlb;
     }
-    
 }
