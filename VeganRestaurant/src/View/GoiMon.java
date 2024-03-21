@@ -48,9 +48,9 @@ public class GoiMon extends javax.swing.JPanel {
         List<MonAn> danhSachMonAn = thucDonDAO.layDanhSachMonAn();
 
         for (MonAn monAn : danhSachMonAn) {
-            if (!kiemTraMonAnTonTai(monAn.getLoaiMonAn())) {
-                cbbLoaiMon.addItem(monAn.getLoaiMonAn());
-            }
+//            if (!kiemTraMonAnTonTai(monAn.getLoaiMonAn())) {
+//                cbbLoaiMon.addItem(monAn.getLoaiMonAn());
+//            }
         }
     }
 

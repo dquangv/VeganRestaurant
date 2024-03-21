@@ -35,12 +35,12 @@ public class LoginJFrame extends javax.swing.JFrame {
     public static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false";
     public static String username = "sa";
     public static String password = "songlong";
-    public static final String CONFIG_FILE_PATH = "D:\\VEGAN\\config.properties";
+//    public static final String CONFIG_FILE_PATH = "D:\\VEGAN\\config.properties";
 
     public LoginJFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        loadLoginInfo();
+//        loadLoginInfo();
     }
 
     /**
@@ -224,7 +224,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 pror.setIndeterminate(true);
 
                 if (chkSave.isSelected()) {
-                    saveLoginInfo(txtUsername.getText(), new String(txtPassword.getPassword()));
+//                    saveLoginInfo(txtUsername.getText(), new String(txtPassword.getPassword()));
                 }
                 if (txtUsername.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Chưa nhập tên người dùng", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -367,41 +367,41 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    public void saveLoginInfo(String username, String password) {
-        try {
-            File configFile = new File(CONFIG_FILE_PATH);
-            if (!configFile.exists()) {
-                configFile.getParentFile().mkdirs();
-                configFile.createNewFile();
-            }
-            try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
-                Properties properties = new Properties();
-                properties.setProperty("username", username);
-                properties.setProperty("password", password);
-                properties.store(fos, null);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadLoginInfo() {
-        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
-            Properties properties = new Properties();
-            properties.load(fis);
-
-            String savedUsername = properties.getProperty("username", "");
-            String savedPassword = properties.getProperty("password", "");
-
-            txtUsername.setText(savedUsername);
-            txtPassword.setText(savedPassword);
-        } catch (FileNotFoundException e) {
-            saveLoginInfo("", "");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void saveLoginInfo(String username, String password) {
+//        try {
+//            File configFile = new File(CONFIG_FILE_PATH);
+//            if (!configFile.exists()) {
+//                configFile.getParentFile().mkdirs();
+//                configFile.createNewFile();
+//            }
+//            try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
+//                Properties properties = new Properties();
+//                properties.setProperty("username", username);
+//                properties.setProperty("password", password);
+//                properties.store(fos, null);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void loadLoginInfo() {
+//        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
+//            Properties properties = new Properties();
+//            properties.load(fis);
+//
+//            String savedUsername = properties.getProperty("username", "");
+//            String savedPassword = properties.getProperty("password", "");
+//
+//            txtUsername.setText(savedUsername);
+//            txtPassword.setText(savedPassword);
+//        } catch (FileNotFoundException e) {
+//            saveLoginInfo("", "");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void init() {
         // Existing code for GUI components...

@@ -28,15 +28,16 @@ public class MonAnDAO {
 
     //Thêm món ăn
     public void themMonAn(MonAn monAn) {
-        String sql = "insert into monan values (?, ?, ?, ?, ?, ?);";
+        String sql = "insert into monan values (?, ?, ?, ?, ?);";
 
         try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
-            pstmt.setString(1, monAn.getMaMonAn());
-            pstmt.setString(2, monAn.getTenMonAn());
-            pstmt.setDouble(3, monAn.getDonGia());
-            pstmt.setString(4, monAn.getLoaiMonAn());
-            pstmt.setString(5, monAn.getHinhAnh());
-            pstmt.setString(6, monAn.getTrangThai());
+//            pstmt.setString(1, monAn.getMaMonAn());
+            pstmt.setString(1, monAn.getTenMonAn());
+            pstmt.setDouble(2, monAn.getDonGia());
+//            pstmt.setString(4, monAn.getLoaiMonAn());
+            pstmt.setString(3, monAn.getHinhAnh());
+            pstmt.setString(4, monAn.getTrangThai());
+            pstmt.setInt(5, monAn.getMaLoaiMon());
 
             pstmt.executeUpdate();
         } catch (SQLException ex) {
@@ -46,15 +47,17 @@ public class MonAnDAO {
 
     //Sửa món ăn (bao gồm trạng thái)
     public void chinhSuaMonAn(MonAn monAn) {
-        String sql = "update monan set tenmonan = ?, dongia = ?, loaimonan = ?, hinhanh = ?, trangthai = ? where mamonan = ?";
+        String sql = "update monan set tenmonan = ?, dongia = ?, hinhanh = ?, trangthai = ?, maloaimon = ? where mamonan = ?";
 
         try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
             pstmt.setString(1, monAn.getTenMonAn());
             pstmt.setDouble(2, monAn.getDonGia());
-            pstmt.setString(3, monAn.getLoaiMonAn());
-            pstmt.setString(4, monAn.getHinhAnh());
-            pstmt.setString(5, monAn.getTrangThai());
-            pstmt.setString(6, monAn.getMaMonAn());
+//            pstmt.setString(3, monAn.getLoaiMonAn());
+            pstmt.setString(3, monAn.getHinhAnh());
+            pstmt.setString(4, monAn.getTrangThai());
+//            pstmt.setString(6, monAn.getMaMonAn());
+            pstmt.setInt(5, monAn.getMaLoaiMon());
+            pstmt.setInt(6, monAn.getMaMonAn());
 
             pstmt.executeUpdate();
         } catch (SQLException ex) {
@@ -64,12 +67,13 @@ public class MonAnDAO {
 
     private MonAn extractMonAnFromResultSet(ResultSet rs) throws SQLException {
         MonAn monAn = new MonAn();
-        monAn.setMaMonAn(rs.getString("mamonan"));
+        monAn.setMaMonAn(rs.getInt("mamonan"));
         monAn.setTenMonAn(rs.getString("tenmonan"));
         monAn.setDonGia(rs.getDouble("dongia"));
-        monAn.setLoaiMonAn(rs.getString("loaimonan"));
+//        monAn.setLoaiMonAn(rs.getString("loaimonan"));
         monAn.setHinhAnh(rs.getString("hinhanh"));
         monAn.setTrangThai(rs.getString("trangthai"));
+        monAn.setMaLoaiMon(rs.getInt("maloaimon"));
 
         return monAn;
     }
@@ -91,18 +95,46 @@ public class MonAnDAO {
     }
 
     public List<String> selectCBMonAn() {
-        String sql = "select distinct  loaiMonAn from monan;";
+        String sql = "select distinct ma.maloaimon, tenloaimon from monan ma join loaimon lm on ma.maloaimon = lm.maloaimon;";
         List<String> monAnList = new ArrayList<>();
         try ( ResultSet rs = xJdbc.executeQuery(sql)) {
             while (rs.next()) {
-
-                monAnList.add(rs.getString(1));
+                monAnList.add(rs.getString(2));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return monAnList;
+    }
+    
+    public String getTenLoaiMon(int maLoaiMon) {
+        String sql = "select * from loaimon where maloaimon = ?";
+        String tenLoaiMon = null;
+        try (ResultSet rs = XJdbc.executeQuery(sql, maLoaiMon)) {
+            while (rs.next()) {
+                tenLoaiMon = rs.getString(2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return tenLoaiMon;
+    }
+    
+    public int getMaLoaiMon(String tenLoaiMon) {
+        String sql = "select * from loaimon where tenloaimon = ?";
+        int maLoaiMon = 0;
+        
+        try (ResultSet rs = XJdbc.executeQuery(sql, tenLoaiMon)) {
+            while (rs.next()) {
+                maLoaiMon = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return maLoaiMon;
     }
 
     public List<String> selectCBTrangThai() {
@@ -138,7 +170,7 @@ public class MonAnDAO {
     }
 
     //Lấy món ăn theo mã
-    public MonAn getMonAnByID(String maMonAn) {
+    public MonAn getMonAnByID(int maMonAn) {
         String sql = "select * from monan where mamonan = ?";
         MonAn monAn = null;
 

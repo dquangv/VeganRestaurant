@@ -43,21 +43,23 @@ public class ThucDonDAO {
 
     private MonAn extractMonAnFromResultSet(ResultSet rs) throws SQLException {
         MonAn monAn = new MonAn();
-        monAn.setMaMonAn(rs.getString("MaMonAn"));
+//        monAn.setMaMonAn(rs.getString("MaMonAn"));
         monAn.setTenMonAn(rs.getString("TenMonAn"));
         monAn.setDonGia(rs.getDouble("DonGia"));
-        monAn.setLoaiMonAn(rs.getString("LoaiMonAn"));
+//        monAn.setLoaiMonAn(rs.getString("LoaiMonAn"));
         monAn.setHinhAnh(rs.getString("HinhAnh"));
         monAn.setTrangThai(rs.getString("TrangThai"));
         return monAn;
     }
 
     private MonAn extractMonAnFromResultSetThucDon(ResultSet rs) throws SQLException {
-        MonAn monAn = new MonAn(null, null, null, null);
-        monAn.setTenMonAn(rs.getString("TenMonAn"));
-        monAn.setLoaiMonAn(rs.getString("LoaiMonAn"));
-        monAn.setHinhAnh(rs.getString("HinhAnh"));
-        monAn.setNgayPhucVu(rs.getString("MaThucDon"));
+        MonAn monAn = new MonAn();
+//        MonAn monAn = new MonAn(null, null, null, null);
+//
+//        monAn.setTenMonAn(rs.getString("TenMonAn"));
+//        monAn.setLoaiMonAn(rs.getString("LoaiMonAn"));
+//        monAn.setHinhAnh(rs.getString("HinhAnh"));
+//        monAn.setNgayPhucVu(rs.getString("MaThucDon"));
         return monAn;
     }
 

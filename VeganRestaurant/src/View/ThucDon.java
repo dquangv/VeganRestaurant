@@ -47,18 +47,18 @@ public class ThucDon extends javax.swing.JPanel {
         String ngayPhucVu;
 
         for (MonAn monAn : danhSachMonAn) {
-            String maThucDon = monAn.getNgayPhucVu();
-
-            if ("CaTuan".equals(maThucDon)) {
-                ngayPhucVu = "Cả Tuần";
-            } else if ("TD246".equals(maThucDon)) {
-                ngayPhucVu = "Thứ 2,4,6,CN";
-            } else {
-                ngayPhucVu = "Thứ 3,5,7";
-            }
-
-            Object[] rowData = {monAn.getTenMonAn(), monAn.getLoaiMonAn(), ngayPhucVu, monAn.getHinhAnh()};
-            model.addRow(rowData);
+//            String maThucDon = monAn.getNgayPhucVu();
+//
+//            if ("CaTuan".equals(maThucDon)) {
+//                ngayPhucVu = "Cả Tuần";
+//            } else if ("TD246".equals(maThucDon)) {
+//                ngayPhucVu = "Thứ 2,4,6,CN";
+//            } else {
+//                ngayPhucVu = "Thứ 3,5,7";
+//            }
+//
+//            Object[] rowData = {monAn.getTenMonAn(), monAn.getLoaiMonAn(), ngayPhucVu, monAn.getHinhAnh()};
+//            model.addRow(rowData);
         }
     }
 
