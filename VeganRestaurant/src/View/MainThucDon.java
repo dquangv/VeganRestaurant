@@ -25,13 +25,12 @@ public class MainThucDon {
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("Quản lý thực đơn");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         ThucDon thucDonPanel = new ThucDon();
         frame.getContentPane().add(thucDonPanel);
-
+//        KhachHang khachHangPanel = new KhachHang();
+//        frame.getContentPane().add(khachHangPanel);
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
-

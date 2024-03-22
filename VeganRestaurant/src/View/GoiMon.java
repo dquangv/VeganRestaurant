@@ -10,6 +10,7 @@ import Utils.Auth;
 import Utils.XImage;
 import Utils.XJdbc;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -152,6 +153,9 @@ public class GoiMon extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(200);
+        }
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(0, 0, 0));
@@ -263,14 +267,10 @@ public class GoiMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         String selectedLoaiMon = (String) cbbLoaiMon.getSelectedItem();
 
-        // Hiển thị danh sách món ăn theo loại món
         hienThiDanhSachMonAn(selectedLoaiMon);
     }//GEN-LAST:event_cbbLoaiMonItemStateChanged
     private void hienThiDanhSachMonAn(String loaiMon) {
-        // Gọi phương thức lấy danh sách món ăn theo loại từ ThucDonDAO
         List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
-
-        // Gọi phương thức hiển thị danh sách món ăn
         hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
     }
 
@@ -289,10 +289,8 @@ public class GoiMon extends javax.swing.JPanel {
                 try {
                     BufferedImage originalImage = ImageIO.read(inputStream);
 
-                    // Scale hình ảnh
-                    int scaledWidth = 150; // Đặt kích thước mong muốn
+                    int scaledWidth = 150;
                     int scaledHeight = (int) (((double) scaledWidth / originalImage.getWidth()) * originalImage.getHeight());
-
                     Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
                     ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
@@ -305,8 +303,9 @@ public class GoiMon extends javax.swing.JPanel {
                     monAnPanel.add(lblMonAn);
                     monAnPanel.add(lblTenMonAn);
                     monAnPanel.add(lblGiaMonAn);
-                    monAnPanel.setBounds((i % 3) * 250, (i / 3) * 250, 250, 250);
+                    monAnPanel.setBounds((i % 3) * 250, (i / 3) * 250, 240, 250);
                     pnlMonAn.add(monAnPanel);
+                    
                 } catch (IOException ex) {
                 }
             } else {
