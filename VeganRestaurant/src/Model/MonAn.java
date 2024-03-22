@@ -12,39 +12,66 @@ import java.text.DecimalFormat;
  */
 public class MonAn {
 
-    private String maMonAn;
+    private int maMonAn;
     private String tenMonAn;
     private double donGia;
-    private String loaiMonAn;
+//    private String loaiMonAn;
     private String hinhAnh;
     private String trangThai;
-    private String ngayPhucVu;
+//    private String ngayPhucVu;
+    private int maLoaiMon;
 
-    public String getNgayPhucVu() {
-        return ngayPhucVu;
-    }
+//    public String getNgayPhucVu() {
+//        return ngayPhucVu;
+//    }
 
     public MonAn() {
     }
 
-    public MonAn(String tenMonAn, String loaiMonAn, String hinhAnh, String ngayPhucVu) {
+    public MonAn(int maMonAn, String tenMonAn, double donGia, String hinhAnh, String trangThai, int maLoaiMon) {
+        this.maMonAn = maMonAn;
         this.tenMonAn = tenMonAn;
-        this.loaiMonAn = loaiMonAn;
+        this.donGia = donGia;
         this.hinhAnh = hinhAnh;
-        this.ngayPhucVu = ngayPhucVu;
+        this.trangThai = trangThai;
+        this.maLoaiMon = maLoaiMon;
     }
 
-    public void setNgayPhucVu(String ngayPhucVu) {
-        this.ngayPhucVu = ngayPhucVu;
-    }
-
-    public String getMaMonAn() {
+    public int getMaMonAn() {
         return maMonAn;
     }
 
-    public void setMaMonAn(String maMonAn) {
+    public void setMaMonAn(int maMonAn) {
         this.maMonAn = maMonAn;
     }
+
+    public int getMaLoaiMon() {
+        return maLoaiMon;
+    }
+
+    public void setMaLoaiMon(int maLoaiMon) {
+        this.maLoaiMon = maLoaiMon;
+    }
+    
+    
+//    public MonAn(String tenMonAn, String loaiMonAn, String hinhAnh, String ngayPhucVu) {
+//        this.tenMonAn = tenMonAn;
+//        this.loaiMonAn = loaiMonAn;
+//        this.hinhAnh = hinhAnh;
+//        this.ngayPhucVu = ngayPhucVu;
+//    }
+
+//    public void setNgayPhucVu(String ngayPhucVu) {
+//        this.ngayPhucVu = ngayPhucVu;
+//    }
+//
+//    public String getMaMonAn() {
+//        return maMonAn;
+//    }
+//
+//    public void setMaMonAn(String maMonAn) {
+//        this.maMonAn = maMonAn;
+//    }
 
     public String getTenMonAn() {
         return tenMonAn;
@@ -68,13 +95,13 @@ public class MonAn {
         this.donGia = donGia;
     }
 
-    public String getLoaiMonAn() {
-        return loaiMonAn;
-    }
-
-    public void setLoaiMonAn(String loaiMonAn) {
-        this.loaiMonAn = loaiMonAn;
-    }
+//    public String getLoaiMonAn() {
+//        return loaiMonAn;
+//    }
+//
+//    public void setLoaiMonAn(String loaiMonAn) {
+//        this.loaiMonAn = loaiMonAn;
+//    }
 
     public String getHinhAnh() {
         return hinhAnh;
