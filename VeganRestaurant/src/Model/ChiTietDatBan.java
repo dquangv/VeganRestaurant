@@ -8,10 +8,11 @@ package Model;
  *
  * @author Võ Thanh Tùng
  */
-public class Ban {
-    private int maBan;
-    private String viTri;
-    private String trangThai;
+public class ChiTietDatBan {
+     private int maBan;
+     private int maPhieuDat;
+
+   
 
     public int getMaBan() {
         return maBan;
@@ -21,20 +22,12 @@ public class Ban {
         this.maBan = maBan;
     }
 
-    public String getViTri() {
-        return viTri;
+    public int getMaPhieuDat() {
+        return maPhieuDat;
     }
 
-    public void setViTri(String viTri) {
-        this.viTri = viTri;
+    public void setMaPhieuDat(int maPhieuDat) {
+        this.maPhieuDat = maPhieuDat;
     }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
-    
+     
 }

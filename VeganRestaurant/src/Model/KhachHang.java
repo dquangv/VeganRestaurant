@@ -11,36 +11,26 @@ import java.util.Date;
  * @author buimi
  */
 public class KhachHang {
-    private String maKhachHang;
-    private String tenKhachHang;
-    private String SDT;
-    private Date ngayDKTHANHVIEN = new Date();
-    private double diemThuong;
-    private String sdt;
-    private Date ngayDkThanhVien;
+  private int maKhachHang;
+  private String tenKhachHang;
+  private String SDT;
+  private Date ngaySinh;
 
-    public Date getNgayDKTHANHVIEN() {
-        return ngayDKTHANHVIEN;
+    public KhachHang() {
     }
 
-    public void setNgayDKTHANHVIEN(Date ngayDKTHANHVIEN) {
-        this.ngayDKTHANHVIEN = ngayDKTHANHVIEN;
+    public KhachHang(int maKhachHang, String tenKhachHang, String SDT, Date ngaySinh) {
+        this.maKhachHang = maKhachHang;
+        this.tenKhachHang = tenKhachHang;
+        this.SDT = SDT;
+        this.ngaySinh = ngaySinh;
     }
 
-    public double getDiemThuong() {
-        return diemThuong;
-    }
-
-    public void setDiemThuong(double diemThuong) {
-        this.diemThuong = diemThuong;
-    }
-
-
-    public String getMaKhachHang() {
+    public int getMaKhachHang() {
         return maKhachHang;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
+    public void setMaKhachHang(int maKhachHang) {
         this.maKhachHang = maKhachHang;
     }
 
@@ -57,24 +47,16 @@ public class KhachHang {
     }
 
     public void setSDT(String SDT) {
-        this.SDT = SDT;}
-    
-    public String getSdt() {
-        return sdt;
+        this.SDT = SDT;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public Date getNgaySinh() {
+        return ngaySinh;
     }
 
-    public Date getNgayDkThanhVien() {
-        return ngayDkThanhVien;
+    public void setNgaySinh(Date ngaySinh) {
+        this.ngaySinh = ngaySinh;
     }
-
-    public void setNgayDkThanhVien(Date ngayDkThanhVien) {
-        this.ngayDkThanhVien = ngayDkThanhVien;
-    }
-
-    
+  
 }
 

@@ -4,17 +4,35 @@
  */
 package View;
 
-import Controller.DatBanDao;
+import Controller.*;
 import static Controller.DatBanDao.DA_DAT;
+import Model.ChiTietDatBan;
 import Utils.MsgBox;
 import javax.swing.JTextField;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import Model.KhachHang;
+import Model.PhieuDatBan;
+import Utils.XDate;
+import java.util.Calendar;
+import java.time.LocalTime;
+import java.util.Date;
 
 /**
  *
  * @author Võ Thanh Tùng
  */
 public class JDiaLogNhapThongTin extends javax.swing.JDialog {
+
     DatBanDao dbDAO = new DatBanDao();
+    KhachHangDBDao khDAO = new KhachHangDBDao();
+    PhieuDatBanDao pdbDao = new PhieuDatBanDao();
+    ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
+    List<KhachHang> listkh = new ArrayList<>();
+    List<PhieuDatBan> listpdb = new ArrayList<>();
+    int maBan;
+
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -25,11 +43,22 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         setTitle("Nhập thông tin");
         // Disable editing of the text field
         ((JTextField) txtThoiGian.getDateEditor().getUiComponent()).setEditable(false);
+        layGioVaPhut();
+        Calendar cal = Calendar.getInstance();
+        txtThoiGian.setCalendar(cal);
 
-        
+        data();
+
     }
-      public void setBan(String maBan) {
+
+    public void setBan(int maBan) {
         lbmaBan.setText("Bàn: " + maBan);
+        this.maBan = maBan;
+    }
+
+    void data() {
+        LoadKhachHang();
+        LoadPhieuDatBan();
     }
 
     /**
@@ -50,6 +79,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         txtSDT = new javax.swing.JTextField();
         txtThoiGian = new com.toedter.calendar.JDateChooser();
         lbmaBan = new javax.swing.JLabel();
+        cbThoiGian = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,17 +123,19 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                    .addComponent(txtTenKhach, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 127, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                            .addComponent(txtTenKhach, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,10 +158,15 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(txtThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(59, 59, 59)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,10 +181,13 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
-            MsgBox.alert(this, "Đặt bàn thành công");
+            insert();
             thayDoiTrangThai(maBan);
+            MsgBox.alert(this, "Đặt bàn thành công");
             this.setVisible(false);
         }
+        System.out.println(layThoiGian());
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -196,6 +236,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbThoiGian;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -206,8 +247,88 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private javax.swing.JTextField txtTenKhach;
     private com.toedter.calendar.JDateChooser txtThoiGian;
     // End of variables declaration//GEN-END:variables
+    public static List<LocalTime> generateTimeList() {
+        List<LocalTime> timeList = new ArrayList<>();
+        LocalTime time = LocalTime.of(7, 0); // Bắt đầu từ 1h sáng
+        while (time.getHour() != 0 || time.getMinute() != 0) {
+            timeList.add(time);
+            time = time.plusMinutes(5); // Tăng thời gian lên 5 phút
+            if (time.getHour() == 23 && time.getMinute() == 55) {
+                // Khi đạt tới 23:55, dừng lại
+                break;
+            }
+        }
+        return timeList;
+    }
+
+    void layGioVaPhut() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        List<LocalTime> timeList = generateTimeList();
+        for (LocalTime time : timeList) {
+            model.addElement(time.toString());
+        }
+        cbThoiGian.setModel(model);
+    }
+
+ public Date layThoiGian() {
+    Date date = txtThoiGian.getDate();
+    String gioPhut = (String) cbThoiGian.getSelectedItem();
+     if (date !=null) {
+         String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
+         Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
+         return NgayGio;
+     }
+    
+    return null;
+}
+
+    private ChiTietDatBan getFormCTDB() {
+        ChiTietDatBan ctdb = new ChiTietDatBan();
+        ctdb.setMaBan(maBan);
+        ctdb.setMaPhieuDat(listpdb.size() + 1);
+        return ctdb;
+    }
+
+    private PhieuDatBan getFormPDB() {
+        // Gọi phương thức layThoiGian() để lấy đối tượng Date
+        Date date = layThoiGian();
+
+        PhieuDatBan pdb = new PhieuDatBan();
+        pdb.setThoiGianDat(date);
+        pdb.setMaKhachHang(listkh.size() + 1);
+        return pdb;
+    }
+
+    private KhachHang getFormKH() {
+        KhachHang kh = new KhachHang();
+        kh.setTenKhachHang(txtTenKhach.getText());
+        kh.setSDT(txtSDT.getText());
+        return kh;
+    }
+
+    void LoadPhieuDatBan() {
+        listpdb = pdbDao.selectAll();
+    }
+
+    void LoadKhachHang() {
+        listkh = khDAO.selectAll();
+    }
+
+    void insert() {
+        KhachHang kh = getFormKH();
+        PhieuDatBan pdb = getFormPDB();
+        ChiTietDatBan ctdb = getFormCTDB();
+        try {
+            khDAO.insert(kh);
+            pdbDao.insert(pdb);
+            ctdbDAO.insert(ctdb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     boolean Checkvalidate() {
+        Date thoiGianHienTai = new Date();
         if (txtTenKhach.getText().isEmpty()) {
             MsgBox.alert(this, "Tên khách hàng không được bỏ trống");
             return false;
@@ -225,9 +346,15 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
+        if (txtThoiGian.getDate().getTime() < thoiGianHienTai.getTime()) {
+            MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
+            return false;
+        }
+
         return true;
     }
- public void thayDoiTrangThai(String maBan) {
+
+    public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(DA_DAT, maBan);
     }
 }

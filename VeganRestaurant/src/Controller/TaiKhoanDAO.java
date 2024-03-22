@@ -69,7 +69,7 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
         return list.get(0);
     }
 
-    public TaiKhoan selectByIdMaNV(String id) {
+    public TaiKhoan selectByIdMaNV(int id) {
         List<TaiKhoan> list = this.selectBySQL(SELECT_BY_MaNv_SQL, id);
         if (list.isEmpty()) {
             return null;
@@ -93,7 +93,7 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
                 entity.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
                 entity.setMatKhau(rs.getString("MatKhau"));
                 entity.setVaiTro(rs.getBoolean("VaiTro"));
-                entity.setMaNhanVien(rs.getString("MaNhanVien"));
+                entity.setMaNhanVien(rs.getInt("MaNhanVien"));
 //                entity.setTrangThai(rs.getString("TrangThai"));
 
                 list.add(entity);

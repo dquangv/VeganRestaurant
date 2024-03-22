@@ -33,7 +33,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
 
     }
 
-    public void setBan(String maBan) {
+    public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
     }
 
@@ -133,7 +133,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     private void lbDatBanTruocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDatBanTruocMouseClicked
        String maBan = lbMaBan.getText().substring(5);
         JDiaLogNhapThongTin dlnt = new JDiaLogNhapThongTin(new javax.swing.JFrame(), true);
-        dlnt.setBan(maBan);
+        dlnt.setBan(Integer.parseInt(maBan));
         dlnt.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lbDatBanTruocMouseClicked
@@ -142,7 +142,6 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã chuyên sang bảo trì");
         thayDoiTrangThai(maBan);
-        System.out.println(maBan);
         this.setVisible(false);
     }//GEN-LAST:event_lbBaoTriMouseClicked
 
@@ -150,7 +149,6 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Bất đầu phục vụ");
         thayDoiTrangThaiBatDauPhucVu(maBan);
-        System.out.println(maBan);
         this.setVisible(false);
     }//GEN-LAST:event_lbBDPVMouseClicked
 
