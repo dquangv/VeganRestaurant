@@ -5,11 +5,11 @@
  */
 package View;
 
+import Controller.TaiKhoanDAO;
 import Model.TaiKhoan;
 import Utils.Auth;
 import Utils.MsgBox;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,21 +24,23 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Admin
  */
 public class LoginJFrame extends javax.swing.JFrame {
-    public static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false";
-    public static String username = "sa";
-    public static String password = "songlong";
+
     public static final String CONFIG_FILE_PATH = "D:\\VEGAN\\config.properties";
-     
+    TaiKhoanDAO dao = new TaiKhoanDAO();
+
     public LoginJFrame() {
         initComponents();
         setLocationRelativeTo(null);
         loadLoginInfo();
+
     }
 
     /**
@@ -58,10 +60,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
         chkSave = new javax.swing.JCheckBox();
         txtPassword = new javax.swing.JPasswordField();
-        btnChangePass = new javax.swing.JButton();
+        btnQuenMatKhau = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        pror = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +75,11 @@ public class LoginJFrame extends javax.swing.JFrame {
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
+            }
+        });
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
             }
         });
 
@@ -105,11 +111,16 @@ public class LoginJFrame extends javax.swing.JFrame {
                 txtPasswordActionPerformed(evt);
             }
         });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
-        btnChangePass.setText("Đổi mật khẩu");
-        btnChangePass.addActionListener(new java.awt.event.ActionListener() {
+        btnQuenMatKhau.setText("Quên mật khẩu");
+        btnQuenMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangePassActionPerformed(evt);
+                btnQuenMatKhauActionPerformed(evt);
             }
         });
 
@@ -123,9 +134,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(btnLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnChangePass)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnQuenMatKhau)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel)
                         .addGap(54, 54, 54))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -158,15 +169,14 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnLogin)
-                    .addComponent(btnChangePass))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnQuenMatKhau))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 102));
         jLabel1.setText("ĐĂNG NHẬP HỆ THỐNG");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Restaurant.gif")); // NOI18N
         jLabel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 204, 204)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,9 +187,8 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(pror, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,12 +200,10 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(pror, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,81 +215,15 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-// Tạo SwingWorker để thực hiện công việc đăng nhập
-    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-        @Override
-        protected Void doInBackground() throws Exception {
-            // Hiển thị progress bar
-            pror.setIndeterminate(true);
-
-            if (chkSave.isSelected()) {
-                saveLoginInfo(txtUsername.getText(), new String(txtPassword.getPassword()));
-            }
-            if (txtUsername.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa nhập tên người dùng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                txtUsername.requestFocus();
-                return null;
-            } else if (new String(txtPassword.getPassword()).isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Chưa nhập mật khẩu", "Lỗi!", JOptionPane.ERROR_MESSAGE);
-                txtPassword.requestFocus();
-                return null;
-            } else {
-                try (Connection conn = DriverManager.getConnection(dburl, username, password);
-                     PreparedStatement pstmt = conn.prepareStatement("SELECT role FROM USERS WHERE username = ? AND password = ?")) {
-
-                    pstmt.setString(1, txtUsername.getText());
-                    pstmt.setString(2, new String(txtPassword.getPassword()));
-
-                    try (ResultSet rs = pstmt.executeQuery()) {
-                        boolean flag = false;
-                        while (rs.next()) {
-                            String role = rs.getString("role");
-                            if (role.equals("Quản lý")) {
-                                JOptionPane.showMessageDialog(null, "Đăng nhập form Quản lý thành công!");
-
-                                System.out.println("Form Quản lý đang mở");
-                                TaiKhoan ql = new TaiKhoan();
-                                ql.setVisible(true);
-                                dispose();
-                                flag = true;
-                                break;
-                            } else if (role.equals("Nhân viên")) {
-                                JOptionPane.showMessageDialog(null, "Đăng nhập Nhân viên thành công!");
-                                System.out.println("Form đào tạo đang mở");
-                                TaiKhoan nv = new TaiKhoan();
-                                nv.setVisible(true);
-                                dispose();
-                                flag = true;
-                                break;
-                            }
-                        }
-
-                        if (!flag) {
-                            JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
-                        }
-                    }
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
-            }
-
-            return null;
+        String UserName = txtUsername.getText();
+        String Pass = (new String(txtPassword.getPassword()));
+        if (chkValidate()) {
+            Login(UserName, Pass);
         }
-        
-        @Override
-        protected void done() {
-            // Ẩn progress bar khi công việc hoàn tất
-            pror.setIndeterminate(false);
-        }
-    };
-
-    // Thực thi SwingWorker
-    worker.execute();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void chkSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSaveActionPerformed
@@ -293,19 +234,34 @@ public class LoginJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
 
-    private void btnChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePassActionPerformed
-        // TODO add your handling code here:
-        if (Auth.isLogin()) {
-            new DoiMatKhau(this, rootPaneCheckingEnabled).setVisible(true);
-        } else {
-            MsgBox.alert(this, "Please login!");
+    private void btnQuenMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuenMatKhauActionPerformed
+        openQuenMatKhau();
+    }//GEN-LAST:event_btnQuenMatKhauActionPerformed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String UserName = txtUsername.getText();
+            String Pass = (new String(txtPassword.getPassword()));
+            if (chkValidate()) {
+                Login(UserName, Pass);
+            }
         }
-    }//GEN-LAST:event_btnChangePassActionPerformed
+    }//GEN-LAST:event_txtUsernameKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String UserName = txtUsername.getText();
+            String Pass = (new String(txtPassword.getPassword()));
+            if (chkValidate()) {
+                Login(UserName, Pass);
+            }
+        }
+
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
-                 * @param args the command line arguments
-                 */
-
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -314,7 +270,7 @@ public class LoginJFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -343,20 +299,57 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnChangePass;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnQuenMatKhau;
     private javax.swing.JCheckBox chkSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JProgressBar pror;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-    
-    public void saveLoginInfo(String username, String password) {
+
+    public boolean chkValidate() {
+        if (txtUsername.getText().equals("")) {
+            MsgBox.alert(this, "Tên tài khoản không được bỏ trống");
+            return false;
+        }
+        if (new String(txtPassword.getPassword()).length() == 0) {
+            MsgBox.alert(this, "Mật khẩu không được bỏ trống");
+            return false;
+        }
+        return true;
+    }
+
+    public void Login(String tentk, String pass) {
+
+        TaiKhoan tk = dao.selectById(tentk);
+
+        if (tk == null) {
+            MsgBox.alert(this, "Tài khoản không tồn tại!");
+            return;
+        }
+        if (!tk.getMatKhau().equalsIgnoreCase(pass)) {
+            MsgBox.alert(this, "Mật khẩu sai!");
+            return;
+        }
+        if (tk != null) {
+            Auth.user = tk;
+            MsgBox.alert(this, "Bạn đã nhập thành công vai trò: " + (Auth.user.isVaiTro() ? "Quản lý" : "Nhân viên"));
+            // lam sao khi bam dang nhpa thanh cong thi      private javax.swing.JProgressBar pror; sex hoat dong
+            this.dispose();
+            new Main().setVisible(true);
+            if (chkSave.isSelected()) {
+                saveLoginInfo(tentk, pass, true);
+            } else {
+                saveLoginInfo("", "", false);
+            }
+        }
+    }
+
+    public void saveLoginInfo(String username, String password, boolean remenberMe) {
         try {
             File configFile = new File(CONFIG_FILE_PATH);
             if (!configFile.exists()) {
@@ -367,6 +360,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 Properties properties = new Properties();
                 properties.setProperty("username", username);
                 properties.setProperty("password", password);
+                properties.setProperty("rememberMe", String.valueOf(remenberMe));
                 properties.store(fos, null);
             }
         } catch (IOException e) {
@@ -381,35 +375,18 @@ public class LoginJFrame extends javax.swing.JFrame {
 
             String savedUsername = properties.getProperty("username", "");
             String savedPassword = properties.getProperty("password", "");
-
+            boolean rememberMe = Boolean.parseBoolean(properties.getProperty("rememberMe", "false"));
             txtUsername.setText(savedUsername);
             txtPassword.setText(savedPassword);
+            chkSave.setSelected(rememberMe);
         } catch (FileNotFoundException e) {
-            saveLoginInfo("", "");
+            saveLoginInfo("", "", false);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void init() {
-        // Existing code for GUI components...
-
-        chkSave.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                // Handle checkbox state change
-                chkRememberActionPerformed(evt);
-            }
-
-            private void chkRememberActionPerformed(ActionEvent evt) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
+    void openQuenMatKhau(){
+       new QuenMatKhau(this, true).setVisible(true);
     }
-
-    private void openChangePassword() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-  
 }

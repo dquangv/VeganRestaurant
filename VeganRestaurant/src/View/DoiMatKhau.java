@@ -88,7 +88,6 @@ public class DoiMatKhau extends javax.swing.JDialog {
 
         lblConfirmPass.setText("Xác nhận lại mật khẩu mới");
 
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\DUANMAU\\SOFT2041-DUANMAU-main\\EduSys\\src\\icons\\Refresh.png")); // NOI18N
         jButton1.setText("Đổi mật khẩu");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +95,6 @@ public class DoiMatKhau extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon("D:\\DUANMAU\\SOFT2041-DUANMAU-main\\EduSys\\src\\icons\\Delete.png")); // NOI18N
         jButton2.setText("Hủy");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

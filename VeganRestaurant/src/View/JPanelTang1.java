@@ -46,7 +46,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
             }
         }
 
-        // Tạo và khởi chạy một luồng TrangThaiBan
+       
         TrangThaiBan thread = new TrangThaiBan();
         thread.start();
     }

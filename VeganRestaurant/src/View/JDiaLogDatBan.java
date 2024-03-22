@@ -131,12 +131,16 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbDatBanTruocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDatBanTruocMouseClicked
+       String maBan = lbMaBan.getText().substring(5);
         JDiaLogNhapThongTin dlnt = new JDiaLogNhapThongTin(new javax.swing.JFrame(), true);
+        dlnt.setBan(maBan);
         dlnt.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_lbDatBanTruocMouseClicked
 
     private void lbBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBaoTriMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Đã chuyên sang bảo trì");
         thayDoiTrangThai(maBan);
         System.out.println(maBan);
         this.setVisible(false);
@@ -144,6 +148,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Bất đầu phục vụ");
         thayDoiTrangThaiBatDauPhucVu(maBan);
         System.out.println(maBan);
         this.setVisible(false);
@@ -175,6 +180,9 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JDiaLogDatBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

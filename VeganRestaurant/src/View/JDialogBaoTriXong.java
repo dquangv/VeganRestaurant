@@ -6,6 +6,7 @@ package View;
 
 import Controller.DatBanDao;
 import static Controller.DatBanDao.Trong;
+import Utils.MsgBox;
 import javax.swing.JFrame;
 
 /**
@@ -90,8 +91,9 @@ public class JDialogBaoTriXong extends javax.swing.JDialog {
 
     private void lbBaoTriXongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBaoTriXongMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+        MsgBox.alert(this, "Đã bảo trì xong");
         thayDoiTrangThai(maBan);
-        System.out.println(maBan);
+        
         this.setVisible(false);
     }//GEN-LAST:event_lbBaoTriXongMouseClicked
 
@@ -120,6 +122,9 @@ public class JDialogBaoTriXong extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JDialogBaoTriXong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

@@ -14,7 +14,7 @@ public class HoaDon {
     private String maHoaDon;
     private Date ngayLap = new Date();
     private double tienMonAn;
-    private double tienPhatSinh;
+
     private double tienGiamDiemThuong;
     private double tienGiamKhuyenMai;
     private double tongTien;
@@ -23,7 +23,6 @@ public class HoaDon {
     private String maBan;
     private String maKhuyenMai;
     private String maNhanVien;
-    private String maDanhGia;
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -49,13 +48,6 @@ public class HoaDon {
         this.tienMonAn = tienMonAn;
     }
 
-    public double getTienPhatSinh() {
-        return tienPhatSinh;
-    }
-
-    public void setTienPhatSinh(double tienPhatSinh) {
-        this.tienPhatSinh = tienPhatSinh;
-    }
 
     public double getTienGiamDiemThuong() {
         return tienGiamDiemThuong;
@@ -120,14 +112,5 @@ public class HoaDon {
     public void setMaNhanVien(String maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
-
-    public String getMaDanhGia() {
-        return maDanhGia;
-    }
-
-    public void setMaDanhGia(String maDanhGia) {
-        this.maDanhGia = maDanhGia;
-    }
-    
-    
+   
 }

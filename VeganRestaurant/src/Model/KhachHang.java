@@ -11,12 +11,37 @@ import java.util.Date;
  * @author buimi
  */
 public class KhachHang {
+
     private String maKhachHang;
     private String tenKhachHang;
-    private String sdt;
-    private Date ngayDkThanhVien;
-    private float diemThuong;
+    private String SDT;
+    private Date ngaySinh = new Date();
+    private double diemThuong;
+    private Date ngayDkThanhVien = new Date();
 
+    public Date getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(Date ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
+    }
+
+
+    public double getDiemThuong() {
+        return diemThuong;
+    }
+
+    public void setDiemThuong(double diemThuong) {
+        this.diemThuong = diemThuong;
+    }
 
     public String getMaKhachHang() {
         return maKhachHang;
@@ -34,14 +59,6 @@ public class KhachHang {
         this.tenKhachHang = tenKhachHang;
     }
 
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
-
     public Date getNgayDkThanhVien() {
         return ngayDkThanhVien;
     }
@@ -50,12 +67,4 @@ public class KhachHang {
         this.ngayDkThanhVien = ngayDkThanhVien;
     }
 
-    public float getDiemThuong() {
-        return diemThuong;
-    }
-
-    public void setDiemThuong(float diemThuong) {
-        this.diemThuong = diemThuong;
-    }
 }
-
