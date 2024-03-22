@@ -9,6 +9,7 @@ import Controller.DatBanDao;
 import static Controller.DatBanDao.Trong;
 import Model.CT_ThongTin;
 import Utils.MsgBox;
+import Utils.XDate;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
@@ -211,10 +212,12 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
    public void setThongTinDatBan(int maBan) {
     List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
     if (!list.isEmpty()) {
-        CT_ThongTin cttt = list.get(0); // Lấy phần tử đầu tiên
+        CT_ThongTin cttt = list.get(list.size()-1);
+        lbMaBan.setText("Bàn: " + cttt.getMaban());
         lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
         lbSDT.setText("SDT: " + cttt.getSDT());
-        lbThoiGian.setText("Thời gian: " + cttt.getThoiGianDate());
+        lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+
     } 
 }
 

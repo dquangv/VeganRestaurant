@@ -15,10 +15,7 @@ import java.sql.*;
  */
 public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String>{
 
-    String Select_ThongTin = "select MaBan,TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db " +
-"            inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan " +
-"            inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang " +
-"            where MaBan = ? and ThoiGianDat > GETDATE();";
+   
     @Override
     public void insert(CT_ThongTin entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -60,7 +57,7 @@ public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String>{
                 entity.setMaban(rs.getInt(1));
                 entity.setTenKhachHang(rs.getString(2));
                 entity.setSDT(rs.getInt(3));
-                entity.setThoiGianDate(rs.getDate(4));
+                entity.setThoiGianDate(rs.getTimestamp(4));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
