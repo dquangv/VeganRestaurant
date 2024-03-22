@@ -44,10 +44,10 @@ public class ThucDonDAO {
 
     private MonAn extractMonAnFromResultSet(ResultSet rs) throws SQLException {
         MonAn monAn = new MonAn();
-        monAn.setMaMonAn(rs.getString("MaMonAn"));
+        monAn.setMaMonAn(rs.getInt("MaMonAn"));
         monAn.setTenMonAn(rs.getString("TenMonAn"));
         monAn.setDonGia(rs.getDouble("DonGia"));
-        monAn.setLoaiMonAn(rs.getString("TenLoaiMon"));
+        monAn.setTenMonAn(rs.getString("TenLoaiMon"));
         monAn.setHinhAnh(rs.getString("HinhAnh"));
         monAn.setTrangThai(rs.getString("TrangThai"));
         return monAn;
@@ -69,7 +69,7 @@ public class ThucDonDAO {
 
         try (ResultSet resultSet = xJdbc.executeQuery(sql, loaiMon)) {
             while (resultSet.next()) {
-                MonAn monAn = extractMonAnFromResultSet(resultSet);
+                MonAn  monAn = extractMonAnFromResultSet(resultSet);
                 danhSachMonAn.add(monAn);
             }
         } catch (SQLException e) {

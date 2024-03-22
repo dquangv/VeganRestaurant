@@ -15,16 +15,15 @@ public class MonAn {
     private int maMonAn;
     private String tenMonAn;
     private double donGia;
-//    private String loaiMonAn;
+    private String loaiMonAn;
     private String hinhAnh;
     private String trangThai;
-//    private String ngayPhucVu;
+    private String ngayPhucVu;
     private int maLoaiMon;
 
 //    public String getNgayPhucVu() {
 //        return ngayPhucVu;
 //    }
-
     public MonAn() {
     }
 
@@ -45,6 +44,10 @@ public class MonAn {
         this.maMonAn = maMonAn;
     }
 
+    public String getNgayPhucVu() {
+        return ngayPhucVu;
+    }
+
     public int getMaLoaiMon() {
         return maLoaiMon;
     }
@@ -52,18 +55,17 @@ public class MonAn {
     public void setMaLoaiMon(int maLoaiMon) {
         this.maLoaiMon = maLoaiMon;
     }
-    
-    
-//    public MonAn(String tenMonAn, String loaiMonAn, String hinhAnh, String ngayPhucVu) {
-//        this.tenMonAn = tenMonAn;
-//        this.loaiMonAn = loaiMonAn;
-//        this.hinhAnh = hinhAnh;
-//        this.ngayPhucVu = ngayPhucVu;
-//    }
 
-//    public void setNgayPhucVu(String ngayPhucVu) {
-//        this.ngayPhucVu = ngayPhucVu;
-//    }
+    public MonAn(String tenMonAn, String loaiMonAn, String hinhAnh, String ngayPhucVu) {
+        this.tenMonAn = tenMonAn;
+        this.loaiMonAn = loaiMonAn;
+        this.hinhAnh = hinhAnh;
+        this.ngayPhucVu = ngayPhucVu;
+    }
+
+    public void setNgayPhucVu(String ngayPhucVu) {
+        this.ngayPhucVu = ngayPhucVu;
+    }
 //
 //    public String getMaMonAn() {
 //        return maMonAn;
@@ -95,13 +97,13 @@ public class MonAn {
         this.donGia = donGia;
     }
 
-//    public String getLoaiMonAn() {
-//        return loaiMonAn;
-//    }
-//
-//    public void setLoaiMonAn(String loaiMonAn) {
-//        this.loaiMonAn = loaiMonAn;
-//    }
+    public String getLoaiMonAn() {
+        return loaiMonAn;
+    }
+
+    public void setLoaiMonAn(String loaiMonAn) {
+        this.loaiMonAn = loaiMonAn;
+    }
 
     public String getHinhAnh() {
         return hinhAnh;
