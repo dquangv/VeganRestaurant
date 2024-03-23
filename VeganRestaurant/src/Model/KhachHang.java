@@ -47,7 +47,7 @@ public class KhachHang {
         return maKhachHang;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
+    public void setMaKhachHang(int maKhachHang) {
         this.maKhachHang = maKhachHang;
     }
 

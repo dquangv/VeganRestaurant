@@ -9,7 +9,7 @@ package Model;
  * @author Võ Thanh Tùng
  */
 public class NhanVIen {
-    private String maNhanVien;
+   private int maNhanVien;
     private String tenNhanVIen;
     private boolean chucVu;
     private String trangThai;
@@ -23,7 +23,7 @@ public class NhanVIen {
     public NhanVIen() {
     }
 
-    public NhanVIen(String maNhanVien, String tenNhanVIen, boolean chucVu, String trangThai, boolean gioiTinh, String sDT, String email, String hinhAnh) {
+    public NhanVIen(int maNhanVien, String tenNhanVIen, boolean chucVu, String trangThai, boolean gioiTinh, String sDT, String email, String hinhAnh) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVIen = tenNhanVIen;
         this.chucVu = chucVu;
@@ -31,15 +31,14 @@ public class NhanVIen {
         this.gioiTinh = gioiTinh;
         this.sDT = sDT;
         this.email = email;
-//        this.tenTaikhoan = tenTaikhoan;
         this.hinhAnh = hinhAnh;
     }
 
-    public String getMaNhanVien() {
+    public int getMaNhanVien() {
         return maNhanVien;
     }
 
-    public void setMaNhanVien(String maNhanVien) {
+    public void setMaNhanVien(int maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
 
@@ -91,14 +90,6 @@ public class NhanVIen {
         this.email = email;
     }
 
-//    public String getTenTaikhoan() {
-//        return tenTaikhoan;
-//    }
-//
-//    public void setTenTaikhoan(String tenTaikhoan) {
-//        this.tenTaikhoan = tenTaikhoan;
-//    }
-
     public String getHinhAnh() {
         return hinhAnh;
     }
@@ -106,8 +97,5 @@ public class NhanVIen {
     public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
-
-
-    
     
 }
