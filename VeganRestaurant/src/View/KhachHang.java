@@ -338,7 +338,7 @@ public class KhachHang extends javax.swing.JPanel {
         }
 
         Model.KhachHang khachHang = new Model.KhachHang();
-        khachHang.setMaKhachHang(maKhachHang);
+        khachHang.setMaKhachHang(Integer.parseInt(maKhachHang));
         khachHang.setTenKhachHang(tenKH);
         khachHang.setSDT(sdt);
         khachHang.setNgaySinh(ngaySinh);

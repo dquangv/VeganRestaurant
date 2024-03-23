@@ -69,7 +69,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
             pstmt.setString(1, khachHang.getSDT());
             pstmt.setDate(2, new java.sql.Date(khachHang.getNgaySinh().getTime()));
-            pstmt.setString(3, khachHang.getMaKhachHang());
+            pstmt.setInt(3, khachHang.getMaKhachHang());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
     private KhachHang extractKhachHangFromResultSet(ResultSet rs) throws SQLException {
         KhachHang khachHang = new KhachHang();
-        khachHang.setMaKhachHang(rs.getString("MaKhachHang"));
+        khachHang.setMaKhachHang(rs.getInt("MaKhachHang"));
         khachHang.setTenKhachHang(rs.getString("TenKhachHang"));
         khachHang.setSDT(rs.getString("SDT"));
         khachHang.setNgaySinh(rs.getDate("NgaySinh"));
@@ -140,7 +140,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
             while (rs.next()) {
                 KhachHang entity = new KhachHang();
 
-                entity.setMaKhachHang(rs.getString("MaKhachHang"));
+                entity.setMaKhachHang(rs.getInt("MaKhachHang"));
                 entity.setTenKhachHang(rs.getString("TenKhachHang"));
                 entity.setSDT(rs.getString("SDT"));
                 entity.setNgayDkThanhVien(rs.getDate("NgayDkThanhVien"));
