@@ -1,6 +1,14 @@
+
+/*
+1 create datatabase 
+2 create table 
+3 insert into data
+4 create pro and trigger
+*/
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
 DBCC CHECKIDENT ('KhuyenMai', RESEED, 0);
 go
+
 
 create database NhaHangChay_CohesiveStars;
 go
@@ -245,12 +253,39 @@ insert into Ban (ViTri, TrangThai) values
 	(N'Tầng 1, Bàn 1', N'Hoạt động'),
 	(N'Tầng 1, Bàn 2', N'Hoạt động'),
 	(N'Tầng 1, Bàn 3', N'Hoạt động'),
+	(N'Tầng 1, Bàn 4', N'Hoạt động'),
+	(N'Tầng 1, Bàn 5', N'Hoạt động'),
+	(N'Tầng 1, Bàn 6', N'Hoạt động'),
+	(N'Tầng 1, Bàn 7', N'Hoạt động'),
+	(N'Tầng 1, Bàn 8', N'Hoạt động'),
+	(N'Tầng 1, Bàn 9', N'Hoạt động'),
+	(N'Tầng 1, Bàn 10', N'Hoạt động'),
+	(N'Tầng 1, Bàn 11', N'Hoạt động'),
+	(N'Tầng 1, Bàn 12', N'Hoạt động'),
 	(N'Tầng 2, Bàn 1', N'Hoạt động'),
 	(N'Tầng 2, Bàn 2', N'Hoạt động'),
-	(N'Tầng 2, Bàn 3', N'Bảo trì'),
+	(N'Tầng 2, Bàn 3', N'Hoạt động'),
+	(N'Tầng 2, Bàn 4', N'Hoạt động'),
+	(N'Tầng 2, Bàn 5', N'Hoạt động'),
+	(N'Tầng 2, Bàn 6', N'Hoạt động'),
+	(N'Tầng 2, Bàn 7', N'Hoạt động'),
+	(N'Tầng 2, Bàn 8', N'Hoạt động'),
+	(N'Tầng 2, Bàn 9', N'Hoạt động'),
+	(N'Tầng 2, Bàn 10', N'Hoạt động'),
+	(N'Tầng 2, Bàn 11', N'Hoạt động'),
+	(N'Tầng 2, Bàn 12', N'Hoạt động'),
 	(N'Tầng 3, Bàn 1', N'Hoạt động'),
 	(N'Tầng 3, Bàn 2', N'Hoạt động'),
-	(N'Tầng 3, Bàn 3', N'Bảo trì');
+	(N'Tầng 3, Bàn 3', N'Hoạt động'),
+	(N'Tầng 3, Bàn 4', N'Hoạt động'),
+	(N'Tầng 3, Bàn 5', N'Hoạt động'),
+	(N'Tầng 3, Bàn 6', N'Hoạt động'),
+	(N'Tầng 3, Bàn 7', N'Hoạt động'),
+	(N'Tầng 3, Bàn 8', N'Hoạt động'),
+	(N'Tầng 3, Bàn 9', N'Hoạt động'),
+	(N'Tầng 3, Bàn 10', N'Hoạt động'),
+	(N'Tầng 3, Bàn 11', N'Hoạt động'),
+	(N'Tầng 3, Bàn 12', N'Hoạt động');
 go
 
 insert into PhieuDatBan (ThoiGianDat, MaKhachHang) values
@@ -262,7 +297,7 @@ go
 insert into ChiTietDatBan (MaBan, MaPhieuDatBan) values
 	(1, 1),
 	(1, 2),
-	(4, 3);
+	(2, 3);
 go
 
 insert into LoaiMon (TenLoaiMon) values
@@ -328,3 +363,76 @@ insert into HoaDon (NgayLap, TienMonAn, TienGiamDiemThuong, TienGiamKhuyenMai, T
 	('2024-01-19 13:30', 210000, 0, 105000, 105000, 1, 2, 1, 1),
 	('2024-01-19 17:30', 110000, 0, 55000, 55000, 1, 3, 1, 2);
 go
+
+/*
+	đây là những proc 
+
+	mn chú ý 
+*/
+-- thong ke mon an
+create  proc Sp_ThongKeMonAn
+as 
+begin 
+	select top 7 TenMonAn ,sum(cthd.soluong) as SoLuongDaBan
+	from MonAn ma
+	join ChiTietHD cthd on cthd.MaMonAn = ma.MaMonAn
+	group by TenMonAn
+	order by SoLuongDaBan desc	
+end 
+go
+
+-- thong ke doanh thu
+CREATE PROCEDURE SP_DoanhThuThang (@nam int)
+AS
+BEGIN
+    SELECT 
+        MONTH(hd.NgayLap) AS Thang,
+        SUM(cthd.ThanhTien) AS TongThanhTien
+    FROM 
+        HoaDon hd
+    JOIN 
+        ChiTietHD cthd ON cthd.MaHoaDon = hd.MaHoaDon
+    WHERE 
+        YEAR(hd.NgayLap) = @nam
+    GROUP BY 
+        MONTH(hd.NgayLap);
+END
+go
+
+ -- proc hoa don 
+ go
+ create or alter proc sp_HoaDon @maHD varchar(10)
+as
+select ma.TenMonAn,SoLuong,ThanhTien from ChiTietHD cthd
+join MonAn ma on cthd.MaMonAn = ma.MaMonAn
+join HoaDon hd on hd.MaHoaDon = cthd.MaHoaDon
+where hd.MaHoaDon = @maHD
+go
+
+CREATE TRIGGER Trig_UpdateVaiTro
+ON NhanVien
+AFTER UPDATE
+AS
+BEGIN
+    IF UPDATE(ChucVu) -- Kiểm tra xem cột ChucVu đã được cập nhật
+    BEGIN
+        UPDATE TaiKhoan
+        SET VaiTro = CASE
+                        WHEN inserted.ChucVu = 1 THEN 1 -- Nếu ChucVu là 1 (ví dụ: quản lý), gán VaiTro là 1
+                        ELSE 0 -- Ngược lại, gán VaiTro là 0
+                     END
+        FROM TaiKhoan
+        INNER JOIN inserted ON TaiKhoan.MaNhanVien = inserted.MaNhanVien
+    END
+END;
+
+
+
+select * from KhachHang
+select * from PhieuDatBan
+select * from ChiTietDatBan
+
+select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db 
+            inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
+            inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
+            where TenKhachHang like '%' or SDT like '%' or ThoiGianDat > GETDATE();
