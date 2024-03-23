@@ -110,6 +110,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
         monAn.setDonGia(donGia);
         monAn.setMaLoaiMon(madao.getMaLoaiMon((String) cboLoaiMonAn.getSelectedItem()));
         monAn.setTrangThai(trangThai);
+        monAn.setHinhAnh(lblHinhAnh.getToolTipText());
 
         MonAnDAO dao = new MonAnDAO();
 
