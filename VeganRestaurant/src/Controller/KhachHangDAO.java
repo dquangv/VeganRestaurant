@@ -45,7 +45,11 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
             PreparedStatement pstmt = XJdbc.getConnection().prepareStatement(INSERT_KH, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, khachHang.getTenKhachHang());
             pstmt.setString(2, khachHang.getSDT());
-            pstmt.setDate(3, new java.sql.Date(khachHang.getNgaySinh().getTime()));
+            if (khachHang.getNgaySinh() != null) {
+                pstmt.setDate(3, new java.sql.Date(khachHang.getNgaySinh().getTime()));
+            } else {
+                pstmt.setNull(3, Types.DATE); // Đặt giá trị null cho trường ngày sinh
+            }
             pstmt.executeUpdate();
 
             ResultSet rs = pstmt.getGeneratedKeys();
@@ -62,13 +66,33 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         return null;
     }
 
+    public String getCustomerNameByPhoneNumber(String phoneNumber) {
+        String customerName = "";
+        String sql = "SELECT TenKhachHang FROM KhachHang WHERE SDT = ?";
+        try {
+            PreparedStatement ps = xJdbc.preparedStatement(sql);
+            ps.setString(1, phoneNumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customerName = rs.getString("TenKhachHang");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return customerName;
+    }
+
     public void updateKhachHang(KhachHang khachHang) {
         String sql = "UPDATE KhachHang SET SDT = ?, NgaySinh = ? "
                 + "WHERE MaKhachHang = ?";
 
         try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
             pstmt.setString(1, khachHang.getSDT());
-            pstmt.setDate(2, new java.sql.Date(khachHang.getNgaySinh().getTime()));
+            if (khachHang.getNgaySinh() != null) {
+                pstmt.setDate(2, new java.sql.Date(khachHang.getNgaySinh().getTime()));
+            } else {
+                pstmt.setNull(2, Types.DATE);
+            }
             pstmt.setInt(3, khachHang.getMaKhachHang());
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -93,8 +117,6 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
         return khachHang;
     }
-
-    
 
     // Lấy danh sách tất cả khách hàng
     public List<KhachHang> getAllKhachHang() {
