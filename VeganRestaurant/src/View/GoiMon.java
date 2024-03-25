@@ -352,6 +352,8 @@ public class GoiMon extends javax.swing.JPanel {
             public void tableChanged(TableModelEvent e) {
                 if (e.getType() == TableModelEvent.UPDATE) {
                     int row = e.getFirstRow();
+//                    e.get
+//                    System.out.println(row);
                     int column = e.getColumn();
                     if (column == 1) {
                         String soLuongStr = (String) model.getValueAt(row, column);
@@ -362,6 +364,7 @@ public class GoiMon extends javax.swing.JPanel {
                         tinhTongTien();
                         if (soLuong == 0) {
                             model.removeRow(row);
+                            System.out.println(model.getRowCount());
                         }
                     }
                 }

@@ -20,6 +20,7 @@ public class MonAn {
     private String trangThai;
     private String ngayPhucVu;
     private int maLoaiMon;
+    private int soLuong;
 
 //    public String getNgayPhucVu() {
 //        return ngayPhucVu;
@@ -27,14 +28,34 @@ public class MonAn {
     public MonAn() {
     }
 
-    public MonAn(int maMonAn, String tenMonAn, double donGia, String hinhAnh, String trangThai, int maLoaiMon) {
+    public MonAn(int maMonAn, String tenMonAn, double donGia, String loaiMonAn, String hinhAnh, String trangThai, String ngayPhucVu, int maLoaiMon, int soLuong) {
         this.maMonAn = maMonAn;
         this.tenMonAn = tenMonAn;
         this.donGia = donGia;
+        this.loaiMonAn = loaiMonAn;
         this.hinhAnh = hinhAnh;
         this.trangThai = trangThai;
+        this.ngayPhucVu = ngayPhucVu;
         this.maLoaiMon = maLoaiMon;
+        this.soLuong = soLuong;
     }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+//    public MonAn(int maMonAn, String tenMonAn, double donGia, String hinhAnh, String trangThai, int maLoaiMon) {
+//        this.maMonAn = maMonAn;
+//        this.tenMonAn = tenMonAn;
+//        this.donGia = donGia;
+//        this.hinhAnh = hinhAnh;
+//        this.trangThai = trangThai;
+//        this.maLoaiMon = maLoaiMon;
+//    }
 
     public int getMaMonAn() {
         return maMonAn;
