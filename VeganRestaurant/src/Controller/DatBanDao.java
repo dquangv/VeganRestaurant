@@ -5,7 +5,6 @@
 package Controller;
 
 import Model.Ban;
-import Utils.Auth;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import Utils.XJdbc;
  */
 public class DatBanDao {
 
-    public static final String Trong = "Đang hoạt động";
+    public static final String Trong = "Hoạt động";
     public static final String DANG_PHUC_VU = "Đang phục vụ";
     public static final String DA_DAT = "Đã đặt";
     public static final String BAO_TRI = "Đang bảo trì";
@@ -75,7 +74,6 @@ public class DatBanDao {
     }
 
     List<Ban> selectBySQL(String sql, Object... args) {
-    protected List<Ban> selectBySQL(String sql, Object... args) {
         List<Ban> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
