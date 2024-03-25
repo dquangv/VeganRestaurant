@@ -5,6 +5,7 @@
 package Controller;
 
 import View.DanhGia1JPanel;
+import View.DanhGia2JPanel;
 import View.DoiMatKhauPanel;
 import View.HoaDonJPanel;
 import View.JPanelDatBan;
@@ -101,7 +102,7 @@ public class ChuyenManHinh {
                     node = new JPanelThongKeDoanhThu();
                     break;
                 case "DanhGia":
-                    node = new DanhGia1JPanel();
+                    node = new DanhGia2JPanel();
                     break;
                 case "HoaDon":
                     node = new HoaDonJPanel();

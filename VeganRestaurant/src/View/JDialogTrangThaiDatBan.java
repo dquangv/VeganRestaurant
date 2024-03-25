@@ -27,7 +27,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
     }
-     public void setBan(String maBan) {
+     public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
     }
     /**
@@ -198,7 +198,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbMaBan;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
-     public void thayDoiTrangThai(String maBan) {
+    public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(Trong, maBan);
     }
      public void thayDoiTrangThaiBDPV(String maBan) {

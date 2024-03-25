@@ -17,10 +17,12 @@ import java.sql.*;
 public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
 
     String SELECT_ALL = """
-                        select hd.MaHoaDon,NgayLap,MaMonAn,dg.MaDanhGia,DanhGia from HoaDon hd
-                        join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                        join ChiTietGM ctgm on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
-                        left join DanhGia dg on ctgm.MaDanhGia = dg.MaDanhGia""";
+                        select MaHoaDon,NgayLap,TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,TenKhachHang from DanhGia dg
+                        right join ChiTietGM ctgm on ctgm.MaDanhGia = dg.MaDanhGia
+                        join PhieuDatBan pdb on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
+                        join HoaDon hd on hd.MaPhieuDatBan=pdb.MaPhieuDatBan
+                        join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+                        join KhachHang kh on pdb.MaKhachHang = kh.MaKhachHang""";
 
     @Override
     public void insert(DanhGia entity) {
@@ -52,7 +54,13 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
             while (rs.next()) {
                 DanhGia entity = new DanhGia();
                 
-                
+                entity.setMaDanhGia(rs.getInt("MaDanhGia"));
+                entity.setMaHoaDon(rs.getInt("MaHoaDon"));
+                entity.setTenMonAn(rs.getNString("TenMonAn"));
+                entity.setTenKhachHang(rs.getNString("TenKhachHang"));
+                entity.setDanhGia(rs.getNString("DanhGia"));
+                entity.setHinhAnh(rs.getNString("HinhAnh"));
+                entity.setNgayLap(rs.getDate("NgayLap"));
                 
                 list.add(entity);
             }

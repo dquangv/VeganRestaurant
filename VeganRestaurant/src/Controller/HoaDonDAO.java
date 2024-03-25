@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author hoang
  */
-public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
+public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
 
     String INSERT_SQl = "INSERT INTO HoaDon(NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,MaPhieuDatBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
     String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,PhuongThucThanhToan=? ,MaPhieuDatBan=? ,MaKhuyenMai=? ,MaNhanVien=? WHERE MaHoaDon =?";
@@ -64,12 +64,12 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, String> {
 
     //xóa
     @Override
-    public void delete(String maHD) {
+    public void delete(Integer maHD) {
         XJdbc.executeUpdate(DELETE_SQL, maHD);
     }
 
     @Override
-    public HoaDon selectById(String id) {
+    public HoaDon selectById(Integer id) {
         List<HoaDon> list = this.selectBySQL(SELECT_BY_IDKhach_SQL, id);
         if (list.isEmpty()) {
             return null;
