@@ -11,24 +11,26 @@ import java.util.Date;
  * @author Võ Thanh Tùng
  */
 public class HoaDon {
-    private String maHoaDon;
-    private Date ngayLap = new Date();
-    private double tienMonAn;
 
+    private Integer maHoaDon;
+    private Date ngayLap = new Date();
+
+    private double tienMonAn;
     private double tienGiamDiemThuong;
     private double tienGiamKhuyenMai;
     private double tongTien;
-    private String trangThai;
-    private String maKhachHang;
-    private String maBan;
-    private String maKhuyenMai;
-    private String maNhanVien;
 
-    public String getMaHoaDon() {
+    private boolean phuongThuc;
+    private Integer maPhieuDatBan;
+    private Integer maKhuyenMai;
+    private Integer maNhanVien;
+    private Integer maKhachHang;
+
+    public Integer getMaHoaDon() {
         return maHoaDon;
     }
 
-    public void setMaHoaDon(String maHoaDon) {
+    public void setMaHoaDon(Integer maHoaDon) {
         this.maHoaDon = maHoaDon;
     }
 
@@ -47,7 +49,6 @@ public class HoaDon {
     public void setTienMonAn(double tienMonAn) {
         this.tienMonAn = tienMonAn;
     }
-
 
     public double getTienGiamDiemThuong() {
         return tienGiamDiemThuong;
@@ -72,45 +73,45 @@ public class HoaDon {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-
-    public String getTrangThai() {
-        return trangThai;
+    
+    public boolean getPhuongThuc() {
+        return phuongThuc;
     }
 
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+    public void setPhuongThuc(boolean phuongThuc) {
+        this.phuongThuc = phuongThuc;
     }
 
-    public String getMaKhachHang() {
-        return maKhachHang;
+    public Integer getMaPhieuDatBan() {
+        return maPhieuDatBan;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
-        this.maKhachHang = maKhachHang;
+    public void setMaPhieuDatBan(Integer maPhieuDatBan) {
+        this.maPhieuDatBan = maPhieuDatBan;
     }
 
-    public String getMaBan() {
-        return maBan;
-    }
-
-    public void setMaBan(String maBan) {
-        this.maBan = maBan;
-    }
-
-    public String getMaKhuyenMai() {
+    public Integer getMaKhuyenMai() {
         return maKhuyenMai;
     }
 
-    public void setMaKhuyenMai(String maKhuyenMai) {
+    public void setMaKhuyenMai(Integer maKhuyenMai) {
         this.maKhuyenMai = maKhuyenMai;
     }
 
-    public String getMaNhanVien() {
+    public Integer getMaNhanVien() {
         return maNhanVien;
     }
 
-    public void setMaNhanVien(String maNhanVien) {
+    public void setMaNhanVien(Integer maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
-   
+
+    public Integer getMaKhachHang() {
+        return maKhachHang;
+    }
+
+    public void setMaKhachHang(Integer maKhachHang) {
+        this.maKhachHang = maKhachHang;
+    }
+
 }

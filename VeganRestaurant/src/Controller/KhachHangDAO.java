@@ -192,3 +192,4 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
+
