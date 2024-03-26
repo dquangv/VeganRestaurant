@@ -30,7 +30,7 @@ go
 
 create table KhachHang (
 	MaKhachHang int identity(1, 1) primary key,
-	TenKhachHang nvarchar(30) not null,
+	TenKhachHang nvarchar(30),
 	SDT varchar(15),
 	NgaySinh date
 );
