@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Controller.ThanhVienDAO;
+import java.sql.ResultSet;
 
 /**
  *
@@ -33,6 +34,7 @@ public class KhachHang extends javax.swing.JPanel {
         displayKhachHangData();
         frame = new JFrame();
         khachHangList = new ArrayList<>();
+        resetCustomerId(getNewCustomerId());
     }
 
     public JFrame getFrame() {
@@ -291,9 +293,15 @@ public class KhachHang extends javax.swing.JPanel {
         String tenKH = txtTenKH.getText().trim();
         String sdt = txtSDT.getText().trim();
         Date ngaySinh = cldNgaySinh.getDate();
+        KhachHangDAO khDao = new KhachHangDAO();
+        String existingCustomerName = khDao.getCustomerNameByPhoneNumber(sdt);
+        if (!existingCustomerName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + existingCustomerName);
+            return;
+        }
 
-        if (tenKH.isEmpty() || sdt.isEmpty() || ngaySinh == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin khách hàng.");
+        if (tenKH.isEmpty() || sdt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên và số điện thoại không được để trống!.");
             return;
         }
 
@@ -315,6 +323,7 @@ public class KhachHang extends javax.swing.JPanel {
     }
 
     private void themThanhVien(String maKhachHang) {
+
         Date ngayDkThanhVien = new Date();
 
         Model.ThanhVien thanhVien = new Model.ThanhVien();
@@ -324,6 +333,26 @@ public class KhachHang extends javax.swing.JPanel {
         ThanhVienDAO tv = new ThanhVienDAO();
         tv.addThanhVien(thanhVien);
 
+    }
+
+    private void capNhatThanhVien(String maKhachHang) {
+        if (maKhachHang.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng cần cập nhật.");
+            return;
+        }
+        ThanhVienDAO tvDAO = new ThanhVienDAO();
+        Model.ThanhVien thanhVien = tvDAO.getThanhVienByMaKhachHang(Integer.parseInt(maKhachHang) + "");
+        if (thanhVien == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thành viên cho khách hàng này.");
+            return;
+        }
+        Date ngayDkThanhVien = new Date();
+        thanhVien.setNgayDkThanhVien(ngayDkThanhVien);
+
+        tvDAO.updateThanhVien(thanhVien);
+
+        JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành viên thành công!");
+        displayKhachHangData();
     }
 
     private void capNhatKhachHang() {
@@ -345,15 +374,22 @@ public class KhachHang extends javax.swing.JPanel {
 
         KhachHangDAO kh = new KhachHangDAO();
         kh.updateKhachHang(khachHang);
+
         if (chkDangKy.isSelected()) {
-            themThanhVien(maKhachHang);
+            ThanhVienDAO tvDAO = new ThanhVienDAO();
+            Model.ThanhVien thanhVien = tvDAO.getThanhVienByMaKhachHang(Integer.parseInt(maKhachHang) + "");
+            if (thanhVien == null) {
+                themThanhVien(maKhachHang);
+            } else {
+                capNhatThanhVien(maKhachHang);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành viên thành công!");
             displayKhachHangData();
             return;
         }
         JOptionPane.showMessageDialog(this, "Cập nhật thông tin khách hàng thành công!");
         displayKhachHangData();
-
     }
 
     private void displayDetail() {
@@ -434,11 +470,12 @@ public class KhachHang extends javax.swing.JPanel {
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
+        int newCustomerId = getNewCustomerId() + 1;
+        txtMaKH.setText(String.valueOf(newCustomerId));
         txtSDT.setEnabled(true);
         txtTenKH.setEnabled(true);
         txtTenKH.setText("");
         txtSDT.setText("");
-        txtMaKH.setText("");
         cldNgaySinh.setDate(null);
         chkDangKy.setSelected(false);
         displayKhachHangData();
@@ -500,6 +537,31 @@ public class KhachHang extends javax.swing.JPanel {
         } else {
             return "Chưa đăng ký!";
         }
+    }
+
+    private void resetCustomerId(int getNewCustomerId) {
+        String sql = "DBCC CHECKIDENT ('KhachHang', RESEED, " + getNewCustomerId + ");";
+
+        try {
+            XJdbc.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getNewCustomerId() {
+        String sql = "SELECT TOP 1 MaKhachHang FROM KhachHang ORDER BY MaKhachHang DESC;";
+        int newCustomerId = 0;
+
+        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+            if (rs.next()) {
+                newCustomerId = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return newCustomerId;
     }
 
 
