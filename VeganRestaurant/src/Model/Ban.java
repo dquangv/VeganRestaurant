@@ -9,15 +9,15 @@ package Model;
  * @author Võ Thanh Tùng
  */
 public class Ban {
-    private String maBan;
+    private int maBan;
     private String viTri;
     private String trangThai;
 
-    public String getMaBan() {
+    public int getMaBan() {
         return maBan;
     }
 
-    public void setMaBan(String maBan) {
+    public void setMaBan(int maBan) {
         this.maBan = maBan;
     }
 

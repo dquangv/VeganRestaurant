@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class KhachHang {
 
-    private String maKhachHang;
+    private int maKhachHang;
     private String tenKhachHang;
     private String SDT;
     private Date ngaySinh = new Date();
@@ -43,11 +43,11 @@ public class KhachHang {
         this.diemThuong = diemThuong;
     }
 
-    public String getMaKhachHang() {
+    public int getMaKhachHang() {
         return maKhachHang;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
+    public void setMaKhachHang(int maKhachHang) {
         this.maKhachHang = maKhachHang;
     }
 

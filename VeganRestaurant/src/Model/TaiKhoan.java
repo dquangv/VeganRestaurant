@@ -12,7 +12,7 @@ public class TaiKhoan {
     private String tenTaiKhoan;
     private String matKhau;
     private boolean vaiTro;
-    private String maNhanVien;
+    private int maNhanVien;
 //    private String trangThai;
 
     public String getTenTaiKhoan() {
@@ -39,23 +39,11 @@ public class TaiKhoan {
         this.vaiTro = vaiTro;
     }
 
-//    public String getTrangThai() {
-//        return trangThai;
-//    }
-//
-//    public void setTrangThai(String trangThai) {
-//        this.trangThai = trangThai;
-//    }
-
-//    public void setVisible(boolean b) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
-    public String getMaNhanVien() {
+    public int getMaNhanVien() {
         return maNhanVien;
     }
 
-    public void setMaNhanVien(String maNhanVien) {
+    public void setMaNhanVien(int maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
     

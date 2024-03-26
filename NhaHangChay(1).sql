@@ -80,6 +80,7 @@ create table MonAn (
 	MaMonAn int identity(1, 1) primary key,
 	TenMonAn nvarchar(50) not null,
 	DonGia money not null,
+	SoLuong int,
 	HinhAnh varchar(500),
 	TrangThai nvarchar(30) not null,
 	MaLoaiMon int);
@@ -271,14 +272,37 @@ insert into LoaiMon (TenLoaiMon) values
 	(N'Khai vị');
 go
 
-insert into MonAn (TenMonAn, DonGia, HinhAnh, TrangThai, MaLoaiMon) values
-	(N'Bún Huế', 60000, null, N'Hoạt động', 1),
-	(N'Bún chay 1', 50000, null, N'Hoạt động', 1),
-	(N'Bún chay 2', 50000, null, N'Hoạt động', 1),
-	(N'Cơm chay 1', 50000, null, N'Hoạt động', 2),
-	(N'Cơm chay 2', 50000, null, N'Tạm ngưng', 2),
-	(N'Đậu hũ chay', 25000, null, N'Hoạt động', 3),
-	(N'Chả giò chay', 25000, null, N'Hoạt động', 3);
+insert into MonAn ( TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon) values
+    ( N'Salad mít non', 125000, 50, 'xa-lach-mit-non-2.png', N'Hoạt động',3),
+    ( N'Mozzarella Salad', 135000, 50,'saladmozarella.png', N'Hoạt động',3),
+    ( N'Gỏi cuốn rau củ', 90000, 50,'goicuonraucu.png', N'Hoạt động',3),
+    (N'Chả giò', 95000, 50,'chagio.png', N'Hoạt động',3),
+    ( N'Há cảo Nhật - Gyoza', 95000, 50, 'hacaonhat.png', N'Hoạt động',3),
+    (N'Chả nấm mối', 120000, 50,  'chachammuoi.png', N'Hoạt động',3),
+    (N'Bún nưa trộn', 105000, 50, 'bunnuatron.png', N'Hoạt động',3),
+    (N'Gỏi củ hủ dừa', 115000, 50,  'coicuhudua.png', N'Hoạt động',3),
+    (N'Gỏi đu đủ', 105000, 50,  'goidudu.png', N'Hoạt động',3),
+    (N'Salad Sung', 135000, 50, 'saladsung.png', N'Hoạt động',3),
+    (N'Bánh tart artiso', 105000, 50, 'banhtart.png', N'Ngừng phục vụ',3),
+    (N'Đậu hủ bó xôi sốt trứng muối', 125000, 50,  'dauhuboxoi.png', N'Hoạt động',3),
+    (N'Nấm đông cô sốt tiêu', 95000, 50, 'namdongcosottieu.png', N'Hoạt động',3),
+    (N'Đậu rồng xào tỏi đen', 90000, 50, 'dau-rong-xao-1.png', N'Hoạt động',3),
+    (N'Tàu hủ ky sốt chao', 110000, 50, 'tau-ku-ky-1.png', N'Hoạt động',3),
+    (N'Mướp xào', 90000, 50, 'muop-xao-1.png', N'Hoạt động',3),
+    (N'Nấm mối xào lá lốt', 125000, 50, 'nam-moi-xao-1.png', N'Hoạt động',3),
+    (N'Đu đủ xào', 90000, 50, 'du-du-xao-1.png', N'Hoạt động',3),
+    (N'Măng xào củ kiệu', 105000, 50, 'mang-xao-cu-kieu-1.png', N'Hoạt động',3),
+    (N'Khổ qua kho ngũ vị', 95000, 50, 'kho-qua-kho-1.png', N'Hoạt động',3),
+    (N'Đậu hủ kim chi', 95000, 50, 'dau-hu-kim-chi-1.png', N'Hoạt động',3),
+    (N'Rau củ om Thái', 110000, 50, 'rau-cu-om-thai-1.png', N'Hoạt động',3),
+    (N'Nấm kho', 105000, 50, 'nam-kho-2.png', N'Ngừng phục vụ',3),
+    (N'Cơm nếp than', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
+    (N'Cơm trắng', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
+    (N'Cơm bó xôi hạt sen', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
+    (N'Mì Ý sốt rau củ', 150000, 50, 'mi-y-sot-rau-cu-1.png', N'Hoạt động',1),
+    (N'Bún nưa xào', 125000, 50, 'bun-nua-xao-1.png', N'Hoạt động',1),
+    (N'Mì sốt kem nấm', 150000, 50, 'mi-sot-kem-nam-2.png', N'Hoạt động',1),
+    (N'Cơm cà ri', 125000, 50, 'com-cari-1.png', N'Hoạt động',2);
 go
 
 insert into ThucDon (TenThucDon, NgayPhucVu) values
@@ -286,15 +310,37 @@ insert into ThucDon (TenThucDon, NgayPhucVu) values
 	(N'Ngày lẻ', '3-5-7');
 go
 
-insert into ChiTietTD (MaThucDon, MaMonAn) values
-	(1, 1),
-	(1, 2),
-	(1, 4),
-	(1, 6),
-	(2, 1),
-	(2, 3),
-	(2, 4),
-	(2, 7);
+insert into ChiTietTD values
+	(1,1),
+	(1,2),
+	(1,3),
+	(1,4),
+	(1,5),
+	(1,6),
+	(1,7),
+	(1,8),
+	(1,9),
+	(1,10),
+	(1,11),
+	(1,12),
+	(1,13),
+	(1,14),
+	(1,15),
+	(1,16),
+	(1,17),
+	(1,18),
+	(1,19),
+	(1,20),
+	(1,21),
+	(1,22),
+	(1,23),
+	(1,24),
+	(1,25),
+	(1,26),
+	(1,27),
+	(1,28),
+	(1,29),
+	(1,30)
 go
 
 insert into DanhGia (DanhGia) values

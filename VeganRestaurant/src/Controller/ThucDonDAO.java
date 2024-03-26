@@ -47,7 +47,7 @@ public class ThucDonDAO {
         monAn.setMaMonAn(rs.getInt("MaMonAn"));
         monAn.setTenMonAn(rs.getString("TenMonAn"));
         monAn.setDonGia(rs.getDouble("DonGia"));
-        monAn.setTenMonAn(rs.getString("TenLoaiMon"));
+        monAn.setLoaiMonAn(rs.getString("TenLoaiMon"));
         monAn.setHinhAnh(rs.getString("HinhAnh"));
         monAn.setTrangThai(rs.getString("TrangThai"));
         return monAn;
