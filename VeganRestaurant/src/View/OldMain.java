@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  *
  * @author Quang
  */
-public class Main extends javax.swing.JFrame {
+public class OldMain extends javax.swing.JFrame {
     TaiKhoanDAO daoTK = new TaiKhoanDAO();
 //    /**
 //     * Creates new form Main
@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public OldMain() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -562,7 +562,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new OldMain().setVisible(true);
             }
         });
     }
