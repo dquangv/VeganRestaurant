@@ -29,6 +29,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         fillComboBoxTang();
 
         capNhatTable();
+        
     }
 
     public void capNhatTable() {

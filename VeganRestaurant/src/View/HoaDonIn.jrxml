@@ -6,16 +6,16 @@
 	<parameter name="P_MaHD" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select 
-	HoaDon.MaHoaDon,
+	MaHoaDon,
 	NgayLap,
 	TienMonAn,
 	TienGiamDiemThuong,
 	TienGiamKhuyenMai,
 	TongTien,
 	TenMonAn,
-	SoLuong,
+	ChiTietGM.SoLuong,
 	DonGia,
-	SUM(SoLuong*DonGia) as ThanhTien,
+	SUM(ChiTietGM.SoLuong*DonGia) as ThanhTien,
 	PhieuDatBan.MaPhieuDatBan,
 	TenNhanVien,
 	TenKhachHang 
@@ -35,7 +35,7 @@ group by
 	TienGiamKhuyenMai,
 	TongTien,
 	TenMonAn,
-	SoLuong,
+	ChiTietGM.SoLuong,
 	DonGia,
 	PhieuDatBan.MaPhieuDatBan,
 	TenNhanVien,
