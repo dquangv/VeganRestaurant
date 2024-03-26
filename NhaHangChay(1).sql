@@ -6,7 +6,7 @@
 4 create pro and trigger
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
-DBCC CHECKIDENT ('KhuyenMai', RESEED, 0);
+DBCC CHECKIDENT ('MonAn', RESEED, 0);
 go
 
 
@@ -435,4 +435,4 @@ select * from ChiTietDatBan
 select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db 
             inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
             inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
-            where TenKhachHang like '%' or SDT like '%' or ThoiGianDat > GETDATE();
+            where (TenKhachHang like '%' or SDT like '%') and  ThoiGianDat > GETDATE();

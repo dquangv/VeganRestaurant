@@ -16,16 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.sql.SQLException;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+
 
 /**
  *
@@ -338,7 +329,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         if (tk != null) {
             Auth.user = tk;
             MsgBox.alert(this, "Bạn đã nhập thành công vai trò: " + (Auth.user.isVaiTro() ? "Quản lý" : "Nhân viên"));
-            // lam sao khi bam dang nhpa thanh cong thi      private javax.swing.JProgressBar pror; sex hoat dong
+          
             this.dispose();
             new Main().setVisible(true);
             if (chkSave.isSelected()) {

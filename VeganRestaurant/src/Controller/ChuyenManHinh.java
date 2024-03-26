@@ -41,7 +41,7 @@ public class ChuyenManHinh {
 
     //Hàm show trang đầu tiên xuất hiện khi mới truy cập vào ứng dụng
     public void setView(JPanel jpnItem, JLabel jlbItem) {
-        kindSelected = "TrangChu";
+        kindSelected = "DatBan";
 //        jpnItem.setBackground(new Color(23, 70, 162));
 //        jlbItem.setBackground(new Color(23, 70, 162));
 
@@ -111,7 +111,7 @@ public class ChuyenManHinh {
                     node = new DoiMatKhauPanel();
                     break;
                 default:
-                    node = new JPanelMonAn();
+                    node = new JPanelDatBan();
             }
             root.removeAll();
             root.setLayout(new BorderLayout());

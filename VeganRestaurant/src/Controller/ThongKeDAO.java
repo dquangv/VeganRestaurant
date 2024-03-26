@@ -35,7 +35,7 @@ public class ThongKeDAO {
     }
     public List<Object[]> getMonAnBanChay(){
         String sql = "{CALL Sp_ThongKeMonAn}";
-        String cols[] = {"TenMonAn","SoLuongDaBan"};
+        String cols[] = {"TenMonAn","Soluongmonan"};
         
         return getListOfArray(sql, cols);
     }
