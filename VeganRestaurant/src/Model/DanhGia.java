@@ -4,35 +4,79 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author Võ Thanh Tùng
  */
-public class DanhGia {
-    private String maDanhGia;
-    private int cauHoi1;
-    private int cauHoi2;
-    private int cauHoi3;
-    private String dannhGia;
 
-    public void setMaDanhGia(String maDanhGia) {
+public class DanhGia {
+    
+    Integer maHoaDon;
+    Integer maDanhGia;
+    
+    String tenMonAn;
+    String tenKhachHang;
+    String danhGia;
+    String hinhAnh;
+    Date ngayLap;
+
+    public Integer getMaHoaDon() {
+        return maHoaDon;
+    }
+
+    public void setMaHoaDon(Integer maHoaDon) {
+        this.maHoaDon = maHoaDon;
+    }
+
+    public Integer getMaDanhGia() {
+        return maDanhGia;
+    }
+
+    public void setMaDanhGia(Integer maDanhGia) {
         this.maDanhGia = maDanhGia;
     }
 
-    public void setCauHoi1(int cauHoi1) {
-        this.cauHoi1 = cauHoi1;
+    public String getTenMonAn() {
+        return tenMonAn;
     }
 
-    public void setCauHoi2(int cauHoi2) {
-        this.cauHoi2 = cauHoi2;
+    public void setTenMonAn(String tenMonAn) {
+        this.tenMonAn = tenMonAn;
     }
 
-    public void setCauHoi3(int cauHoi3) {
-        this.cauHoi3 = cauHoi3;
+    public String getTenKhachHang() {
+        return tenKhachHang;
     }
 
-    public void setDannhGia(String dannhGia) {
-        this.dannhGia = dannhGia;
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
     }
+ 
+    public String getDanhGia() {
+        return danhGia;
+    }
+
+    public void setDanhGia(String danhGia) {
+        this.danhGia = danhGia;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    public Date getNgayLap() {
+        return ngayLap;
+    }
+
+    public void setNgayLap(Date ngayLap) {
+        this.ngayLap = ngayLap;
+    }
+
     
 }

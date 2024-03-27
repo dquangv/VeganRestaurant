@@ -24,7 +24,7 @@ import java.util.Properties;
  */
 public class LoginJFrame extends javax.swing.JFrame {
 
-    public static final String CONFIG_FILE_PATH = "D:\\VEGAN\\config.properties";
+//    public static final String CONFIG_FILE_PATH = "D:\\VEGAN\\config.properties";
     TaiKhoanDAO dao = new TaiKhoanDAO();
 
     public LoginJFrame() {
@@ -63,6 +63,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Password: ");
 
+        txtUsername.setText("tungvt");
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
@@ -97,6 +98,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
+        txtPassword.setText("123");
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -341,41 +343,41 @@ public class LoginJFrame extends javax.swing.JFrame {
     }
 
     public void saveLoginInfo(String username, String password, boolean remenberMe) {
-        try {
-            File configFile = new File(CONFIG_FILE_PATH);
-            if (!configFile.exists()) {
-                configFile.getParentFile().mkdirs();
-                configFile.createNewFile();
-            }
-            try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
-                Properties properties = new Properties();
-                properties.setProperty("username", username);
-                properties.setProperty("password", password);
-                properties.setProperty("rememberMe", String.valueOf(remenberMe));
-                properties.store(fos, null);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            File configFile = new File(CONFIG_FILE_PATH);
+//            if (!configFile.exists()) {
+//                configFile.getParentFile().mkdirs();
+//                configFile.createNewFile();
+//            }
+//            try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
+//                Properties properties = new Properties();
+//                properties.setProperty("username", username);
+//                properties.setProperty("password", password);
+//                properties.setProperty("rememberMe", String.valueOf(remenberMe));
+//                properties.store(fos, null);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void loadLoginInfo() {
-        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
-            Properties properties = new Properties();
-            properties.load(fis);
-
-            String savedUsername = properties.getProperty("username", "");
-            String savedPassword = properties.getProperty("password", "");
-            boolean rememberMe = Boolean.parseBoolean(properties.getProperty("rememberMe", "false"));
-            txtUsername.setText(savedUsername);
-            txtPassword.setText(savedPassword);
-            chkSave.setSelected(rememberMe);
-        } catch (FileNotFoundException e) {
-            saveLoginInfo("", "", false);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
+//            Properties properties = new Properties();
+//            properties.load(fis);
+//
+//            String savedUsername = properties.getProperty("username", "");
+//            String savedPassword = properties.getProperty("password", "");
+//            boolean rememberMe = Boolean.parseBoolean(properties.getProperty("rememberMe", "false"));
+//            txtUsername.setText(savedUsername);
+//            txtPassword.setText(savedPassword);
+//            chkSave.setSelected(rememberMe);
+//        } catch (FileNotFoundException e) {
+//            saveLoginInfo("", "", false);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
     void openQuenMatKhau(){
        new QuenMatKhau(this, true).setVisible(true);
