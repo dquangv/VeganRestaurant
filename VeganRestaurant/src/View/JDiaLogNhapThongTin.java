@@ -29,7 +29,6 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     KhachHangDBDao khDAO = new KhachHangDBDao();
     PhieuDatBanDao pdbDao = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
-    List<KhachHang> listkh = new ArrayList<>();
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
 
@@ -285,17 +284,17 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private ChiTietDatBan getFormCTDB() {
         ChiTietDatBan ctdb = new ChiTietDatBan();
         ctdb.setMaBan(maBan);
-        ctdb.setMaPhieuDat(listpdb.size() + 1);
+//        ctdb.setMaPhieuDat(listpdb.size() + 1);
         return ctdb;
     }
 
     private PhieuDatBan getFormPDB() {
         // Gọi phương thức layThoiGian() để lấy đối tượng Date
         Date date = layThoiGian();
-
+        
         PhieuDatBan pdb = new PhieuDatBan();
         pdb.setThoiGianDat(date);
-        pdb.setMaKhachHang(listkh.size() + 1);
+//        pdb.setMaKhachHang(max ma khach hang);
         return pdb;
     }
 
@@ -307,11 +306,11 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }
 
     void LoadPhieuDatBan() {
-        listpdb = pdbDao.selectAll();
+//        listpdb = pdbDao.selectAll();
     }
 
     void LoadKhachHang() {
-        listkh = khDAO.selectAll();
+//        listkh = khDAO.selectAll();
     }
 
     void insert() {
@@ -319,8 +318,14 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         PhieuDatBan pdb = getFormPDB();
         ChiTietDatBan ctdb = getFormCTDB();
         try {
+            int maMaxKH = khDAO.SelectMaxkH();
+            khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
+            pdb.setMaKhachHang(maMaxKH+1);
+            int maMaxPDB = pdbDao.SelectMaxPDB();
+            pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
+            ctdb.setMaPhieuDat(maMaxPDB+1);
             ctdbDAO.insert(ctdb);
         } catch (Exception e) {
             e.printStackTrace();

@@ -19,7 +19,28 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
 
     String Insert = "insert into PhieuDatBan (ThoiGianDat,MaKhachHang) values (?,?)";
     String SELECT_ALL_SQL = "select * from PhieuDatBan";
-
+    String SelectMaPhieuDatBanMax = "select max(MaPhieuDatBan) max from PhieuDatBan"; 
+    
+    public void setMaxPDB(int maPhieuDatBan){
+        String sql = "{call SP_ReSetMaPhieuDatBan(?)}";
+         try {
+             XJdbc.executeQuery(sql,maPhieuDatBan);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+    }
+      public int SelectMaxPDB(){
+        int maxPDB = 0;
+        try {
+            ResultSet rs = XJdbc.executeQuery(SelectMaPhieuDatBanMax);
+            if (rs.next()) {
+                maxPDB = rs.getInt("max");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return maxPDB;
+    }
     @Override
     public void insert(PhieuDatBan entity) {
         XJdbc.executeUpdate(Insert,

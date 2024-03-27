@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class Main {
         item.add(new DanhMuc("DatBan", pnDatBan, lblDatBan));
         item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
         item.add(new DanhMuc("ThucDon", pnThucDon, lblThucDon));
-        item.add(new DanhMuc("ThongKeMonAn", pnTKMonAn, lbThongKeDoanhThu));
+        item.add(new DanhMuc("ThongKeMonAn", pnTKMonAn, lbThongKeMonAn));
         item.add(new DanhMuc("ThongKeDoanhThu", pnTKDoanhThu, lbThongKeDoanhThu));
         item.add(new DanhMuc("NhanVien", pnNhanVien, lblNhanVien));
         item.add(new DanhMuc("HoaDon", pnThanhToan, lblThanhToan));
@@ -110,7 +111,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-  Main m = new Main();
+        Main m = new Main();
         m.GiaoDien();
         m.CaiDat();
         m.ThongKe();
@@ -127,9 +128,10 @@ public class Main {
         m.VaiTro();
     }
 
-    void VaiTro(){
-        lbVaiTro.setText((Auth.user.isVaiTro() ? "Quản lý: " : "Nhân viên: ")+Auth.user.getTenTaiKhoan());
+    void VaiTro() {
+        lbVaiTro.setText((Auth.user.isVaiTro() ? "Quản lý: " : "Nhân viên: ") + Auth.user.getTenTaiKhoan());
     }
+
     void GiaoDien() {
 
         fr.setExtendedState(fr.MAXIMIZED_BOTH);
@@ -330,7 +332,7 @@ public class Main {
         pnTKMonAn.setOpaque(true);
         pnTKMonAn.setBorder(bottomBorderDanhGia);
 
-        pnTKDoanhThu.setBounds(511, 0, 257, 98);
+        pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
 
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
@@ -338,7 +340,7 @@ public class Main {
 
         pnView.add(pnTKMonAn);
 
-        pnTKMonAn.setBounds(511, 0, 257, 100);
+        pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
 
         pnTKDoanhThu.add(lbThongKeDoanhThu);
         pnTKMonAn.add(lbThongKeMonAn);
@@ -358,7 +360,7 @@ public class Main {
 
 // Phương thức mở các panel
     void moCacPanel() {
-        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK);
         fr.setLayout(null);
         pnDoiMatKhau.setBackground(new Color(196, 185, 185));
         pnDoiMatKhau.setOpaque(true);
@@ -371,7 +373,7 @@ public class Main {
         pnDoiMatKhau.setPreferredSize(new Dimension(256, 100));
         pnDangXuat.setPreferredSize(new Dimension(256, 100));
 
-        pnDoiMatKhau.setBounds(0, 0, 256, 100);
+        pnDoiMatKhau.setBounds(0, 0, pnHeThong.getWidth(), pnHeThong.getHeight());
 
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
@@ -382,7 +384,7 @@ public class Main {
         int panelWidth = 256;
         int panelHeight = 100;
 
-        pnDangXuat.setBounds(0, 0, panelWidth, panelHeight);
+        pnDangXuat.setBounds(0, 0, pnHeThong.getWidth(), pnHeThong.getHeight());
 
         pnDoiMatKhau.add(lblDoiMatKhau);
         pnDangXuat.add(lblDangXuat);
@@ -415,7 +417,11 @@ public class Main {
         pnDanhGia.setOpaque(true);
         pnDanhGia.setBorder(bottomBorderDanhGia);
 
-        pnNhanVien.setBounds(255, 0, 256, 100);
+        Point location = pnQuanLy.getLocation();
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+
+        pnNhanVien.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), 100);
 
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
@@ -426,7 +432,7 @@ public class Main {
         int panelWidth = 257;
         int panelHeight = 100;
 
-        pnDanhGia.setBounds(255, 0, panelWidth, panelHeight);
+        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), panelHeight);
 
         pnNhanVien.add(lblNhanVien);
         pnDanhGia.add(lblDanhGia);

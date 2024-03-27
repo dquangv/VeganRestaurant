@@ -6,12 +6,16 @@
 4 create pro and trigger
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
-DBCC CHECKIDENT ('MonAn', RESEED, 0);
+
+
+DBCC CHECKIDENT ('KhachHang', RESEED, 0);
 go
 
 
 create database NhaHangChay_CohesiveStars;
 go
+
+	
 
 use NhaHangChay_CohesiveStars;
 go
@@ -38,7 +42,7 @@ go
 
 create table KhachHang (
 	MaKhachHang int identity(1, 1) primary key,
-	TenKhachHang nvarchar(30) not null,
+	TenKhachHang nvarchar(30) ,
 	SDT varchar(15),
 	NgaySinh date
 );
@@ -88,10 +92,11 @@ create table MonAn (
 	MaMonAn int identity(1, 1) primary key,
 	TenMonAn nvarchar(50) not null,
 	DonGia money not null,
-	SoLuong int,
+	soLuong int,
 	HinhAnh varchar(500),
 	TrangThai nvarchar(30) not null,
-	MaLoaiMon int);
+	MaLoaiMon int
+	);
 go
 
 create table ThucDon (
@@ -307,6 +312,7 @@ insert into LoaiMon (TenLoaiMon) values
 	(N'Khai vị');
 go
 
+
 insert into MonAn ( TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon) values
     ( N'Salad mít non', 125000, 50, 'xa-lach-mit-non-2.png', N'Hoạt động',3),
     ( N'Mozzarella Salad', 135000, 50,'saladmozarella.png', N'Hoạt động',3),
@@ -339,43 +345,20 @@ insert into MonAn ( TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon) va
     (N'Mì sốt kem nấm', 150000, 50, 'mi-sot-kem-nam-2.png', N'Hoạt động',1),
     (N'Cơm cà ri', 125000, 50, 'com-cari-1.png', N'Hoạt động',2);
 go
-
 insert into ThucDon (TenThucDon, NgayPhucVu) values
 	(N'Ngày chẵn', '2-4-6-CN'),
 	(N'Ngày lẻ', '3-5-7');
 go
 
-insert into ChiTietTD values
-	(1,1),
-	(1,2),
-	(1,3),
-	(1,4),
-	(1,5),
-	(1,6),
-	(1,7),
-	(1,8),
-	(1,9),
-	(1,10),
-	(1,11),
-	(1,12),
-	(1,13),
-	(1,14),
-	(1,15),
-	(1,16),
-	(1,17),
-	(1,18),
-	(1,19),
-	(1,20),
-	(1,21),
-	(1,22),
-	(1,23),
-	(1,24),
-	(1,25),
-	(1,26),
-	(1,27),
-	(1,28),
-	(1,29),
-	(1,30)
+insert into ChiTietTD (MaThucDon, MaMonAn) values
+	(1, 1),
+	(1, 2),
+	(1, 4),
+	(1, 6),
+	(2, 1),
+	(2, 3),
+	(2, 4),
+	(2, 7);
 go
 
 insert into DanhGia (DanhGia) values
@@ -416,14 +399,15 @@ go
 	mn chú ý 
 */
 -- thong ke mon an
-create  proc Sp_ThongKeMonAn
+
+create   proc Sp_ThongKeMonAn
 as 
 begin 
-	select top 7 TenMonAn ,sum(cthd.soluong) as SoLuongDaBan
+	select top 7 TenMonAn ,sum(ctgm.soluong) as Soluongmonan
 	from MonAn ma
-	join ChiTietHD cthd on cthd.MaMonAn = ma.MaMonAn
+	join ChiTietGM ctgm on ctgm.MaMonAn = ma.MaMonAn
 	group by TenMonAn
-	order by SoLuongDaBan desc	
+	order by Soluongmonan desc	
 end 
 go
 
@@ -433,11 +417,9 @@ AS
 BEGIN
     SELECT 
         MONTH(hd.NgayLap) AS Thang,
-        SUM(cthd.ThanhTien) AS TongThanhTien
+        SUM(hd.TongTien) AS TongThanhTien
     FROM 
         HoaDon hd
-    JOIN 
-        ChiTietHD cthd ON cthd.MaHoaDon = hd.MaHoaDon
     WHERE 
         YEAR(hd.NgayLap) = @nam
     GROUP BY 
@@ -447,13 +429,7 @@ go
 
  -- proc hoa don 
  go
- create or alter proc sp_HoaDon @maHD varchar(10)
-as
-select ma.TenMonAn,SoLuong,ThanhTien from ChiTietHD cthd
-join MonAn ma on cthd.MaMonAn = ma.MaMonAn
-join HoaDon hd on hd.MaHoaDon = cthd.MaHoaDon
-where hd.MaHoaDon = @maHD
-go
+ 
 
 CREATE TRIGGER Trig_UpdateVaiTro
 ON NhanVien
@@ -471,14 +447,22 @@ BEGIN
         INNER JOIN inserted ON TaiKhoan.MaNhanVien = inserted.MaNhanVien
     END
 END;
+go
 
 
+CREATE or alter PROCEDURE SP_ReSetMaPhieuDatBan (@MaPhieuDatBan int)
+AS
+BEGIN
+    DBCC CHECKIDENT ('PhieuDatBan', RESEED, @MaPhieuDatBan);
+END
+go
 
-select * from KhachHang
-select * from PhieuDatBan
-select * from ChiTietDatBan
 
-select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db 
-            inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
-            inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
-            where (TenKhachHang like '%' or SDT like '%') and  ThoiGianDat > GETDATE();
+CREATE or alter PROCEDURE SP_ReSetMaKhachHang (@MaKhachHang int)
+AS
+BEGIN
+    DBCC CHECKIDENT ('KhachHang', RESEED, @MaKhachHang);
+END
+go
+
+
