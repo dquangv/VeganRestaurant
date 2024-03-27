@@ -97,7 +97,7 @@ public class Main {
         item.add(new DanhMuc("DatBan", pnDatBan, lblDatBan));
         item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
         item.add(new DanhMuc("ThucDon", pnThucDon, lblThucDon));
-        item.add(new DanhMuc("ThongKeMonAn", pnTKMonAn, lbThongKeDoanhThu));
+        item.add(new DanhMuc("ThongKeMonAn", pnTKMonAn, lbThongKeMonAn));
         item.add(new DanhMuc("ThongKeDoanhThu", pnTKDoanhThu, lbThongKeDoanhThu));
         item.add(new DanhMuc("NhanVien", pnNhanVien, lblNhanVien));
         item.add(new DanhMuc("HoaDon", pnThanhToan, lblThanhToan));
