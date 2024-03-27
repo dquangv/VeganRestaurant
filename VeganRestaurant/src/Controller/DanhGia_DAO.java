@@ -71,4 +71,35 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
         }
     }
 
+    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public List<Object[]> loadDanhGia(int mahd) {
+        String SQL = """
+                     select TenMonAn,HinhAnh,dg.MaDanhGia,MaHoaDon from DanhGia dg
+                     right join ChiTietGM ctgm on ctgm.MaDanhGia=dg.MaDanhGia
+                     join MonAn ma on ma.MaMonAn=ctgm.MaMonAn
+                     join PhieuDatBan pbd on pbd.MaPhieuDatBan=ctgm.MaPhieuDatBan
+                     join HoaDon hd on hd.MaPhieuDatBan=pbd.MaPhieuDatBan
+                     where MaHoaDon = ?
+                     """;
+        String[] columns = {"TenMonAn","HinhAnh","MaDanhGia","MaHoaDon"};
+        return getListOfArray(SQL, columns,mahd);
+    }
+    
 }

@@ -10,16 +10,9 @@ package View;
  */
 import Controller.HoaDonDAO;
 import Model.HoaDon;
-import Utils.MsgBox;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.view.*;
 
 public class HoaDonJPanel extends javax.swing.JPanel {
 
@@ -65,27 +58,28 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         }
     }
 
-//    void timTheoMaKH() {
-//        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
-//        model.setRowCount(0);
-//        String id = txtTimID.getText();
-//        List<HoaDon> list = hdDAO.selectByMaKH(Integer.valueOf(id.substring(2)));
-//        for (HoaDon hd : list) {
-//            model.addRow(new Object[]{
-//                "HD" + hd.getMaHoaDon(),
-//                hd.getNgayLap(),
-//                hd.getTienMonAn(),
-//                hd.getTienGiamDiemThuong(),
-//                hd.getTienGiamKhuyenMai(),
-//                hd.getTongTien(),
-//                hd.getPhuongThuc() ? "Thanh Toán" : "Chưa Thanh Toán",
-//                "PDB" + hd.getMaPhieuDatBan(),
-//                "KM" + hd.getMaKhuyenMai(),
-//                "NV" + hd.getMaNhanVien(),
-//                "KH" + hd.getMaKhachHang()
-//            });
-//        }
-//    }
+    void timTheoMaKH() {
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0);
+        String id = txtTimID.getText();
+        List<HoaDon> list = hdDAO.selectByMaKH(Integer.valueOf(id.substring(2)));
+        for (HoaDon hd : list) {
+            model.addRow(new Object[]{
+                "HD" + hd.getMaHoaDon(),
+                hd.getNgayLap(),
+                hd.getTienMonAn(),
+                hd.getTienGiamDiemThuong(),
+                hd.getTienGiamKhuyenMai(),
+                hd.getTongTien(),
+                hd.getPhuongThuc() ? "Thanh Toán" : "Chưa Thanh Toán",
+                "PDB" + hd.getMaPhieuDatBan(),
+                "KM" + hd.getMaKhuyenMai(),
+                "NV" + hd.getMaNhanVien(),
+                "KH" + hd.getMaKhachHang()
+            });
+        }
+    }
+    
 //    void thietLapForm(HoaDon hd) {
 //        txtMaHoaDon.setText("HD" + hd.getMaHoaDon());
 //        txtMaKH.setText("KH" + hd.getMaKhachHang());
@@ -189,25 +183,25 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //    }
 
     //in hoa đơn theo mẫu
-    void inHoaDon() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            try (Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false", "sa", "songlong")) {
-                String reportPath = "src\\View\\HoaDonIn.jrxml";
-
-                String maHD = (String) tblHoaDon.getValueAt(this.row, 0);
-
-                Map<String, Object> parameters = new HashMap<>();
-                parameters.put("P_MaHD", maHD);
-
-                JasperReport jcomp = JasperCompileManager.compileReport(reportPath);
-                JasperPrint jprint = JasperFillManager.fillReport(jcomp, parameters, con);
-                JasperViewer.viewReport(jprint, false);
-                JasperPrintManager.printReport(jprint, true);
-            }
-        } catch (ClassNotFoundException | SQLException | JRException ex) {
-        }
-    }
+//    void inHoaDon() {
+//        try {
+//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//            try (Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars;encrypt = false", "sa", "songlong")) {
+//                String reportPath = "src\\View\\HoaDonIn.jrxml";
+//
+//                String maHD = (String) tblHoaDon.getValueAt(this.row, 0);
+//
+//                Map<String, Object> parameters = new HashMap<>();
+//                parameters.put("P_MaHD", maHD);
+//
+//                JasperReport jcomp = JasperCompileManager.compileReport(reportPath);
+//                JasperPrint jprint = JasperFillManager.fillReport(jcomp, parameters, con);
+//                JasperViewer.viewReport(jprint, false);
+//                JasperPrintManager.printReport(jprint, true);
+//            }
+//        } catch (ClassNotFoundException | SQLException | JRException ex) {
+//        }
+//    }
 
     void xemHoaDon(int mahd) {
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
@@ -233,6 +227,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnTim = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel2.setText("Quản lý hóa đơn");
@@ -279,6 +274,13 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setText("Xem Đánh Giá");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -294,8 +296,10 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 .addComponent(txtTimID, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTim)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -306,7 +310,8 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(txtTimID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(btnTim)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addContainerGap())
@@ -354,7 +359,11 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
-        //        this.timTheoMaKH();
+        if(txtTimID.getText().length()==0){
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Mã Hóa Đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }else{
+            this.timTheoMaKH();
+        }
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
@@ -369,10 +378,15 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //        }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTim;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
