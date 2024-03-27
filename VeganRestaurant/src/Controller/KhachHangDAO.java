@@ -24,6 +24,7 @@ import java.util.List;
 public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
     String INSERT_KH = "INSERT INTO KhachHang(TenKhachHang,SDT,NgaySinh) VALUES(?,?,?)";
+    String INSERT_KH_null = "INSERT INTO KhachHang(TenKhachHang,SDT,NgaySinh) VALUES(null, null, null)";
     String INSERT_TV = "INSERT INTO ThanhVien(NgayDangKy,DiemThuong,MaKhachHang) VALUES(?,?,?)";
     String UPDATE_SQL = "UPDATE KhachHang SET TenKhachHang=? ,SDT=? ,NgayDkThanhVien=? ,DiemThuong=? WHERE MaKhachHang = ? ";
     String DELETE_SQL = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
@@ -31,6 +32,10 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
             + "ThanhVien.DiemThuong FROM KhachHang Left Join ThanhVien on KhachHang.MaKhachHang = ThanhVien.MaKhachHang";
 
     private XJdbc xJdbc;
+
+    public void insertNull(KhachHang entity) {
+        XJdbc.executeUpdate(INSERT_KH_null);
+    }
 
     public KhachHangDAO(XJdbc xJdbc) {
         this.xJdbc = xJdbc;
@@ -66,7 +71,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         String sql = "UPDATE KhachHang SET SDT = ?, NgaySinh = ? "
                 + "WHERE MaKhachHang = ?";
 
-        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
+        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
             pstmt.setString(1, khachHang.getSDT());
             pstmt.setDate(2, new java.sql.Date(khachHang.getNgaySinh().getTime()));
             pstmt.setInt(3, khachHang.getMaKhachHang());
@@ -81,7 +86,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
         KhachHang khachHang = null;
 
-        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang); ResultSet rs = pstmt.executeQuery()) {
+        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang);  ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
                 khachHang = extractKhachHangFromResultSet(rs);
@@ -94,13 +99,11 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         return khachHang;
     }
 
-    
-
     // Lấy danh sách tất cả khách hàng
     public List<KhachHang> getAllKhachHang() {
         String sql = SELECT_ALL_SQL;
         List<KhachHang> khachHangList = new ArrayList<>();
-        try (ResultSet rs = xJdbc.executeQuery(sql)) {
+        try ( ResultSet rs = xJdbc.executeQuery(sql)) {
             while (rs.next()) {
                 KhachHang khachHang = extractKhachHangFromResultSet(rs);
                 khachHangList.add(khachHang);

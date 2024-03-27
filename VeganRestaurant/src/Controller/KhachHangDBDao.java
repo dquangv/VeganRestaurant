@@ -17,6 +17,30 @@ public class KhachHangDBDao extends NhaHangChayDAO<KhachHang, String> {
 
     String Insert = "insert into KhachHang (TenKhachHang, SDT) values (?,?) ";
     String SELECT_ALL_SQL = "SELECT * FROM KhachHang";
+    String SelectMaKhachHangMax = "select max(makhachhang) max from khachhang";
+    
+    
+    
+     public void setMaxKh(int maKhachHang){
+        String sql = "{call SP_ReSetMaKhachHang(?)}";
+         try {
+             XJdbc.executeQuery(sql,maKhachHang);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+    }
+    public int SelectMaxkH(){
+        int maxKh = 0;
+        try {
+            ResultSet rs = XJdbc.executeQuery(SelectMaKhachHangMax);
+            if (rs.next()) {
+                maxKh = rs.getInt("max");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return maxKh;
+    }
     @Override
     public void insert(KhachHang entity) {
         XJdbc.executeUpdate(Insert,
