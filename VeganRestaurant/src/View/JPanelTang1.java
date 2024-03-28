@@ -17,7 +17,6 @@ import javax.swing.JButton;
 public class JPanelTang1 extends javax.swing.JPanel {
 
     DatBanDao dBDao = new DatBanDao();
-
     /**
      * Creates new form JPanelTang1
      */

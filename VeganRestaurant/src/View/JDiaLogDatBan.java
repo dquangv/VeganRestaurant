@@ -4,11 +4,13 @@
  */
 package View;
 
+import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
 import static Controller.DatBanDao.BAO_TRI;
 import static Controller.DatBanDao.DANG_PHUC_VU;
-import Controller.KhachHangDAO;
-import Model.KhachHang;
+import Controller.PhieuDatBanDao;
+import Model.ChiTietDatBan;
+import Model.PhieuDatBan;
 
 import Utils.MsgBox;
 
@@ -19,8 +21,10 @@ import Utils.MsgBox;
 public class JDiaLogDatBan extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
-    KhachHangDAO khDAO = new KhachHangDAO();
-
+    PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
+    ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
+    int maBan;
+    
     /**
      * Creates new form JDiaLogDatBan
      */
@@ -34,6 +38,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
 
     public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
+        this.maBan = maBan;
     }
 
     /**
@@ -141,15 +146,25 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã chuyên sang bảo trì");
         thayDoiTrangThai(maBan);
+
         this.setVisible(false);
     }//GEN-LAST:event_lbBaoTriMouseClicked
-
+    void insert(int maBan) {
+        PhieuDatBan pdb = new PhieuDatBan();
+        ChiTietDatBan ctdb = new ChiTietDatBan();
+        int maMaxPbd = pdbDAO.SelectMaxPDB();
+        pdbDAO.setMaxPDB(maMaxPbd);
+        pdbDAO.insert(pdb);
+        ctdb.setMaBan(maBan);
+        ctdb.setMaPhieuDat(maMaxPbd+1);
+        ctdbdao.insert(ctdb);
+    }
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
-        KhachHang kh = new KhachHang();
+
         MsgBox.alert(this, "Bất đầu phục vụ");
-        khDAO.insertNull(kh);
         thayDoiTrangThaiBatDauPhucVu(maBan);
+        insert(this.maBan);
         this.setVisible(false);
     }//GEN-LAST:event_lbBDPVMouseClicked
 

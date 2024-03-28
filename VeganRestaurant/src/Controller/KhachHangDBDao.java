@@ -24,7 +24,7 @@ public class KhachHangDBDao extends NhaHangChayDAO<KhachHang, String> {
      public void setMaxKh(int maKhachHang){
         String sql = "{call SP_ReSetMaKhachHang(?)}";
          try {
-             XJdbc.executeQuery(sql,maKhachHang);
+             XJdbc.executeUpdate(sql,maKhachHang);
          } catch (Exception e) {
              e.printStackTrace();
          }

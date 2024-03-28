@@ -22,6 +22,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
     CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
+    
   
     /**
      * Creates new form JDialogTrangThaiDatBan
@@ -139,6 +140,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã hũy bàn thành công");
         thayDoiTrangThai(maBan);
+
         this.setVisible(false);
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
@@ -146,6 +148,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
+        
         this.setVisible(false);
     }//GEN-LAST:event_lbBDPVMouseClicked
 

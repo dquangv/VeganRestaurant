@@ -17,14 +17,15 @@ import java.util.Date;
 
 public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
 
-    String Insert = "insert into PhieuDatBan (ThoiGianDat,MaKhachHang) values (?,?)";
+    String Insert = "insert into PhieuDatBan (ThoiGianDat, MaKhachHang) values (?,?)";
+
     String SELECT_ALL_SQL = "select * from PhieuDatBan";
     String SelectMaPhieuDatBanMax = "select max(MaPhieuDatBan) max from PhieuDatBan"; 
     
     public void setMaxPDB(int maPhieuDatBan){
         String sql = "{call SP_ReSetMaPhieuDatBan(?)}";
          try {
-             XJdbc.executeQuery(sql,maPhieuDatBan);
+             XJdbc.executeUpdate(sql,maPhieuDatBan);
          } catch (Exception e) {
              e.printStackTrace();
          }
@@ -48,7 +49,7 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
                 entity.getMaKhachHang()
         );
     }
-
+   
     @Override
     public void update(PhieuDatBan entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

@@ -31,7 +31,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
-
+    JPanelDatBan panelDB = new JPanelDatBan();
+  
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -46,7 +47,6 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         txtThoiGian.setCalendar(cal);
 
-        data();
 
     }
 
@@ -55,11 +55,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         this.maBan = maBan;
     }
 
-    void data() {
-        LoadKhachHang();
-        LoadPhieuDatBan();
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,12 +176,14 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
+            int kt = 0;
             insert();
             thayDoiTrangThai(maBan);
             MsgBox.alert(this, "Đặt bàn thành công");
             this.setVisible(false);
+            kt++;
+            panelDB.KiemTraXacNhan(kt);
         }
-        System.out.println(layThoiGian());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -351,7 +349,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-        if (txtThoiGian.getDate().getTime() < thoiGianHienTai.getTime()) {
+            System.out.println(thoiGianHienTai);
+            System.out.println(layThoiGian());
+        if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;
         }
