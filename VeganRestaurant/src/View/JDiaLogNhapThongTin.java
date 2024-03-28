@@ -32,7 +32,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
     JPanelDatBan panelDB = new JPanelDatBan();
-  
+
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -47,7 +47,6 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         txtThoiGian.setCalendar(cal);
 
-
     }
 
     public void setBan(int maBan) {
@@ -55,7 +54,6 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         this.maBan = maBan;
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -320,7 +318,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
             pdb.setMaKhachHang(maMaxKH + 1);
-             maMaxPDB = pdbDao.SelectMaxPDB();
+            int maMaxPDB = pdbDao.SelectMaxPDB();
             pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
             ctdb.setMaPhieuDat(maMaxPDB + 1);
@@ -330,9 +328,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         }
     }
 
-    public int getMaMaxPDB() {
-        return maMaxPDB;
-    }
+ 
 
     boolean Checkvalidate() {
         Date thoiGianHienTai = new Date();
@@ -353,8 +349,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-            System.out.println(thoiGianHienTai);
-            System.out.println(layThoiGian());
+        System.out.println(thoiGianHienTai);
+        System.out.println(layThoiGian());
         if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;
