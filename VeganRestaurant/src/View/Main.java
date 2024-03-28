@@ -5,12 +5,10 @@ import Controller.DanhMuc;
 import Utils.Auth;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import org.jfree.layout.FormatLayout;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -58,7 +55,6 @@ public class Main {
 
     JPanel pnDoiMatKhau = new JPanel();
     JPanel pnDangXuat = new JPanel();
-    JPanel pnThoat = new JPanel();
 
     JPanel pnTKDoanhThu = new JPanel();
     JPanel pnTKMonAn = new JPanel();
@@ -72,7 +68,7 @@ public class Main {
 
     JLabel lbVaiTro = new JLabel("Quản lý: Võ Thanh Tùng");
 
-    JLabel lblDoiMatKhau = new JLabel("Đổi mật khẩu");
+    JLabel lblDoiMatKhau = new JLabel("Đổi mật  khẩu");
     JLabel lblDangXuat = new JLabel("Đăng xuất", JLabel.CENTER);
     JLabel lblThoat = new JLabel("Thoát", JLabel.CENTER);
 
@@ -122,7 +118,11 @@ public class Main {
     public static void main(String[] args) {
         Main m = new Main();
         m.GiaoDien();
+        m.themSuKienChoTatCaPanel();
         m.CaiDat();
+        m.ListPanelMenu();
+        m.ListAllPanel();
+        m.ListPanelHeThong();
         m.ThongKe();
         m.QuanLy();
         m.VaiTro();
@@ -133,7 +133,11 @@ public class Main {
         m.GiaoDien();
         m.CaiDat();
         m.ThongKe();
+        m.ListPanelHeThong();
+        m.ListAllPanel();
         m.QuanLy();
+        m.ListPanelMenu();
+        m.themSuKienChoTatCaPanel();
         m.VaiTro();
     }
 
@@ -288,6 +292,53 @@ public class Main {
         });
     }
 
+    void themSuKienChoTatCaPanel() {
+        // Danh sách các JPanel cần thêm sự kiện
+        List<JPanel> panels = new ArrayList<>();
+        panels.add(pnMenu);
+        panels.add(pnView);
+        panels.add(pnMenuCon1);
+        panels.add(pnMenuCon2);
+        panels.add(pnMenuConTrai);
+        panels.add(pnMenuConPhai);
+        panels.add(pnDoiMatKhau);
+        panels.add(pnDangXuat);
+        panels.add(pnTKDoanhThu);
+        panels.add(pnTKMonAn);
+        panels.add(pnDatBan);
+        panels.add(pnThanhToan);
+        panels.add(pnKhachHang);
+        panels.add(pnThucDon);
+        panels.add(pnNguyenLieu);
+        panels.add(pnMonAn);
+        panels.add(pnNhanVien);
+        panels.add(pnDanhGia);
+
+        // Lặp qua danh sách các JPanel và thêm sự kiện mouseClicked cho mỗi JPanel
+        for (JPanel panel : panels) {
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 1) {
+                        if (!TrangThaiThietLap || !TrangThaiQuanLy || !TrangThaiThongKe) {
+                            dongTatCaPanel();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    void dongTatCaPanel() {
+        // Đóng tất cả các panel và cập nhật trạng thái
+        dongCacPanel();
+        dongCacPanelQuanLy();
+        dongCacPanelThongKe();
+        TrangThaiThietLap = false;
+        TrangThaiQuanLy = false;
+        TrangThaiThongKe = false;
+    }
+
     void ThongKe() {
         pnThongKe.addMouseListener(new MouseAdapter() {
 
@@ -341,14 +392,13 @@ public class Main {
         pnTKMonAn.setOpaque(true);
         pnTKMonAn.setBorder(bottomBorderDanhGia);
 
-        pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
-
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnTKDoanhThu);
 
         pnView.add(pnTKMonAn);
 
+        pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnKhachHang.getHeight());
         pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
 
         pnTKDoanhThu.add(lbThongKeDoanhThu);
@@ -360,16 +410,28 @@ public class Main {
         lbThongKeMonAn.setFont(new Font("Arial", Font.BOLD, 30));
         lbThongKeMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
-        pnMenuCon2.setComponentZOrder(pnTKDoanhThu, 0);
-        pnView.setComponentZOrder(pnTKMonAn, 0);
-
+        // Sử dụng Thread để tạo hiệu ứng di chuyển từ trên xuống dưới
+        new Thread(() -> {
+            for (int y = -pnTKDoanhThu.getHeight() + 8; y <= 0; y += 10) {
+                try {
+                    Thread.sleep(10); // Đợi 10 miliseconds trước khi di chuyển
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                pnMenuCon2.setComponentZOrder(pnTKDoanhThu, 0);
+                pnView.setComponentZOrder(pnTKMonAn, 0);
+                pnTKDoanhThu.setLocation(pnQuanLy.getWidth() * 2, y); // Di chuyển panel DoiMatKhau
+                pnTKMonAn.setLocation(pnQuanLy.getWidth() * 2, y); // Di chuyển panel DangXuat
+            }
+        }).start();
         fr.revalidate();
         fr.repaint();
     }
 
 // Phương thức mở các panel
     void moCacPanel() {
-        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK);
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
+        Border bottomBorderDangXuat = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
         fr.setLayout(null);
         pnDoiMatKhau.setBackground(new Color(196, 185, 185));
         pnDoiMatKhau.setOpaque(true);
@@ -377,12 +439,7 @@ public class Main {
 
         pnDangXuat.setBackground(new Color(196, 185, 185));
         pnDangXuat.setOpaque(true);
-        pnDangXuat.setBorder(bottomBorder);
-
-        pnDoiMatKhau.setPreferredSize(new Dimension(256, 100));
-        pnDangXuat.setPreferredSize(new Dimension(256, 100));
-
-        pnDoiMatKhau.setBounds(0, 0, pnHeThong.getWidth(), pnHeThong.getHeight());
+        pnDangXuat.setBorder(bottomBorderDangXuat);
 
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
@@ -390,9 +447,7 @@ public class Main {
 
         pnView.add(pnDangXuat);
 
-        int panelWidth = 256;
-        int panelHeight = 100;
-
+        pnDoiMatKhau.setBounds(0, 0, pnDatBan.getWidth(), pnDatBan.getHeight());
         pnDangXuat.setBounds(0, 0, pnHeThong.getWidth(), pnHeThong.getHeight());
 
         pnDoiMatKhau.add(lblDoiMatKhau);
@@ -407,15 +462,26 @@ public class Main {
         lblThoat.setFont(new Font("Arial", Font.BOLD, 30));
         lblThoat.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
-        pnMenuCon2.setComponentZOrder(pnDoiMatKhau, 0);
-        pnView.setComponentZOrder(pnDangXuat, 0);
-
+        // Sử dụng Thread để tạo hiệu ứng di chuyển từ trên xuống dưới
+        new Thread(() -> {
+            for (int y = -pnDoiMatKhau.getHeight() + 8; y <= 0; y += 10) {
+                try {
+                    Thread.sleep(10); // Đợi 10 miliseconds trước khi di chuyển
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                pnMenuCon2.setComponentZOrder(pnDoiMatKhau, 0);
+                pnView.setComponentZOrder(pnDangXuat, 0);
+                pnDoiMatKhau.setLocation(0, y); // Di chuyển panel DoiMatKhau
+                pnDangXuat.setLocation(0, y); // Di chuyển panel DangXuat
+            }
+        }).start();
         fr.revalidate();
         fr.repaint();
     }
 
     void moCacPanelQuanLy() {
-        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 2, 0, Color.BLACK);
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
 
         pnNhanVien.setBackground(new Color(196, 185, 185));
@@ -426,22 +492,14 @@ public class Main {
         pnDanhGia.setOpaque(true);
         pnDanhGia.setBorder(bottomBorderDanhGia);
 
-        Point location = pnQuanLy.getLocation();
-        int x = (int) location.getX();
-        int y = (int) location.getY();
-
-        pnNhanVien.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), 100);
-
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnNhanVien);
 
         pnView.add(pnDanhGia);
 
-        int panelWidth = 257;
-        int panelHeight = 100;
-
-        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), panelHeight);
+        pnNhanVien.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), pnKhachHang.getHeight());
+        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), pnKhachHang.getHeight());
 
         pnNhanVien.add(lblNhanVien);
         pnDanhGia.add(lblDanhGia);
@@ -452,39 +510,225 @@ public class Main {
         lblDanhGia.setFont(new Font("Arial", Font.BOLD, 30));
         lblDanhGia.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
-        pnMenuCon2.setComponentZOrder(pnNhanVien, 0);
-        pnView.setComponentZOrder(pnDanhGia, 0);
-
+        // Sử dụng Thread để tạo hiệu ứng di chuyển từ trên xuống dưới
+        new Thread(() -> {
+            for (int y = -pnNhanVien.getHeight() + 8; y <= 0; y += 10) {
+                try {
+                    Thread.sleep(10); // Đợi 10 miliseconds trước khi di chuyển
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                pnMenuCon2.setComponentZOrder(pnNhanVien, 0);
+                pnView.setComponentZOrder(pnDanhGia, 0);
+                pnNhanVien.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DoiMatKhau
+                pnDanhGia.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DangXuat
+            }
+        }).start();
         fr.revalidate();
         fr.repaint();
     }
 
 // Phương thức đóng các panel
     void dongCacPanel() {
-        // Xóa các panel khỏi pnMenuCon2 và pnView
-        pnMenuCon2.remove(pnDoiMatKhau);
-        pnView.remove(pnDangXuat);
+        new Thread(() -> {
+            for (int y = 0; y >= -pnDoiMatKhau.getHeight(); y -= 10) {
+                try {
+                    Thread.sleep(10); // Đợi 10 miliseconds trước khi di chuyển
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                pnDoiMatKhau.setLocation(0, y); // Di chuyển panel DoiMatKhau
+                pnDangXuat.setLocation(0, y); // Di chuyển panel DangXuat
+            }
 
-        fr.revalidate();
-        fr.repaint();
+            // Sau khi di chuyển hoàn tất, loại bỏ các panel khỏi pnMenuCon2 và pnView
+            pnMenuCon2.remove(pnDoiMatKhau);
+            pnView.remove(pnDangXuat);
+        }).start();
     }
 
     void dongCacPanelQuanLy() {
-        // Xóa các panel khỏi pnMenuCon2 và pnView
-        pnMenuCon2.remove(pnNhanVien);
-        pnView.remove(pnDanhGia);
+        new Thread(() -> {
+            for (int y = 0; y >= -pnNhanVien.getHeight(); y -= 10) {
+                try {
+                    Thread.sleep(10); // Đợi 10 miliseconds trước khi di chuyển
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                pnNhanVien.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DoiMatKhau
+                pnDanhGia.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DangXuat
+            }
 
+            // Sau khi di chuyển hoàn tất, loại bỏ các panel khỏi pnMenuCon2 và pnView
+            pnMenuCon2.remove(pnNhanVien);
+            pnView.remove(pnDanhGia);
+        }).start();
         fr.revalidate();
         fr.repaint();
     }
 
 // Phương thức đóng các panel
     void dongCacPanelThongKe() {
-        // Xóa các panel khỏi pnMenuCon2 và pnView
-        pnMenuCon2.remove(pnTKDoanhThu);
-        pnView.remove(pnTKMonAn);
+        new Thread(() -> {
+            for (int y = 0; y >= -pnTKDoanhThu.getHeight(); y -= 10) {
+                try {
+                    Thread.sleep(10); // Đợi 10 miliseconds trước khi di chuyển
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                pnTKDoanhThu.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel DoiMatKhau
+                pnTKMonAn.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel DangXuat
+            }
 
+            // Sau khi di chuyển hoàn tất, loại bỏ các panel khỏi pnMenuCon2 và pnView
+            pnMenuCon2.remove(pnTKDoanhThu);
+            pnView.remove(pnTKMonAn);
+        }).start();
         fr.revalidate();
         fr.repaint();
+    }
+
+    void ListPanelMenu() {
+        List<JPanel> panels = new ArrayList<>();
+        panels.add(pnTKMonAn);
+        panels.add(pnDatBan);
+        panels.add(pnThanhToan);
+        panels.add(pnKhachHang);
+        panels.add(pnThucDon);
+        panels.add(pnNguyenLieu);
+        panels.add(pnMonAn);
+        suKienDaBamVao(panels);
+        suKienThayDoiMauPanel(panels);
+    }
+
+    void ListPanelHeThong() {
+        List<JPanel> panels = new ArrayList<>();
+        panels.add(pnHeThong);
+        panels.add(pnDoiMatKhau);
+        panels.add(pnDangXuat);
+        panels.add(pnQuanLy);
+        panels.add(pnNhanVien);
+        panels.add(pnDanhGia);
+        panels.add(pnThongKe);
+        panels.add(pnTKDoanhThu);
+        panels.add(pnTKMonAn);
+        suKienDaBamVaoHeThong(panels);
+        suKienThayMauHeThong(panels);
+    }
+
+    void ListAllPanel() {
+        List<JPanel> panels = new ArrayList<>();
+        panels.add(pnTKMonAn);
+        panels.add(pnDatBan);
+        panels.add(pnThanhToan);
+        panels.add(pnKhachHang);
+        panels.add(pnThucDon);
+        panels.add(pnNguyenLieu);
+        panels.add(pnMonAn);
+        panels.add(pnHeThong);
+        panels.add(pnDoiMatKhau);
+        panels.add(pnDangXuat);
+        panels.add(pnQuanLy);
+        panels.add(pnNhanVien);
+        panels.add(pnDanhGia);
+        panels.add(pnThongKe);
+        panels.add(pnTKDoanhThu);
+        panels.add(pnTKMonAn);
+        suKienRoiChuotThanhConTro(panels);
+    }
+
+    void suKienThayMauHeThong(List<JPanel> panelList) {
+        for (JPanel panel : panelList) {
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Đổi màu của panel khi chuột rơi vào
+                    panel.setBackground(Color.black); // Thay đổi màu thành màu đỏ (hoặc bất kỳ màu nào bạn muốn)
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Trở lại màu gốc của panel khi chuột rời khỏi
+                    panel.setBackground(new Color(196, 185, 185)); // Màu gốc của panel (hoặc bất kỳ màu nào bạn đã thiết lập trước đó)
+                }
+            });
+        }
+    }
+
+    void suKienThayDoiMauPanel(List<JPanel> panelList) {
+        for (JPanel panel : panelList) {
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Đổi màu của panel khi chuột rơi vào
+                    panel.setBackground(Color.RED); // Thay đổi màu thành màu đỏ (hoặc bất kỳ màu nào bạn muốn)
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Trở lại màu gốc của panel khi chuột rời khỏi
+                    panel.setBackground(new Color(240, 187, 187)); // Màu gốc của panel (hoặc bất kỳ màu nào bạn đã thiết lập trước đó)
+                }
+            });
+        }
+    }
+
+    void suKienDaBamVaoHeThong(List<JPanel> panelList) {
+        for (JPanel panel : panelList) {
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    // Thay đổi màu của panel khi bấm vào
+                    panel.setBackground(Color.RED); // Thay đổi màu thành màu đen (hoặc bất kỳ màu nào bạn muốn)
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // Trở lại màu gốc của panel khi thả chuột ra
+                    panel.setBackground(new Color(196, 185, 185)); // Màu gốc của panel (hoặc bất kỳ màu nào bạn đã thiết lập trước đó)
+                }
+            });
+        }
+    }
+
+    void suKienDaBamVao(List<JPanel> panelList) {
+        for (JPanel panel : panelList) {
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    // Thay đổi màu của panel khi bấm vào
+                    panel.setBackground(Color.BLACK); // Thay đổi màu thành màu đen (hoặc bất kỳ màu nào bạn muốn)
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // Trở lại màu gốc của panel khi thả chuột ra
+                    panel.setBackground(new Color(240, 187, 187)); // Màu gốc của panel (hoặc bất kỳ màu nào bạn đã thiết lập trước đó)
+                }
+            });
+        }
+    }
+
+    public static void suKienRoiChuotThanhConTro(List<JPanel> panelList) {
+        for (JPanel panel : panelList) {
+            // Con trỏ chuột tùy chỉnh
+            Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Đổi con trỏ chuột thành con trỏ tùy chỉnh khi rơi chuột vào
+                    panel.setCursor(customCursor);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Trở lại con trỏ chuột mặc định khi chuột rời khỏi panel
+                    panel.setCursor(Cursor.getDefaultCursor());
+                }
+            });
+        }
     }
 }

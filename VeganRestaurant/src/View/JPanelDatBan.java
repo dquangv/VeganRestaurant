@@ -26,10 +26,9 @@ public class JPanelDatBan extends javax.swing.JPanel {
      */
     public JPanelDatBan() {
         initComponents();
+        fillToTable();
         fillComboBoxTang();
 
-        capNhatTable();
-        
     }
 
     public void capNhatTable() {
@@ -264,12 +263,11 @@ public class JPanelDatBan extends javax.swing.JPanel {
             for (Object[] obj : list) {
                 model.addRow(obj);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
- 
 
     void fillComboBoxTang() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbTang.getModel();
@@ -280,4 +278,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }
 
+    public void KiemTraXacNhan(int kt) {
+        if (kt == 1) {
+            fillToTable();
+            kt = 0;
+        }
+    }
 }

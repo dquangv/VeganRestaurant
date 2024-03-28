@@ -11,11 +11,9 @@
 DBCC CHECKIDENT ('KhachHang', RESEED, 0);
 go
 
-
 create database NhaHangChay_CohesiveStars;
 go
 
-	
 
 use NhaHangChay_CohesiveStars;
 go
@@ -58,10 +56,11 @@ go
 
 create table PhieuDatBan (
 	MaPhieuDatBan int identity(1, 1) primary key,
-	ThoiGianDat datetime,
+	ThoiGianDat datetime default getdate(),
 	MaKhachHang int
 );
 go
+
 
 create table Ban (
 	MaBan int identity(1, 1) primary key,
@@ -428,8 +427,15 @@ END
 go
 
  -- proc hoa don 
- go
- 
+ create proc [dbo].[sp_ChiTietHD] @maHD varchar(10)
+as
+select TenMonAn,DonGia,ctgm.SoLuong,sum(DonGia*ctgm.SoLuong) as ThanhTien from HoaDon hd
+join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+join ChiTietGM ctgm on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
+join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+where hd.MaHoaDon = @maHD
+group by TenMonAn,DonGia,ctgm.SoLuong
+ go 
 
 CREATE TRIGGER Trig_UpdateVaiTro
 ON NhanVien
@@ -464,5 +470,3 @@ BEGIN
     DBCC CHECKIDENT ('KhachHang', RESEED, @MaKhachHang);
 END
 go
-
-
