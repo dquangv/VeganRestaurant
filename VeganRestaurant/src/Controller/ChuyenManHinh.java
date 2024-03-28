@@ -45,12 +45,17 @@ public class ChuyenManHinh {
         kindSelected = "DatBan";
 //        jpnItem.setBackground(new Color(23, 70, 162));
 //        jlbItem.setBackground(new Color(23, 70, 162));
-
         root.removeAll();
         root.setLayout(new BorderLayout());
-        root.add(new JPanelMonAn());
+        root.add(jpnItem);
         root.validate();
         root.repaint();
+        System.out.println(root);
+//        System.out.println(jpnItem.getToolTipText());
+
+//        System.out.println(root.getComponent(0));
+//        System.out.println(jpnItem);
+//        System.out.println("a");
     }
 
     //----------------------------Hàm tạo event để xử lý sự kiện MouseListener ( thao tác chuyển đổi menu)
@@ -58,10 +63,12 @@ public class ChuyenManHinh {
     public void setEvent(List<DanhMuc> listItem) {
         this.listItem = listItem;
         for (DanhMuc item : listItem) {
-            item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
+            //getJpn để gắn sự kiện cho panel, getLbl để gắn sự kiện cho Label
+            item.getJpn().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
         }
     }
 
+    // tạo sự kiện
     class LabelEvent implements MouseListener {
 
         private JPanel node;
@@ -86,6 +93,11 @@ public class ChuyenManHinh {
                     break;
                 case "DatBan":
                     node = new JPanelDatBan();
+//                    System.out.println(node);
+//                    System.out.println(new JPanelDatBan());
+//                    System.out.println("b");
+//                    System.out.println(root);
+//                    System.out.println("c");
                     break;
                 case "KhachHang":
                     node = new KhachHang();
@@ -114,20 +126,58 @@ public class ChuyenManHinh {
                 default:
                     node = new JPanelDatBan();
             }
+//            System.out.println(node);
+//
+//            System.out.println(root);
+//            System.out.println("d");
             root.removeAll();
+//            System.out.println(node);
+//
+//            System.out.println(root);
+//            System.out.println("e");
             root.setLayout(new BorderLayout());
+//            System.out.println(node);
+//
+//            System.out.println(root);
+//            System.out.println("f");
+
             root.add(node);
+//            System.out.println(node);
+//
+//            System.out.println(root);
+//            System.out.println("g");
+
             root.validate();
+//            System.out.println(node);
+//
+//            System.out.println(root);
+//            System.out.println("h");
             root.repaint();
-            changeBackGroundColor(kind);
+//            System.out.println(node);
+//
+//            System.out.println(root);
+//            System.out.println("i");
+//            changeBackGroundColor(kind);
+
+//            System.out.println(root.getComponent(0));
+//            System.out.println(new JPanelDatBan());
+//            System.out.println(root.getComponent(0));
+//            System.out.println(node);
+//            System.out.println("b");
+//            System.out.println(node);
+//
+//            System.out.println(root);
+            System.out.println(root);
+
+//            System.out.println("j");
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            kindSelected = kind;
-            jpnItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setForeground(new Color(232, 249, 253));
+//            kindSelected = kind;
+//            jpnItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setForeground(new Color(232, 249, 253));
         }
 
         @Override
@@ -136,18 +186,18 @@ public class ChuyenManHinh {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            jpnItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setForeground(new Color(232, 249, 253));
+//            jpnItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setForeground(new Color(232, 249, 253));
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(255, 30, 0));
-                jlbItem.setBackground(new Color(255, 30, 0));
-                jlbItem.setForeground(new Color(232, 249, 253));
-            }
+//            if (!kindSelected.equalsIgnoreCase(kind)) {
+//                jpnItem.setBackground(new Color(255, 30, 0));
+//                jlbItem.setBackground(new Color(255, 30, 0));
+//                jlbItem.setForeground(new Color(232, 249, 253));
+//            }
         }
 
     }
@@ -166,17 +216,17 @@ public class ChuyenManHinh {
         }
     }
 
-    private void changeBackGroundColorQL(String kind) {
-        for (DanhMuc item : listItem) {
-            if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(255, 30, 0));
-                item.getJlb().setBackground(new Color(255, 30, 0));
-
-            } else {
-                item.getJlb().setBackground(new Color(0, 0, 0));
-                item.getJpn().setBackground(new Color(0, 0, 0));
-
-            }
-        }
-    }
+//    private void changeBackGroundColorQL(String kind) {
+//        for (DanhMuc item : listItem) {
+//            if (item.getKind().equalsIgnoreCase(kind)) {
+//                item.getJpn().setBackground(new Color(255, 30, 0));
+//                item.getJlb().setBackground(new Color(255, 30, 0));
+//
+//            } else {
+//                item.getJlb().setBackground(new Color(0, 0, 0));
+//                item.getJpn().setBackground(new Color(0, 0, 0));
+//
+//            }
+//        }
+//    }
 }

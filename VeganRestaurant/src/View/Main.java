@@ -30,7 +30,7 @@ import org.jfree.layout.FormatLayout;
  * @author Võ Thanh Tùng
  */
 public class Main {
-
+    
     boolean TrangThaiThietLap = false;
     boolean TrangThaiThongKe = false;
     boolean TrangThaiQuanLy = false;
@@ -45,23 +45,23 @@ public class Main {
     JPanel pnHeThong = new JPanel();
     JPanel pnQuanLy = new JPanel();
     JPanel pnThongKe = new JPanel();
-
+    
     JPanel pnDoiMatKhau = new JPanel();
     JPanel pnDangXuat = new JPanel();
     JPanel pnThoat = new JPanel();
-
+    
     JPanel pnTKDoanhThu = new JPanel();
     JPanel pnTKMonAn = new JPanel();
-
+    
     JLabel lbHeThong = new JLabel("Hệ thống");
     JLabel lbQuanLy = new JLabel("Quản lý");
     JLabel lbThongKe = new JLabel("Thống kê");
-
+    
     JLabel lbThongKeDoanhThu = new JLabel("Doanh thu");
     JLabel lbThongKeMonAn = new JLabel("Món ăn");
-
+    
     JLabel lbVaiTro = new JLabel("Quản lý: Võ Thanh Tùng");
-
+    
     JLabel lblDoiMatKhau = new JLabel("Đổi mật khẩu");
     JLabel lblDangXuat = new JLabel("Đăng xuất", JLabel.CENTER);
     JLabel lblThoat = new JLabel("Thoát", JLabel.CENTER);
@@ -73,7 +73,7 @@ public class Main {
     JPanel pnThucDon = new JPanel();
     JPanel pnNguyenLieu = new JPanel();
     JPanel pnMonAn = new JPanel();
-
+    
     JLabel lblDatBan = new JLabel("Đặt bàn");
     JLabel lblThanhToan = new JLabel("Thanh toán");
     JLabel lblKhachHang = new JLabel("Khách hàng");
@@ -84,12 +84,14 @@ public class Main {
     // pn quan ly 
     JPanel pnNhanVien = new JPanel();
     JPanel pnDanhGia = new JPanel();
-
+    
     JLabel lblNhanVien = new JLabel("Nhân viên");
     JLabel lblDanhGia = new JLabel("Đánh giá");
-
+    
     public Main() {
+//        pnView.add(pnDatBan);
         ChuyenManHinh control = new ChuyenManHinh(pnView);
+
         //control.setView(jpn,);
         List<DanhMuc> item = new ArrayList<>();
         item.add(new DanhMuc("MonAn", pnMonAn, lblMonAn));
@@ -103,21 +105,25 @@ public class Main {
         item.add(new DanhMuc("DanhGia", pnDanhGia, lblDanhGia));
         item.add(new DanhMuc("NguyenVatLieu", pnNguyenLieu, lblNguyenLieu));
         item.add(new DanhMuc("DoiMatKhau", pnDoiMatKhau, lblDoiMatKhau));
+//        item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
 
-        item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
+//        pnDatBan.setToolTipText("aaa");
+        pnView.setToolTipText("a");
+        control.setView(pnDatBan, lblDatBan);
+        
         control.setEvent(item);
 //        capNhatVaiTro();
     }
-
+    
     public static void main(String[] args) {
-  Main m = new Main();
+        Main m = new Main();
         m.GiaoDien();
         m.CaiDat();
         m.ThongKe();
         m.QuanLy();
         m.VaiTro();
     }
-
+    
     public static void callMain() {
         Main m = new Main();
         m.GiaoDien();
@@ -126,16 +132,17 @@ public class Main {
         m.QuanLy();
         m.VaiTro();
     }
-
-    void VaiTro(){
-        lbVaiTro.setText((Auth.user.isVaiTro() ? "Quản lý: " : "Nhân viên: ")+Auth.user.getTenTaiKhoan());
+    
+    void VaiTro() {
+        lbVaiTro.setText((Auth.user.isVaiTro() ? "Quản lý: " : "Nhân viên: ") + Auth.user.getTenTaiKhoan());
     }
+    
     void GiaoDien() {
-
+        
         fr.setExtendedState(fr.MAXIMIZED_BOTH);
         fr.setLocationRelativeTo(null);
         fr.setDefaultCloseOperation(fr.EXIT_ON_CLOSE);
-        fr.setResizable(false);
+//        fr.setResizable(false);
         fr.setVisible(true);
 
         // add cac pn vao fr chinh 
@@ -145,12 +152,14 @@ public class Main {
 
         //add view vao fr
         pnView.setPreferredSize(new Dimension(fr.getWidth(), fr.getHeight()));
-
+        
         fr.add(pnMenu, BorderLayout.NORTH);
         fr.add(pnView, BorderLayout.CENTER);
 
         // Cài đặt layout cho pnView thành null
         pnView.setLayout(null);
+//        pnView.add(pnDatBan);
+//        System.out.println(pnView.getComponent(0));
 
         // add pnMenuCon1 vao pnMenu
         pnMenu.add(pnMenuCon1, BorderLayout.NORTH);
@@ -239,33 +248,33 @@ public class Main {
         // them font chu va margin 30 px
         lblDatBan.setFont(new Font("Arial", Font.BOLD, 30));
         lblDatBan.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblThanhToan.setFont(new Font("Arial", Font.BOLD, 30));
         lblThanhToan.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblKhachHang.setFont(new Font("Arial", Font.BOLD, 30));
         lblKhachHang.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblThucDon.setFont(new Font("Arial", Font.BOLD, 30));
         lblThucDon.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblNguyenLieu.setFont(new Font("Arial", Font.BOLD, 30));
         lblNguyenLieu.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblMonAn.setFont(new Font("Arial", Font.BOLD, 30));
         lblMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
     }
-
+    
     void CaiDat() {
         pnHeThong.addMouseListener(new MouseAdapter() {
-
+            
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     // Nếu TrangThaiThietLap là false, tức là panel đang đóng
                     if (!TrangThaiThietLap) {
                         // Mở các panel và cập nhật trạng thái
                         moCacPanel();
-
+                        
                         TrangThaiThietLap = true;
                     } else {
                         // Đóng các panel và cập nhật trạng thái
@@ -276,10 +285,10 @@ public class Main {
             }
         });
     }
-
+    
     void ThongKe() {
         pnThongKe.addMouseListener(new MouseAdapter() {
-
+            
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     // Nếu TrangThaiThietLap là false, tức là panel đang đóng
@@ -296,10 +305,10 @@ public class Main {
             }
         });
     }
-
+    
     void QuanLy() {
         pnQuanLy.addMouseListener(new MouseAdapter() {
-
+            
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     // Nếu TrangThaiThietLap là false, tức là panel đang đóng
@@ -321,37 +330,41 @@ public class Main {
     void moCacPanelThongKe() {
         Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
-
+        
         pnTKDoanhThu.setBackground(new Color(196, 185, 185));
         pnTKDoanhThu.setOpaque(true);
         pnTKDoanhThu.setBorder(bottomBorder);
-
+        
         pnTKMonAn.setBackground(new Color(196, 185, 185));
         pnTKMonAn.setOpaque(true);
         pnTKMonAn.setBorder(bottomBorderDanhGia);
 
-        pnTKDoanhThu.setBounds(511, 0, 257, 98);
-
+//        pnTKDoanhThu.setBounds(511, 0, 257, 98);
+//        pnTKDoanhThu.setBounds(511, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
+        pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
+        
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnTKDoanhThu);
-
+        
         pnView.add(pnTKMonAn);
 
-        pnTKMonAn.setBounds(511, 0, 257, 100);
-
+//        pnTKMonAn.setBounds(511, 0, 257, 100);
+//        pnTKMonAn.setBounds(511, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
+        pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
+        
         pnTKDoanhThu.add(lbThongKeDoanhThu);
         pnTKMonAn.add(lbThongKeMonAn);
-
+        
         lbThongKeDoanhThu.setFont(new Font("Arial", Font.BOLD, 30));
         lbThongKeDoanhThu.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lbThongKeMonAn.setFont(new Font("Arial", Font.BOLD, 30));
         lbThongKeMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         pnMenuCon2.setComponentZOrder(pnTKDoanhThu, 0);
         pnView.setComponentZOrder(pnTKMonAn, 0);
-
+        
         fr.revalidate();
         fr.repaint();
     }
@@ -363,83 +376,87 @@ public class Main {
         pnDoiMatKhau.setBackground(new Color(196, 185, 185));
         pnDoiMatKhau.setOpaque(true);
         pnDoiMatKhau.setBorder(bottomBorder);
-
+        
         pnDangXuat.setBackground(new Color(196, 185, 185));
         pnDangXuat.setOpaque(true);
         pnDangXuat.setBorder(bottomBorder);
-
+        
         pnDoiMatKhau.setPreferredSize(new Dimension(256, 100));
         pnDangXuat.setPreferredSize(new Dimension(256, 100));
 
-        pnDoiMatKhau.setBounds(0, 0, 256, 100);
-
+//        pnDoiMatKhau.setBounds(0, 0, 256, 100);
+        pnDoiMatKhau.setBounds(0, 0, pnHeThong.getWidth(), pnHeThong.getHeight());
+        
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnDoiMatKhau);
-
+        
         pnView.add(pnDangXuat);
-
+        
         int panelWidth = 256;
         int panelHeight = 100;
 
-        pnDangXuat.setBounds(0, 0, panelWidth, panelHeight);
-
+//        pnDangXuat.setBounds(0, 0, panelWidth, panelHeight);
+        pnDangXuat.setBounds(0, 0, pnHeThong.getWidth(), pnHeThong.getHeight());
+        
         pnDoiMatKhau.add(lblDoiMatKhau);
         pnDangXuat.add(lblDangXuat);
-
+        
         lblDoiMatKhau.setFont(new Font("Arial", Font.BOLD, 30));
         lblDoiMatKhau.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblDangXuat.setFont(new Font("Arial", Font.BOLD, 30));
         lblDangXuat.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblThoat.setFont(new Font("Arial", Font.BOLD, 30));
         lblThoat.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         pnMenuCon2.setComponentZOrder(pnDoiMatKhau, 0);
         pnView.setComponentZOrder(pnDangXuat, 0);
-
+        
         fr.revalidate();
         fr.repaint();
     }
-
+    
     void moCacPanelQuanLy() {
         Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 2, 0, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
-
+        
         pnNhanVien.setBackground(new Color(196, 185, 185));
         pnNhanVien.setOpaque(true);
         pnNhanVien.setBorder(bottomBorder);
-
+        
         pnDanhGia.setBackground(new Color(196, 185, 185));
         pnDanhGia.setOpaque(true);
         pnDanhGia.setBorder(bottomBorderDanhGia);
 
-        pnNhanVien.setBounds(255, 0, 256, 100);
-
+//        pnNhanVien.setBounds(255, 0, 256, 100);
+        pnNhanVien.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), 100);
+        
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnNhanVien);
-
+        
         pnView.add(pnDanhGia);
-
+        
         int panelWidth = 257;
         int panelHeight = 100;
 
-        pnDanhGia.setBounds(255, 0, panelWidth, panelHeight);
-
+//        pnDanhGia.setBounds(255, 0, panelWidth, panelHeight);
+        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), panelHeight);
+        
         pnNhanVien.add(lblNhanVien);
         pnDanhGia.add(lblDanhGia);
-
+        
         lblNhanVien.setFont(new Font("Arial", Font.BOLD, 30));
         lblNhanVien.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         lblDanhGia.setFont(new Font("Arial", Font.BOLD, 30));
         lblDanhGia.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-
+        
         pnMenuCon2.setComponentZOrder(pnNhanVien, 0);
         pnView.setComponentZOrder(pnDanhGia, 0);
-
+        
         fr.revalidate();
         fr.repaint();
     }
@@ -449,16 +466,16 @@ public class Main {
         // Xóa các panel khỏi pnMenuCon2 và pnView
         pnMenuCon2.remove(pnDoiMatKhau);
         pnView.remove(pnDangXuat);
-
+        
         fr.revalidate();
         fr.repaint();
     }
-
+    
     void dongCacPanelQuanLy() {
         // Xóa các panel khỏi pnMenuCon2 và pnView
         pnMenuCon2.remove(pnNhanVien);
         pnView.remove(pnDanhGia);
-
+        
         fr.revalidate();
         fr.repaint();
     }
@@ -468,7 +485,7 @@ public class Main {
         // Xóa các panel khỏi pnMenuCon2 và pnView
         pnMenuCon2.remove(pnTKDoanhThu);
         pnView.remove(pnTKMonAn);
-
+        
         fr.revalidate();
         fr.repaint();
     }
