@@ -31,6 +31,15 @@ import org.jfree.layout.FormatLayout;
  * @author Võ Thanh Tùng
  */
 public class Main {
+    int maPDB;
+
+    public int getMaPDB() {
+        return maPDB;
+    }
+
+    public void setMaPDB(int maPDB) {
+        this.maPDB = maPDB;
+    }
 
     boolean TrangThaiThietLap = false;
     boolean TrangThaiThongKe = false;

@@ -31,6 +31,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
+    int maMaxPDB;
 
     /**
      * Creates new form JDiaLogNhapThongTin
@@ -269,17 +270,17 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         cbThoiGian.setModel(model);
     }
 
- public Date layThoiGian() {
-    Date date = txtThoiGian.getDate();
-    String gioPhut = (String) cbThoiGian.getSelectedItem();
-     if (date !=null) {
-         String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
-         Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
-         return NgayGio;
-     }
-    
-    return null;
-}
+    public Date layThoiGian() {
+        Date date = txtThoiGian.getDate();
+        String gioPhut = (String) cbThoiGian.getSelectedItem();
+        if (date != null) {
+            String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
+            Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
+            return NgayGio;
+        }
+
+        return null;
+    }
 
     private ChiTietDatBan getFormCTDB() {
         ChiTietDatBan ctdb = new ChiTietDatBan();
@@ -291,7 +292,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private PhieuDatBan getFormPDB() {
         // Gọi phương thức layThoiGian() để lấy đối tượng Date
         Date date = layThoiGian();
-        
+
         PhieuDatBan pdb = new PhieuDatBan();
         pdb.setThoiGianDat(date);
 //        pdb.setMaKhachHang(max ma khach hang);
@@ -321,15 +322,19 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             int maMaxKH = khDAO.SelectMaxkH();
             khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
-            pdb.setMaKhachHang(maMaxKH+1);
-            int maMaxPDB = pdbDao.SelectMaxPDB();
+            pdb.setMaKhachHang(maMaxKH + 1);
+             maMaxPDB = pdbDao.SelectMaxPDB();
             pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
-            ctdb.setMaPhieuDat(maMaxPDB+1);
+            ctdb.setMaPhieuDat(maMaxPDB + 1);
             ctdbDAO.insert(ctdb);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int getMaMaxPDB() {
+        return maMaxPDB;
     }
 
     boolean Checkvalidate() {
