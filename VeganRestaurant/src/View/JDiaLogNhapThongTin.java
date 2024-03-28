@@ -320,7 +320,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
             pdb.setMaKhachHang(maMaxKH + 1);
-             maMaxPDB = pdbDao.SelectMaxPDB();
+            int maMaxPDB = pdbDao.SelectMaxPDB();
             pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
             ctdb.setMaPhieuDat(maMaxPDB + 1);
@@ -330,9 +330,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         }
     }
 
-    public int getMaMaxPDB() {
-        return maMaxPDB;
-    }
+
 
     boolean Checkvalidate() {
         Date thoiGianHienTai = new Date();
