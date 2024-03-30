@@ -165,6 +165,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         thayDoiTrangThaiBatDauPhucVu(maBan);
         insert(this.maBan);
         this.setVisible(false);
+       
         JPanelDatBan.fillToTable();
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
@@ -234,7 +235,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         int maMaxPbd = pdbDAO.SelectMaxPDB();
         pdbDAO.setMaxPDB(maMaxPbd);
         pdb.setThoiGianDat(new Date());
-        pdb.setMaKhachHang(maMaxKH+1);
+        pdb.setMaKhachHang(maMaxKH + 1);
         pdbDAO.insert_null(pdb);
         ctdb.setMaBan(maBan);
         ctdb.setMaPhieuDat(maMaxPbd + 1);
