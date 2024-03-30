@@ -440,8 +440,16 @@ public class KhachHang extends javax.swing.JPanel {
 
         List<Model.KhachHang> filteredList = new ArrayList<>();
         for (Model.KhachHang khachHang : khachHangList) {
-            if (khachHang.getTenKhachHang().toLowerCase().contains(keyword.toLowerCase())
-                    || khachHang.getSDT().contains(keyword)) {
+            String tenKH = khachHang.getTenKhachHang();
+            if (tenKH == null) {
+                tenKH = "";
+            }
+            String SDT = khachHang.getSDT();
+            if (SDT == null) {
+                SDT = "";
+            }
+            if (tenKH.toLowerCase().contains(keyword.toLowerCase())
+                    || SDT.contains(keyword)) {
                 filteredList.add(khachHang);
             }
         }
