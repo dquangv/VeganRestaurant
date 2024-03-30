@@ -18,7 +18,7 @@ import java.util.Date;
 public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
 
     String Insert = "insert into PhieuDatBan (ThoiGianDat, MaKhachHang) values (?,?)";
-
+    String Insert_null = "insert into PhieuDatBan values (GETDATE(),NULL)";
     String SELECT_ALL_SQL = "select * from PhieuDatBan";
     String SelectMaPhieuDatBanMax = "select max(MaPhieuDatBan) max from PhieuDatBan"; 
     
@@ -48,6 +48,13 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
                 entity.getThoiGianDat(),
                 entity.getMaKhachHang()
         );
+    }
+    public void insert_null(PhieuDatBan entity) {
+        try {
+           XJdbc.executeUpdate(Insert_null); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
    
     @Override

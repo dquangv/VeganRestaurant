@@ -10,6 +10,7 @@
 
 DBCC CHECKIDENT ('KhachHang', RESEED, 0);
 go
+ 
 
 create database NhaHangChay_CohesiveStars;
 go
@@ -57,7 +58,7 @@ go
 create table PhieuDatBan (
 	MaPhieuDatBan int identity(1, 1) primary key,
 	ThoiGianDat datetime default getdate(),
-	MaKhachHang int
+	MaKhachHang int null
 );
 go
 
@@ -292,7 +293,7 @@ insert into Ban (ViTri, TrangThai) values
 	(N'Tầng 3, Bàn 11', N'Hoạt động'),
 	(N'Tầng 3, Bàn 12', N'Hoạt động');
 go
-
+update Ban set TrangThai = N'Trống' where TrangThai = N'Hoạt động' 
 insert into PhieuDatBan (ThoiGianDat, MaKhachHang) values
 	('2024-01-18 09:00', 1),
 	('2024-01-19 12:00', 2),
@@ -470,3 +471,17 @@ BEGIN
     DBCC CHECKIDENT ('KhachHang', RESEED, @MaKhachHang);
 END
 go
+-- nhung cai nao chua duooc thanh toan ko can biet qua khu tuong lai  
+
+ select db.MaPhieuDatBan, db.MaBan, TenKhachHang,SDT,ThoiGianDat,TrangThai from ChiTietDatBan db 
+             inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
+             inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
+			 inner join Ban b on b.MaBan = db.MaBan
+			where (TenKhachHang like '%' or SDT like '%') 
+			And (TrangThai = 'Đã đặt' or TrangThai = 'Đang phục vụ')
+            order by thoigiandat
+
+
+
+
+

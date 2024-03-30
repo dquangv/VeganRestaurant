@@ -130,15 +130,10 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     }//GEN-LAST:event_lbThemMonMouseClicked
 
     private void lbThanhToansMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThanhToansMouseClicked
-        String maBan = lbmaBan.getText().substring(5);
-        MsgBox.alert(this,"Đã thanh toán");
-//        Main main = new Main();
-//        main.
-//                ChuyenManHinh control = new ChuyenManHinh();
-
-        thayDoiTrangThai(maBan);
+        int daBam = 0;
         this.setVisible(false);
-        
+        daBam ++;
+        Main.ChuyenThanhToan(daBam);
     }//GEN-LAST:event_lbThanhToansMouseClicked
 
     /**
