@@ -8,10 +8,12 @@ import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
 import static Controller.DatBanDao.BAO_TRI;
 import static Controller.DatBanDao.DANG_PHUC_VU;
+import Controller.KhachHangDAO;
 import Controller.PhieuDatBanDao;
+import Controller.KhachHangDBDao;
 import Model.ChiTietDatBan;
 import Model.PhieuDatBan;
-
+import Model.KhachHang;
 import Utils.MsgBox;
 import java.util.Date;
 
@@ -22,6 +24,8 @@ import java.util.Date;
 public class JDiaLogDatBan extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
+    KhachHangDBDao khDBDAO = new KhachHangDBDao();
+    KhachHangDAO khDAO = new KhachHangDAO();
     PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
     int maBan;
@@ -221,10 +225,16 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
      void insert(int maBan) {
+        KhachHang kh = new KhachHang();
         PhieuDatBan pdb = new PhieuDatBan();
         ChiTietDatBan ctdb = new ChiTietDatBan();
+        int maMaxKH = khDBDAO.SelectMaxkH();
+        khDBDAO.setMaxKh(maMaxKH);
+        khDAO.insertNull(kh);
         int maMaxPbd = pdbDAO.SelectMaxPDB();
         pdbDAO.setMaxPDB(maMaxPbd);
+        pdb.setThoiGianDat(new Date());
+        pdb.setMaKhachHang(maMaxKH+1);
         pdbDAO.insert_null(pdb);
         ctdb.setMaBan(maBan);
         ctdb.setMaPhieuDat(maMaxPbd + 1);
