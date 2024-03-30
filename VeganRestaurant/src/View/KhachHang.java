@@ -134,7 +134,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnThem.setBackground(new java.awt.Color(255, 102, 102));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setText("Thêm");
         btnThem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +144,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnCapNhat.setBackground(new java.awt.Color(255, 102, 102));
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCapNhat.setForeground(new java.awt.Color(0, 0, 0));
         btnCapNhat.setText("Cập nhật");
         btnCapNhat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +160,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnTim.setBackground(new java.awt.Color(255, 102, 102));
         btnTim.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnTim.setForeground(new java.awt.Color(0, 0, 0));
         btnTim.setText("Tìm kiếm");
         btnTim.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnTim.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +170,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnMoi.setBackground(new java.awt.Color(255, 102, 102));
         btnMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnMoi.setForeground(new java.awt.Color(0, 0, 0));
         btnMoi.setText("Mới");
         btnMoi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
@@ -272,9 +268,9 @@ public class KhachHang extends javax.swing.JPanel {
                     .addComponent(btnCapNhat)
                     .addComponent(btnTim)
                     .addComponent(btnMoi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCapNhat, btnThem});

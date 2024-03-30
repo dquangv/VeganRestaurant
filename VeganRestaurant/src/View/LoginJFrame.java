@@ -333,7 +333,8 @@ public class LoginJFrame extends javax.swing.JFrame {
             MsgBox.alert(this, "Bạn đã nhập thành công vai trò: " + (Auth.user.isVaiTro() ? "Quản lý" : "Nhân viên"));
           
             this.dispose();
-            new Main().callMain();
+            Main m = new Main();
+            m.callMain();
             if (chkSave.isSelected()) {
                 saveLoginInfo(tentk, pass, true);
             } else {

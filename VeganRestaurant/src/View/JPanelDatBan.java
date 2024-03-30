@@ -19,7 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelDatBan extends javax.swing.JPanel {
 
-    DatBanDao dBDao = new DatBanDao();
+
+    static DatBanDao dBDao = new DatBanDao();
 
     /**
      * Creates new form NewJPanel
@@ -28,7 +29,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         initComponents();
         fillToTable();
         fillComboBoxTang();
-
+        
     }
 
     public void capNhatTable() {
@@ -122,12 +123,21 @@ public class JPanelDatBan extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã bàn", "Tên khách hàng", "Số điện thoai", "Thời gian"
+                "Mã phiêu đặt bàn", "Mã bàn", "Tên khách hàng", "Số điện thoai", "Thời gian", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblDatBan);
         if (tblDatBan.getColumnModel().getColumnCount() > 0) {
-            tblDatBan.getColumnModel().getColumn(0).setMinWidth(50);
+            tblDatBan.getColumnModel().getColumn(0).setResizable(false);
+            tblDatBan.getColumnModel().getColumn(1).setMinWidth(50);
         }
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -251,10 +261,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblDatBan;
-    private javax.swing.JTextField txtTimKIem;
+    public static javax.swing.JTable tblDatBan;
+    public static javax.swing.JTextField txtTimKIem;
     // End of variables declaration//GEN-END:variables
-   public void fillToTable() {
+   static public void fillToTable() {
         DefaultTableModel model = (DefaultTableModel) tblDatBan.getModel();
         model.setRowCount(0);
         try {
@@ -263,7 +273,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             for (Object[] obj : list) {
                 model.addRow(obj);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -278,9 +288,9 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }
 
-    public void KiemTraXacNhan(int kt) {
+    static public void KiemTraXacNhan(int kt) {
         if (kt == 1) {
-            fillToTable();
+            JPanelDatBan.fillToTable();
             kt = 0;
         }
     }

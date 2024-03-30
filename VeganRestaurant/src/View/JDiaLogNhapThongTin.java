@@ -31,7 +31,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
-    JPanelDatBan panelDB = new JPanelDatBan();
+    
   
     /**
      * Creates new form JDiaLogNhapThongTin
@@ -182,7 +182,10 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Đặt bàn thành công");
             this.setVisible(false);
             kt++;
-            panelDB.KiemTraXacNhan(kt);
+            JPanelDatBan.KiemTraXacNhan(kt);
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed

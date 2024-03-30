@@ -96,6 +96,9 @@ public class JDialogBaoTriXong extends javax.swing.JDialog {
         thayDoiTrangThai(maBan);
 
         this.setVisible(false);
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBaoTriXongMouseClicked
 
     /**
