@@ -7,17 +7,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import net.sf.jasperreports.engine.json.parser.JsonQueryParserTokenTypes;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -41,10 +46,10 @@ public class Main {
     boolean TrangThaiThietLap = false;
     boolean TrangThaiThongKe = false;
     boolean TrangThaiQuanLy = false;
-    JFrame fr = new JFrame();
+    static JFrame fr = new JFrame();
 // cac tad o tren
     JPanel pnMenu = new JPanel();
-    JPanel pnView = new JPanel();
+    static JPanel pnView = new JPanel();
     JPanel pnMenuCon1 = new JPanel();
     JPanel pnMenuConTrai = new JPanel();
     JPanel pnMenuConPhai = new JPanel();
@@ -59,12 +64,12 @@ public class Main {
     JPanel pnTKDoanhThu = new JPanel();
     JPanel pnTKMonAn = new JPanel();
 
-    JLabel lbHeThong = new JLabel("Hệ thống");
-    JLabel lbQuanLy = new JLabel("Quản lý");
-    JLabel lbThongKe = new JLabel("Thống kê");
+    JLabel lblHeThong = new JLabel("Hệ thống");
+    JLabel lblQuanLy = new JLabel("Quản lý");
+    JLabel lblThongKe = new JLabel("Thống kê");
 
-    JLabel lbThongKeDoanhThu = new JLabel("Doanh thu");
-    JLabel lbThongKeMonAn = new JLabel("Món ăn");
+    JLabel lblThongKeDoanhThu = new JLabel("Doanh thu");
+    JLabel lblThongKeMonAn = new JLabel("Món ăn");
 
     JLabel lbVaiTro = new JLabel("Quản lý: Võ Thanh Tùng");
 
@@ -102,8 +107,8 @@ public class Main {
         item.add(new DanhMuc("DatBan", pnDatBan, lblDatBan));
         item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
         item.add(new DanhMuc("ThucDon", pnThucDon, lblThucDon));
-        item.add(new DanhMuc("ThongKeMonAn", pnTKMonAn, lbThongKeMonAn));
-        item.add(new DanhMuc("ThongKeDoanhThu", pnTKDoanhThu, lbThongKeDoanhThu));
+        item.add(new DanhMuc("ThongKeMonAn", pnTKMonAn, lblThongKeMonAn));
+        item.add(new DanhMuc("ThongKeDoanhThu", pnTKDoanhThu, lblThongKeDoanhThu));
         item.add(new DanhMuc("NhanVien", pnNhanVien, lblNhanVien));
         item.add(new DanhMuc("HoaDon", pnThanhToan, lblThanhToan));
         item.add(new DanhMuc("DanhGia", pnDanhGia, lblDanhGia));
@@ -126,6 +131,8 @@ public class Main {
         m.ThongKe();
         m.QuanLy();
         m.VaiTro();
+        m.setIconPanel();
+        m.setIconLabel();
     }
 
     public static void callMain() {
@@ -139,9 +146,95 @@ public class Main {
         m.ListPanelMenu();
         m.themSuKienChoTatCaPanel();
         m.VaiTro();
+        m.setIconLabel();
+        m.setIconPanel();
+    }
+
+    void setIconPanel() {
+        ImageIcon icon = new ImageIcon("Logos/TrangChu.jpg");
+        JLabel lbIcon = new JLabel();
+        pnView.setLayout(null);
+        pnView.add(lbIcon);
+
+        // Thay đổi kích thước của biểu tượng
+        Image scaledImage = icon.getImage().getScaledInstance(1550, 650, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Đặt biểu tượng đã thay đổi kích thước cho nhãn
+        lbIcon.setIcon(scaledIcon);
+
+        // Đặt vị trí và kích thước cho nhãn
+        lbIcon.setBounds(0, 0, pnView.getWidth(), pnView.getHeight());
+    }
+
+    public static void setIcon(JLabel label, String[] paths, int index) {
+        if (index >= 0 && index < paths.length) {
+            ImageIcon icon = new ImageIcon(paths[index]);
+            label.setIcon(icon);
+        }
+    }
+
+    void setIconLabel() {
+        String path[] = {"Logos/datban.png", "Logos/thanhtoan.png", "Logos/khachhang.png", "Logos/NguyenVatLieu.png", "Logos/thucdon.png",
+            "Logos/MonAn.png", "Logos/hethong.png", "Logos/doimatkhau.png", "Logos/dangxuat.png",
+            "Logos/quanly.png", "Logos/nhanvien.png", "Logos/danhgia.png", "Logos/thongke.png", "Logos/doanhthu.png", "Logos/tkmonan.png"};
+        int[] iconIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        for (int i = 0; i < iconIndexes.length; i++) {
+            setIcon(getLabelByIndex(i), path, iconIndexes[i]);
+        }
+    }
+
+    JLabel getLabelByIndex(int index) {
+        switch (index) {
+            case 0:
+                return lblDatBan;
+            case 1:
+                return lblThanhToan;
+            case 2:
+                return lblKhachHang;
+            case 3:
+                return lblNguyenLieu;
+            case 4:
+                return lblThucDon;
+            case 5:
+                return lblMonAn;
+            case 6:
+                return lblHeThong;
+            case 7:
+                return lblDoiMatKhau;
+            case 8:
+                return lblDangXuat;
+            case 9:
+                return lblQuanLy;
+            case 10:
+                return lblNhanVien;
+            case 11:
+                return lblDanhGia;
+            case 12:
+                return lblThongKe;
+            case 13:
+                return lblThongKeDoanhThu;
+            case 14:
+                return lblThongKeMonAn;
+            default:
+                return null;
+        }
+    }
+
+    static public void ChuyenThanhToan(int daBam) {
+        if (daBam == 1) {
+            HoaDonJPanel hd = new HoaDonJPanel();
+            pnView.removeAll();
+            pnView.add(hd);
+            pnView.revalidate();
+            pnView.repaint();
+            daBam = 0;
+        }
     }
 
     void VaiTro() {
+        ImageIcon icon = new ImageIcon("Logos/user.png");
+        lbVaiTro.setIcon(icon);
         lbVaiTro.setText((Auth.user.isVaiTro() ? "Quản lý: " : "Nhân viên: ") + Auth.user.getTenTaiKhoan());
     }
 
@@ -196,19 +289,19 @@ public class Main {
         pnThongKe.setBorder(RightBorder);
 
         //add Jlabel vao he thong, quan ly, thong ke
-        pnHeThong.add(lbHeThong);
-        pnQuanLy.add(lbQuanLy);
-        pnThongKe.add(lbThongKe);
+        pnHeThong.add(lblHeThong);
+        pnQuanLy.add(lblQuanLy);
+        pnThongKe.add(lblThongKe);
 
         // set font cho chu label
-        lbHeThong.setFont(new Font("Arial", Font.BOLD, 30));
-        lbQuanLy.setFont(new Font("Arial", Font.BOLD, 30));
-        lbThongKe.setFont(new Font("Arial", Font.BOLD, 30));
+        lblHeThong.setFont(new Font("Arial", Font.BOLD, 30));
+        lblQuanLy.setFont(new Font("Arial", Font.BOLD, 30));
+        lblThongKe.setFont(new Font("Arial", Font.BOLD, 30));
 
         // chinh khoang cach  chu label
-        lbHeThong.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-        lbQuanLy.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-        lbThongKe.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        lblHeThong.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        lblQuanLy.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        lblThongKe.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         // Thêm lbVaiTro vào pnMenuConPhai
         pnMenuConPhai.add(lbVaiTro);
@@ -273,23 +366,117 @@ public class Main {
 
     void CaiDat() {
         pnHeThong.addMouseListener(new MouseAdapter() {
-
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
-                    // Nếu TrangThaiThietLap là false, tức là panel đang đóng
+                    // Đóng các panel khác và mở panel HeThong
                     if (!TrangThaiThietLap) {
-                        // Mở các panel và cập nhật trạng thái
                         moCacPanel();
-
+                        dongCacPanelQuanLy();
+                        dongCacPanelThongKe();
+                        // Cập nhật trạng thái
                         TrangThaiThietLap = true;
+                        TrangThaiQuanLy = false;
+                        TrangThaiThongKe = false;
                     } else {
-                        // Đóng các panel và cập nhật trạng thái
+                        dongCacPanel();
+                        TrangThaiThietLap = false;
+                    }
+                } else {
+                    if (!TrangThaiThietLap) {
+                        moCacPanel();
+                        dongCacPanelQuanLy();
+                        dongCacPanelThongKe();
+                        // Cập nhật trạng thái
+                        TrangThaiThietLap = true;
+                        TrangThaiQuanLy = false;
+                        TrangThaiThongKe = false;
+                    } else {
                         dongCacPanel();
                         TrangThaiThietLap = false;
                     }
                 }
             }
         });
+    }
+
+    void QuanLy() {
+        pnQuanLy.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    // Đóng các panel khác và mở panel QuanLy
+                    if (!TrangThaiQuanLy) {
+                        moCacPanelQuanLy();
+                        dongCacPanel();
+                        dongCacPanelThongKe();
+                        // Cập nhật trạng thái
+                        TrangThaiThietLap = false;
+                        TrangThaiQuanLy = true;
+                        TrangThaiThongKe = false;
+                    } else {
+                        dongCacPanelQuanLy();
+                        TrangThaiQuanLy = false;
+                    }
+                } else {
+                    // Đóng các panel khác và mở panel QuanLy
+                    if (!TrangThaiQuanLy) {
+                        moCacPanelQuanLy();
+                        dongCacPanel();
+                        dongCacPanelThongKe();
+                        // Cập nhật trạng thái
+                        TrangThaiThietLap = false;
+                        TrangThaiQuanLy = true;
+                        TrangThaiThongKe = false;
+                    } else {
+                        dongCacPanelQuanLy();
+                        TrangThaiQuanLy = false;
+                    }
+                }
+            }
+        });
+    }
+
+    void ThongKe() {
+        pnThongKe.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    // Đóng các panel khác và mở panel ThongKe
+                    if (!TrangThaiThongKe) {
+                        moCacPanelThongKe();
+                        dongCacPanel();
+                        dongCacPanelQuanLy();
+                        // Cập nhật trạng thái
+                        TrangThaiThietLap = false;
+                        TrangThaiQuanLy = false;
+                        TrangThaiThongKe = true;
+                    } else {
+                        dongCacPanelThongKe();
+                        TrangThaiThongKe = false;
+                    }
+                } else {
+                    // Đóng các panel khác và mở panel ThongKe
+                    if (!TrangThaiThongKe) {
+                        moCacPanelThongKe();
+                        dongCacPanel();
+                        dongCacPanelQuanLy();
+                        // Cập nhật trạng thái
+                        TrangThaiThietLap = false;
+                        TrangThaiQuanLy = false;
+                        TrangThaiThongKe = true;
+                    } else {
+                        dongCacPanelThongKe();
+                        TrangThaiThongKe = false;
+                    }
+                }
+            }
+        });
+    }
+
+    void dongTatCaPanel() {
+        // Đóng tất cả các panel 
+        dongCacPanel();
+        dongCacPanelQuanLy();
+        dongCacPanelThongKe();
     }
 
     void themSuKienChoTatCaPanel() {
@@ -329,56 +516,6 @@ public class Main {
         }
     }
 
-    void dongTatCaPanel() {
-        // Đóng tất cả các panel và cập nhật trạng thái
-        dongCacPanel();
-        dongCacPanelQuanLy();
-        dongCacPanelThongKe();
-        TrangThaiThietLap = false;
-        TrangThaiQuanLy = false;
-        TrangThaiThongKe = false;
-    }
-
-    void ThongKe() {
-        pnThongKe.addMouseListener(new MouseAdapter() {
-
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-                    // Nếu TrangThaiThietLap là false, tức là panel đang đóng
-                    if (!TrangThaiThongKe) {
-                        // Mở các panel và cập nhật trạng thái
-                        moCacPanelThongKe();
-                        TrangThaiThongKe = true;
-                    } else {
-                        // Đóng các panel và cập nhật trạng thái
-                        dongCacPanelThongKe();
-                        TrangThaiThongKe = false;
-                    }
-                }
-            }
-        });
-    }
-
-    void QuanLy() {
-        pnQuanLy.addMouseListener(new MouseAdapter() {
-
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-                    // Nếu TrangThaiThietLap là false, tức là panel đang đóng
-                    if (!TrangThaiQuanLy) {
-                        // Mở các panel và cập nhật trạng thái
-                        moCacPanelQuanLy();
-                        TrangThaiQuanLy = true;
-                    } else {
-                        // Đóng các panel và cập nhật trạng thái
-                        dongCacPanelQuanLy();
-                        TrangThaiQuanLy = false;
-                    }
-                }
-            }
-        });
-    }
-
 // Phương thức mở các panel
     void moCacPanelThongKe() {
         Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
@@ -401,14 +538,14 @@ public class Main {
         pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnKhachHang.getHeight());
         pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
 
-        pnTKDoanhThu.add(lbThongKeDoanhThu);
-        pnTKMonAn.add(lbThongKeMonAn);
+        pnTKDoanhThu.add(lblThongKeDoanhThu);
+        pnTKMonAn.add(lblThongKeMonAn);
 
-        lbThongKeDoanhThu.setFont(new Font("Arial", Font.BOLD, 30));
-        lbThongKeDoanhThu.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        lblThongKeDoanhThu.setFont(new Font("Arial", Font.BOLD, 30));
+        lblThongKeDoanhThu.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
-        lbThongKeMonAn.setFont(new Font("Arial", Font.BOLD, 30));
-        lbThongKeMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        lblThongKeMonAn.setFont(new Font("Arial", Font.BOLD, 30));
+        lblThongKeMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         // Sử dụng Thread để tạo hiệu ứng di chuyển từ trên xuống dưới
         new Thread(() -> {

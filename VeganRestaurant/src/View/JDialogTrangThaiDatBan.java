@@ -140,16 +140,20 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã hũy bàn thành công");
         thayDoiTrangThai(maBan);
-
         this.setVisible(false);
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
-        
         this.setVisible(false);
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBDPVMouseClicked
 
     /**

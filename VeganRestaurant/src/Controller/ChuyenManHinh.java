@@ -77,6 +77,46 @@ public class ChuyenManHinh {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                switch (kind) {
+                case "NhanVien":
+                    node = new NhanVien_1();
+                    break;
+                case "MonAn":
+                    node = new JPanelMonAn();
+                    break;
+                case "DatBan":
+                    node = new JPanelDatBan();
+                    break;
+                case "KhachHang":
+                    node = new KhachHang();
+                    break;
+                case "NguyenVatLieu":
+                    node = new NguyenVatLieu();
+                    break;
+                case "ThucDon":
+                    node = new ThucDon();
+                    break;
+                case "ThongKeMonAn":
+                    node = new JpanelThongKeMonAn();
+                    break;
+                case "ThongKeDoanhThu":
+                    node = new JPanelThongKeDoanhThu();
+                    break;
+                case "DanhGia":
+                    node = new DanhGia2JPanel();
+                    break;
+                case "HoaDon":
+                    node = new HoaDonJPanel();
+                    break;
+                case "DoiMatKhau":
+                    node = new DoiMatKhauPanel();
+                    break;
+                default:
+                    node = new JPanelDatBan();
+            }
+            }
+            else{
             switch (kind) {
                 case "NhanVien":
                     node = new NhanVien_1();
@@ -114,6 +154,8 @@ public class ChuyenManHinh {
                 default:
                     node = new JPanelDatBan();
             }
+            }
+            
             root.removeAll();
             root.setLayout(new BorderLayout());
             root.add(node);

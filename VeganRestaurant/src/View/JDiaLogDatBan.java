@@ -13,6 +13,7 @@ import Model.ChiTietDatBan;
 import Model.PhieuDatBan;
 
 import Utils.MsgBox;
+import java.util.Date;
 
 /**
  *
@@ -24,7 +25,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
     int maBan;
-    
+
     /**
      * Creates new form JDiaLogDatBan
      */
@@ -146,19 +147,13 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã chuyên sang bảo trì");
         thayDoiTrangThai(maBan);
-
         this.setVisible(false);
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBaoTriMouseClicked
-    void insert(int maBan) {
-        PhieuDatBan pdb = new PhieuDatBan();
-        ChiTietDatBan ctdb = new ChiTietDatBan();
-        int maMaxPbd = pdbDAO.SelectMaxPDB();
-        pdbDAO.setMaxPDB(maMaxPbd);
-        pdbDAO.insert(pdb);
-        ctdb.setMaBan(maBan);
-        ctdb.setMaPhieuDat(maMaxPbd+1);
-        ctdbdao.insert(ctdb);
-    }
+
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
 
@@ -166,6 +161,10 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         thayDoiTrangThaiBatDauPhucVu(maBan);
         insert(this.maBan);
         this.setVisible(false);
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBDPVMouseClicked
 
     /**
@@ -221,6 +220,17 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbMaBan;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
+     void insert(int maBan) {
+        PhieuDatBan pdb = new PhieuDatBan();
+        ChiTietDatBan ctdb = new ChiTietDatBan();
+        int maMaxPbd = pdbDAO.SelectMaxPDB();
+        pdbDAO.setMaxPDB(maMaxPbd);
+        pdbDAO.insert_null(pdb);
+        ctdb.setMaBan(maBan);
+        ctdb.setMaPhieuDat(maMaxPbd + 1);
+        ctdbdao.insert(ctdb);
+    }
+
     public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(BAO_TRI, maBan);
     }
