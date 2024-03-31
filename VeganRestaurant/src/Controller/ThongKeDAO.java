@@ -35,7 +35,7 @@ public class ThongKeDAO {
     }
     public List<Object[]> getMonAnBanChay(){
         String sql = "{CALL Sp_ThongKeMonAn}";
-        String cols[] = {"TenMonAn","SoLuongDaBan"};
+        String cols[] = {"TenMonAn","Soluongmonan"};
         
         return getListOfArray(sql, cols);
     }
@@ -59,5 +59,16 @@ public class ThongKeDAO {
             throw new RuntimeException(e);
         }
     }
+       public boolean checkMaMonAn(String maMonAn){
+          try {
+              ResultSet rs = XJdbc.executeQuery("select MaMonAn from MonAn where MaMonAn = ?", maMonAn);
+              if (rs.next()) {
+                  return false;
+              }
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          return true;
+      }
 }
 

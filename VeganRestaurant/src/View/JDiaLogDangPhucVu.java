@@ -126,6 +126,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         dialogGoiMon.setBan(maBan);
+        Main.callMain();
     }//GEN-LAST:event_lbThemMonMouseClicked
 
     private void lbThanhToansMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThanhToansMouseClicked

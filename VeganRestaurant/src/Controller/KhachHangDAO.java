@@ -23,11 +23,19 @@ import java.util.List;
  */
 public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
-    String INSERT_SQl = "INSERT INTO KhachHang(MaKhachHang,TenKhachHang,SDT,NgayDkThanhVien,DiemThuong) VALUES(?,?,?,?,?)";
+    String INSERT_KH = "INSERT INTO KhachHang(TenKhachHang,SDT,NgaySinh) VALUES(?,?,?)";
+    String INSERT_KH_null = "INSERT INTO KhachHang(TenKhachHang,SDT,NgaySinh) VALUES(null, null, null)";
+    String INSERT_TV = "INSERT INTO ThanhVien(NgayDangKy,DiemThuong,MaKhachHang) VALUES(?,?,?)";
     String UPDATE_SQL = "UPDATE KhachHang SET TenKhachHang=? ,SDT=? ,NgayDkThanhVien=? ,DiemThuong=? WHERE MaKhachHang = ? ";
     String DELETE_SQL = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
-    String SELECT_ALL_SQL = "SELECT * FROM KhachHang";
+    String SELECT_ALL_SQL = "SELECT KhachHang.MaKhachHang, KhachHang.TenKhachHang, KhachHang.SDT, KhachHang.NgaySinh, ThanhVien.NgayDangKy,"
+            + "ThanhVien.DiemThuong FROM KhachHang Left Join ThanhVien on KhachHang.MaKhachHang = ThanhVien.MaKhachHang";
+
     private XJdbc xJdbc;
+
+    public void insertNull(KhachHang entity) {
+        XJdbc.executeUpdate(INSERT_KH_null);
+    }
 
     public KhachHangDAO(XJdbc xJdbc) {
         this.xJdbc = xJdbc;
@@ -36,40 +44,61 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
     public KhachHangDAO() {
     }
 
-    // Thêm khách hàng vào cơ sở dữ liệu
-    public void addKhachHang(KhachHang khachHang) {
-        String sql = "INSERT INTO KhachHang (MaKhachHang, TenKhachHang, SDT, NgayDkThanhVien) VALUES (?, ?, ?, ?)";
-
-        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
-            pstmt.setString(1, khachHang.getMaKhachHang());
-            pstmt.setString(2, khachHang.getTenKhachHang());
-            pstmt.setString(3, khachHang.getSdt());
-
-            if (khachHang.getNgayDkThanhVien() == null) {
-                pstmt.setNull(4, java.sql.Types.DATE);
+    public String addKhachHang(KhachHang khachHang) {
+        try {
+            String INSERT_KH = "INSERT INTO KhachHang(TenKhachHang, SDT, NgaySinh) VALUES(?, ?, ?)";
+            PreparedStatement pstmt = XJdbc.getConnection().prepareStatement(INSERT_KH, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, khachHang.getTenKhachHang());
+            pstmt.setString(2, khachHang.getSDT());
+            if (khachHang.getNgaySinh() != null) {
+                pstmt.setDate(3, new java.sql.Date(khachHang.getNgaySinh().getTime()));
             } else {
-                pstmt.setDate(4, new java.sql.Date(khachHang.getNgayDkThanhVien().getTime()));
+                pstmt.setNull(3, Types.DATE); // Đặt giá trị null cho trường ngày sinh
+            }
+            pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            String maKhachHang = null;
+            if (rs.next()) {
+                maKhachHang = rs.getString(1);
+                return maKhachHang;
             }
 
-            pstmt.executeUpdate();
+            pstmt.getConnection().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    // Cập nhật khách hàng vào cơ sở dữ liệu
+    public String getCustomerNameByPhoneNumber(String phoneNumber) {
+        String customerName = "";
+        String sql = "SELECT TenKhachHang FROM KhachHang WHERE SDT = ?";
+        try {
+            PreparedStatement ps = xJdbc.preparedStatement(sql);
+            ps.setString(1, phoneNumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customerName = rs.getString("TenKhachHang");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return customerName;
+    }
+
     public void updateKhachHang(KhachHang khachHang) {
-        String sql = "UPDATE KhachHang SET SDT = ?, NgayDkThanhVien = ? "
+        String sql = "UPDATE KhachHang SET SDT = ?, NgaySinh = ? "
                 + "WHERE MaKhachHang = ?";
 
-        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
-            pstmt.setString(1, khachHang.getSdt());
-            if (khachHang.getNgayDkThanhVien() == null) {
-                pstmt.setNull(2, java.sql.Types.DATE);
+        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
+            pstmt.setString(1, khachHang.getSDT());
+            if (khachHang.getNgaySinh() != null) {
+                pstmt.setDate(2, new java.sql.Date(khachHang.getNgaySinh().getTime()));
             } else {
-                pstmt.setDate(2, new java.sql.Date(khachHang.getNgayDkThanhVien().getTime()));
+                pstmt.setNull(2, Types.DATE);
             }
-            pstmt.setString(3, khachHang.getMaKhachHang());
+            pstmt.setInt(3, khachHang.getMaKhachHang());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,7 +110,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
         KhachHang khachHang = null;
 
-        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang); ResultSet rs = pstmt.executeQuery()) {
+        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang);  ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
                 khachHang = extractKhachHangFromResultSet(rs);
@@ -96,9 +125,9 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
     // Lấy danh sách tất cả khách hàng
     public List<KhachHang> getAllKhachHang() {
-        String sql = "SELECT * FROM KhachHang";
+        String sql = SELECT_ALL_SQL;
         List<KhachHang> khachHangList = new ArrayList<>();
-        try (ResultSet rs = xJdbc.executeQuery(sql)) {
+        try ( ResultSet rs = xJdbc.executeQuery(sql)) {
             while (rs.next()) {
                 KhachHang khachHang = extractKhachHangFromResultSet(rs);
                 khachHangList.add(khachHang);
@@ -111,61 +140,13 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
     private KhachHang extractKhachHangFromResultSet(ResultSet rs) throws SQLException {
         KhachHang khachHang = new KhachHang();
-        khachHang.setMaKhachHang(rs.getString("MaKhachHang"));
+        khachHang.setMaKhachHang(rs.getInt("MaKhachHang"));
         khachHang.setTenKhachHang(rs.getString("TenKhachHang"));
-        khachHang.setSdt(rs.getString("SDT"));
-        khachHang.setNgayDkThanhVien(rs.getDate("NgayDkThanhVien"));
-        khachHang.setDiemThuong(rs.getFloat("DiemThuong"));
+        khachHang.setSDT(rs.getString("SDT"));
+        khachHang.setNgaySinh(rs.getDate("NgaySinh"));
+        khachHang.setNgayDkThanhVien(rs.getTimestamp("NgayDangKy"));
+        khachHang.setDiemThuong(rs.getInt("DiemThuong"));
         return khachHang;
-    }
-
-    public List<Model.KhachHang> searchKhachHangByKeyword(String sdt, String maKhachHang) {
-        String SQL = "SELECT * FROM KhachHang WHERE SDT LIKE ? AND MaKhachHang LIKE ?";
-        String likeSDT = "%" + sdt + "%";
-        String likeMaKH = "%" + maKhachHang + "%";
-
-        return this.selectBySQL(SQL, likeSDT, likeMaKH);
-    }
-
-//    public List<KhachHang> selectBySQL(String SQL, Object... args) {
-//        List<KhachHang> result = new ArrayList<>();
-//
-//        try (PreparedStatement pstmt = xJdbc.preparedStatement(SQL, args); ResultSet rs = pstmt.executeQuery()) {
-//
-//            while (rs.next()) {
-//                KhachHang khachHang = extractKhachHangFromResultSet(rs);
-//                result.add(khachHang);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-
-    @Override
-    public void insert(KhachHang entity) {
-        XJdbc.executeUpdate(INSERT_SQl,
-                entity.getMaKhachHang(),
-                entity.getTenKhachHang(),
-                entity.getSDT(),
-                entity.getNgayDkThanhVien(),
-                entity.getDiemThuong());
-    }
-
-    @Override
-    public void update(KhachHang entity) {
-        XJdbc.executeUpdate(UPDATE_SQL,
-                entity.getTenKhachHang(),
-                entity.getSDT(),
-                entity.getNgayDkThanhVien(),
-                entity.getDiemThuong(),
-                entity.getMaKhachHang());
-    }
-
-    @Override
-    public void delete(Object id) {
-        XJdbc.executeUpdate(DELETE_SQL, id);
     }
 
     @Override
@@ -186,7 +167,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
             while (rs.next()) {
                 KhachHang entity = new KhachHang();
 
-                entity.setMaKhachHang(rs.getString("MaKhachHang"));
+                entity.setMaKhachHang(rs.getInt("MaKhachHang"));
                 entity.setTenKhachHang(rs.getString("TenKhachHang"));
                 entity.setSDT(rs.getString("SDT"));
                 entity.setNgayDkThanhVien(rs.getDate("NgayDkThanhVien"));
@@ -199,6 +180,21 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void insert(KhachHang entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void update(KhachHang entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete(Object id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
 
 /**
  *
@@ -25,6 +26,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
 
     private int row = -1;
     JFileChooser jFileChooser = new JFileChooser();
+    MonAnDAO madao = new MonAnDAO();
 
     /**
      * Creates new form MonAnPanel
@@ -76,7 +78,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblMonAn.getModel();
 
         for (MonAn monAn : list) {
-            Object row[] = {monAn.getMaMonAn(), monAn.getTenMonAn(), monAn.getDonGia(), monAn.getLoaiMonAn(), monAn.getHinhAnh(), monAn.getTrangThai()};
+            Object row[] = {monAn.getMaMonAn(), monAn.getTenMonAn(), monAn.getDonGia(), monAn.getSoLuong(), madao.getTenLoaiMon(monAn.getMaLoaiMon()), monAn.getHinhAnh(), monAn.getTrangThai()};
 
             model.addRow(row);
         }
@@ -96,18 +98,20 @@ public class JPanelMonAn extends javax.swing.JPanel {
     }
 
     public void themMon() {
-        String maMonAn = txtMaMonAn.getText();
+        int maMonAn = Integer.parseInt(txtMaMonAn.getText());
         String tenMonAn = txtTenMonAn.getText();
         Double donGia = Double.parseDouble(txtDonGia.getText());
-        String loaiMon = (String) cboLoaiMonAn.getSelectedItem();
+//        String loaiMon = (String) cboLoaiMonAn.getSelectedItem();
         String trangThai = (String) cboTrangThai.getSelectedItem();
 
         MonAn monAn = new MonAn();
         monAn.setMaMonAn(maMonAn);
         monAn.setTenMonAn(tenMonAn);
         monAn.setDonGia(donGia);
-        monAn.setLoaiMonAn(loaiMon);
+        monAn.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
+        monAn.setMaLoaiMon(madao.getMaLoaiMon((String) cboLoaiMonAn.getSelectedItem()));
         monAn.setTrangThai(trangThai);
+        monAn.setHinhAnh(lblHinhAnh.getToolTipText());
 
         MonAnDAO dao = new MonAnDAO();
 
@@ -117,7 +121,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
     }
 
     public void capNhatMon() {
-        String maMonAn = txtMaMonAn.getText();
+        int maMonAn = Integer.parseInt(txtMaMonAn.getText());
         String tenMonAn = txtTenMonAn.getText();
         Double donGia = Double.parseDouble(txtDonGia.getText());
         String loaiMon = (String) cboLoaiMonAn.getSelectedItem();
@@ -128,7 +132,9 @@ public class JPanelMonAn extends javax.swing.JPanel {
         monAn.setMaMonAn(maMonAn);
         monAn.setTenMonAn(tenMonAn);
         monAn.setDonGia(donGia);
-        monAn.setLoaiMonAn(loaiMon);
+        monAn.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
+//        monAn.setLoaiMonAn(loaiMon);
+        monAn.setMaLoaiMon(madao.getMaLoaiMon((String) cboLoaiMonAn.getSelectedItem()));
         monAn.setTrangThai(trangThai);
         monAn.setHinhAnh(hinh);
 
@@ -141,17 +147,31 @@ public class JPanelMonAn extends javax.swing.JPanel {
     }
 
     public void resetForm() {
-        txtMaMonAn.setText("");
+        String sql = "select top 1 mamonan from monan order by mamonan desc;";
+
+        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+            while (rs.next()) {
+                txtMaMonAn.setText(String.valueOf(rs.getInt(1) + 1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        txtMaMonAn.setText("");
         txtTenMonAn.setText("");
         txtDonGia.setText("");
+        txtSoLuong.setText("");
         cboLoaiMonAn.setSelectedIndex(0);
         cboTrangThai.setSelectedIndex(0);
 
         txtThemLoaiMA.setText("");
         txtThemTrangThai.setText("");
+        lblHinhAnh.setIcon(null);
+        lblHinhAnh.setText("Hình Ảnh");
     }
 
     void ChoosePicture() {
+        jFileChooser.setCurrentDirectory(new File("D:\\FPT\\tai lieu\\DuAn1\\Fpoly-VeganRestaurant\\VeganRestaurant\\Logos"));
         if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             jFileChooser.setDialogTitle("Choose Image");
             File file = jFileChooser.getSelectedFile();
@@ -163,10 +183,11 @@ public class JPanelMonAn extends javax.swing.JPanel {
     }
 
     void setForm(MonAn ma) {
-        txtMaMonAn.setText(ma.getMaMonAn());
+        txtMaMonAn.setText(String.valueOf(ma.getMaMonAn()));
         txtTenMonAn.setText(ma.getTenMonAn());
         txtDonGia.setText(ma.getDonGia() + "");
-        cboLoaiMonAn.setSelectedItem(ma.getLoaiMonAn());
+        txtSoLuong.setText(String.valueOf(ma.getSoLuong()));
+        cboLoaiMonAn.setSelectedItem(madao.getTenLoaiMon(ma.getMaLoaiMon()));
         cboTrangThai.setSelectedItem(ma.getTrangThai());
         if (ma.getHinhAnh() != null) {
             lblHinhAnh.setToolTipText(ma.getHinhAnh());
@@ -190,14 +211,12 @@ public class JPanelMonAn extends javax.swing.JPanel {
     }
 
     void edit() {
-    row = tblMonAn.getSelectedRow();
-    MonAnDAO dao = new MonAnDAO();
-    String ma = (String) tblMonAn.getValueAt(this.row, 0);
-    MonAn cd = dao.getMonAnByID(ma);
-        System.out.println(ma);
-    this.setForm(cd);
-}
-
+        row = tblMonAn.getSelectedRow();
+        MonAnDAO dao = new MonAnDAO();
+        int ma = (int) tblMonAn.getValueAt(this.row, 0);
+        MonAn cd = dao.getMonAnByID(ma);
+        this.setForm(cd);
+    }
 
     boolean checkVaLiDate() {
         String maMonAn = txtMaMonAn.getText().trim();
@@ -264,6 +283,8 @@ public class JPanelMonAn extends javax.swing.JPanel {
         txtDonGia = new javax.swing.JTextField();
         btnThemMon = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtSoLuong = new javax.swing.JTextField();
 
         btnCapNhat.setText("Cập nhật");
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
@@ -286,11 +307,11 @@ public class JPanelMonAn extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã món ăn", "Tên món ăn", "Đơn giá", "Loại món", "Hình ảnh", "Trạng thái"
+                "Mã món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Loại món", "Hình ảnh", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -321,6 +342,8 @@ public class JPanelMonAn extends javax.swing.JPanel {
 
         cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        txtMaMonAn.setEditable(false);
+
         jLabel7.setText("Thêm trạng thái:");
 
         jLabel2.setText("Tên Món ăn:");
@@ -346,6 +369,8 @@ public class JPanelMonAn extends javax.swing.JPanel {
 
         jLabel4.setText("Loại món ăn:");
 
+        jLabel8.setText("Số lượng:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -361,13 +386,15 @@ public class JPanelMonAn extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel8)))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtMaMonAn)
                     .addComponent(txtTenMonAn)
-                    .addComponent(txtDonGia))
+                    .addComponent(txtDonGia)
+                    .addComponent(txtSoLuong))
                 .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -427,7 +454,9 @@ public class JPanelMonAn extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtThemTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThemTrangThai))
+                            .addComponent(btnThemTrangThai)
+                            .addComponent(jLabel8)
+                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnTimKiem)
@@ -496,11 +525,13 @@ public class JPanelMonAn extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblHinhAnh;
     private javax.swing.JTable tblMonAn;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtMaMonAn;
+    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenMonAn;
     private javax.swing.JTextField txtThemLoaiMA;
     private javax.swing.JTextField txtThemTrangThai;

@@ -5,7 +5,6 @@
 package Controller;
 
 import Model.Ban;
-import Utils.Auth;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,13 +17,19 @@ import Utils.XJdbc;
  */
 public class DatBanDao {
 
-    public static final String Trong = "Đang hoạt động";
+    public static final String Trong = "Hoạt động";
     public static final String DANG_PHUC_VU = "Đang phục vụ";
     public static final String DA_DAT = "Đã đặt";
     public static final String BAO_TRI = "Đang bảo trì";
 
     public static final String Update_TrangThai = "update ban set TrangThai =? where MaBan = ?";
     String SELECT_ALL_SQL = "select * from Ban";
+
+    static String Select_Thongtin = "select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db "
+            + " inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan "
+            + " inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang "
+            + " where ThoiGianDat > GETDATE() and (TenKhachHang like ? or SDT like ?)"
+            + " order by thoigiandat ";
 
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
@@ -68,13 +73,13 @@ public class DatBanDao {
         }
     }
 
-    protected List<Ban> selectBySQL(String sql, Object... args) {
+    List<Ban> selectBySQL(String sql, Object... args) {
         List<Ban> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 Ban entity = new Ban();
-                entity.setMaBan(rs.getString(1));
+                entity.setMaBan(rs.getInt(1));
                 entity.setViTri(rs.getString(2));
                 entity.setTrangThai(rs.getString(3));
                 list.add(entity);
@@ -94,6 +99,12 @@ public class DatBanDao {
         String SQL = "SELECT MaBan,TrangThai FROM Ban";
         String[] columns = {"MaBan", "TrangThai"};
         return getListOfArray(SQL, columns);
+    }
+
+    public List<Object[]> LoadThongTin(String keyword) {
+        String keyTimKiem = "%" + keyword + "%";
+        String cols[] = {"MaBan", "TenKhachHang", "SDT", "ThoiGianDat"};
+        return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
 
 }

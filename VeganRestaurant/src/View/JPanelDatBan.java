@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,8 +26,29 @@ public class JPanelDatBan extends javax.swing.JPanel {
      */
     public JPanelDatBan() {
         initComponents();
+        fillToTable();
         fillComboBoxTang();
-        
+
+    }
+
+    public void capNhatTable() {
+        class TrangThaitable extends Thread {
+
+            @Override
+            public void run() {
+                while (true) {
+                    fillToTable();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        TrangThaitable thread = new TrangThaitable();
+        thread.start();
     }
 
     /**
@@ -44,7 +66,11 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        pnMain = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDatBan = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        txtTimKIem = new javax.swing.JTextField();
 
         cbTang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tầng 1" }));
@@ -80,40 +106,74 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jLabel5.setText("Bảo trì");
         jLabel5.setFocusTraversalPolicyProvider(true);
 
-        javax.swing.GroupLayout pnMainLayout = new javax.swing.GroupLayout(pnMain);
-        pnMain.setLayout(pnMainLayout);
-        pnMainLayout.setHorizontalGroup(
-            pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        pnMainLayout.setVerticalGroup(
-            pnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
-        );
+
+        tblDatBan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã bàn", "Tên khách hàng", "Số điện thoai", "Thời gian"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDatBan);
+        if (tblDatBan.getColumnModel().getColumnCount() > 0) {
+            tblDatBan.getColumnModel().getColumn(0).setMinWidth(50);
+        }
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Danh sách đặt bàn");
+
+        txtTimKIem.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
+        txtTimKIem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKIemActionPerformed(evt);
+            }
+        });
+        txtTimKIem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKIemKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel4)
-                        .addGap(40, 40, 40)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel5)
-                        .addGap(64, 64, 64))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                            .addComponent(txtTimKIem))
+                        .addContainerGap())
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +186,16 @@ public class JPanelDatBan extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addComponent(jLabel4)
                         .addComponent(jLabel3)
-                        .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTimKIem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -140,22 +207,22 @@ public class JPanelDatBan extends javax.swing.JPanel {
             String selectedTang = (String) comboBox.getSelectedItem();
             switch (selectedTang) {
                 case "Tầng 1":
-                    pnMain.removeAll();
-                    pnMain.add(new JPanelTang1());
-                    pnMain.updateUI();
-                    pnMain.setLayout(new FlowLayout());
+                    jPanel3.removeAll();
+                    jPanel3.add(new JPanelTang1());
+                    jPanel3.updateUI();
+                    jPanel3.setLayout(new FlowLayout());
                     break;
                 case "Tầng 2":
-                    pnMain.removeAll();
-                    pnMain.add(new JPanelTang2());
-                    pnMain.updateUI();
-                    pnMain.setLayout(new FlowLayout());
+                    jPanel3.removeAll();
+                    jPanel3.add(new JPanelTang2());
+                    jPanel3.updateUI();
+                    jPanel3.setLayout(new FlowLayout());
                     break;
                 case "Tầng 3":
-                    pnMain.removeAll();
-                    pnMain.add(new JPanelTang3());
-                    pnMain.updateUI();
-                    pnMain.setLayout(new FlowLayout());
+                    jPanel3.removeAll();
+                    jPanel3.add(new JPanelTang3());
+                    jPanel3.updateUI();
+                    jPanel3.setLayout(new FlowLayout());
                     break;
                 // Thêm các case khác tương ứng với các tầng khác
                 default:
@@ -165,6 +232,14 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cbTangActionPerformed
 
+    private void txtTimKIemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKIemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKIemActionPerformed
+
+    private void txtTimKIemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKIemKeyReleased
+        fillToTable();
+    }//GEN-LAST:event_txtTimKIemKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbTang;
@@ -173,8 +248,26 @@ public class JPanelDatBan extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel pnMain;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblDatBan;
+    private javax.swing.JTextField txtTimKIem;
     // End of variables declaration//GEN-END:variables
+   public void fillToTable() {
+        DefaultTableModel model = (DefaultTableModel) tblDatBan.getModel();
+        model.setRowCount(0);
+        try {
+            String key = txtTimKIem.getText();
+            List<Object[]> list = dBDao.LoadThongTin(key);
+            for (Object[] obj : list) {
+                model.addRow(obj);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     void fillComboBoxTang() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbTang.getModel();
@@ -185,4 +278,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }
 
+    public void KiemTraXacNhan(int kt) {
+        if (kt == 1) {
+            fillToTable();
+            kt = 0;
+        }
+    }
 }

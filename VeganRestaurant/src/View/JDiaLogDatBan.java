@@ -4,15 +4,15 @@
  */
 package View;
 
+import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
 import static Controller.DatBanDao.BAO_TRI;
 import static Controller.DatBanDao.DANG_PHUC_VU;
+import Controller.PhieuDatBanDao;
+import Model.ChiTietDatBan;
+import Model.PhieuDatBan;
 
 import Utils.MsgBox;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.util.List;
-import javax.swing.JLabel;
 
 /**
  *
@@ -21,7 +21,10 @@ import javax.swing.JLabel;
 public class JDiaLogDatBan extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
-
+    PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
+    ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
+    int maBan;
+    
     /**
      * Creates new form JDiaLogDatBan
      */
@@ -35,6 +38,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
 
     public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
+        this.maBan = maBan;
     }
 
     /**
@@ -131,9 +135,9 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbDatBanTruocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDatBanTruocMouseClicked
-       String maBan = lbMaBan.getText().substring(5);
+        String maBan = lbMaBan.getText().substring(5);
         JDiaLogNhapThongTin dlnt = new JDiaLogNhapThongTin(new javax.swing.JFrame(), true);
-        dlnt.setBan(maBan);
+        dlnt.setBan(Integer.parseInt(maBan));
         dlnt.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lbDatBanTruocMouseClicked
@@ -142,15 +146,25 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã chuyên sang bảo trì");
         thayDoiTrangThai(maBan);
-        System.out.println(maBan);
+
         this.setVisible(false);
     }//GEN-LAST:event_lbBaoTriMouseClicked
-
+    void insert(int maBan) {
+        PhieuDatBan pdb = new PhieuDatBan();
+        ChiTietDatBan ctdb = new ChiTietDatBan();
+        int maMaxPbd = pdbDAO.SelectMaxPDB();
+        pdbDAO.setMaxPDB(maMaxPbd);
+        pdbDAO.insert(pdb);
+        ctdb.setMaBan(maBan);
+        ctdb.setMaPhieuDat(maMaxPbd+1);
+        ctdbdao.insert(ctdb);
+    }
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
         String maBan = lbMaBan.getText().substring(5);
+
         MsgBox.alert(this, "Bất đầu phục vụ");
         thayDoiTrangThaiBatDauPhucVu(maBan);
-        System.out.println(maBan);
+        insert(this.maBan);
         this.setVisible(false);
     }//GEN-LAST:event_lbBDPVMouseClicked
 

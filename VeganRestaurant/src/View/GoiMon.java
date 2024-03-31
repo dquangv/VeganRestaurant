@@ -4,16 +4,27 @@
  */
 package View;
 
+import Controller.CT_ThongTinDAO;
+import Controller.ChiTietGoiMonDAO;
 import Controller.ThucDonDAO;
+import Model.CT_ThongTin;
+import Model.ChiTietDatBan;
+import Model.ChiTietGoiMon;
 import Model.MonAn;
+import Utils.Auth;
+import Utils.XDate;
 import Utils.XImage;
 import Utils.XJdbc;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +34,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,16 +48,29 @@ public class GoiMon extends javax.swing.JPanel {
      * Creates new form GoiMon
      */
     private ThucDonDAO thucDonDAO;
+    CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
 
     public GoiMon() {
         initComponents();
         thucDonDAO = new ThucDonDAO(new XJdbc());
-        // Gọi phương thức để hiển thị thông tin món ăn vào JComboBox và các components khác
         loadThucDonToComboBox();
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
     }
-    public void setBan(String maBan){
-        lbmaBan.setText("Bàn: "+maBan);
+
+//    public void setBan(String maBan) {
+//        lbmaBan.setText("Bàn: " + maBan);
+//    }
+    public void setBan(String maBan) {
+        List<CT_ThongTin> list = CTDAO.selectAllKH(Integer.parseInt(maBan));
+        if (!list.isEmpty()) {
+            CT_ThongTin cttt = list.get(list.size() - 1);
+            lbmaBan.setText("Bàn " + maBan);
+            lblKhachHang.setText("Khách hàng: " + cttt.getTenKhachHang());
+            lblThoiGIan.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+            lblNhanVien.setText("Nhân viên: " + Auth.user.getTenTaiKhoan());
+        }
     }
+
     private void loadThucDonToComboBox() {
         List<MonAn> danhSachMonAn = thucDonDAO.layDanhSachMonAn();
 
@@ -85,6 +112,16 @@ public class GoiMon extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         pnlThanhToan = new javax.swing.JPanel();
         lbmaBan = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        lblTongTien = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        lblNhanVien = new javax.swing.JLabel();
+        lblKhachHang = new javax.swing.JLabel();
+        lblThoiGIan = new javax.swing.JLabel();
+        lblTongMon = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbbLoaiMon = new javax.swing.JComboBox<>();
@@ -104,16 +141,16 @@ public class GoiMon extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(246, 246, 246)
+                .addGap(281, 281, 281)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pnlThanhToan.setBackground(new java.awt.Color(153, 153, 153));
@@ -121,22 +158,122 @@ public class GoiMon extends javax.swing.JPanel {
         lbmaBan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lbmaBan.setText("Bàn 01");
 
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Món ăn", "Số lượng", "Đơn giá", "Thành tiền", "Ghi chú"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+        }
+
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTongTien.setForeground(new java.awt.Color(0, 0, 0));
+
+        jButton1.setBackground(new java.awt.Color(255, 0, 102));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Lưu");
+
+        jButton2.setBackground(new java.awt.Color(255, 0, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jButton2.setText("Thanh toán");
+
+        lblNhanVien.setText("Nhân viên:");
+
+        lblKhachHang.setText("Khách hàng");
+
+        lblThoiGIan.setText("Thời gian:");
+
+        lblTongMon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTongMon.setForeground(new java.awt.Color(0, 0, 0));
+
+        jButton3.setText("Xóa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlThanhToanLayout = new javax.swing.GroupLayout(pnlThanhToan);
         pnlThanhToan.setLayout(pnlThanhToanLayout);
         pnlThanhToanLayout.setHorizontalGroup(
             pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlThanhToanLayout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(lbmaBan)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlThanhToanLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlThanhToanLayout.createSequentialGroup()
+                                .addComponent(lbmaBan)
+                                .addGap(232, 232, 232))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlThanhToanLayout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(pnlThanhToanLayout.createSequentialGroup()
+                        .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNhanVien)
+                            .addComponent(lblKhachHang)
+                            .addComponent(lblThoiGIan))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlThanhToanLayout.createSequentialGroup()
+                        .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                            .addGroup(pnlThanhToanLayout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTongMon, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         pnlThanhToanLayout.setVerticalGroup(
             pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlThanhToanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbmaBan)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlThanhToanLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(lblNhanVien)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblKhachHang)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblThoiGIan)
+                        .addGap(52, 52, 52)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTongMon, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlThanhToanLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(137, 137, 137))))
         );
+
+        pnlThanhToanLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2});
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -184,8 +321,8 @@ public class GoiMon extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -197,7 +334,7 @@ public class GoiMon extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -214,14 +351,18 @@ public class GoiMon extends javax.swing.JPanel {
         // TODO add your handling code here:
         String selectedLoaiMon = (String) cbbLoaiMon.getSelectedItem();
 
-        // Hiển thị danh sách món ăn theo loại món
         hienThiDanhSachMonAn(selectedLoaiMon);
     }//GEN-LAST:event_cbbLoaiMonItemStateChanged
-    private void hienThiDanhSachMonAn(String loaiMon) {
-        // Gọi phương thức lấy danh sách món ăn theo loại từ ThucDonDAO
-        List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
 
-        // Gọi phương thức hiển thị danh sách món ăn
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int idx = jTable1.getSelectedRow();
+        model.removeRow(idx);
+        tinhTongTien();
+    }//GEN-LAST:event_jButton3ActionPerformed
+    private void hienThiDanhSachMonAn(String loaiMon) {
+        List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
         hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
     }
 
@@ -240,10 +381,8 @@ public class GoiMon extends javax.swing.JPanel {
                 try {
                     BufferedImage originalImage = ImageIO.read(inputStream);
 
-                    // Scale hình ảnh
-                    int scaledWidth = 150; // Đặt kích thước mong muốn
+                    int scaledWidth = 150;
                     int scaledHeight = (int) (((double) scaledWidth / originalImage.getWidth()) * originalImage.getHeight());
-
                     Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
                     ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
@@ -251,34 +390,136 @@ public class GoiMon extends javax.swing.JPanel {
 
                     JLabel lblTenMonAn = new JLabel(monAn.getTenMonAn());
                     lblTenMonAn.setFont(new java.awt.Font("Segoe UI", 1, 14));
-                    JLabel lblGiaMonAn = new JLabel(monAn.getFormattedDonGia()+ " VNĐ");
+                    JLabel lblGiaMonAn = new JLabel(monAn.getFormattedDonGia() + " VNĐ");
                     lblGiaMonAn.setFont(new java.awt.Font("Segoe UI", 0, 18));
                     monAnPanel.add(lblMonAn);
                     monAnPanel.add(lblTenMonAn);
                     monAnPanel.add(lblGiaMonAn);
-                    monAnPanel.setBounds((i % 3) * 250, (i / 3) * 250, 250, 250);
+                    monAnPanel.setBounds((i % 3) * 250, (i / 3) * 250, 240, 250);
                     pnlMonAn.add(monAnPanel);
+
                 } catch (IOException ex) {
                 }
             } else {
                 System.err.println("Không thể tìm thấy hình ảnh: " + imagePath);
             }
+            monAnPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    hienThiThongTinMonAn(monAn);
+                }
+            });
+
         }
 
         pnlMonAn.revalidate();
         pnlMonAn.repaint();
     }
 
+    private void hienThiThongTinMonAn(MonAn monAn) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        boolean found = false;
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 1).equals(monAn.getTenMonAn())) { // Sử dụng cột "Món ăn" (cột thứ 1) để kiểm tra
+                int soLuong = Integer.parseInt((String) model.getValueAt(i, 2)) + 1;
+                double donGia = Double.parseDouble(((String) model.getValueAt(i, 3)).replace(",", "").replace(" VNĐ", ""));
+                double thanhTien = soLuong * donGia;
+                model.setValueAt(String.valueOf(soLuong), i, 2); // Cập nhật số lượng
+                model.setValueAt(decimalFormat.format(thanhTien), i, 4); // Cập nhật thành tiền
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            int stt = model.getRowCount() + 1;
+            double donGia = Double.parseDouble(monAn.getFormattedDonGia().replace(",", "").replace(" VNĐ", ""));
+            double thanhTien = donGia;
+            model.addRow(new Object[]{stt, monAn.getTenMonAn(), "1", monAn.getFormattedDonGia(), decimalFormat.format(thanhTien)});
+            tinhTongTien();
+        }
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    int row = e.getFirstRow();
+//                    e.get
+//                    System.out.println(row);
+                    int column = e.getColumn();
+                    if (column == 2) {
+                        String soLuongStr = (String) model.getValueAt(row, column);
+                        int soLuong = Integer.parseInt(soLuongStr);
+                        double donGia = Double.parseDouble(((String) model.getValueAt(row, 3)).replace(",", "").replace(" VNĐ", ""));
+                        double thanhTien = soLuong * donGia;
+                        model.setValueAt(decimalFormat.format(thanhTien), row, 4);
+                        tinhTongTien();
+                        if (soLuong == 0) {
+                            model.removeRow(row);
+                            System.out.println(model.getRowCount());
+                        }
+                    }
+                }
+            }
+        }
+        );
+
+    }
+
+    private void filltableCoSan(int maPDB) {
+        ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
+        List<ChiTietGoiMon> listGoiMon = ctgmDAO.selectByMaPhieuDatBan(maPDB);
+        for(ChiTietGoiMon row : listGoiMon){
+            System.out.println(row.getTenKH());
+            System.out.println(row.getThoiGianDat());
+            System.out.println(row.getTenMonAn());
+            System.out.println(row.getDonGia());
+            System.out.println(row.getSoLuong());
+            System.out.println(row.getThanhTien());
+            System.out.println(row.getGhiChu());
+        }
+    }
+
+    private void tinhTongTien() {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        double tongTien = 0.0;
+        int tongMon = 0;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String thanhTienString = (String) model.getValueAt(i, 4);
+            double thanhTien = Double.parseDouble(thanhTienString.replace(",", "").replace(" VNĐ", ""));
+            tongTien += thanhTien;
+            String soLuong = (String) model.getValueAt(i, 2);
+            int tongSL = Integer.parseInt(soLuong);
+            tongMon += tongSL;
+        }
+        lblTongMon.setText("Tổng số món: " + tongMon + ".");
+        lblTongTien.setText("Tổng tiền: " + decimalFormat.format(tongTien) + " VNĐ");
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbbLoaiMon;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblKhachHang;
+    private javax.swing.JLabel lblNhanVien;
+    private javax.swing.JLabel lblThoiGIan;
+    private javax.swing.JLabel lblTongMon;
+    private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lbmaBan;
     private javax.swing.JPanel pnlMonAn;
     private javax.swing.JPanel pnlThanhToan;
     // End of variables declaration//GEN-END:variables
+
 }

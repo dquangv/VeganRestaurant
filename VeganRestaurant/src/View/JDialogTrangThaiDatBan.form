@@ -26,7 +26,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="lbTenKhachHang" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbMaBan" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -36,8 +36,8 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jLabel2" alignment="0" pref="332" max="32767" attributes="0"/>
-                  <Component id="jLabel3" alignment="0" pref="332" max="32767" attributes="0"/>
+                  <Component id="lbThoiGian" alignment="0" pref="332" max="32767" attributes="0"/>
+                  <Component id="lbSDT" alignment="0" pref="332" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -50,11 +50,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lbTrangThai" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="lbTenKhachHang" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <Component id="lbSDT" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <Component id="lbThoiGian" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="lbHuyDatBan" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -126,7 +126,7 @@
         <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i: &#x110;&#xe3; &#x111;&#x1eb7;t tr&#x1b0;&#x1edb;c"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lbTenKhachHang">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -134,7 +134,7 @@
         <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="lbThoiGian">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -142,7 +142,7 @@
         <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="lbSDT">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>

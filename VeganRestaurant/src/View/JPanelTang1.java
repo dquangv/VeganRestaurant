@@ -5,12 +5,10 @@
 package View;
 
 import Controller.DatBanDao;
-import Model.Ban;
-import Utils.Auth;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JPanel;
+
 
 /**
  *
@@ -19,7 +17,6 @@ import javax.swing.JPanel;
 public class JPanelTang1 extends javax.swing.JPanel {
 
     DatBanDao dBDao = new DatBanDao();
-
     /**
      * Creates new form JPanelTang1
      */
@@ -27,7 +24,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         initComponents();
         TrangThaiBan();
         capNhatTrangThaiBan();
-
+                                                                        
     }
 
     public void capNhatTrangThaiBan() {
@@ -46,7 +43,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
             }
         }
 
-        // Tạo và khởi chạy một luồng TrangThaiBan
+       
         TrangThaiBan thread = new TrangThaiBan();
         thread.start();
     }
@@ -311,7 +308,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
                     .addComponent(lbT1B10)
                     .addComponent(lbT1B11)
                     .addComponent(lbT1B12))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -480,9 +477,9 @@ public class JPanelTang1 extends javax.swing.JPanel {
     void kiemTraTrangThaiBan(int maBan) {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
-            int maBanDB = (int) ban[0];
+            int maBanDB =  (int) ban[0];
             String trangThai = (String) ban[1];
-            if ((maBan==maBanDB)) {
+            if ((maBan == maBanDB)) {
                 switch (trangThai) {
                     case DatBanDao.Trong:
                         ShowDialogDatBan(maBan);

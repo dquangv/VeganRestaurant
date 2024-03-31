@@ -4,9 +4,12 @@
  */
 package View;
 
+import Controller.CT_ThongTinDAO;
 import Controller.DatBanDao;
 import static Controller.DatBanDao.Trong;
+import Model.CT_ThongTin;
 import Utils.MsgBox;
+import Utils.XDate;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
@@ -18,6 +21,8 @@ import javax.swing.JButton;
 public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
+    CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
+    
   
     /**
      * Creates new form JDialogTrangThaiDatBan
@@ -29,6 +34,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     }
      public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
+        setThongTinDatBan(maBan);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,9 +49,9 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         lbMaBan = new javax.swing.JLabel();
         lbBDPV = new javax.swing.JLabel();
         lbTrangThai = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbTenKhachHang = new javax.swing.JLabel();
+        lbThoiGian = new javax.swing.JLabel();
+        lbSDT = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,14 +86,14 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         lbTrangThai.setForeground(new java.awt.Color(255, 0, 51));
         lbTrangThai.setText("Trạng thái: Đã đặt trước");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Tên khách hàng: ");
+        lbTenKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbTenKhachHang.setText("Tên khách hàng: ");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Thời gian:");
+        lbThoiGian.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbThoiGian.setText("Thời gian:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("SDT: ");
+        lbSDT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbSDT.setText("SDT: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,7 +102,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbTenKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbMaBan)
@@ -104,8 +110,8 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
                             .addComponent(lbHuyDatBan)
                             .addComponent(lbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)))
+                    .addComponent(lbThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addComponent(lbSDT, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +121,11 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(lbTenKhachHang)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lbSDT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lbThoiGian)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbHuyDatBan)
                 .addGap(18, 18, 18)
@@ -134,6 +140,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã hũy bàn thành công");
         thayDoiTrangThai(maBan);
+
         this.setVisible(false);
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
@@ -141,6 +148,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
+        
         this.setVisible(false);
     }//GEN-LAST:event_lbBDPVMouseClicked
 
@@ -190,18 +198,32 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lbBDPV;
     private javax.swing.JLabel lbHuyDatBan;
     private javax.swing.JLabel lbMaBan;
+    private javax.swing.JLabel lbSDT;
+    private javax.swing.JLabel lbTenKhachHang;
+    private javax.swing.JLabel lbThoiGian;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
-    public void thayDoiTrangThai(String maBan) {
+     public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(Trong, maBan);
     }
      public void thayDoiTrangThaiBDPV(String maBan) {
         dbDAO.updateTrangThai(DatBanDao.DANG_PHUC_VU, maBan);
     }
+   public void setThongTinDatBan(int maBan) {
+    List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
+    if (!list.isEmpty()) {
+        CT_ThongTin cttt = list.get(list.size()-1);
+        lbMaBan.setText("Bàn: " + cttt.getMaban());
+        lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
+        lbSDT.setText("SDT: " + cttt.getSDT());
+        lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+
+    } 
+}
+
+
+     
 }

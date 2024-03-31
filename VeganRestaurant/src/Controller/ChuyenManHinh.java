@@ -19,6 +19,7 @@ import View.NhanVien_1;
 import View.ThucDon;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ChuyenManHinh {
 
     //Hàm show trang đầu tiên xuất hiện khi mới truy cập vào ứng dụng
     public void setView(JPanel jpnItem, JLabel jlbItem) {
-        kindSelected = "TrangChu";
+        kindSelected = "DatBan";
 //        jpnItem.setBackground(new Color(23, 70, 162));
 //        jlbItem.setBackground(new Color(23, 70, 162));
 
@@ -57,7 +58,7 @@ public class ChuyenManHinh {
     public void setEvent(List<DanhMuc> listItem) {
         this.listItem = listItem;
         for (DanhMuc item : listItem) {
-            item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
+            item.getJpn().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
         }
     }
 
@@ -111,22 +112,22 @@ public class ChuyenManHinh {
                     node = new DoiMatKhauPanel();
                     break;
                 default:
-                    node = new JPanelMonAn();
+                    node = new JPanelDatBan();
             }
             root.removeAll();
             root.setLayout(new BorderLayout());
             root.add(node);
             root.validate();
             root.repaint();
-            changeBackGroundColor(kind);
+//            changeBackGroundColor(kind);
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            kindSelected = kind;
-            jpnItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setForeground(new Color(232, 249, 253));
+//            kindSelected = kind;
+//            jpnItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setForeground(new Color(232, 249, 253));
         }
 
         @Override
@@ -135,47 +136,47 @@ public class ChuyenManHinh {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            jpnItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setForeground(new Color(232, 249, 253));
+//            jpnItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setForeground(new Color(232, 249, 253));
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(255, 30, 0));
-                jlbItem.setBackground(new Color(255, 30, 0));
-                jlbItem.setForeground(new Color(232, 249, 253));
-            }
+//            if (!kindSelected.equalsIgnoreCase(kind)) {
+//                jpnItem.setBackground(new Color(255, 30, 0));
+//                jlbItem.setBackground(new Color(255, 30, 0));
+//                jlbItem.setForeground(new Color(232, 249, 253));
+//            }
         }
 
     }
 
-    private void changeBackGroundColor(String kind) {
-        for (DanhMuc item : listItem) {
-            if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(0, 0, 0));
-                item.getJlb().setBackground(new Color(0, 0, 0));
-                item.getJlb().setForeground(new Color(232, 249, 253));
-            } else {
-                item.getJlb().setBackground(new Color(255, 30, 0));
-                item.getJpn().setBackground(new Color(255, 30, 0));
-                item.getJlb().setForeground(new Color(232, 249, 253));
-            }
-        }
-    }
-
-    private void changeBackGroundColorQL(String kind) {
-        for (DanhMuc item : listItem) {
-            if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(255, 30, 0));
-                item.getJlb().setBackground(new Color(255, 30, 0));
-
-            } else {
-                item.getJlb().setBackground(new Color(0, 0, 0));
-                item.getJpn().setBackground(new Color(0, 0, 0));
-
-            }
-        }
-    }
+//    private void changeBackGroundColor(String kind) {
+//        for (DanhMuc item : listItem) {
+//            if (item.getKind().equalsIgnoreCase(kind)) {
+//                item.getJpn().setBackground(new Color(0, 0, 0));
+//                item.getJlb().setBackground(new Color(0, 0, 0));
+//                item.getJlb().setForeground(new Color(232, 249, 253));
+//            } else {
+//                item.getJlb().setBackground(new Color(255, 30, 0));
+//                item.getJpn().setBackground(new Color(255, 30, 0));
+//                item.getJlb().setForeground(new Color(232, 249, 253));
+//            }
+//        }
+//    }
+//
+//    private void changeBackGroundColorQL(String kind) {
+//        for (DanhMuc item : listItem) {
+//            if (item.getKind().equalsIgnoreCase(kind)) {
+//                item.getJpn().setBackground(new Color(255, 30, 0));
+//                item.getJlb().setBackground(new Color(255, 30, 0));
+//
+//            } else {
+//                item.getJlb().setBackground(new Color(0, 0, 0));
+//                item.getJpn().setBackground(new Color(0, 0, 0));
+//
+//            }
+//        }
+//    }
 }

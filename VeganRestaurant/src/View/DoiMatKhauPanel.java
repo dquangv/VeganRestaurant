@@ -7,6 +7,7 @@ package View;
 import Controller.TaiKhoanDAO;
 import Utils.Auth;
 import Utils.MsgBox;
+import javax.swing.JFrame;
 
 /**
  *
@@ -22,12 +23,17 @@ public class DoiMatKhauPanel extends javax.swing.JPanel {
     public DoiMatKhauPanel() {
         initComponents();
         init();
+        
     }
 
     void init() {
         txtUsername.setText(Auth.user.getTenTaiKhoan());
     }
-
+    void  reSet(){
+        txtCurrentPass.setText("");
+        txtNewPass.setText("");
+        txtConfirmPass.setText("");
+    }
     private void changePassword() {
         String manv = Auth.user.getTenTaiKhoan();
         String password = new String(txtCurrentPass.getPassword());
@@ -43,6 +49,7 @@ public class DoiMatKhauPanel extends javax.swing.JPanel {
             Auth.user.setMatKhau(newPassword);
             dao.update(Auth.user);
             MsgBox.alert(this, "Change password successfully!");
+            reSet();
         }
     }
 
@@ -182,4 +189,13 @@ public class DoiMatKhauPanel extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtNewPass;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    public static void main(String[] args) {
+         JFrame frame = new JFrame("Thống kê món ăn");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new DoiMatKhauPanel());
+
+        frame.pack();
+        frame.setVisible(true);
+    }
 }
