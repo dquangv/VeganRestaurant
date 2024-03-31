@@ -6,9 +6,21 @@ package View;
 
 import Controller.DanhGia_DAO;
 import Model.DanhGia;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -17,14 +29,15 @@ import javax.swing.table.DefaultTableModel;
 public class DanhGiaJDialog extends javax.swing.JDialog {
 
     DanhGia_DAO dg_DAO = new DanhGia_DAO();
-    DanhGia dg = new DanhGia();
+
     /**
      * Creates new form DanhGiaJDialog
      */
     public DanhGiaJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        chiTietDanhGia();
+
+        //chiTietDanhGia();
     }
 
     /**
@@ -43,11 +56,13 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         txtMaHoaDon = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtTenKhach = new javax.swing.JLabel();
-        pnChiTiet = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jButton1.setText("Quay lại");
 
@@ -63,58 +78,26 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
         txtTenKhach.setText("...");
 
-        javax.swing.GroupLayout pnChiTietLayout = new javax.swing.GroupLayout(pnChiTiet);
-        pnChiTiet.setLayout(pnChiTietLayout);
-        pnChiTietLayout.setHorizontalGroup(
-            pnChiTietLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnChiTietLayout.setVerticalGroup(
-            pnChiTietLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 193, Short.MAX_VALUE)
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNgay)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaHoaDon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTenKhach)
-                        .addGap(30, 30, 30))))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 583, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNgay)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMaHoaDon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTenKhach)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,76 +111,118 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     .addComponent(txtMaHoaDon)
                     .addComponent(jLabel5)
                     .addComponent(txtTenKhach))
-                .addGap(18, 18, 18)
-                .addComponent(pnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(455, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
-    
-    void chiTietDanhGia() {
-        pnChiTiet.removeAll();
-        pnChiTiet.add(new ChiTietDanhGiaJPanel());
-        pnChiTiet.updateUI();
-        pnChiTiet.setLayout(new FlowLayout());
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        chiTietDanhGia(Integer.parseInt(txtMaHoaDon.getText().substring(2)));
+    }//GEN-LAST:event_formWindowOpened
+
+    void layMaHoaDon(int mahd) {
+        txtMaHoaDon.setText("HD" + mahd);
     }
 
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DanhGiaJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DanhGiaJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DanhGiaJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DanhGiaJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    void chiTietDanhGia(int mahd) {
+        
+        List<DanhGia> ds_DanhGia = dg_DAO.selectByMaHD(mahd);
+        JPanel pnlChiTiet = new JPanel();
+
+        pnlChiTiet.setLayout(new GridLayout(1, 2));
+        
+        pnlChiTiet.setBounds(10,50 ,this.getWidth(), this.getHeight());
+
+        JPanel pnlTrai = new JPanel();
+        pnlTrai.setSize(this.getWidth(),this.getHeight());
+
+        pnlTrai.setBorder(new LineBorder(Color.yellow));
+        
+        JPanel pnlDanhGia = new JPanel();
+
+        pnlTrai.setLayout(new GridLayout(ds_DanhGia.size(),1));
+        
+        pnlDanhGia.setLayout(new GridLayout(1,ds_DanhGia.size()));
+        
+        pnlChiTiet.add(pnlTrai);
+        pnlChiTiet.add(pnlDanhGia);
+        
+
+        for (DanhGia dg : ds_DanhGia) {
+            JPanel pnlConTrai = new JPanel();
+            JLabel lblTenMon = new JLabel(dg.getTenMonAn());
+            JLabel lblIcon = new JLabel(dg.getHinhAnh());
+            
+            pnlTrai.add(pnlConTrai);
+            pnlChiTiet.setLayout(null);
+            pnlTrai.setBounds(0, 0, 200, this.getHeight());
+            pnlConTrai.setLayout(new BorderLayout());
+            
+            
+            pnlConTrai.add(lblTenMon,BorderLayout.NORTH);
+            pnlConTrai.add(lblIcon,BorderLayout.CENTER);
         }
-        //</editor-fold>
+        
+//        sclPanel.setViewportView(pnlTrai);
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DanhGiaJDialog dialog = new DanhGiaJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+        add(pnlChiTiet);
+        setVisible(true);
     }
+
+    
+//    private void hienThiChiTietDanhGia(List<DanhGia> danhSachDG) {
+//        pnlChiTiet.removeAll();
+//
+//        for (int i = 0; i < danhSachDG.size(); i++) {
+//            DanhGia danhGia = danhSachDG.get(i);
+//            JPanel pnlChiTietDG = new JPanel();
+//            pnlChiTietDG.setLayout(new BoxLayout(pnlChiTietDG, BoxLayout.Y_AXIS));
+//
+//            String imagePath = "/Image/menu/" + danhGia.getHinhAnh();
+//            InputStream inputStream = getClass().getResourceAsStream(imagePath);
+//
+//            if (inputStream != null) {
+//                try {
+//                    BufferedImage originalImage = ImageIO.read(inputStream);
+//
+//                    int scaledWidth = 150;
+//                    int scaledHeight = (int) (((double) scaledWidth / originalImage.getWidth()) * originalImage.getHeight());
+//                    Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+//                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+//
+//                    JLabel lblHinh = new JLabel(scaledIcon);
+//
+//                    JLabel lblTen = new JLabel(danhGia.getTenMonAn());
+//                    lblTen.setFont(new java.awt.Font("Segoe UI", 1, 14));
+//                    
+//                    pnlChiTietDG.add(lblHinh);
+//                    pnlChiTietDG.add(lblTen);
+//                    pnlChiTietDG.setBounds((i % 3) * 250, (i / 3) * 250, 240, 250);
+//                    pnlChiTiet.add(pnlChiTietDG);
+//
+//                } catch (IOException ex) {
+//                }
+//            } else {
+//                System.err.println("Không thể tìm thấy hình ảnh: " + imagePath);
+//            }
+//        }
+//
+//        pnlChiTiet.revalidate();
+//        pnlChiTiet.repaint();
+//    }
+//    
+//    private void hienThiDanhGia(int mahd) {
+//        List<DanhGia> list = dg_DAO.selectByMaHD(mahd);
+//        hienThiChiTietDanhGia(list);
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JPanel pnChiTiet;
     private javax.swing.JLabel txtMaHoaDon;
     private javax.swing.JLabel txtNgay;
     private javax.swing.JLabel txtTenKhach;

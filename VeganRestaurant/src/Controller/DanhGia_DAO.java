@@ -101,5 +101,40 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
         String[] columns = {"TenMonAn","HinhAnh","MaDanhGia","MaHoaDon"};
         return getListOfArray(SQL, columns,mahd);
     }
+    public List<DanhGia> selectByMaHD(Integer maHD) {
+    String sql = """
+                select TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,MaHoaDon from DanhGia dg
+                                right join ChiTietGM ctgm on ctgm.MaDanhGia=dg.MaDanhGia
+                                join MonAn ma on ma.MaMonAn=ctgm.MaMonAn
+                                join PhieuDatBan pbd on pbd.MaPhieuDatBan=ctgm.MaPhieuDatBan
+                                join HoaDon hd on hd.MaPhieuDatBan=pbd.MaPhieuDatBan
+                                where MaHoaDon = ?""";
+
+    List<DanhGia> list = new ArrayList<>();
+    try (Connection conn = XJdbc.getConnection(); 
+         PreparedStatement ps = conn.prepareStatement(sql)) { 
+
+        ps.setInt(1, maHD);
+
+        ResultSet rs = ps.executeQuery(); 
+
+        while (rs.next()) {
+            DanhGia entity = new DanhGia();
+            
+            entity.setTenMonAn(rs.getString("TenMonAn"));
+            entity.setHinhAnh(rs.getString("HinhAnh"));
+            entity.setMaDanhGia(rs.getInt("MaDanhGia"));
+            entity.setDanhGia(rs.getString("DanhGia"));
+            entity.setMaHoaDon(rs.getInt("MaHoaDon"));
+
+            list.add(entity);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return null;
+    }
+    return list;
+}
     
 }

@@ -35,6 +35,12 @@ public class DatBanDao {
             + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon)) "
             + "ORDER BY ThoiGianDat;";
 
+    static String Select_Thongtin = "select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db "
+            + " inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan "
+            + " inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang "
+            + " where ThoiGianDat > GETDATE() and (TenKhachHang like ? or SDT like ?)"
+            + " order by thoigiandat ";
+
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
             List<Object[]> list = new ArrayList<>();
