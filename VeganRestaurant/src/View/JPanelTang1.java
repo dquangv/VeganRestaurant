@@ -372,7 +372,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
     static public JButton timButtonByMaBan(int maBan) {
         switch (maBan) {
             case 1:
-                return btnban1;
+                return btnban1
+                        ;
             case 2:
                 return btnban2;
             case 3:

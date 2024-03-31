@@ -33,6 +33,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -49,6 +50,7 @@ public class GoiMon extends javax.swing.JPanel {
      */
     private ThucDonDAO thucDonDAO;
     CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
+    private int maPdb;
 
     public GoiMon() {
         initComponents();
@@ -57,18 +59,12 @@ public class GoiMon extends javax.swing.JPanel {
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
     }
 
-//    public void setBan(String maBan) {
-//        lbmaBan.setText("Bàn: " + maBan);
-//    }
     public void setBan(String maBan) {
-        List<CT_ThongTin> list = CTDAO.selectAllKH(Integer.parseInt(maBan));
-        if (!list.isEmpty()) {
-            CT_ThongTin cttt = list.get(list.size() - 1);
-            lbmaBan.setText("Bàn " + maBan);
-            lblKhachHang.setText("Khách hàng: " + cttt.getTenKhachHang());
-            lblThoiGIan.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
-            lblNhanVien.setText("Nhân viên: " + Auth.user.getTenTaiKhoan());
-        }
+        lbmaBan.setText("Bàn " + maBan);
+    }
+
+    public void MaPDB(int MaPDB) {
+        JOptionPane.showMessageDialog(this, MaPDB);
     }
 
     private void loadThucDonToComboBox() {
@@ -119,7 +115,7 @@ public class GoiMon extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         lblNhanVien = new javax.swing.JLabel();
         lblKhachHang = new javax.swing.JLabel();
-        lblThoiGIan = new javax.swing.JLabel();
+        lblThoiGian = new javax.swing.JLabel();
         lblTongMon = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -187,6 +183,11 @@ public class GoiMon extends javax.swing.JPanel {
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Lưu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 0, 102));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -197,7 +198,7 @@ public class GoiMon extends javax.swing.JPanel {
 
         lblKhachHang.setText("Khách hàng");
 
-        lblThoiGIan.setText("Thời gian:");
+        lblThoiGian.setText("Thời gian:");
 
         lblTongMon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTongMon.setForeground(new java.awt.Color(0, 0, 0));
@@ -230,7 +231,7 @@ public class GoiMon extends javax.swing.JPanel {
                         .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNhanVien)
                             .addComponent(lblKhachHang)
-                            .addComponent(lblThoiGIan))
+                            .addComponent(lblThoiGian))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlThanhToanLayout.createSequentialGroup()
                         .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -255,7 +256,7 @@ public class GoiMon extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblKhachHang)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblThoiGIan)
+                        .addComponent(lblThoiGian)
                         .addGap(52, 52, 52)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -361,6 +362,30 @@ public class GoiMon extends javax.swing.JPanel {
         model.removeRow(idx);
         tinhTongTien();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
+        ctgmDAO.deleteByMaPDB(maPdb);
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenMonAn = (String) model.getValueAt(i, 1);
+            int soLuong = Integer.parseInt((String) model.getValueAt(i, 2));
+            double donGia = Double.parseDouble(((String) model.getValueAt(i, 3)).replace(",", "").replace(" VNĐ", ""));
+            double thanhTien = Double.parseDouble(((String) model.getValueAt(i, 4)).replace(",", "").replace(" VNĐ", ""));
+            String ghiChu = (String) model.getValueAt(i, 5);
+
+            ChiTietGoiMon chiTiet = new ChiTietGoiMon();
+            chiTiet.setTenMonAn(tenMonAn);
+            chiTiet.setSoLuong(soLuong);
+            chiTiet.setDonGia(donGia);
+            chiTiet.setThanhTien(thanhTien);
+            chiTiet.setGhiChu(ghiChu);
+            ctgmDAO.inserts(maPdb, chiTiet);
+        }
+
+        JOptionPane.showMessageDialog(this, "Đã lưu thông tin vào bảng ChiTietGM.");
+    }//GEN-LAST:event_jButton1ActionPerformed
     private void hienThiDanhSachMonAn(String loaiMon) {
         List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
         hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
@@ -467,17 +492,53 @@ public class GoiMon extends javax.swing.JPanel {
 
     }
 
-    private void filltableCoSan(int maPDB) {
+    public void filltableCoSan(int maPDB) {
         ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
         List<ChiTietGoiMon> listGoiMon = ctgmDAO.selectByMaPhieuDatBan(maPDB);
-        for(ChiTietGoiMon row : listGoiMon){
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        int stt = 1;
+        for (ChiTietGoiMon row : listGoiMon) {
             System.out.println(row.getTenKH());
             System.out.println(row.getThoiGianDat());
-            System.out.println(row.getTenMonAn());
-            System.out.println(row.getDonGia());
-            System.out.println(row.getSoLuong());
-            System.out.println(row.getThanhTien());
-            System.out.println(row.getGhiChu());
+            Object[] rowData = {
+                stt++,
+                row.getTenMonAn(),
+                row.getSoLuong()+"",
+                row.getDonGia()+"",
+                row.getThanhTien()+""
+            };
+            model.addRow(rowData);
+            if (row.getTenKH() != null) {
+                lblKhachHang.setText("Khách hàng: " + row.getTenKH());
+            } else {
+                lblKhachHang.setText("Khách hàng: [Không rõ]");
+            }
+            lblThoiGian.setText("Thời gian: " + XDate.toString(row.getThoiGianDat(), "dd-MM-yyyy / HH:mm"));
+        }
+        tinhTongTien();
+    }
+
+    public void setKHvaTG(int maPDB) {
+        maPdb = maPDB;
+        ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
+        ChiTietGoiMon ctgm = ctgmDAO.selectKHTGByMaPhieuDatBan(maPDB);
+
+        if (ctgm != null) {
+            System.out.println(ctgm.getTenKH());
+            System.out.println(ctgm.getThoiGianDat());
+
+            if (ctgm.getTenKH() != null) {
+                lblKhachHang.setText("Khách hàng: " + ctgm.getTenKH());
+            } else {
+                lblKhachHang.setText("Khách hàng: [Không rõ]");
+            }
+            lblThoiGian.setText("Thời gian: " + XDate.toString(ctgm.getThoiGianDat(), "dd-MM-yyyy / HH:mm"));
+        } else {
+            lblKhachHang.setText("Khách hàng: [Không rõ]");
+            lblThoiGian.setText("Thời gian: [Không rõ]");
         }
     }
 
@@ -514,7 +575,7 @@ public class GoiMon extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblKhachHang;
     private javax.swing.JLabel lblNhanVien;
-    private javax.swing.JLabel lblThoiGIan;
+    private javax.swing.JLabel lblThoiGian;
     private javax.swing.JLabel lblTongMon;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JLabel lbmaBan;

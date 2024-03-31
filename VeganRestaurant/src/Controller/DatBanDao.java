@@ -24,16 +24,16 @@ public class DatBanDao {
 
     public static final String Update_TrangThai = "update ban set TrangThai =? where MaBan = ?";
     String SELECT_ALL_SQL = "select * from Ban";
-
-    static String Select_Thongtin = " SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai " +
-"	FROM ChiTietDatBan db " +
-"	inner JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan " +
-"	right JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang " +
-"	INNER JOIN Ban b ON b.MaBan = db.MaBan " +
-"	WHERE  ((TenKhachHang like ? OR SDT like ?) and (TrangThai != N'Trống' and TrangThai != N'Bảo trì')) " +
-"	or (TenKhachHang is null OR SDT is null) " +
-"           and (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') " +
-"	ORDER BY ThoiGianDat; ";
+    static String Select_Thongtin = "SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai "
+            + "FROM ChiTietDatBan db "
+            + "INNER JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan "
+            + "RIGHT JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang "
+            + "INNER JOIN Ban b ON b.MaBan = db.MaBan "
+            + "WHERE ((TenKhachHang LIKE ? OR SDT LIKE ?) "
+            + "OR (TenKhachHang IS NULL OR SDT IS NULL)) "
+            + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
+            + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon)) "
+            + "ORDER BY ThoiGianDat;";
 
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
