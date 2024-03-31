@@ -154,11 +154,6 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
         this.setVisible(false);
-        PhieuDatBanDao pdb = new PhieuDatBanDao();
-        int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
-        JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan)).setToolTipText(MaPDB + "");
-        JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan)).setToolTipText(MaPDB + "");
-        JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan)).setToolTipText(MaPDB + "");
         JPanelDatBan.fillToTable();
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();

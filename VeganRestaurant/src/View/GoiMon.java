@@ -498,7 +498,7 @@ public class GoiMon extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-
+        DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
         int stt = 1;
         for (ChiTietGoiMon row : listGoiMon) {
             System.out.println(row.getTenKH());
@@ -506,9 +506,10 @@ public class GoiMon extends javax.swing.JPanel {
             Object[] rowData = {
                 stt++,
                 row.getTenMonAn(),
-                row.getSoLuong()+"",
-                row.getDonGia()+"",
-                row.getThanhTien()+""
+                row.getSoLuong() + "",
+                decimalFormat.format(row.getDonGia()), 
+                decimalFormat.format(row.getThanhTien()),
+                row.getGhiChu()
             };
             model.addRow(rowData);
             if (row.getTenKH() != null) {
@@ -518,6 +519,7 @@ public class GoiMon extends javax.swing.JPanel {
             }
             lblThoiGian.setText("Thời gian: " + XDate.toString(row.getThoiGianDat(), "dd-MM-yyyy / HH:mm"));
         }
+
         tinhTongTien();
     }
 

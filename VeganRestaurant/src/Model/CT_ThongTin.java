@@ -13,7 +13,7 @@ import java.util.Date;
 public class CT_ThongTin {
     private int maban;
     private String tenKhachHang;
-    private int SDT;
+    private String SDT;
     private Date thoiGianDate;
 
     public int getMaban() {
@@ -32,11 +32,11 @@ public class CT_ThongTin {
         this.tenKhachHang = tenKhachHang;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
 
