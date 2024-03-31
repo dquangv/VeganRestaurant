@@ -15,6 +15,7 @@ import javax.swing.JFrame;
  */
 public class JDialogBaoTriXong extends javax.swing.JDialog {
         DatBanDao dbDAO = new DatBanDao();
+       
     /**
      * Creates new form JDialogBaoTriXong
      */
@@ -93,8 +94,11 @@ public class JDialogBaoTriXong extends javax.swing.JDialog {
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã bảo trì xong");
         thayDoiTrangThai(maBan);
-        
+
         this.setVisible(false);
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBaoTriXongMouseClicked
 
     /**

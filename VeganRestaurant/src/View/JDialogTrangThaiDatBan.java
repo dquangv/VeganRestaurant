@@ -7,12 +7,14 @@ package View;
 import Controller.CT_ThongTinDAO;
 import Controller.DatBanDao;
 import static Controller.DatBanDao.Trong;
+import Controller.PhieuDatBanDao;
 import Model.CT_ThongTin;
 import Utils.MsgBox;
 import Utils.XDate;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +24,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
     CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
-  
+
     /**
      * Creates new form JDialogTrangThaiDatBan
      */
@@ -31,10 +33,12 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
     }
-     public void setBan(int maBan) {
+
+    public void setBan(int maBan) {
         lbMaBan.setText("Bàn: " + maBan);
         setThongTinDatBan(maBan);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,6 +144,9 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         MsgBox.alert(this, "Đã hũy bàn thành công");
         thayDoiTrangThai(maBan);
         this.setVisible(false);
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
@@ -147,6 +154,10 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
         this.setVisible(false);
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBDPVMouseClicked
 
     /**
@@ -194,6 +205,10 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         });
     }
 
+    private void getMaPDB(int maBan) {
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbBDPV;
     private javax.swing.JLabel lbHuyDatBan;
@@ -206,21 +221,21 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
      public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(Trong, maBan);
     }
-     public void thayDoiTrangThaiBDPV(String maBan) {
+
+    public void thayDoiTrangThaiBDPV(String maBan) {
         dbDAO.updateTrangThai(DatBanDao.DANG_PHUC_VU, maBan);
     }
-   public void setThongTinDatBan(int maBan) {
-    List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
-    if (!list.isEmpty()) {
-        CT_ThongTin cttt = list.get(list.size()-1);
-        lbMaBan.setText("Bàn: " + cttt.getMaban());
-        lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
-        lbSDT.setText("SDT: " + cttt.getSDT());
-        lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
 
-    } 
-}
+    public void setThongTinDatBan(int maBan) {
+        List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
+        if (!list.isEmpty()) {
+            CT_ThongTin cttt = list.get(list.size() - 1);
+            lbMaBan.setText("Bàn: " + cttt.getMaban());
+            lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
+            lbSDT.setText("SDT: " + cttt.getSDT());
+            lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
 
+        }
+    }
 
-     
 }

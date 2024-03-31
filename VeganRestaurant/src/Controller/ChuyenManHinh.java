@@ -58,7 +58,7 @@ public class ChuyenManHinh {
     public void setEvent(List<DanhMuc> listItem) {
         this.listItem = listItem;
         for (DanhMuc item : listItem) {
-            item.getJlb().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
+            item.getJpn().addMouseListener(new LabelEvent(item.getKind(), item.getJpn(), item.getJlb()));
         }
     }
 
@@ -77,6 +77,46 @@ public class ChuyenManHinh {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                switch (kind) {
+                case "NhanVien":
+                    node = new NhanVien_1();
+                    break;
+                case "MonAn":
+                    node = new JPanelMonAn();
+                    break;
+                case "DatBan":
+                    node = new JPanelDatBan();
+                    break;
+                case "KhachHang":
+                    node = new KhachHang();
+                    break;
+                case "NguyenVatLieu":
+                    node = new NguyenVatLieu();
+                    break;
+                case "ThucDon":
+                    node = new ThucDon();
+                    break;
+                case "ThongKeMonAn":
+                    node = new JpanelThongKeMonAn();
+                    break;
+                case "ThongKeDoanhThu":
+                    node = new JPanelThongKeDoanhThu();
+                    break;
+                case "DanhGia":
+                    node = new DanhGia2JPanel();
+                    break;
+                case "HoaDon":
+                    node = new HoaDonJPanel();
+                    break;
+                case "DoiMatKhau":
+                    node = new DoiMatKhauPanel();
+                    break;
+                default:
+                    node = new JPanelDatBan();
+            }
+            }
+            else{
             switch (kind) {
                 case "NhanVien":
                     node = new NhanVien_1();
@@ -114,20 +154,22 @@ public class ChuyenManHinh {
                 default:
                     node = new JPanelDatBan();
             }
+            }
+            
             root.removeAll();
             root.setLayout(new BorderLayout());
             root.add(node);
             root.validate();
             root.repaint();
-            changeBackGroundColor(kind);
+//            changeBackGroundColor(kind);
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            kindSelected = kind;
-            jpnItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setForeground(new Color(232, 249, 253));
+//            kindSelected = kind;
+//            jpnItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setForeground(new Color(232, 249, 253));
         }
 
         @Override
@@ -136,47 +178,47 @@ public class ChuyenManHinh {
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            jpnItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setBackground(new Color(0, 0, 0));
-            jlbItem.setForeground(new Color(232, 249, 253));
+//            jpnItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setBackground(new Color(0, 0, 0));
+//            jlbItem.setForeground(new Color(232, 249, 253));
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            if (!kindSelected.equalsIgnoreCase(kind)) {
-                jpnItem.setBackground(new Color(255, 30, 0));
-                jlbItem.setBackground(new Color(255, 30, 0));
-                jlbItem.setForeground(new Color(232, 249, 253));
-            }
+//            if (!kindSelected.equalsIgnoreCase(kind)) {
+//                jpnItem.setBackground(new Color(255, 30, 0));
+//                jlbItem.setBackground(new Color(255, 30, 0));
+//                jlbItem.setForeground(new Color(232, 249, 253));
+//            }
         }
 
     }
 
-    private void changeBackGroundColor(String kind) {
-        for (DanhMuc item : listItem) {
-            if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(0, 0, 0));
-                item.getJlb().setBackground(new Color(0, 0, 0));
-                item.getJlb().setForeground(new Color(232, 249, 253));
-            } else {
-                item.getJlb().setBackground(new Color(255, 30, 0));
-                item.getJpn().setBackground(new Color(255, 30, 0));
-                item.getJlb().setForeground(new Color(232, 249, 253));
-            }
-        }
-    }
-
-    private void changeBackGroundColorQL(String kind) {
-        for (DanhMuc item : listItem) {
-            if (item.getKind().equalsIgnoreCase(kind)) {
-                item.getJpn().setBackground(new Color(255, 30, 0));
-                item.getJlb().setBackground(new Color(255, 30, 0));
-
-            } else {
-                item.getJlb().setBackground(new Color(0, 0, 0));
-                item.getJpn().setBackground(new Color(0, 0, 0));
-
-            }
-        }
-    }
+//    private void changeBackGroundColor(String kind) {
+//        for (DanhMuc item : listItem) {
+//            if (item.getKind().equalsIgnoreCase(kind)) {
+//                item.getJpn().setBackground(new Color(0, 0, 0));
+//                item.getJlb().setBackground(new Color(0, 0, 0));
+//                item.getJlb().setForeground(new Color(232, 249, 253));
+//            } else {
+//                item.getJlb().setBackground(new Color(255, 30, 0));
+//                item.getJpn().setBackground(new Color(255, 30, 0));
+//                item.getJlb().setForeground(new Color(232, 249, 253));
+//            }
+//        }
+//    }
+//
+//    private void changeBackGroundColorQL(String kind) {
+//        for (DanhMuc item : listItem) {
+//            if (item.getKind().equalsIgnoreCase(kind)) {
+//                item.getJpn().setBackground(new Color(255, 30, 0));
+//                item.getJlb().setBackground(new Color(255, 30, 0));
+//
+//            } else {
+//                item.getJlb().setBackground(new Color(0, 0, 0));
+//                item.getJpn().setBackground(new Color(0, 0, 0));
+//
+//            }
+//        }
+//    }
 }

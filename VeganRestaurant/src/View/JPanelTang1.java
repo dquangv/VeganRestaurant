@@ -16,39 +16,18 @@ import javax.swing.JButton;
  */
 public class JPanelTang1 extends javax.swing.JPanel {
 
-    DatBanDao dBDao = new DatBanDao();
-
+    static DatBanDao dBDao = new DatBanDao();
     /**
      * Creates new form JPanelTang1
      */
     public JPanelTang1() {
         initComponents();
         TrangThaiBan();
-        capNhatTrangThaiBan();
+     
                                                                         
     }
 
-    public void capNhatTrangThaiBan() {
-        class TrangThaiBan extends Thread {
-
-            @Override
-            public void run() {
-                while (true) {
-                    TrangThaiBan();
-                    try {
-                        Thread.sleep(1);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        }
-
-       
-        TrangThaiBan thread = new TrangThaiBan();
-        thread.start();
-    }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -364,18 +343,18 @@ public class JPanelTang1 extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnban1;
-    private javax.swing.JButton btnban10;
-    private javax.swing.JButton btnban11;
-    private javax.swing.JButton btnban12;
-    private javax.swing.JButton btnban2;
-    private javax.swing.JButton btnban3;
-    private javax.swing.JButton btnban4;
-    private javax.swing.JButton btnban5;
-    private javax.swing.JButton btnban6;
-    private javax.swing.JButton btnban7;
-    private javax.swing.JButton btnban8;
-    private javax.swing.JButton btnban9;
+    public static javax.swing.JButton btnban1;
+    public static javax.swing.JButton btnban10;
+    public static javax.swing.JButton btnban11;
+    public static javax.swing.JButton btnban12;
+    public static javax.swing.JButton btnban2;
+    public static javax.swing.JButton btnban3;
+    public static javax.swing.JButton btnban4;
+    public static javax.swing.JButton btnban5;
+    public static javax.swing.JButton btnban6;
+    public static javax.swing.JButton btnban7;
+    public static javax.swing.JButton btnban8;
+    public static javax.swing.JButton btnban9;
     private javax.swing.JLabel lbT1B01;
     private javax.swing.JLabel lbT1B02;
     private javax.swing.JLabel lbT1B03;
@@ -390,10 +369,11 @@ public class JPanelTang1 extends javax.swing.JPanel {
     private javax.swing.JLabel lbT1B12;
     // End of variables declaration//GEN-END:variables
 
-    public JButton timButtonByMaBan(int maBan) {
+    static public JButton timButtonByMaBan(int maBan) {
         switch (maBan) {
             case 1:
-                return btnban1;
+                return btnban1
+                        ;
             case 2:
                 return btnban2;
             case 3:
@@ -421,7 +401,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         }
     }
    
-    void TrangThaiBan() {
+    static public void TrangThaiBan() {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
             int maBan = (int) ban[0];

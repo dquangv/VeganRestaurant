@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/View/Main.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>509</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JDiaLogDatBan.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/OldMain.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JPanelTang1.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/DatBanDao.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Utils/XJdbc.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/MonAnDAO.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/ChiTietDatBan_DAO.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/HoaDonJPanel.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/KhachHang.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/ThanhVienDAO.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/ThucDon.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Model/CT_ThongTin.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/Main.java</file>
             <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/GoiMon.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JPanelDatBan.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JDiaLogDangPhucVu.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/ChiTietGoiMonDAO.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JDialogTrangThaiDatBan.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/CT_ThongTinDAO.java</file>
+            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/PhieuDatBanDao.java</file>
             <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/LoginJFrame.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/KhachHangDAO.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/Model/ChiTietDatBan.java</file>
-            <file>file:/D:/HocTap/SOF102/Fpoly-VeganRestaurant/VeganRestaurant/src/View/MainThucDon.java</file>
         </group>
     </open-files>
 </project-private>

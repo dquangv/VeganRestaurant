@@ -6,12 +6,15 @@
 4 create pro and trigger
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
-DBCC CHECKIDENT ('MonAn', RESEED, 0);
-go
 
+
+DBCC CHECKIDENT ('KhachHang', RESEED, 0);
+go
+ 
 
 create database NhaHangChay_CohesiveStars;
 go
+
 
 use NhaHangChay_CohesiveStars;
 go
@@ -54,10 +57,11 @@ go
 
 create table PhieuDatBan (
 	MaPhieuDatBan int identity(1, 1) primary key,
-	ThoiGianDat datetime,
-	MaKhachHang int
+	ThoiGianDat datetime default getdate(),
+	MaKhachHang int null
 );
 go
+
 
 create table Ban (
 	MaBan int identity(1, 1) primary key,
@@ -88,9 +92,11 @@ create table MonAn (
 	MaMonAn int identity(1, 1) primary key,
 	TenMonAn nvarchar(50) not null,
 	DonGia money not null,
+	soLuong int,
 	HinhAnh varchar(500),
 	TrangThai nvarchar(30) not null,
-	MaLoaiMon int);
+	MaLoaiMon int
+	);
 go
 
 create table ThucDon (
@@ -287,7 +293,7 @@ insert into Ban (ViTri, TrangThai) values
 	(N'Tầng 3, Bàn 11', N'Hoạt động'),
 	(N'Tầng 3, Bàn 12', N'Hoạt động');
 go
-
+update Ban set TrangThai = N'Trống' where TrangThai = N'Hoạt động' 
 insert into PhieuDatBan (ThoiGianDat, MaKhachHang) values
 	('2024-01-18 09:00', 1),
 	('2024-01-19 12:00', 2),
@@ -306,62 +312,52 @@ insert into LoaiMon (TenLoaiMon) values
 	(N'Khai vị');
 go
 
-insert into MonAn (TenMonAn, DonGia, HinhAnh, TrangThai, MaLoaiMon) values
-	(N'Bún Huế', 60000, null, N'Hoạt động', 1),
-	(N'Bún chay 1', 50000, null, N'Hoạt động', 1),
-	(N'Bún chay 2', 50000, null, N'Hoạt động', 1),
-	(N'Cơm chay 1', 50000, null, N'Hoạt động', 2),
-	(N'Cơm chay 2', 50000, null, N'Tạm ngưng', 2),
-	(N'Đậu hũ chay', 25000, null, N'Hoạt động', 3),
-	(N'Chả giò chay', 25000, null, N'Hoạt động', 3);
-go
-insert into MonAn ( TenMonAn, DonGia, HinhAnh, TrangThai, MaLoaiMon) values
-    ( N'Salad mít non', 125000, 'xa-lach-mit-non-2.png', N'Hoạt động',3),
-    ( N'Mozzarella Salad', 135000,'saladmozarella.png', N'Hoạt động',3),
-    ( N'Gỏi cuốn rau củ', 90000,'goicuonraucu.png', N'Hoạt động',3),
-    (N'Chả giò', 95000,'chagio.png', N'Hoạt động',3),
-    ( N'Há cảo Nhật - Gyoza', 95000, 'hacaonhat.png', N'Hoạt động',3),
-    (N'Chả nấm mối', 120000,  'chachammuoi.png', N'Hoạt động',3),
-    (N'Bún nưa trộn', 105000, 'bunnuatron.png', N'Hoạt động',3),
-    (N'Gỏi củ hủ dừa', 115000,  'coicuhudua.png', N'Hoạt động',3),
-    (N'Gỏi đu đủ', 105000,  'goidudu.png', N'Hoạt động',3),
-    (N'Salad Sung', 135000, 'saladsung.png', N'Hoạt động',3),
-    (N'Bánh tart artiso', 105000, 'banhtart.png', N'Ngừng phục vụ',3),
-    (N'Đậu hủ bó xôi sốt trứng muối', 125000,  'dauhuboxoi.png', N'Hoạt động',3),
-    (N'Nấm đông cô sốt tiêu', 95000, 'namdongcosottieu.png', N'Hoạt động',3),
-    (N'Đậu rồng xào tỏi đen', 90000,  'dau-rong-xao-1.png', N'Hoạt động',3),
-    (N'Tàu hủ ky sốt chao', 110000, 'tau-ku-ky-1.png', N'Hoạt động',3),
-    (N'Mướp xào', 90000,  'muop-xao-1.png', N'Hoạt động',3),
-    (N'Nấm mối xào lá lốt', 125000, 'nam-moi-xao-1.png', N'Hoạt động',3),
-    (N'Đu đủ xào', 90000,  'du-du-xao-1.png', N'Hoạt động',3),
-    (N'Măng xào củ kiệu', 105000,  'mang-xao-cu-kieu-1.png', N'Hoạt động',3),
-    (N'Khổ qua kho ngũ vị', 95000,  'kho-qua-kho-1.png', N'Hoạt động',3),
-    (N'Đậu hủ kim chi', 95000,  'dau-hu-kim-chi-1.png', N'Hoạt động',3),
-    (N'Rau củ om Thái', 110000,  'rau-cu-om-thai-1.png', N'Hoạt động',3),
-    (N'Nấm kho', 105000,  'nam-kho-2.png', N'Ngừng phục vụ',3),
-    (N'Cơm nếp than', 40000,  'com-cac-loai.png', N'Hoạt động',2),
-    (N'Cơm trắng', 40000, 'com-cac-loai.png', N'Hoạt động',2),
-    (N'Cơm bó xôi hạt sen', 40000, 'com-cac-loai.png', N'Hoạt động',2),
-    (N'Mì Ý sốt rau củ', 150000,  'mi-y-sot-rau-cu-1.png', N'Hoạt động',1),
-    (N'Bún nưa xào', 125000,  'bun-nua-xao-1.png', N'Hoạt động',1),
-    (N'Mì sốt kem nấm', 150000,  'mi-sot-kem-nam-2.png', N'Hoạt động',1),
-    (N'Cơm cà ri', 125000,  'com-cari-1.png', N'Hoạt động',2);
+
+insert into MonAn ( TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon) values
+    ( N'Salad mít non', 125000, 50, 'xa-lach-mit-non-2.png', N'Hoạt động',3),
+    ( N'Mozzarella Salad', 135000, 50,'saladmozarella.png', N'Hoạt động',3),
+    ( N'Gỏi cuốn rau củ', 90000, 50,'goicuonraucu.png', N'Hoạt động',3),
+    (N'Chả giò', 95000, 50,'chagio.png', N'Hoạt động',3),
+    ( N'Há cảo Nhật - Gyoza', 95000, 50, 'hacaonhat.png', N'Hoạt động',3),
+    (N'Chả nấm mối', 120000, 50,  'chachammuoi.png', N'Hoạt động',3),
+    (N'Bún nưa trộn', 105000, 50, 'bunnuatron.png', N'Hoạt động',3),
+    (N'Gỏi củ hủ dừa', 115000, 50,  'coicuhudua.png', N'Hoạt động',3),
+    (N'Gỏi đu đủ', 105000, 50,  'goidudu.png', N'Hoạt động',3),
+    (N'Salad Sung', 135000, 50, 'saladsung.png', N'Hoạt động',3),
+    (N'Bánh tart artiso', 105000, 50, 'banhtart.png', N'Ngừng phục vụ',3),
+    (N'Đậu hủ bó xôi sốt trứng muối', 125000, 50,  'dauhuboxoi.png', N'Hoạt động',3),
+    (N'Nấm đông cô sốt tiêu', 95000, 50, 'namdongcosottieu.png', N'Hoạt động',3),
+    (N'Đậu rồng xào tỏi đen', 90000, 50, 'dau-rong-xao-1.png', N'Hoạt động',3),
+    (N'Tàu hủ ky sốt chao', 110000, 50, 'tau-ku-ky-1.png', N'Hoạt động',3),
+    (N'Mướp xào', 90000, 50, 'muop-xao-1.png', N'Hoạt động',3),
+    (N'Nấm mối xào lá lốt', 125000, 50, 'nam-moi-xao-1.png', N'Hoạt động',3),
+    (N'Đu đủ xào', 90000, 50, 'du-du-xao-1.png', N'Hoạt động',3),
+    (N'Măng xào củ kiệu', 105000, 50, 'mang-xao-cu-kieu-1.png', N'Hoạt động',3),
+    (N'Khổ qua kho ngũ vị', 95000, 50, 'kho-qua-kho-1.png', N'Hoạt động',3),
+    (N'Đậu hủ kim chi', 95000, 50, 'dau-hu-kim-chi-1.png', N'Hoạt động',3),
+    (N'Rau củ om Thái', 110000, 50, 'rau-cu-om-thai-1.png', N'Hoạt động',3),
+    (N'Nấm kho', 105000, 50, 'nam-kho-2.png', N'Ngừng phục vụ',3),
+    (N'Cơm nếp than', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
+    (N'Cơm trắng', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
+    (N'Cơm bó xôi hạt sen', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
+    (N'Mì Ý sốt rau củ', 150000, 50, 'mi-y-sot-rau-cu-1.png', N'Hoạt động',1),
+    (N'Bún nưa xào', 125000, 50, 'bun-nua-xao-1.png', N'Hoạt động',1),
+    (N'Mì sốt kem nấm', 150000, 50, 'mi-sot-kem-nam-2.png', N'Hoạt động',1),
+    (N'Cơm cà ri', 125000, 50, 'com-cari-1.png', N'Hoạt động',2);
 go
 insert into ThucDon (TenThucDon, NgayPhucVu) values
 	(N'Ngày chẵn', '2-4-6-CN'),
 	(N'Ngày lẻ', '3-5-7');
 go
 
-insert into ChiTietTD (MaThucDon, MaMonAn) values
-	(1, 1),
-	(1, 2),
-	(1, 4),
-	(1, 6),
-	(2, 1),
-	(2, 3),
-	(2, 4),
-	(2, 7);
-go
+insert into ChiTietTD (MaThucDon, MaMonAn)
+values
+    (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
+    (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
+    (1, 11), (1, 12), (1, 13), (1, 14), (1, 15),
+    (1, 16), (1, 17), (1, 18), (1, 19), (1, 20),
+    (1, 21), (1, 22), (1, 23), (1, 24), (1, 25),
+    (1, 26), (1, 27), (1, 28), (1, 29), (1, 30);
 
 insert into DanhGia (DanhGia) values
 	(N'Tệ'),
@@ -401,14 +397,15 @@ go
 	mn chú ý 
 */
 -- thong ke mon an
-create  proc Sp_ThongKeMonAn
+
+create   proc Sp_ThongKeMonAn
 as 
 begin 
-	select top 7 TenMonAn ,sum(cthd.soluong) as SoLuongDaBan
+	select top 7 TenMonAn ,sum(ctgm.soluong) as Soluongmonan
 	from MonAn ma
-	join ChiTietHD cthd on cthd.MaMonAn = ma.MaMonAn
+	join ChiTietGM ctgm on ctgm.MaMonAn = ma.MaMonAn
 	group by TenMonAn
-	order by SoLuongDaBan desc	
+	order by Soluongmonan desc	
 end 
 go
 
@@ -418,11 +415,9 @@ AS
 BEGIN
     SELECT 
         MONTH(hd.NgayLap) AS Thang,
-        SUM(cthd.ThanhTien) AS TongThanhTien
+        SUM(hd.TongTien) AS TongThanhTien
     FROM 
         HoaDon hd
-    JOIN 
-        ChiTietHD cthd ON cthd.MaHoaDon = hd.MaHoaDon
     WHERE 
         YEAR(hd.NgayLap) = @nam
     GROUP BY 
@@ -431,14 +426,15 @@ END
 go
 
  -- proc hoa don 
- go
- create or alter proc sp_HoaDon @maHD varchar(10)
+ create proc [dbo].[sp_ChiTietHD] @maHD varchar(10)
 as
-select ma.TenMonAn,SoLuong,ThanhTien from ChiTietHD cthd
-join MonAn ma on cthd.MaMonAn = ma.MaMonAn
-join HoaDon hd on hd.MaHoaDon = cthd.MaHoaDon
+select TenMonAn,DonGia,ctgm.SoLuong,sum(DonGia*ctgm.SoLuong) as ThanhTien from HoaDon hd
+join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+join ChiTietGM ctgm on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
+join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
 where hd.MaHoaDon = @maHD
-go
+group by TenMonAn,DonGia,ctgm.SoLuong
+ go 
 
 CREATE TRIGGER Trig_UpdateVaiTro
 ON NhanVien
@@ -457,20 +453,33 @@ BEGIN
     END
 END;
 go
-create proc [dbo].[sp_ChiTietHD] @maHD varchar(10)
-as
-select TenMonAn,DonGia,SoLuong,sum(DonGia*SoLuong) as ThanhTien from HoaDon hd
-join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-join ChiTietGM ctgm on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
-join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
-where hd.MaHoaDon = @maHD
-group by TenMonAn,DonGia,SoLuong
 
-select * from KhachHang
-select * from PhieuDatBan
-select * from ChiTietDatBan
 
-select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db 
-            inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
-            inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
-            where (TenKhachHang like '%' or SDT like '%') and  ThoiGianDat > GETDATE();
+CREATE or alter PROCEDURE SP_ReSetMaPhieuDatBan (@MaPhieuDatBan int)
+AS
+BEGIN
+    DBCC CHECKIDENT ('PhieuDatBan', RESEED, @MaPhieuDatBan);
+END
+go
+
+
+CREATE or alter PROCEDURE SP_ReSetMaKhachHang (@MaKhachHang int)
+AS
+BEGIN
+    DBCC CHECKIDENT ('KhachHang', RESEED, @MaKhachHang);
+END
+go
+-- nhung cai nao chua duooc thanh toan ko can biet qua khu tuong lai  
+
+ select db.MaPhieuDatBan, db.MaBan, TenKhachHang,SDT,ThoiGianDat,TrangThai from ChiTietDatBan db 
+             inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
+             inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
+			 inner join Ban b on b.MaBan = db.MaBan
+			where (TenKhachHang like '%' or SDT like '%') 
+			And (TrangThai = 'Đã đặt' or TrangThai = 'Đang phục vụ')
+            order by thoigiandat
+
+
+
+
+

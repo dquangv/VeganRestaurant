@@ -223,7 +223,7 @@ public class KhachHang extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtDiemThuong, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                                     .addComponent(cldNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 115, Short.MAX_VALUE))
+                        .addGap(0, 136, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -272,9 +272,9 @@ public class KhachHang extends javax.swing.JPanel {
                     .addComponent(btnCapNhat)
                     .addComponent(btnTim)
                     .addComponent(btnMoi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCapNhat, btnThem});
@@ -440,8 +440,16 @@ public class KhachHang extends javax.swing.JPanel {
 
         List<Model.KhachHang> filteredList = new ArrayList<>();
         for (Model.KhachHang khachHang : khachHangList) {
-            if (khachHang.getTenKhachHang().toLowerCase().contains(keyword.toLowerCase())
-                    || khachHang.getSDT().contains(keyword)) {
+            String tenKH = khachHang.getTenKhachHang();
+            if (tenKH == null) {
+                tenKH = "";
+            }
+            String SDT = khachHang.getSDT();
+            if (SDT == null) {
+                SDT = "";
+            }
+            if (tenKH.toLowerCase().contains(keyword.toLowerCase())
+                    || SDT.contains(keyword)) {
                 filteredList.add(khachHang);
             }
         }

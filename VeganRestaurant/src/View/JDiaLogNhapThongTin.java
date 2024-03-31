@@ -29,10 +29,10 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     KhachHangDBDao khDAO = new KhachHangDBDao();
     PhieuDatBanDao pdbDao = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
-    List<KhachHang> listkh = new ArrayList<>();
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
-
+    
+  
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -47,7 +47,6 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         txtThoiGian.setCalendar(cal);
 
-        data();
 
     }
 
@@ -56,11 +55,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         this.maBan = maBan;
     }
 
-    void data() {
-        LoadKhachHang();
-        LoadPhieuDatBan();
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -181,12 +176,17 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
+            int kt = 0;
             insert();
             thayDoiTrangThai(maBan);
             MsgBox.alert(this, "Đặt bàn thành công");
             this.setVisible(false);
+            kt++;
+            JPanelDatBan.KiemTraXacNhan(kt);
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
         }
-        System.out.println(layThoiGian());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -270,22 +270,22 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         cbThoiGian.setModel(model);
     }
 
- public Date layThoiGian() {
-    Date date = txtThoiGian.getDate();
-    String gioPhut = (String) cbThoiGian.getSelectedItem();
-     if (date !=null) {
-         String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
-         Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
-         return NgayGio;
-     }
-    
-    return null;
-}
+    public Date layThoiGian() {
+        Date date = txtThoiGian.getDate();
+        String gioPhut = (String) cbThoiGian.getSelectedItem();
+        if (date != null) {
+            String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
+            Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
+            return NgayGio;
+        }
+
+        return null;
+    }
 
     private ChiTietDatBan getFormCTDB() {
         ChiTietDatBan ctdb = new ChiTietDatBan();
         ctdb.setMaBan(maBan);
-        ctdb.setMaPhieuDat(listpdb.size() + 1);
+//        ctdb.setMaPhieuDat(listpdb.size() + 1);
         return ctdb;
     }
 
@@ -295,7 +295,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
 
         PhieuDatBan pdb = new PhieuDatBan();
         pdb.setThoiGianDat(date);
-        pdb.setMaKhachHang(listkh.size() + 1);
+//        pdb.setMaKhachHang(max ma khach hang);
         return pdb;
     }
 
@@ -307,11 +307,11 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }
 
     void LoadPhieuDatBan() {
-        listpdb = pdbDao.selectAll();
+//        listpdb = pdbDao.selectAll();
     }
 
     void LoadKhachHang() {
-        listkh = khDAO.selectAll();
+//        listkh = khDAO.selectAll();
     }
 
     void insert() {
@@ -319,13 +319,21 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         PhieuDatBan pdb = getFormPDB();
         ChiTietDatBan ctdb = getFormCTDB();
         try {
+            int maMaxKH = khDAO.SelectMaxkH();
+            khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
+            pdb.setMaKhachHang(maMaxKH + 1);
+            int maMaxPDB = pdbDao.SelectMaxPDB();
+            pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
+            ctdb.setMaPhieuDat(maMaxPDB + 1);
             ctdbDAO.insert(ctdb);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     boolean Checkvalidate() {
         Date thoiGianHienTai = new Date();
@@ -346,7 +354,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-        if (txtThoiGian.getDate().getTime() < thoiGianHienTai.getTime()) {
+            System.out.println(thoiGianHienTai);
+            System.out.println(layThoiGian());
+        if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;
         }
