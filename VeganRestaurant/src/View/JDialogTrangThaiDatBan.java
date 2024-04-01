@@ -32,14 +32,14 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
 
-//    public static void setBan(List<Integer> maBanList) {
-//       String maBanText = "Bàn: ";
-//        for (Integer maBan : maBanList) {
-//            maBanText+= maBan+" ";
-//        }
-//        lbMaBan.setText(maBanText);
-////        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
-//    }
+    public  void setBan(List<Integer> maBanList) {
+       String maBanText = "Bàn: ";
+        for (Integer maBan : maBanList) {
+            maBanText+= maBan+" ";
+        }
+        lbMaBan.setText(maBanText);
+//        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,7 +144,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     private void lbHuyDatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHuyDatBanMouseClicked
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã hũy bàn thành công");
-        thayDoiTrangThai(maBan);
+        thayDoiTrangThai(JPanelTang1.listSo);
         this.setVisible(false);
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
@@ -214,14 +214,14 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbBDPV;
     private javax.swing.JLabel lbHuyDatBan;
-    private javax.swing.JLabel lbMaBan;
+    public javax.swing.JLabel lbMaBan;
     public static javax.swing.JLabel lbSDT;
     public static javax.swing.JLabel lbTenKhachHang;
     public static javax.swing.JLabel lbThoiGian;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
-     public void thayDoiTrangThai(String maBan) {
-        dbDAO.updateTrangThai(Trong, maBan);
+     public void thayDoiTrangThai(List<Integer> maBan) {
+        dbDAO.updateTrangThai(Trong, maBan.toString());
     }
 
     public void thayDoiTrangThaiBDPV(String maBan) {

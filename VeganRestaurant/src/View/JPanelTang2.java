@@ -5,6 +5,8 @@
 package View;
 
 import Controller.DatBanDao;
+import static View.JPanelTang1.dBDao;
+import static View.JPanelTang1.setButton;
 import static View.JPanelTang1.timButtonByMaBan;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -17,7 +19,9 @@ import javax.swing.UIManager;
  * @author Võ Thanh Tùng
  */
 public class JPanelTang2 extends javax.swing.JPanel {
-   static DatBanDao dBDao = new DatBanDao();
+
+    static DatBanDao dBDao = new DatBanDao();
+
     /**
      * Creates new form JPanelTang1
      */
@@ -25,10 +29,10 @@ public class JPanelTang2 extends javax.swing.JPanel {
         initComponents();
         TrangThaiBan();
         System.out.println("tang 2");
-     
+
     }
-     public static List<JButton> list = new ArrayList<>();
-   
+    public static List<JButton> list = new ArrayList<>();
+
     public static void thayDoiMauButton(JButton btn[]) {
         for (int i = 0; i < 12; i++) {
             if (list.contains(btn[i])) {
@@ -38,21 +42,23 @@ public class JPanelTang2 extends javax.swing.JPanel {
             }
         }
     }
-    public static void setButton(int maBan){
-         JButton button = timButtonByMaBan(maBan);
-          if (button != null) { 
-        if (list.contains(button)) {
-            list.remove(button);
-            System.out.println("Đã xóa bàn " + maBan);
+
+    public static void setButton(int maBan) {
+        JButton button = timButtonByMaBan(maBan);
+        if (button != null) {
+            if (list.contains(button)) {
+                list.remove(button);
+                System.out.println("Đã xóa bàn " + maBan);
+            } else {
+                list.add(button);
+                System.out.println("Đã thêm bàn " + maBan);
+            }
+            thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
         } else {
-            list.add(button);
-            System.out.println("Đã thêm bàn " + maBan);
+            System.out.println("Không tìm thấy button với mã bàn " + maBan);
         }
-        thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
-    } else {
-        System.out.println("Không tìm thấy button với mã bàn " + maBan);
     }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -405,7 +411,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
     private javax.swing.JLabel lbT1B12;
     // End of variables declaration//GEN-END:variables
 
-   static public JButton timButtonByMaBan(int maBan) {
+    static public JButton timButtonByMaBan(int maBan) {
         switch (maBan) {
             case 13:
                 return btnban1;
@@ -436,8 +442,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         }
     }
 
-
-   static void TrangThaiBan() {
+    static void TrangThaiBan() {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
             int maBan = (int) ban[0];
@@ -463,13 +468,6 @@ public class JPanelTang2 extends javax.swing.JPanel {
             }
         }
     }
-     
-
-    void showDiaLogTrangThaiDaDat(int maBan) {
-        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
-        dialog.setBan(maBan);
-        dialog.setVisible(true);
-    }
 
     void ShowDialogDatBan(int maBan) {
         JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
@@ -492,30 +490,29 @@ public class JPanelTang2 extends javax.swing.JPanel {
     }
 
     void kiemTraTrangThaiBan(int maBan) {
-//        List<Object[]> banList = dBDao.loadData();
-//        for (Object[] ban : banList) {
-//            int maBanDB =  (int) ban[0];
-//            String trangThai = (String) ban[1];
-//            if ((maBan == maBanDB)) {
-//                switch (trangThai) {
-//                    case DatBanDao.Trong:
-//                        ShowDialogDatBan(maBan);
-//                        return;
-//                    case DatBanDao.DANG_PHUC_VU:
-//                        showDiaLogDangPhucVu(maBan);
-//                        break;
-//                    case DatBanDao.DA_DAT:
+        List<Object[]> banList = dBDao.loadData();
+        for (Object[] ban : banList) {
+            int maBanDB = (int) ban[0];
+            String trangThai = (String) ban[1];
+            if ((maBan == maBanDB)) {
+                switch (trangThai) {
+                    case DatBanDao.Trong:
+                        setButton(maBan);
+                        return;
+                    case DatBanDao.DANG_PHUC_VU:
+                        showDiaLogDangPhucVu(maBan);
+                        break;
+                    case DatBanDao.DA_DAT:
 //                        showDiaLogTrangThaiDaDat(maBan);
-//                        return;
-//                    case DatBanDao.BAO_TRI:
-//                        showDiaLogBaoTri(maBan);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        }
+                        return;
+                    case DatBanDao.BAO_TRI:
+                        showDiaLogBaoTri(maBan);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
-       
 }

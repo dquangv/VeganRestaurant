@@ -5,6 +5,8 @@
 package View;
 
 import Controller.DatBanDao;
+import static View.JPanelTang1.dBDao;
+import static View.JPanelTang1.setButton;
 import static View.JPanelTang2.timButtonByMaBan;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -28,8 +30,8 @@ public class JPanelTang3 extends javax.swing.JPanel {
         TrangThaiBan();
 
     }
-     public static List<JButton> list = new ArrayList<>();
-   
+    public static List<JButton> list = new ArrayList<>();
+
     public static void thayDoiMauButton(JButton btn[]) {
         for (int i = 0; i < 12; i++) {
             if (list.contains(btn[i])) {
@@ -39,21 +41,23 @@ public class JPanelTang3 extends javax.swing.JPanel {
             }
         }
     }
-    public static void setButton(int maBan){
-         JButton button = timButtonByMaBan(maBan);
-          if (button != null) { 
-        if (list.contains(button)) {
-            list.remove(button);
-            System.out.println("Đã xóa bàn " + maBan);
+
+    public static void setButton(int maBan) {
+        JButton button = timButtonByMaBan(maBan);
+        if (button != null) {
+            if (list.contains(button)) {
+                list.remove(button);
+                System.out.println("Đã xóa bàn " + maBan);
+            } else {
+                list.add(button);
+                System.out.println("Đã thêm bàn " + maBan);
+            }
+            thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
         } else {
-            list.add(button);
-            System.out.println("Đã thêm bàn " + maBan);
+            System.out.println("Không tìm thấy button với mã bàn " + maBan);
         }
-        thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
-    } else {
-        System.out.println("Không tìm thấy button với mã bàn " + maBan);
     }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -407,7 +411,7 @@ public class JPanelTang3 extends javax.swing.JPanel {
     private javax.swing.JLabel lbT1B12;
     // End of variables declaration//GEN-END:variables
 
-  static public JButton timButtonByMaBan(int maBan) {
+    static public JButton timButtonByMaBan(int maBan) {
         switch (maBan) {
             case 25:
                 return btnban1;
@@ -465,12 +469,6 @@ public class JPanelTang3 extends javax.swing.JPanel {
         }
     }
 
-    void showDiaLogTrangThaiDaDat(int maBan) {
-        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
-        dialog.setBan(maBan);
-        dialog.setVisible(true);
-    }
-
     void ShowDialogDatBan(int maBan) {
         JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
@@ -499,13 +497,13 @@ public class JPanelTang3 extends javax.swing.JPanel {
             if ((maBan == maBanDB)) {
                 switch (trangThai) {
                     case DatBanDao.Trong:
-                        ShowDialogDatBan(maBan);
+                        setButton(maBan);
                         return;
                     case DatBanDao.DANG_PHUC_VU:
                         showDiaLogDangPhucVu(maBan);
                         break;
                     case DatBanDao.DA_DAT:
-                        showDiaLogTrangThaiDaDat(maBan);
+//                        showDiaLogTrangThaiDaDat(maBan);
                         return;
                     case DatBanDao.BAO_TRI:
                         showDiaLogBaoTri(maBan);

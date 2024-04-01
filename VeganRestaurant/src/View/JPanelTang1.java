@@ -466,7 +466,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
             System.out.println("da them so " + maBan);
         }
         for (Integer so : listSo) {
-            System.out.print(so+" ");
+            System.out.print(so + " ");
         }
     }
 
@@ -497,11 +497,12 @@ public class JPanelTang1 extends javax.swing.JPanel {
         }
     }
 
-//    void showDiaLogTrangThaiDaDat(Integer maBan[]) {
-//        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
-//        dialog.setBan(maBan);
-//        dialog.setVisible(true);
-//    }
+    void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+        dialog.setBan(maBan);
+        dialog.setVisible(true);
+    }
+
     void ShowDialogDatBan(int maBan) {
         JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
@@ -531,12 +532,13 @@ public class JPanelTang1 extends javax.swing.JPanel {
                 switch (trangThai) {
                     case DatBanDao.Trong:
                         setButton(maBan);
+                        timMaBanByButton(maBan);
                         return;
                     case DatBanDao.DANG_PHUC_VU:
                         showDiaLogDangPhucVu(maBan);
                         break;
                     case DatBanDao.DA_DAT:
-//                        showDiaLogTrangThaiDaDat(maBan);
+                        showDiaLogTrangThaiDaDat(listSo);
                         return;
                     case DatBanDao.BAO_TRI:
                         showDiaLogBaoTri(maBan);

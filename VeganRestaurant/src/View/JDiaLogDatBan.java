@@ -142,7 +142,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     private void lbDatBanTruocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDatBanTruocMouseClicked
         String maBan = lbMaBan.getText().substring(5);
         JDiaLogNhapThongTin dlnt = new JDiaLogNhapThongTin(new javax.swing.JFrame(), true);
-        dlnt.setBan(Integer.parseInt(maBan));
+        dlnt.setBan(JPanelTang1.listSo);
         dlnt.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lbDatBanTruocMouseClicked

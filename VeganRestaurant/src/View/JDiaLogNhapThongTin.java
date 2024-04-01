@@ -30,8 +30,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     KhachHangDBDao khDAO = new KhachHangDBDao();
     PhieuDatBanDao pdbDao = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
-    List<PhieuDatBan> listpdb = new ArrayList<>();
+    List<Integer> maBanListAdd = new ArrayList<>();
     int maBan;
+    List<ChiTietDatBan> list;
 
     /**
      * Creates new form JDiaLogNhapThongTin
@@ -50,6 +51,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }
 
     public void setBan(List<Integer> maBanList) {
+        maBanListAdd = maBanList;
         String maBanText = "Bàn: ";
         for (int i = 0; i < maBanList.size(); i++) {
             maBanText += maBanList.get(i);
@@ -183,10 +185,12 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             int kt = 0;
             boolean a = insert();
             if (a) {
-                thayDoiTrangThai(maBan);
+                for (Integer ma : maBanListAdd) {
+                    thayDoiTrangThai(ma.toString());
+                }
                 MsgBox.alert(this, "Đặt bàn thành công");
                 this.setVisible(false);
-                kt=1;
+                kt = 1;
                 JPanelDatBan.KiemTraXacNhan(kt);
                 JPanelTang1.TrangThaiBan();
                 JPanelTang2.TrangThaiBan();
@@ -356,8 +360,10 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             int maMaxPDB = pdbDao.SelectMaxPDB();
             pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
-            ctdb.setMaPhieuDat(maMaxPDB + 1);
-            ctdbDAO.insert(ctdb);
+
+            for (Integer maBan : maBanListAdd) {
+                ctdbDAO.insert(maBan.toString(), maMaxPDB);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
