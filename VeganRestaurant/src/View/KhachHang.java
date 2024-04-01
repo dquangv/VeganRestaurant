@@ -294,9 +294,9 @@ public class KhachHang extends javax.swing.JPanel {
         String sdt = txtSDT.getText().trim();
         Date ngaySinh = cldNgaySinh.getDate();
         KhachHangDAO khDao = new KhachHangDAO();
-        String existingCustomerName = khDao.getCustomerNameByPhoneNumber(sdt);
-        if (!existingCustomerName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + existingCustomerName);
+        Model.KhachHang MavsTen  = khDao.getCustomerByPhoneNumber(sdt); 
+        if (MavsTen != null) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + MavsTen.getTenKhachHang() + MavsTen.getMaKhachHang());
             return;
         }
 

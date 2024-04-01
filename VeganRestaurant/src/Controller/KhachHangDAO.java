@@ -71,27 +71,30 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         return null;
     }
 
-    public String getCustomerNameByPhoneNumber(String phoneNumber) {
-        String customerName = "";
-        String sql = "SELECT TenKhachHang FROM KhachHang WHERE SDT = ?";
+
+    public KhachHang getCustomerByPhoneNumber(String phoneNumber) {
+        KhachHang customer = null;
+        String sql = "SELECT MaKhachHang, TenKhachHang FROM KhachHang WHERE SDT = ?";
         try {
             PreparedStatement ps = xJdbc.preparedStatement(sql);
             ps.setString(1, phoneNumber);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                customerName = rs.getString("TenKhachHang");
+                customer = new KhachHang();
+                customer.setMaKhachHang(rs.getInt("MaKhachHang"));
+                customer.setTenKhachHang(rs.getString("TenKhachHang"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return customerName;
+        return customer;
     }
 
     public void updateKhachHang(KhachHang khachHang) {
         String sql = "UPDATE KhachHang SET SDT = ?, NgaySinh = ? "
                 + "WHERE MaKhachHang = ?";
 
-        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
+        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
             pstmt.setString(1, khachHang.getSDT());
             if (khachHang.getNgaySinh() != null) {
                 pstmt.setDate(2, new java.sql.Date(khachHang.getNgaySinh().getTime()));
@@ -110,7 +113,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
         KhachHang khachHang = null;
 
-        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang);  ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang); ResultSet rs = pstmt.executeQuery()) {
 
             if (rs.next()) {
                 khachHang = extractKhachHangFromResultSet(rs);
@@ -127,7 +130,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
     public List<KhachHang> getAllKhachHang() {
         String sql = SELECT_ALL_SQL;
         List<KhachHang> khachHangList = new ArrayList<>();
-        try ( ResultSet rs = xJdbc.executeQuery(sql)) {
+        try (ResultSet rs = xJdbc.executeQuery(sql)) {
             while (rs.next()) {
                 KhachHang khachHang = extractKhachHangFromResultSet(rs);
                 khachHangList.add(khachHang);
@@ -197,4 +200,3 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
-
