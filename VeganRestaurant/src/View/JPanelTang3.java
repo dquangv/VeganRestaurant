@@ -5,9 +5,12 @@
 package View;
 
 import Controller.DatBanDao;
+import static View.JPanelTang2.timButtonByMaBan;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 /**
  *
@@ -25,7 +28,32 @@ public class JPanelTang3 extends javax.swing.JPanel {
         TrangThaiBan();
 
     }
-
+     public static List<JButton> list = new ArrayList<>();
+   
+    public static void thayDoiMauButton(JButton btn[]) {
+        for (int i = 0; i < 12; i++) {
+            if (list.contains(btn[i])) {
+                btn[i].setBackground(Color.yellow);
+            } else {
+                btn[i].setBackground(UIManager.getColor("Button.backgrund"));
+            }
+        }
+    }
+    public static void setButton(int maBan){
+         JButton button = timButtonByMaBan(maBan);
+          if (button != null) { 
+        if (list.contains(button)) {
+            list.remove(button);
+            System.out.println("Đã xóa bàn " + maBan);
+        } else {
+            list.add(button);
+            System.out.println("Đã thêm bàn " + maBan);
+        }
+        thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
+    } else {
+        System.out.println("Không tìm thấy button với mã bàn " + maBan);
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -292,51 +320,63 @@ public class JPanelTang3 extends javax.swing.JPanel {
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
         kiemTraTrangThaiBan(34);
+        setButton(34);
     }//GEN-LAST:event_btnban10ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
         kiemTraTrangThaiBan(29);
+        setButton(29);
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
         kiemTraTrangThaiBan(35);
+        setButton(35);
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
         kiemTraTrangThaiBan(36);
+        setButton(36);
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
         kiemTraTrangThaiBan(29);
+        setButton(29);
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
         kiemTraTrangThaiBan(25);
+        setButton(25);
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
         kiemTraTrangThaiBan(26);
+        setButton(25);
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
         kiemTraTrangThaiBan(31);
+        setButton(31);
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
         // TODO add your handling code here:
         kiemTraTrangThaiBan(32);
+        setButton(32);
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
         kiemTraTrangThaiBan(30);
+        setButton(30);
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
         kiemTraTrangThaiBan(27);
+        setButton(27);
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
         kiemTraTrangThaiBan(33);
+        setButton(33);
     }//GEN-LAST:event_btnban9ActionPerformed
 
 

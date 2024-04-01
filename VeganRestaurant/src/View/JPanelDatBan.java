@@ -5,12 +5,19 @@
 package View;
 
 import Controller.DatBanDao;
+import static View.JPanelTang1.timButtonByMaBan;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,9 +26,51 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelDatBan extends javax.swing.JPanel {
 
-
     static DatBanDao dBDao = new DatBanDao();
+//    public static List<JButton> list = new ArrayList<>();
+//   
+//    public static void thayDoiMauButton(JButton btn[]) {
+//        for (int i = 0; i < 36; i++) {
+//            if (list.contains(btn[i])) {
+//                btn[i].setBackground(Color.yellow);
+//            } else {
+//                btn[i].setBackground(UIManager.getColor("Button.backgrund"));
+//            }
+//        }
+//    }
+//    public static void setButton(int maBan){
+//         JButton button = timButtonByMaBan(maBan);
+//          if (button != null) { 
+//        if (list.contains(button)) {
+//            list.remove(button);
+//            System.out.println("Đã xóa bàn " + maBan);
+//        } else {
+//            list.add(button);
+//            System.out.println("Đã thêm bàn " + maBan);
+//        }
+//        thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
+//    } else {
+//        System.out.println("Không tìm thấy button với mã bàn " + maBan);
+//    }
 
+//        for (JButton jButton : list) {
+//            jButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JButton clickedButton = (JButton) e.getSource();
+//                if (!list.contains(clickedButton)) {
+//                    list.add(clickedButton);
+//                    System.out.println("Da them " + clickedButton.getText());
+//                } else {
+//                    list.remove(clickedButton);
+//                    System.out.println("Da xoa " + clickedButton.getText());
+//                }
+//                updateButtonBackgrounds(new JButton[]{jButton});
+//                System.out.println(list);
+//            }
+//        });
+//        }
+//    }
     /**
      * Creates new form NewJPanel
      */
@@ -29,29 +78,28 @@ public class JPanelDatBan extends javax.swing.JPanel {
         initComponents();
         fillToTable();
         fillComboBoxTang();
-        
+
     }
 
-    public void capNhatTable() {
-        class TrangThaitable extends Thread {
-
-            @Override
-            public void run() {
-                while (true) {
-                    fillToTable();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        }
-
-        TrangThaitable thread = new TrangThaitable();
-        thread.start();
-    }
-
+//    public void capNhatTable() {
+//        class TrangThaitable extends Thread {
+//
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    fillToTable();
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+//
+//        TrangThaitable thread = new TrangThaitable();
+//        thread.start();
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +120,9 @@ public class JPanelDatBan extends javax.swing.JPanel {
         tblDatBan = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         txtTimKIem = new javax.swing.JTextField();
+        btnDatBan = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         cbTang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tầng 1" }));
@@ -115,7 +166,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 354, Short.MAX_VALUE)
         );
 
         tblDatBan.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,6 +207,22 @@ public class JPanelDatBan extends javax.swing.JPanel {
             }
         });
 
+        btnDatBan.setText("Đặt bàn ");
+        btnDatBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatBanActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Phục vụ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Bảo trì");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,15 +242,22 @@ public class JPanelDatBan extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(btnDatBan)
+                        .addGap(70, 70, 70)
+                        .addComponent(jButton3)
+                        .addGap(74, 74, 74)
+                        .addComponent(jButton4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                             .addComponent(txtTimKIem))
-                        .addContainerGap())
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,11 +275,17 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDatBan)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTimKIem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -250,9 +330,28 @@ public class JPanelDatBan extends javax.swing.JPanel {
         fillToTable();
     }//GEN-LAST:event_txtTimKIemKeyReleased
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatBanActionPerformed
+        JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
+        for (Integer so : JPanelTang1.listSo) {
+            System.out.println("");
+            System.out.print(" " + so);
+        }
+        JDiaLogNhapThongTin dialog = new JDiaLogNhapThongTin(parentFrame, true); // Tạo dialog với JFrame cha
+        dialog.setBan(JPanelTang1.listSo);
+        dialog.setVisible(true);
+
+    }//GEN-LAST:event_btnDatBanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDatBan;
     private javax.swing.JComboBox<String> cbTang;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -294,4 +393,5 @@ public class JPanelDatBan extends javax.swing.JPanel {
             kt = 0;
         }
     }
+
 }

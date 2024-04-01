@@ -31,8 +31,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
     List<PhieuDatBan> listpdb = new ArrayList<>();
     int maBan;
-    
-  
+
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -47,15 +46,20 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         txtThoiGian.setCalendar(cal);
 
-
     }
 
-    public void setBan(int maBan) {
-        lbmaBan.setText("Bàn: " + maBan);
-        this.maBan = maBan;
+    public void setBan(List<Integer> maBanList) {
+        String maBanText = "Bàn: ";
+        for (int i = 0; i < maBanList.size(); i++) {
+            maBanText += maBanList.get(i);
+            if (i != maBanList.size() - 1) {
+                maBanText += "+";
+            }
+        }
+        lbmaBan.setText(maBanText);
+//        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,10 +136,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                         .addComponent(cbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lbmaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,8 +336,6 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         }
     }
 
-
-
     boolean Checkvalidate() {
         Date thoiGianHienTai = new Date();
         if (txtTenKhach.getText().isEmpty()) {
@@ -354,8 +355,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-            System.out.println(thoiGianHienTai);
-            System.out.println(layThoiGian());
+        System.out.println(thoiGianHienTai);
+        System.out.println(layThoiGian());
         if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;
