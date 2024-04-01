@@ -103,11 +103,11 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
     }
     public List<DanhGia> selectByMaHD(Integer maHD) {
     String sql = """
-                select TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,MaHoaDon from DanhGia dg
-                                right join ChiTietGM ctgm on ctgm.MaDanhGia=dg.MaDanhGia
-                                join MonAn ma on ma.MaMonAn=ctgm.MaMonAn
-                                join PhieuDatBan pbd on pbd.MaPhieuDatBan=ctgm.MaPhieuDatBan
-                                join HoaDon hd on hd.MaPhieuDatBan=pbd.MaPhieuDatBan
+                select TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,MaHoaDon from ChiTietGM ctgm
+                                left join DanhGia dg on dg.MaDanhGia = ctgm.MaDanhGia
+                                join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+                                join PhieuDatBan pdb on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
+                                join HoaDon hd on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
                                 where MaHoaDon = ?""";
 
     List<DanhGia> list = new ArrayList<>();
