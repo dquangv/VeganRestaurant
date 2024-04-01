@@ -23,6 +23,15 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
                         join HoaDon hd on hd.MaPhieuDatBan=pdb.MaPhieuDatBan
                         join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
                         join KhachHang kh on pdb.MaKhachHang = kh.MaKhachHang""";
+    
+    String Select_By_MaHD = """
+                            select TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,MaHoaDon from ChiTietGM ctgm
+                            left join DanhGia dg on dg.MaDanhGia = ctgm.MaDanhGia
+                            join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+                            join PhieuDatBan pdb on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
+                            join HoaDon hd on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                            where MaHoaDon = ?
+                            """;
 
     @Override
     public void insert(DanhGia entity) {

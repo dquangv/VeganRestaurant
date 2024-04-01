@@ -16,6 +16,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -195,30 +197,47 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         pnlDanhGia.add(pnlPhai);
 
         for (DanhGia dg : ds_DanhGia) {
-            JPanel pnlConT = new JPanel();
-            pnlConT.setBackground(Color.red);
-            pnlConT.setLayout(new BorderLayout());
+            try {
+                JPanel pnlConT = new JPanel();
+                //pnlConT.setBackground(Color.red);
+                pnlConT.setLayout(new BorderLayout());
 
-            JPanel pnlConP = new JPanel();
-            pnlConP.setBackground(Color.BLUE);
-            pnlConP.setLayout(new GridLayout(1, 1));
+                JPanel pnlConP = new JPanel();
+                //pnlConP.setBackground(Color.BLUE);
+                pnlConP.setLayout(new GridLayout(1, 1));
 
-            JLabel lblTenMon = new JLabel(dg.getTenMonAn());
-            JLabel lblHinh = new JLabel(dg.getHinhAnh());
-            
-            
-            ButtonGroup btnGroup = new ButtonGroup();
-            for (int i = 1; i <= 5; i++) {
-                JCheckBox chkSao = new JCheckBox(i + " Sao");
-                btnGroup.add(chkSao);
-                pnlConP.add(chkSao);
+                JLabel lblTenMon = new JLabel(dg.getTenMonAn());
+                JLabel lblHinh = new JLabel();
+
+                ButtonGroup btnGroup = new ButtonGroup();
+                for (int i = 1; i <= 5; i++) {
+                    JCheckBox chkSao = new JCheckBox(i + " Sao");
+                    btnGroup.add(chkSao);
+                    pnlConP.add(chkSao);
+                }
+
+                String imgPath = "/Image/menu/" + dg.getHinhAnh();
+                InputStream inputStream = getClass().getResourceAsStream(imgPath);
+                BufferedImage originalImage = ImageIO.read(inputStream);
+
+                int scaledWidth = 300;
+                int scaledHeight = (int) (((double) scaledWidth / originalImage.getWidth()) * originalImage.getHeight());
+                Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                
+                lblHinh.setIcon(scaledIcon);
+
+                
+                lblTenMon.setFont(new java.awt.Font("Segoe UI", 1, 20));
+                
+                pnlConT.add(lblTenMon, BorderLayout.NORTH);
+                pnlConT.add(lblHinh, BorderLayout.CENTER);
+
+                pnlTrai.add(pnlConT);
+                pnlPhai.add(pnlConP);
+            } catch (IOException ex) {
+                Logger.getLogger(DanhGiaJDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            pnlConT.add(lblTenMon, BorderLayout.NORTH);
-            pnlConT.add(lblHinh, BorderLayout.CENTER);
-            
-            pnlTrai.add(pnlConT);
-            pnlPhai.add(pnlConP);
         }
     }
 
