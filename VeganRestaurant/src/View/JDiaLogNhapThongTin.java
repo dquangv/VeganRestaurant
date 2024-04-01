@@ -49,9 +49,16 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
 
     }
 
-    public void setBan(int maBan) {
-        lbmaBan.setText("Bàn: " + maBan);
-        this.maBan = maBan;
+    public void setBan(List<Integer> maBanList) {
+        String maBanText = "Bàn: ";
+        for (int i = 0; i < maBanList.size(); i++) {
+            maBanText += maBanList.get(i);
+            if (i != maBanList.size() - 1) {
+                maBanText += "+";
+            }
+        }
+        lbmaBan.setText(maBanText);
+//        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
     }
 
     /**
@@ -130,10 +137,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                         .addComponent(cbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lbmaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -5,9 +5,12 @@
 package View;
 
 import Controller.DatBanDao;
+import static View.JPanelTang1.timButtonByMaBan;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 /**
  *
@@ -24,7 +27,32 @@ public class JPanelTang2 extends javax.swing.JPanel {
         System.out.println("tang 2");
      
     }
-     
+     public static List<JButton> list = new ArrayList<>();
+   
+    public static void thayDoiMauButton(JButton btn[]) {
+        for (int i = 0; i < 12; i++) {
+            if (list.contains(btn[i])) {
+                btn[i].setBackground(Color.yellow);
+            } else {
+                btn[i].setBackground(UIManager.getColor("Button.backgrund"));
+            }
+        }
+    }
+    public static void setButton(int maBan){
+         JButton button = timButtonByMaBan(maBan);
+          if (button != null) { 
+        if (list.contains(button)) {
+            list.remove(button);
+            System.out.println("Đã xóa bàn " + maBan);
+        } else {
+            list.add(button);
+            System.out.println("Đã thêm bàn " + maBan);
+        }
+        thayDoiMauButton(new JButton[]{button}); // Truyền vào mảng chứa button
+    } else {
+        System.out.println("Không tìm thấy button với mã bàn " + maBan);
+    }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -291,51 +319,62 @@ public class JPanelTang2 extends javax.swing.JPanel {
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
         kiemTraTrangThaiBan(22);
-        
+        setButton(22);
     }//GEN-LAST:event_btnban10ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
         kiemTraTrangThaiBan(16);
+        setButton(16);
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
         kiemTraTrangThaiBan(23);
+        setButton(23);
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
         kiemTraTrangThaiBan(24);
+        setButton(24);
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
         kiemTraTrangThaiBan(17);
+        setButton(17);
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
         kiemTraTrangThaiBan(13);
+        setButton(13);
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
         kiemTraTrangThaiBan(14);
+        setButton(14);
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
         kiemTraTrangThaiBan(19);
+        setButton(19);
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
         kiemTraTrangThaiBan(20);
+        setButton(20);
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
         kiemTraTrangThaiBan(18);
+        setButton(18);
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
         kiemTraTrangThaiBan(15);
+        setButton(15);
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
         kiemTraTrangThaiBan(21);
+        setButton(21);
     }//GEN-LAST:event_btnban9ActionPerformed
 
 
@@ -453,29 +492,29 @@ public class JPanelTang2 extends javax.swing.JPanel {
     }
 
     void kiemTraTrangThaiBan(int maBan) {
-        List<Object[]> banList = dBDao.loadData();
-        for (Object[] ban : banList) {
-            int maBanDB =  (int) ban[0];
-            String trangThai = (String) ban[1];
-            if ((maBan == maBanDB)) {
-                switch (trangThai) {
-                    case DatBanDao.Trong:
-                        ShowDialogDatBan(maBan);
-                        return;
-                    case DatBanDao.DANG_PHUC_VU:
-                        showDiaLogDangPhucVu(maBan);
-                        break;
-                    case DatBanDao.DA_DAT:
-                        showDiaLogTrangThaiDaDat(maBan);
-                        return;
-                    case DatBanDao.BAO_TRI:
-                        showDiaLogBaoTri(maBan);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+//        List<Object[]> banList = dBDao.loadData();
+//        for (Object[] ban : banList) {
+//            int maBanDB =  (int) ban[0];
+//            String trangThai = (String) ban[1];
+//            if ((maBan == maBanDB)) {
+//                switch (trangThai) {
+//                    case DatBanDao.Trong:
+//                        ShowDialogDatBan(maBan);
+//                        return;
+//                    case DatBanDao.DANG_PHUC_VU:
+//                        showDiaLogDangPhucVu(maBan);
+//                        break;
+//                    case DatBanDao.DA_DAT:
+//                        showDiaLogTrangThaiDaDat(maBan);
+//                        return;
+//                    case DatBanDao.BAO_TRI:
+//                        showDiaLogBaoTri(maBan);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
     }
 
        
