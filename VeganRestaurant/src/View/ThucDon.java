@@ -32,7 +32,7 @@ public class ThucDon extends javax.swing.JPanel {
     public ThucDon() {
         initComponents();
         thucDonDAO = new ThucDonDAO();
-        loadDanhSachMonAn();
+//        loadDanhSachMonAn();
         initCombobox();
     }
 
@@ -44,37 +44,48 @@ public class ThucDon extends javax.swing.JPanel {
     public void loadDanhSachMonLenTable(List<MonAn> danhSachMonAn) {
         DefaultTableModel model = (DefaultTableModel) tblThucDon.getModel();
         model.setRowCount(0);
-        String ngayPhucVu;
+//        String ngayPhucVu;
 
         for (MonAn monAn : danhSachMonAn) {
-            String maThucDon = monAn.getNgayPhucVu();
+//            String maThucDon = monAn.getNgayPhucVu();
+//
+//            if ("1".equals(maThucDon)) {
+//                ngayPhucVu = "Thứ 2, 4, 6, CN";
+//            } else if ("2".equals(maThucDon)) {
+//                ngayPhucVu = "Thứ 3, 5, 7";
+//            } else {
+//                ngayPhucVu = null;
+//            }
 
-            if ("1".equals(maThucDon)) {
-                ngayPhucVu = "Thứ 2,4,6,CN";
-            } else {
-                ngayPhucVu = "Thứ 3,5,7";
-            }
-
-            Object[] rowData = {monAn.getTenMonAn(), monAn.getLoaiMonAn(), ngayPhucVu, monAn.getHinhAnh()};
+            Object[] rowData = {monAn.getTenMonAn(), monAn.getLoaiMonAn(), monAn.getNgayPhucVu(), monAn.getHinhAnh()};
             model.addRow(rowData);
         }
     }
 
     private void initCombobox() {
-        List<String> danhSachThucDon = thucDonDAO.layDanhSachTenThucDon();
-        for (String tenThucDon : danhSachThucDon) {
-            cbbThucDon.addItem(tenThucDon);
-        }
+//        List<String> danhSachThucDon = thucDonDAO.layDanhSachTenThucDon();
+//        for (String tenThucDon : danhSachThucDon) {
+//            cbbThucDon.addItem(tenThucDon);
+//        }
+        cbbThucDon.addItem("Tất cả");
+        cbbThucDon.addItem("Thứ 2, 4, 6, CN");
+        cbbThucDon.addItem("Thứ 3, 5, 7");
 
-        List<String> danhSachLoaiMon = thucDonDAO.layDanhSachLoaiMon();
-        for (String loaiMon : danhSachLoaiMon) {
-            cbbLoaiMon.addItem(loaiMon);
-        }
+//        List<String> danhSachLoaiMon = thucDonDAO.layDanhSachLoaiMon();
+//        for (String loaiMon : danhSachLoaiMon) {
+//            cbbLoaiMon.addItem(loaiMon);
+//        }
+        cbbLoaiMon.addItem("Tất cả");
+        cbbLoaiMon.addItem("Bún");
+        cbbLoaiMon.addItem("Cơm");
+        cbbLoaiMon.addItem("Khai vị");
+        cbbLoaiMon.addItem("Khác");
+
     }
 
     private void clearTable() {
         DefaultTableModel dtm = (DefaultTableModel) tblThucDon.getModel();
-        dtm.setRowCount(0); 
+        dtm.setRowCount(0);
     }
 
     /**
@@ -93,7 +104,6 @@ public class ThucDon extends javax.swing.JPanel {
         cbbThucDon = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblTenMon = new javax.swing.JTextField();
-        lblHinh = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cbbLoaiMon = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -104,6 +114,7 @@ public class ThucDon extends javax.swing.JPanel {
         tblThucDon = new javax.swing.JTable();
         btnTim = new javax.swing.JButton();
         btnMoi = new javax.swing.JButton();
+        lblHinh = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Quản lý thực đơn");
@@ -151,10 +162,7 @@ public class ThucDon extends javax.swing.JPanel {
 
         tblThucDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Tên món", "Loại món", "Ngày phục vụ", "Hình"
@@ -195,48 +203,48 @@ public class ThucDon extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cbbThucDon, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLuu)
+                            .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(305, 305, 305)
+                        .addGap(54, 54, 54)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cbbThucDon, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnLuu)
-                                    .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTenMon, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(chk246)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(chk357)))
-                                .addGap(205, 205, 205))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnTim)
-                                .addGap(142, 142, 142)
-                                .addComponent(btnMoi)
-                                .addGap(103, 103, 103)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTenMon, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chk246)
+                                .addGap(18, 18, 18)
+                                .addComponent(chk357)))
+                        .addGap(199, 199, 199))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnTim)
+                        .addGap(142, 142, 142)
+                        .addComponent(btnMoi)
+                        .addGap(97, 97, 97)))
                 .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9))
+                .addGap(15, 15, 15))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,28 +270,41 @@ public class ThucDon extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnLuu)
                             .addComponent(btnTim)
-                            .addComponent(btnMoi))
-                        .addGap(76, 76, 76))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+                            .addComponent(btnMoi)))
+                    .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbThucDonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbThucDonItemStateChanged
-        // TODO add your handling code here:
+        List<MonAn> listAll = thucDonDAO.layDanhSachTatCaMonAn();
+        List<MonAn> listChan = thucDonDAO.layDanhSachMonAnTheoMaThucDon(1);
+        List<MonAn> listLe = thucDonDAO.layDanhSachMonAnTheoMaThucDon(2);
+
+        if (cbbThucDon.getSelectedIndex() == 0) {
+            loadDanhSachMonLenTable(listAll);
+        } else if (cbbThucDon.getSelectedIndex() == 1) {
+            loadDanhSachMonLenTable(listChan);
+        } else {
+            loadDanhSachMonLenTable(listLe);
+        }
     }//GEN-LAST:event_cbbThucDonItemStateChanged
 
     private void chk246ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk246ActionPerformed
@@ -293,8 +314,8 @@ public class ThucDon extends javax.swing.JPanel {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
         String tenMon = lblTenMon.getText();
-        String maThucDon246 = "1";
-        String maThucDon357 = "2";
+        int maThucDon246 = 1;
+        int maThucDon357 = 2;
 
         if (chk246.isSelected()) {
             thucDonDAO.xoaMonAnKhoiThucDon(maThucDon246, tenMon);
@@ -305,6 +326,7 @@ public class ThucDon extends javax.swing.JPanel {
             thucDonDAO.xoaMonAnKhoiThucDon(maThucDon357, tenMon);
             thucDonDAO.themMonAnVaoThucDon(maThucDon357, tenMon);
         }
+
         loadDanhSachMonAn();
         JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -321,6 +343,9 @@ public class ThucDon extends javax.swing.JPanel {
             cbbThucDon.setSelectedItem(ngayPhucVu);
             cbbLoaiMon.setSelectedItem(loaiMonAn);
             lblTenMon.setText(tenMonAn);
+            chk246.setSelected(ngayPhucVu.equals("Thứ 2,4,6,CN"));
+            chk357.setSelected(ngayPhucVu.equals("Thứ 3,5,7"));
+
             String imagePath = "/Image/menu/" + hinh;
             InputStream inputStream = getClass().getResourceAsStream(imagePath);
             if (inputStream != null) {
@@ -335,9 +360,6 @@ public class ThucDon extends javax.swing.JPanel {
 
                     lblHinh.setIcon(scaledIcon);
 
-                    chk246.setSelected(ngayPhucVu.equals("Thứ 2,4,6,CN"));
-                    chk357.setSelected(ngayPhucVu.equals("Thứ 3,5,7"));
-
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -348,7 +370,34 @@ public class ThucDon extends javax.swing.JPanel {
     }//GEN-LAST:event_tblThucDonMouseClicked
 
     private void cbbLoaiMonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbLoaiMonItemStateChanged
-        // TODO add your handling code here:
+        int thucDon = cbbThucDon.getSelectedIndex();
+        int loaiMon = cbbLoaiMon.getSelectedIndex();
+
+        if (thucDon == 0) {
+            if (loaiMon == 0) {
+                loadDanhSachMonLenTable(thucDonDAO.layDanhSachAllMonAnTheoLoaiMon());
+            } else {
+                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoLoaiMon(loaiMon));
+            }
+//            } else if (cbbLoaiMon.getSelectedIndex() == 1) {
+//                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoLoaiMon(cbbLoaiMon.getSelectedIndex()));
+//            } else if (cbbLoaiMon.getSelectedIndex() == 2) {
+//                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoLoaiMon(cbbLoaiMon.getSelectedIndex()));
+//            } else if (cbbLoaiMon.getSelectedIndex() == 3) {
+//                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoLoaiMon(cbbLoaiMon.getSelectedIndex()));
+//            } else {
+//                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoLoaiMon(cbbLoaiMon.getSelectedIndex()));
+//            }
+        } else {
+            if (loaiMon == 0) {
+                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoMaThucDon(thucDon));
+            } else {
+                loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoThucDonLoaiMon(loaiMon, thucDon));
+            }
+        }
+//        } else if (thucDon == 2) {
+//            loadDanhSachMonLenTable(thucDonDAO.layDanhSachMonAnTheoLoaiMon(loaiMon, thucDon));
+//        }
     }//GEN-LAST:event_cbbLoaiMonItemStateChanged
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed

@@ -58,7 +58,8 @@ public class ThucDonDAO {
         monAn.setTenMonAn(rs.getString("TenMonAn"));
         monAn.setLoaiMonAn(rs.getString("TenLoaiMon"));
         monAn.setHinhAnh(rs.getString("HinhAnh"));
-        monAn.setNgayPhucVu(rs.getString("MaThucDon"));
+        monAn.setNgayPhucVu(rs.getString("NgayPhucVu"));
+
         return monAn;
     }
 
@@ -69,7 +70,7 @@ public class ThucDonDAO {
 
         try (ResultSet resultSet = xJdbc.executeQuery(sql, loaiMon)) {
             while (resultSet.next()) {
-                MonAn  monAn = extractMonAnFromResultSet(resultSet);
+                MonAn monAn = extractMonAnFromResultSet(resultSet);
                 danhSachMonAn.add(monAn);
             }
         } catch (SQLException e) {
@@ -80,9 +81,9 @@ public class ThucDonDAO {
     }
 
     public List<MonAn> layDanhSachThucDon() {
-        String sql = "select ChiTietTD.MaThucDon, LoaiMon.TenLoaiMon, MonAn.TenMonAn, MonAn.HinhAnh\n"
+        String sql = "select ChiTietTD.MaThucDon, LoaiMon.TenLoaiMon, MonAn.TenMonAn, MonAn.HinhAnh "
                 + "from ChiTietTD \n"
-                + "join MonAn on ChiTietTD.MaMonAn = MonAn.MaMonAn\n"
+                + "right join MonAn on ChiTietTD.MaMonAn = MonAn.MaMonAn\n"
                 + "join LoaiMon on MonAn.MaLoaiMon = LoaiMon.MaLoaiMon";
 
         List<MonAn> danhSachMonAn = new ArrayList<>();
@@ -98,31 +99,29 @@ public class ThucDonDAO {
         return danhSachMonAn;
     }
 
-    public List<MonAn> layDanhSachTheoMaThucDon(String maThucDon) {
-        String sql = "SELECT "
-                + "    MonAn.TenMonAn, "
-                + "    MonAn.LoaiMonAn, "
-                + "    MonAn.HinhAnh, "
-                + "    CASE "
-                + "        WHEN COUNT(DISTINCT ChiTietTD.MaThucDon) = 2 THEN 'CaTuan' "
-                + "        WHEN MAX(ChiTietTD.MaThucDon) = 'TD246' THEN 'TD246' "
-                + "        WHEN MAX(ChiTietTD.MaThucDon) = 'TD357' THEN 'TD357' "
-                + "    END AS MaThucDon "
-                + "FROM "
-                + "    MonAn "
-                + "JOIN "
-                + "    ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
-                + "WHERE "
-                + "    ChiTietTD.MaThucDon = ? OR ? = 'CaTuan' "
-                + "GROUP BY "
-                + "    MonAn.TenMonAn, MonAn.LoaiMonAn, MonAn.HinhAnh;";
+    public List<MonAn> layDanhSachTatCaMonAn() {
+        String sql = "SELECT MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+                + "               FROM "
+                + "                    MonAn "
+                + "               left JOIN "
+                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                + "               left JOIN"
+                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "				JOIN"
+                + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
+                + "                GROUP BY "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu "
+                + "order by ThucDon.NgayPhucVu";
 
         List<MonAn> danhSachMonAn = new ArrayList<>();
 
-        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon, maThucDon)) {
+//        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon, maThucDon)) {
+        try (ResultSet resultSet = xJdbc.executeQuery(sql)) {
+
             while (resultSet.next()) {
                 MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
                 danhSachMonAn.add(monAn);
+//                System.out.println(monAn.getNgayPhucVu());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,6 +129,132 @@ public class ThucDonDAO {
 
         return danhSachMonAn;
     }
+
+    public List<MonAn> layDanhSachMonAnTheoMaThucDon(int maThucDon) {
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+                + "               FROM "
+                + "                    MonAn "
+                + "               JOIN "
+                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                + "               JOIN "
+                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "				JOIN "
+                + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
+                + "Where ThucDon.MaThucDon = ?"
+                + "                GROUP BY "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon";
+
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon)) {
+
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
+                danhSachMonAn.add(monAn);
+                System.out.println(monAn.getNgayPhucVu());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    }
+    
+    public List<MonAn> layDanhSachAllMonAnTheoLoaiMon() {
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+                + "               FROM "
+                + "                    MonAn "
+                + "               left JOIN "
+                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                + "               left JOIN"
+                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "			right	JOIN"
+                + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
+//                + "where LoaiMon.MaLoaiMon"
+                + "                GROUP BY "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon "
+                + "order by ThucDon.NgayPhucVu";
+
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+//        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon, maThucDon)) {
+        try (ResultSet resultSet = xJdbc.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
+                danhSachMonAn.add(monAn);
+//                System.out.println(monAn.getNgayPhucVu());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    }
+    
+    public List<MonAn> layDanhSachMonAnTheoThucDonLoaiMon(int loaiMon, int thucDon) {
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+                + "               FROM "
+                + "                    MonAn "
+                + "               left JOIN "
+                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                + "               left JOIN"
+                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "			right	JOIN"
+                + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
+                + "where LoaiMon.MaLoaiMon = ? and ThucDon.MaThucDon = ?"
+                + "                GROUP BY "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon "
+                + "order by ThucDon.NgayPhucVu";
+
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+//        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon, maThucDon)) {
+        try (ResultSet resultSet = xJdbc.executeQuery(sql, loaiMon, thucDon)) {
+
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
+                danhSachMonAn.add(monAn);
+//                System.out.println(monAn.getNgayPhucVu());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    } 
+    
+    public List<MonAn> layDanhSachMonAnTheoLoaiMon(int loaiMon) {
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+                + "               FROM "
+                + "                    MonAn "
+                + "               left JOIN "
+                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                + "               left JOIN"
+                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "			right	JOIN"
+                + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
+                + "where LoaiMon.MaLoaiMon = ?"
+                + "                GROUP BY "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon "
+                + "order by ThucDon.NgayPhucVu";
+
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+//        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon, maThucDon)) {
+        try (ResultSet resultSet = xJdbc.executeQuery(sql, loaiMon)) {
+
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
+                danhSachMonAn.add(monAn);
+//                System.out.println(monAn.getNgayPhucVu());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    } 
 
 //    public List<MonAn> layDanhSachTheoThucDonChuNhat() {
 //        String sql = " SELECT MonAn.TenMonAn, MonAn.LoaiMonAn, MonAn.HinhAnh, 'CaTuan' as MaThucDon\n"
@@ -150,7 +275,6 @@ public class ThucDonDAO {
 //        }
 //        return danhSachMonAn;
 //    }
-
     public List<MonAn> layDanhSachTheoLoai(String loaiMon) {
         String sql = "SELECT "
                 + "    MonAn.TenMonAn, "
@@ -186,11 +310,11 @@ public class ThucDonDAO {
 
     public List<String> layDanhSachTenThucDon() {
         List<String> danhSachTenThucDon = new ArrayList<>();
-        String sql = "SELECT DISTINCT MaThucDon FROM ChiTietTD";
+        String sql = "SELECT DISTINCT MaThucDon FROM thucdon";
         try (ResultSet resultSet = xJdbc.executeQuery(sql)) {
             while (resultSet.next()) {
                 String tenThucDon;
-                if (resultSet.getString("MaThucDon").equals("2")) {
+                if (resultSet.getInt("MaThucDon") == 2) {
                     tenThucDon = "Thứ 3,5,7";
                 } else {
                     tenThucDon = "Thứ 2,4,6,CN";
@@ -217,12 +341,12 @@ public class ThucDonDAO {
         return danhSachLoaiMon;
     }
 
-    public void themMonAnVaoThucDon(String maThucDon, String tenMonAn) {
+    public void themMonAnVaoThucDon(int maThucDon, String tenMonAn) {
         String sql = "INSERT INTO ChiTietTD (MaThucDon, MaMonAn) VALUES (?, (SELECT MaMonAn FROM MonAn WHERE TenMonAn = ?))";
         XJdbc.executeUpdate(sql, maThucDon, tenMonAn);
     }
 
-    public void xoaMonAnKhoiThucDon(String maThucDon, String tenMonAn) {
+    public void xoaMonAnKhoiThucDon(int maThucDon, String tenMonAn) {
         String sql = "DELETE FROM ChiTietTD WHERE MaThucDon = ? AND MaMonAn = (SELECT MaMonAn FROM MonAn WHERE TenMonAn = ?)";
         XJdbc.executeUpdate(sql, maThucDon, tenMonAn);
     }
