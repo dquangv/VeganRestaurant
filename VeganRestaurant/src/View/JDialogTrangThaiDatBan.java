@@ -13,15 +13,15 @@ import Utils.MsgBox;
 import Utils.XDate;
 import java.util.List;
 
-
 /**
  *
  * @author Võ Thanh Tùng
  */
 public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
-    
+
     static DatBanDao dbDAO = new DatBanDao();
     static CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
+    int maBan;
 
     /**
      * Creates new form JDialogTrangThaiDatBan
@@ -32,13 +32,22 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public  void setBan(List<Integer> maBanList) {
-       String maBanText = "Bàn: ";
-        for (Integer maBan : maBanList) {
-            maBanText+= maBan+" ";
+    public void layMaBan(int maBan) {
+        this.maBan = maBan;
+        setThongTinDatBan(maBan);
+    }
+
+    public void setBan(List<Integer> maBanList) {
+        if (!maBanList.isEmpty()) {
+            String maBanText = "Bàn: ";
+            for (Integer maBan : maBanList) {
+                maBanText += maBan + " ";
+            }
+            lbMaBan.setText(maBanText);
+        } else {
+
         }
-        lbMaBan.setText(maBanText);
-//        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
+            layMaBan(maBan);
     }
 
     /**
@@ -214,10 +223,10 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbBDPV;
     private javax.swing.JLabel lbHuyDatBan;
-    public javax.swing.JLabel lbMaBan;
-    public static javax.swing.JLabel lbSDT;
-    public static javax.swing.JLabel lbTenKhachHang;
-    public static javax.swing.JLabel lbThoiGian;
+    private javax.swing.JLabel lbMaBan;
+    private javax.swing.JLabel lbSDT;
+    private javax.swing.JLabel lbTenKhachHang;
+    private javax.swing.JLabel lbThoiGian;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
      public void thayDoiTrangThai(List<Integer> maBan) {
@@ -228,14 +237,18 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         dbDAO.updateTrangThai(DatBanDao.DANG_PHUC_VU, maBan);
     }
 
-    public static void setThongTinDatBan(Integer maBan[]) {
+    public void setThongTinDatBan(int maBan) {
         List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
         if (!list.isEmpty()) {
             CT_ThongTin cttt = list.get(list.size() - 1);
-//            lbMaBan.setText("Bàn: " + cttt.getMaban());
+            lbMaBan.setText("Bàn: " + cttt.getMaban());
             lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
             lbSDT.setText("SDT: " + cttt.getSDT());
             lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+            System.out.println(cttt.getMaban());
+            System.out.println(cttt.getTenKhachHang());
+            System.out.println(cttt.getSDT());
+            System.out.println(cttt.getThoiGianDate());
 
         }
     }

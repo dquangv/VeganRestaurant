@@ -19,11 +19,12 @@ import javax.swing.UIManager;
 public class JPanelTang1 extends javax.swing.JPanel {
 
     static DatBanDao dBDao = new DatBanDao();
-
+    
     /**
      * Creates new form JPanelTang1
      */
     public JPanelTang1() {
+        
         initComponents();
         TrangThaiBan();
 
@@ -31,12 +32,12 @@ public class JPanelTang1 extends javax.swing.JPanel {
     public static List<JButton> listBT = new ArrayList<>();
     public static List<Integer> listSo = new ArrayList<>();
 
-    public static void thayDoiMauButton(JButton btn[]) {
-        for (int i = 0; i < btn.length; i++) {
-            if (listBT.contains(btn[i])) {
-                btn[i].setBackground(Color.yellow);
+    public static void thayDoiMauButton(List<JButton> btn) {
+        for (int i = 0; i < btn.size(); i++) {
+            if (listBT.contains(btn.get(i))) {
+                btn.get(i).setBackground(Color.yellow);
             } else {
-                btn[i].setBackground(Color.red);
+                btn.get(i).setBackground(Color.PINK);
             }
         }
     }
@@ -58,8 +59,27 @@ public class JPanelTang1 extends javax.swing.JPanel {
                 listBT.add(button);
                 System.out.println("da them nut  " + maBan);
             }
-            thayDoiMauButton(new JButton[]{button});
+            thayDoiMauButton(listBT);
             System.out.println(listBT.size());
+        }
+    }
+     static void timMaBanByButton(Integer maBan) {
+        boolean found = false;
+        for (Integer indexMaBan : listSo) {
+            if (indexMaBan.equals(maBan)) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            listSo.removeIf(i -> i.equals(maBan));
+            System.out.println("da xoa so " + maBan);
+        } else {
+            listSo.add(maBan);
+            System.out.println("da them so " + maBan);
+        }
+        for (Integer so : listSo) {
+            System.out.print(so + " ");
         }
     }
 
@@ -328,67 +348,90 @@ public class JPanelTang1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(9);
         kiemTraTrangThaiBan(9);
-        timMaBanByButton(9);
     }//GEN-LAST:event_btnban9ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(3);
         kiemTraTrangThaiBan(3);
-        timMaBanByButton(3);
+//        timMaBanByButton(3);
 
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(6);
         kiemTraTrangThaiBan(6);
-        timMaBanByButton(6);
+//        timMaBanByButton(6);
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(8);
         kiemTraTrangThaiBan(8);
-        timMaBanByButton(8);
+//        timMaBanByButton(8);
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(7);
         kiemTraTrangThaiBan(7);
-        timMaBanByButton(7);
+//        timMaBanByButton(7);
     }//GEN-LAST:event_btnban7ActionPerformed
 
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(2);
         kiemTraTrangThaiBan(2);
-        timMaBanByButton(2);
+//        timMaBanByButton(2);
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(1);
         kiemTraTrangThaiBan(1);
-        timMaBanByButton(1);
+//        timMaBanByButton(1);
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(5);
         kiemTraTrangThaiBan(5);
-        timMaBanByButton(5);
+//        timMaBanByButton(5);
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
 
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(12);
         kiemTraTrangThaiBan(12);
-        timMaBanByButton(12);
+//        timMaBanByButton(12);
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(11);
         kiemTraTrangThaiBan(11);
-        timMaBanByButton(11);
+//        timMaBanByButton(11);
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(4);
         kiemTraTrangThaiBan(4);
-        timMaBanByButton(4);
+//        timMaBanByButton(4);
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
 
+         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+         dialog.layMaBan(10);
         kiemTraTrangThaiBan(10);
-        timMaBanByButton(10);
+//        timMaBanByButton(10);
     }//GEN-LAST:event_btnban10ActionPerformed
 
 
@@ -450,25 +493,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         }
     }
 
-    static void timMaBanByButton(Integer maBan) {
-        boolean found = false;
-        for (Integer indexMaBan : listSo) {
-            if (indexMaBan.equals(maBan)) {
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            listSo.removeIf(i -> i.equals(maBan));
-            System.out.println("da xoa so " + maBan);
-        } else {
-            listSo.add(maBan);
-            System.out.println("da them so " + maBan);
-        }
-        for (Integer so : listSo) {
-            System.out.print(so + " ");
-        }
-    }
+   
 
     static public void TrangThaiBan() {
         List<Object[]> banList = dBDao.loadData();

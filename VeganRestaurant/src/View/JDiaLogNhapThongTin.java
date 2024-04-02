@@ -191,13 +191,15 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                 MsgBox.alert(this, "Đặt bàn thành công");
                 this.setVisible(false);
                 kt = 1;
-                JPanelDatBan.KiemTraXacNhan(kt);
                 JPanelTang1.TrangThaiBan();
                 JPanelTang2.TrangThaiBan();
                 JPanelTang3.TrangThaiBan();
+                JPanelTang1.listSo.clear();
+
             } else {
                 this.dispose();
             }
+                JPanelDatBan.KiemTraXacNhan(kt);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -342,6 +344,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                 if (option == JOptionPane.NO_OPTION) {
                     int maMaxKH = existingCustomer.getMaKhachHang();
                     pdb.setMaKhachHang(maMaxKH);
+                    System.out.println("Ma Kh cu: " + pdb.getMaKhachHang());
                     break;
                 } else {
                     this.dispose();
@@ -352,6 +355,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                 khDAO.setMaxKh(maMaxKH);
                 khDAO.insert(kh);
                 pdb.setMaKhachHang(maMaxKH + 1);
+                System.out.println("Ma Kh moi: " + pdb.getMaKhachHang());
                 break;
             }
         }
@@ -360,7 +364,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             int maMaxPDB = pdbDao.SelectMaxPDB();
             pdbDao.setMaxPDB(maMaxPDB);
             pdbDao.insert(pdb);
-
+            System.out.println("Ma KH da them vao: " + pdb.getMaKhachHang());
+            System.out.println(pdb.getMaKhachHang());
+            System.out.println(maMaxPDB + 1);
             for (Integer maBan : maBanListAdd) {
                 ctdbDAO.insert(maBan.toString(), maMaxPDB);
             }

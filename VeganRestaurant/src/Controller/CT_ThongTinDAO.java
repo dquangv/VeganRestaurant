@@ -40,7 +40,7 @@ public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String>{
     public List<CT_ThongTin> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }   
-    public List<CT_ThongTin> selectAllKH(Integer maBan[]) {
+    public List<CT_ThongTin> selectAllKH(int maBan) {
     String sql = "select MaBan,TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db " +
                  "inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan " +
                  "inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang " +

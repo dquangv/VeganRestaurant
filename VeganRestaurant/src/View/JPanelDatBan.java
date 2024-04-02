@@ -5,6 +5,7 @@
 package View;
 
 import Controller.DatBanDao;
+import Utils.MsgBox;
 import static View.JPanelTang1.timButtonByMaBan;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -19,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import org.bridj.objc.NSNumber;
 
 /**
  *
@@ -27,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelDatBan extends javax.swing.JPanel {
 
     static DatBanDao dBDao = new DatBanDao();
+    
 //    public static List<JButton> list = new ArrayList<>();
 //   
 //    public static void thayDoiMauButton(JButton btn[]) {
@@ -123,6 +126,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         btnDatBan = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         cbTang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tầng 1" }));
@@ -223,6 +227,8 @@ public class JPanelDatBan extends javax.swing.JPanel {
 
         jButton4.setText("Bảo trì");
 
+        jButton1.setText("Làm mới");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,24 +238,28 @@ public class JPanelDatBan extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(btnDatBan)
-                        .addGap(70, 70, 70)
-                        .addComponent(jButton3)
-                        .addGap(74, 74, 74)
-                        .addComponent(jButton4)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbTang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDatBan)
+                                .addGap(89, 89, 89)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(42, 42, 42)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
@@ -280,7 +290,8 @@ public class JPanelDatBan extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDatBan)
                             .addComponent(jButton3)
-                            .addComponent(jButton4))
+                            .addComponent(jButton4)
+                            .addComponent(jButton1))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTimKIem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,12 +310,14 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 case "Tầng 1":
                     jPanel3.removeAll();
                     jPanel3.add(new JPanelTang1());
+                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
                     jPanel3.updateUI();
                     jPanel3.setLayout(new FlowLayout());
                     break;
                 case "Tầng 2":
                     jPanel3.removeAll();
                     jPanel3.add(new JPanelTang2());
+//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
                     jPanel3.updateUI();
                     jPanel3.setLayout(new FlowLayout());
                     break;
@@ -335,21 +348,28 @@ public class JPanelDatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatBanActionPerformed
-        JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
-        for (Integer so : JPanelTang1.listSo) {
-            System.out.println("");
-            System.out.print(" " + so);
-        }
-        JDiaLogNhapThongTin dialog = new JDiaLogNhapThongTin(parentFrame, true); // Tạo dialog với JFrame cha
-        dialog.setBan(JPanelTang1.listSo);
-        dialog.setVisible(true);
+        if (JPanelTang1.listSo.isEmpty()) {
+            MsgBox.alert(this, "Bạn chưa chọn bàn để đặt");
+        } else {
+    
+            JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
+            for (Integer so : JPanelTang1.listSo) {
+                System.out.println("");
+                System.out.print(" " + so);
+            }
+            JDiaLogNhapThongTin dialog = new JDiaLogNhapThongTin(parentFrame, true); // Tạo dialog với JFrame cha
+            dialog.setBan(JPanelTang1.listSo);
 
+            dialog.setVisible(true);
+
+        }
     }//GEN-LAST:event_btnDatBanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatBan;
     private javax.swing.JComboBox<String> cbTang;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
