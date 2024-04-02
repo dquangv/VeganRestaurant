@@ -93,9 +93,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="B&#xe0;n  1"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lbBDPV">
       <Properties>
@@ -136,9 +133,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng: "/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lbThoiGian">
       <Properties>
@@ -147,9 +141,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian:"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lbSDT">
       <Properties>
@@ -158,9 +149,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SDT: "/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
