@@ -7,7 +7,10 @@
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
 
-
+use master;
+go
+drop database NhaHangChay_CohesiveStars;
+go
 DBCC CHECKIDENT ('KhachHang', RESEED, 0);
 go
  
