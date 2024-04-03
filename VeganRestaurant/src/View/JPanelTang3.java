@@ -5,14 +5,16 @@
 package View;
 
 import Controller.DatBanDao;
+import Controller.PhieuDatBanDao;
+import static View.JPanelTang1.ctThongTIn;
 import static View.JPanelTang1.listBT;
 import static View.JPanelTang1.listSo;
+import static View.JPanelTang1.listSoBan;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
-
 
 /**
  *
@@ -62,7 +64,39 @@ public class JPanelTang3 extends javax.swing.JPanel {
             System.out.println(listBT.size());
         }
     }
-     static void timMaBanByButton(Integer maBan) {
+
+    public int getMaPDB(String maBan) {
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+        int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
+        boolean foundButton = false;
+        JButton button;
+        button = JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan));
+        if (button != null) {
+            button.setToolTipText(MaPDB + "");
+            MaPDB = Integer.parseInt(button.getToolTipText());
+            foundButton = true;
+        }
+
+        if (!foundButton) {
+            button = JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+                foundButton = true;
+            }
+        }
+
+        if (!foundButton) {
+            button = JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+            }
+        }
+        return MaPDB;
+    }
+
+    static void timMaBanByButton(Integer maBan) {
         boolean found = false;
         for (Integer indexMaBan : listSo) {
             if (indexMaBan.equals(maBan)) {
@@ -347,64 +381,113 @@ public class JPanelTang3 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 34);
+        dialog.layMaBan(34);
+        int PDB = getMaPDB("34");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(34);
-        
+
     }//GEN-LAST:event_btnban10ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 29);
+        dialog.layMaBan(29);
+        int PDB = getMaPDB("29");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(29);
-        
+
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
+
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 35);
+        dialog.layMaBan(35);
+        int PDB = getMaPDB("35");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(35);
-        
+
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 36);
+        dialog.layMaBan(36);
+        int PDB = getMaPDB("36");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(36);
-        
+
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 29);
+        dialog.layMaBan(29);
+        int PDB = getMaPDB("29");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(29);
-        
+
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 25);
+        dialog.layMaBan(25);
+        int PDB = getMaPDB("25");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(25);
-        
+
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 26);
+        dialog.layMaBan(26);
+        int PDB = getMaPDB("26");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(26);
-        
+
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 31);
+        dialog.layMaBan(31);
+        int PDB = getMaPDB("31");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(31);
-        
+
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
         // TODO add your handling code here:
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 32);
+        dialog.layMaBan(32);
+        int PDB = getMaPDB("32");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(32);
-        
+
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 30);
+        dialog.layMaBan(30);
+        int PDB = getMaPDB("30");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(30);
-        
+
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 33);
+        dialog.layMaBan(33);
+        int PDB = getMaPDB("33");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(27);
-        
+
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 33);
+        dialog.layMaBan(33);
+        int PDB = getMaPDB("33");
+        listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(33);
-        
+
     }//GEN-LAST:event_btnban9ActionPerformed
 
 
@@ -492,11 +575,13 @@ public class JPanelTang3 extends javax.swing.JPanel {
             }
         }
     }
-     void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
-        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+
+    void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
+        JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, maBan.get(0));
         dialog.setBan(maBan);
         dialog.setVisible(true);
     }
+
     void ShowDialogDatBan(int maBan) {
         JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
@@ -517,7 +602,7 @@ public class JPanelTang3 extends javax.swing.JPanel {
         dialog.setVisible(true);
     }
 
-     void kiemTraTrangThaiBan(int maBan) {
+    void kiemTraTrangThaiBan(int maBan) {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
             int maBanDB = (int) ban[0];
@@ -532,7 +617,7 @@ public class JPanelTang3 extends javax.swing.JPanel {
                         showDiaLogDangPhucVu(maBan);
                         break;
                     case DatBanDao.DA_DAT:
-                        showDiaLogTrangThaiDaDat(listSo);
+                        showDiaLogTrangThaiDaDat(listSoBan);
                         return;
                     case DatBanDao.BAO_TRI:
                         showDiaLogBaoTri(maBan);

@@ -27,14 +27,14 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     /**
      * Creates new form JDialogTrangThaiDatBan
      */
-    public JDialogTrangThaiDatBan(java.awt.Frame parent, boolean modal) {
+    public JDialogTrangThaiDatBan(java.awt.Frame parent, boolean modal, int mb) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        layMaBan(maBan);
+        layMaBan(mb);
     }
 
-    public  void layMaBan(int maBan) {
+    public void layMaBan(int maBan) {
         this.maBan = maBan;
         String maBanString = String.valueOf(maBan);
         int pdb = getMaPDB(maBanString);
@@ -208,7 +208,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+                JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -246,12 +246,13 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
             lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
             lbSDT.setText("SDT: " + cttt.getSDT());
             lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
-            System.out.println(cttt.getTenKhachHang()+"ten");
-            System.out.println(cttt.getSDT()+"sdt");
+            System.out.println(lbTenKhachHang.getText()+ "font");
+            System.out.println(cttt.getTenKhachHang() + "ten");
+            System.out.println(cttt.getSDT() + "sdt");
             System.out.println(XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
             System.out.println(maPDB);
-            revalidate(); 
-            repaint();
+            this.revalidate();
+            this.repaint();
         }
     }
 

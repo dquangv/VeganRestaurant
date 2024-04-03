@@ -44,6 +44,28 @@ public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String> {
         }
     }
 
+    public List<Integer> dsBanTheoPDB(int PDB) {
+        String sql = " select MaBan "
+                + " from ChiTietDatBan "
+                + " join PhieuDatBan on ChiTietDatBan.MaPhieuDatBan = PhieuDatBan.MaPhieuDatBan "
+                + " where PhieuDatBan.MaPhieuDatBan = ?";
+        List<Integer> list = new ArrayList<>();
+
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, PDB);
+
+            while (rs.next()) {
+                int a = rs.getInt("MaBan");
+                list.add(a);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void insert(CT_ThongTin entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
