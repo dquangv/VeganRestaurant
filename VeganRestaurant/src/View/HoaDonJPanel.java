@@ -228,8 +228,8 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtTimID = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnXemHD = new javax.swing.JButton();
+        btnXemDG = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
 
@@ -245,17 +245,17 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Xem Hóa Đơn");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnXemHD.setText("Xem Hóa Đơn");
+        btnXemHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnXemHDActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Xem Đánh Giá");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXemDG.setText("Xem Đánh Giá");
+        btnXemDG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXemDGActionPerformed(evt);
             }
         });
 
@@ -302,9 +302,9 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnTim)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)
+                                .addComponent(btnXemHD)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                                .addComponent(btnXemDG)))
                         .addGap(0, 74, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -318,15 +318,15 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(txtTimID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(btnTim)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnXemHD)
+                    .addComponent(btnXemDG))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnXemHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemHDActionPerformed
         // TODO add your handling code here:
         this.row = tblHoaDon.getSelectedRow();
         if (this.row >= 0) {
@@ -338,7 +338,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnXemHDActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
@@ -349,7 +349,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnTimActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXemDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDGActionPerformed
         // TODO add your handling code here:
         this.row = tblHoaDon.getSelectedRow();
         if (this.row >= 0) {
@@ -361,13 +361,13 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnXemDGActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTim;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnXemDG;
+    private javax.swing.JButton btnXemHD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

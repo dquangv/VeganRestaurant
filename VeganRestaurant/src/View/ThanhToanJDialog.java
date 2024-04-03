@@ -440,6 +440,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     private void btnInHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHDActionPerformed
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
+        dispose();
         jdialog.setVisible(false);
         this.inHoaDon();
     }//GEN-LAST:event_btnInHDActionPerformed
