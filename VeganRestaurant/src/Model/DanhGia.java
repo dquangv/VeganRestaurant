@@ -15,12 +15,13 @@ public class DanhGia {
     
     Integer maHoaDon;
     Integer maDanhGia;
+    Integer maPhieuDatBan;
     
     String tenMonAn;
     String tenKhachHang;
     String danhGia;
     String hinhAnh;
-    Date ngayLap;
+    Date ngayLap = new Date();
 
     public Integer getMaHoaDon() {
         return maHoaDon;
@@ -78,5 +79,13 @@ public class DanhGia {
         this.ngayLap = ngayLap;
     }
 
-    
+    public Integer getMaPhieuDatBan() {
+        return maPhieuDatBan;
+    }
+
+    public void setMaPhieuDatBan(Integer maPhieuDatBan) {
+        this.maPhieuDatBan = maPhieuDatBan;
+    }
+
+     
 }
