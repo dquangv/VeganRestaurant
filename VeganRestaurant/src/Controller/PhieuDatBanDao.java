@@ -72,6 +72,7 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
                 entity.getThoiGianDat(),
                 entity.getMaKhachHang()
         );
+        System.out.println(entity.getMaKhachHang()+"makhvuathem");
     }
 
     public void insert_null(PhieuDatBan entity) {

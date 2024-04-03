@@ -19,7 +19,7 @@ import javax.swing.JButton;
 public class JPanelTang2 extends javax.swing.JPanel {
 
     static DatBanDao dBDao = new DatBanDao();
-   
+
     /**
      * Creates new form JPanelTang1
      */
@@ -29,7 +29,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         System.out.println("tang 2");
 
     }
-  
+
     public static void thayDoiMauButton(JButton btn[]) {
         for (int i = 0; i < btn.length; i++) {
             if (listBT.contains(btn[i])) {
@@ -61,7 +61,8 @@ public class JPanelTang2 extends javax.swing.JPanel {
             System.out.println(listBT.size());
         }
     }
-     static void timMaBanByButton(Integer maBan) {
+
+    static void timMaBanByButton(Integer maBan) {
         boolean found = false;
         for (Integer indexMaBan : listSo) {
             if (indexMaBan.equals(maBan)) {
@@ -347,62 +348,62 @@ public class JPanelTang2 extends javax.swing.JPanel {
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
         kiemTraTrangThaiBan(22);
-        
+
     }//GEN-LAST:event_btnban10ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
         kiemTraTrangThaiBan(16);
-        
+
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
         kiemTraTrangThaiBan(23);
-       
+
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
         kiemTraTrangThaiBan(24);
-       
+
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
         kiemTraTrangThaiBan(17);
-       
+
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
         kiemTraTrangThaiBan(13);
-        
+
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
         kiemTraTrangThaiBan(14);
-        
+
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
         kiemTraTrangThaiBan(19);
-        
+
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
         kiemTraTrangThaiBan(20);
-        
+
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
         kiemTraTrangThaiBan(18);
-        
+
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
         kiemTraTrangThaiBan(15);
-        
+
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
         kiemTraTrangThaiBan(21);
-         
+
     }//GEN-LAST:event_btnban9ActionPerformed
 
 
@@ -490,12 +491,13 @@ public class JPanelTang2 extends javax.swing.JPanel {
             }
         }
     }
-     void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
+
+    void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
     }
-     
+
     void ShowDialogDatBan(int maBan) {
         JDiaLogDatBan dialog = new JDiaLogDatBan(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
@@ -516,7 +518,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         dialog.setVisible(true);
     }
 
-     void kiemTraTrangThaiBan(int maBan) {
+    void kiemTraTrangThaiBan(int maBan) {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
             int maBanDB = (int) ban[0];

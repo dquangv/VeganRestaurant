@@ -7,10 +7,7 @@
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
 
-use master;
-go
-drop database NhaHangChay_CohesiveStars;
-go
+
 DBCC CHECKIDENT ('KhachHang', RESEED, 0);
 go
  
@@ -312,6 +309,7 @@ go
 insert into LoaiMon (TenLoaiMon) values
 	(N'Bún'),
 	(N'Cơm'),
+	(N'Khác'),
 	(N'Khai vị');
 go
 
@@ -488,12 +486,12 @@ END
 go
 -- nhung cai nao chua duooc thanh toan ko can biet qua khu tuong lai  
 
- select db.MaPhieuDatBan, db.MaBan, TenKhachHang,SDT,ThoiGianDat,TrangThai from ChiTietDatBan db 
+ select db.MaPhieuDatBan, db.MaBan, kh.MaKhachHang,TenKhachHang,SDT,ThoiGianDat,TrangThai from ChiTietDatBan db 
              inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan 
              inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang 
 			 inner join Ban b on b.MaBan = db.MaBan
 			where (TenKhachHang like '%' or SDT like '%') 
-			And (TrangThai = 'Đã đặt' or TrangThai = 'Đang phục vụ')
+			And (TrangThai = N'Đã đặt' or TrangThai = N'Đang phục vụ')
             order by thoigiandat
 
 
@@ -504,3 +502,4 @@ join Ban on ChiTietDatBan.MaBan = Ban.MaBan
 where Ban.TrangThai = N'Đang phục vụ' 
 and (ChiTietDatBan.MaPhieuDatBan not in (Select MaPhieuDatBan from HoaDon))
 
+select * from ChiTietDatBan

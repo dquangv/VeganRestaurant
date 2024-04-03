@@ -199,7 +199,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             } else {
                 this.dispose();
             }
-                JPanelDatBan.KiemTraXacNhan(kt);
+            JPanelDatBan.KiemTraXacNhan(1);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -334,45 +334,36 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         ChiTietDatBan ctdb = getFormCTDB();
         KhachHangDAO khDao = new KhachHangDAO();
 
-        while (true) {
-            kh = getFormKH();
-            Model.KhachHang existingCustomer = khDao.getCustomerByPhoneNumber(kh.getSDT());
+        kh = getFormKH();
+        Model.KhachHang existingCustomer = khDao.getCustomerByPhoneNumber(kh.getSDT());
 
-            if (existingCustomer != null) {
-                int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + existingCustomer.getTenKhachHang() + ". Bạn có muốn nhập lại thông tin khách hàng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (existingCustomer != null) {
+            int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + existingCustomer.getTenKhachHang() + ". \nBạn có muốn sử dụng thông tin của khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
-                if (option == JOptionPane.NO_OPTION) {
-                    int maMaxKH = existingCustomer.getMaKhachHang();
-                    pdb.setMaKhachHang(maMaxKH);
-                    System.out.println("Ma Kh cu: " + pdb.getMaKhachHang());
-                    break;
-                } else {
-                    this.dispose();
-                    return false;
-                }
+            if (option == JOptionPane.YES_OPTION) {
+                int makh = existingCustomer.getMaKhachHang();
+                pdb.setMaKhachHang(makh);
             } else {
-                int maMaxKH = khDAO.SelectMaxkH();
-                khDAO.setMaxKh(maMaxKH);
-                khDAO.insert(kh);
-                pdb.setMaKhachHang(maMaxKH + 1);
-                System.out.println("Ma Kh moi: " + pdb.getMaKhachHang());
-                break;
+                this.dispose();
+                return false;
             }
+        } else {
+            int maMaxKH = khDAO.SelectMaxkH();
+            khDAO.setMaxKh(maMaxKH);
+            khDAO.insert(kh);
+            pdb.setMaKhachHang(maMaxKH + 1);
         }
 
-        try {
-            int maMaxPDB = pdbDao.SelectMaxPDB();
-            pdbDao.setMaxPDB(maMaxPDB);
-            pdbDao.insert(pdb);
-            System.out.println("Ma KH da them vao: " + pdb.getMaKhachHang());
-            System.out.println(pdb.getMaKhachHang());
-            System.out.println(maMaxPDB + 1);
-            for (Integer maBan : maBanListAdd) {
-                ctdbDAO.insert(maBan.toString(), maMaxPDB);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        int maMaxPDB = pdbDao.SelectMaxPDB();
+        pdbDao.setMaxPDB(maMaxPDB);
+        pdb.setMaPhieuDatBan(maMaxPDB + 1);
+
+        pdbDao.insert(pdb);
+
+        for (Integer maBan : maBanListAdd) {
+            ctdbDAO.insert(maBan.toString(), maMaxPDB + 1);
         }
+
         return true;
     }
 

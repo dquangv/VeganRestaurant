@@ -9,13 +9,41 @@ import Utils.XJdbc;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+
 /**
  *
  * @author Võ Thanh Tùng
  */
-public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String>{
+public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String> {
 
-   
+    String SQL_Select = "select KhachHang.TenKhachHang,KhachHang.SDT, PhieuDatBan.ThoiGianDat"
+            + "from KhachHang"
+            + "join PhieuDatBan on KhachHang.MaKhachHang = PhieuDatBan.MaKhachHang"
+            + "where PhieuDatBan.MaPhieuDatBan = ?";
+
+    public List<CT_ThongTin> selectKHDat(int maPDB) {
+        String sql = "SELECT KhachHang.TenKhachHang, KhachHang.SDT, PhieuDatBan.ThoiGianDat "
+                + "FROM KhachHang "
+                + "JOIN PhieuDatBan ON KhachHang.MaKhachHang = PhieuDatBan.MaKhachHang "
+                + "WHERE PhieuDatBan.MaPhieuDatBan = ?";
+        List<CT_ThongTin> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, maPDB);
+            while (rs.next()) {
+                CT_ThongTin entity = new CT_ThongTin();
+                entity.setTenKhachHang(rs.getString(1));
+                entity.setSDT(rs.getString(2));
+                entity.setThoiGianDate(rs.getTimestamp(3));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void insert(CT_ThongTin entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -39,17 +67,19 @@ public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String>{
     @Override
     public List<CT_ThongTin> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }   
+    }
+
     public List<CT_ThongTin> selectAllKH(int maBan) {
-    String sql = "select MaBan,TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db " +
-                 "inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan " +
-                 "inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang " +
-                 "where MaBan = ? and ThoiGianDat > GETDATE();";
-    return this.selectBySQL(sql, maBan);
-}
+        String sql = "select MaBan,TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db "
+                + "inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan "
+                + "inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang "
+                + "where MaBan = ? and ThoiGianDat > GETDATE();";
+        return this.selectBySQL(sql, maBan);
+    }
+
     @Override
     protected List<CT_ThongTin> selectBySQL(String sql, Object... args) {
-          List<CT_ThongTin> list = new ArrayList<>();
+        List<CT_ThongTin> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
@@ -68,5 +98,4 @@ public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String>{
         }
     }
 
-    
 }

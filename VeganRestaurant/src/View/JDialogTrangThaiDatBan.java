@@ -12,6 +12,7 @@ import Model.CT_ThongTin;
 import Utils.MsgBox;
 import Utils.XDate;
 import java.util.List;
+import javax.swing.JButton;
 
 /**
  *
@@ -30,11 +31,14 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        layMaBan(maBan);
     }
 
-    public void layMaBan(int maBan) {
+    public  void layMaBan(int maBan) {
         this.maBan = maBan;
-        setThongTinDatBan(maBan);
+        String maBanString = String.valueOf(maBan);
+        int pdb = getMaPDB(maBanString);
+        setThongTinDatBan(pdb);
     }
 
     public void setBan(List<Integer> maBanList) {
@@ -47,7 +51,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         } else {
 
         }
-            layMaBan(maBan);
+//        layMaBan(maBan);
     }
 
     /**
@@ -216,9 +220,6 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         });
     }
 
-    private void getMaPDB(int maBan) {
-        PhieuDatBanDao pdb = new PhieuDatBanDao();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbBDPV;
@@ -237,20 +238,52 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         dbDAO.updateTrangThai(DatBanDao.DANG_PHUC_VU, maBan);
     }
 
-    public void setThongTinDatBan(int maBan) {
-        List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
+    public void setThongTinDatBan(int maPDB) {
+
+        List<CT_ThongTin> list = CTDAO.selectKHDat(maPDB);
         if (!list.isEmpty()) {
             CT_ThongTin cttt = list.get(list.size() - 1);
-            lbMaBan.setText("Bàn: " + cttt.getMaban());
             lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
             lbSDT.setText("SDT: " + cttt.getSDT());
             lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
-            System.out.println(cttt.getMaban());
-            System.out.println(cttt.getTenKhachHang());
-            System.out.println(cttt.getSDT());
-            System.out.println(cttt.getThoiGianDate());
-
+            System.out.println(cttt.getTenKhachHang()+"ten");
+            System.out.println(cttt.getSDT()+"sdt");
+            System.out.println(XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+            System.out.println(maPDB);
+            revalidate(); 
+            repaint();
         }
+    }
+
+    public int getMaPDB(String maBan) {
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+        int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
+        boolean foundButton = false;
+        JButton button;
+        button = JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan));
+        if (button != null) {
+            button.setToolTipText(MaPDB + "");
+            MaPDB = Integer.parseInt(button.getToolTipText());
+            foundButton = true;
+        }
+
+        if (!foundButton) {
+            button = JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+                foundButton = true;
+            }
+        }
+
+        if (!foundButton) {
+            button = JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+            }
+        }
+        return MaPDB;
     }
 
 }
