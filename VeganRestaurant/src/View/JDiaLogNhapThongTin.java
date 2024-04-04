@@ -18,6 +18,7 @@ import Utils.XDate;
 import java.util.Calendar;
 import java.time.LocalTime;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,10 +30,10 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     KhachHangDBDao khDAO = new KhachHangDBDao();
     PhieuDatBanDao pdbDao = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
-    List<PhieuDatBan> listpdb = new ArrayList<>();
+    List<Integer> maBanListAdd = new ArrayList<>();
     int maBan;
-    
-  
+    List<ChiTietDatBan> list;
+
     /**
      * Creates new form JDiaLogNhapThongTin
      */
@@ -47,15 +48,21 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         txtThoiGian.setCalendar(cal);
 
-
     }
 
-    public void setBan(int maBan) {
-        lbmaBan.setText("Bàn: " + maBan);
-        this.maBan = maBan;
+    public void setBan(List<Integer> maBanList) {
+        maBanListAdd = maBanList;
+        String maBanText = "Bàn: ";
+        for (int i = 0; i < maBanList.size(); i++) {
+            maBanText += maBanList.get(i);
+            if (i != maBanList.size() - 1) {
+                maBanText += "+";
+            }
+        }
+        lbmaBan.setText(maBanText);
+//        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,10 +139,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                         .addComponent(cbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lbmaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,15 +183,23 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
             int kt = 0;
-            insert();
-            thayDoiTrangThai(maBan);
-            MsgBox.alert(this, "Đặt bàn thành công");
-            this.setVisible(false);
-            kt++;
-            JPanelDatBan.KiemTraXacNhan(kt);
-            JPanelTang1.TrangThaiBan();
-            JPanelTang2.TrangThaiBan();
-            JPanelTang3.TrangThaiBan();
+            boolean a = insert();
+            if (a) {
+                for (Integer ma : maBanListAdd) {
+                    thayDoiTrangThai(ma.toString());
+                }
+                MsgBox.alert(this, "Đặt bàn thành công");
+                this.setVisible(false);
+                kt = 1;
+                JPanelTang1.TrangThaiBan();
+                JPanelTang2.TrangThaiBan();
+                JPanelTang3.TrangThaiBan();
+                JPanelTang1.listSo.clear();
+
+            } else {
+                this.dispose();
+            }
+            JPanelDatBan.KiemTraXacNhan(1);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -314,26 +328,44 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
 //        listkh = khDAO.selectAll();
     }
 
-    void insert() {
-        KhachHang kh = getFormKH();
+    boolean insert() {
+        KhachHang kh = null;
         PhieuDatBan pdb = getFormPDB();
         ChiTietDatBan ctdb = getFormCTDB();
-        try {
+        KhachHangDAO khDao = new KhachHangDAO();
+
+        kh = getFormKH();
+        Model.KhachHang existingCustomer = khDao.getCustomerByPhoneNumber(kh.getSDT());
+
+        if (existingCustomer != null) {
+            int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + existingCustomer.getTenKhachHang() + ". \nBạn có muốn sử dụng thông tin của khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                int makh = existingCustomer.getMaKhachHang();
+                pdb.setMaKhachHang(makh);
+            } else {
+                this.dispose();
+                return false;
+            }
+        } else {
             int maMaxKH = khDAO.SelectMaxkH();
             khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
             pdb.setMaKhachHang(maMaxKH + 1);
-            int maMaxPDB = pdbDao.SelectMaxPDB();
-            pdbDao.setMaxPDB(maMaxPDB);
-            pdbDao.insert(pdb);
-            ctdb.setMaPhieuDat(maMaxPDB + 1);
-            ctdbDAO.insert(ctdb);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        int maMaxPDB = pdbDao.SelectMaxPDB();
+        pdbDao.setMaxPDB(maMaxPDB);
+        pdb.setMaPhieuDatBan(maMaxPDB + 1);
+
+        pdbDao.insert(pdb);
+
+        for (Integer maBan : maBanListAdd) {
+            ctdbDAO.insert(maBan.toString(), maMaxPDB + 1);
+        }
+
+        return true;
     }
-
-
 
     boolean Checkvalidate() {
         Date thoiGianHienTai = new Date();
@@ -354,8 +386,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-            System.out.println(thoiGianHienTai);
-            System.out.println(layThoiGian());
+        System.out.println(thoiGianHienTai);
+        System.out.println(layThoiGian());
         if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;
