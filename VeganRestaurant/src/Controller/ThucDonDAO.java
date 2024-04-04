@@ -131,7 +131,7 @@ public class ThucDonDAO {
     }
 
     public List<MonAn> layDanhSachMonAnTheoMaThucDon(int maThucDon) {
-        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
                 + "               JOIN "
@@ -140,9 +140,9 @@ public class ThucDonDAO {
                 + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
                 + "				JOIN "
                 + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
-                + "Where ThucDon.MaThucDon = ?"
+                + "Where ThucDon.MaThucDon = ? and MonAn.TrangThai = N'Hoạt động' "
                 + "                GROUP BY "
-                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon";
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon, MonAn.TrangThai";
 
         List<MonAn> danhSachMonAn = new ArrayList<>();
 
@@ -159,9 +159,9 @@ public class ThucDonDAO {
 
         return danhSachMonAn;
     }
-    
+
     public List<MonAn> layDanhSachAllMonAnTheoLoaiMon() {
-        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
                 + "               left JOIN "
@@ -170,9 +170,9 @@ public class ThucDonDAO {
                 + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
                 + "			right	JOIN"
                 + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
-//                + "where LoaiMon.MaLoaiMon"
+                + "where MonAn.TrangThai = N'Hoạt động' "
                 + "                GROUP BY "
-                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon, MonAn.TrangThai "
                 + "order by ThucDon.NgayPhucVu";
 
         List<MonAn> danhSachMonAn = new ArrayList<>();
@@ -191,9 +191,9 @@ public class ThucDonDAO {
 
         return danhSachMonAn;
     }
-    
+
     public List<MonAn> layDanhSachMonAnTheoThucDonLoaiMon(int loaiMon, int thucDon) {
-        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
                 + "               left JOIN "
@@ -202,9 +202,9 @@ public class ThucDonDAO {
                 + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
                 + "			right	JOIN"
                 + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
-                + "where LoaiMon.MaLoaiMon = ? and ThucDon.MaThucDon = ?"
+                + "where LoaiMon.MaLoaiMon = ? and ThucDon.MaThucDon = ? and MonAn.TrangThai = N'Hoạt động'"
                 + "                GROUP BY "
-                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon, MonAn.TrangThai "
                 + "order by ThucDon.NgayPhucVu";
 
         List<MonAn> danhSachMonAn = new ArrayList<>();
@@ -222,10 +222,10 @@ public class ThucDonDAO {
         }
 
         return danhSachMonAn;
-    } 
-    
+    }
+
     public List<MonAn> layDanhSachMonAnTheoLoaiMon(int loaiMon) {
-        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh "
+        String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
                 + "               left JOIN "
@@ -234,9 +234,9 @@ public class ThucDonDAO {
                 + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
                 + "			right	JOIN"
                 + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
-                + "where LoaiMon.MaLoaiMon = ?"
+                + "where LoaiMon.MaLoaiMon = ? and MonAn.TrangThai = N'Hoạt động' "
                 + "                GROUP BY "
-                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, LoaiMon.MaLoaiMon, MonAn.TrangThai "
                 + "order by ThucDon.NgayPhucVu";
 
         List<MonAn> danhSachMonAn = new ArrayList<>();
@@ -254,7 +254,39 @@ public class ThucDonDAO {
         }
 
         return danhSachMonAn;
-    } 
+    }
+
+    public List<MonAn> timMonAn(String timKiem) {
+        String sql = "SELECT MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
+                + "               FROM "
+                + "                    MonAn "
+                + "               left JOIN "
+                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                + "               left JOIN"
+                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "			right	JOIN"
+                + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
+                + "where (MonAn.TenMonAn like ? or LoaiMon.TenLoaiMon like ? or ThucDon.NgayPhucVu like ? or MonAn.HinhAnh like ?) and MonAn.TrangThai = N'Hoạt động' "
+                + "                GROUP BY "
+                + "                   MonAn.TenMonAn, LoaiMon.TenLoaiMon, MonAn.HinhAnh, ThucDon.NgayPhucVu, MonAn.TrangThai "
+                + "order by ThucDon.NgayPhucVu";
+
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+//        try (ResultSet resultSet = xJdbc.executeQuery(sql, maThucDon, maThucDon)) {
+        try (ResultSet resultSet = xJdbc.executeQuery(sql, "%" + timKiem + "%", "%" + timKiem + "%", "%" + timKiem + "%", "%" + timKiem + "%")) {
+
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSetThucDon(resultSet);
+                danhSachMonAn.add(monAn);
+//                System.out.println(monAn.getNgayPhucVu());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    }
 
 //    public List<MonAn> layDanhSachTheoThucDonChuNhat() {
 //        String sql = " SELECT MonAn.TenMonAn, MonAn.LoaiMonAn, MonAn.HinhAnh, 'CaTuan' as MaThucDon\n"

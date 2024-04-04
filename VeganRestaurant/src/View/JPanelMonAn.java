@@ -44,7 +44,6 @@ public class JPanelMonAn extends javax.swing.JPanel {
         model.removeAllElements();
 
 //        MonAnDAO dao = new MonAnDAO(new XJdbc());
-
 //        try {
 //            List<String> list = dao.selectCBMonAn();
 //
@@ -209,6 +208,8 @@ public class JPanelMonAn extends javax.swing.JPanel {
             model.addRow(new Object[]{ma.getMaMonAn(),
                 ma.getTenMonAn(),
                 ma.getDonGia(),
+                ma.getSoLuong(),
+                madao.getTenLoaiMon(ma.getMaLoaiMon()),
                 ma.getHinhAnh(),
                 ma.getTrangThai()});
         }
@@ -415,12 +416,13 @@ public class JPanelMonAn extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtMaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel8)
-                                .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(txtMaMonAn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -456,6 +458,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         resetForm();
+        displayMonAn();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void tblMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMonAnMouseClicked
@@ -477,6 +480,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
                 return;
             }
             themMon();
+            resetForm();
         }
     }//GEN-LAST:event_btnThemMonActionPerformed
 
