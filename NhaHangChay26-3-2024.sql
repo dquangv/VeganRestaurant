@@ -351,16 +351,14 @@ insert into ThucDon (TenThucDon, NgayPhucVu) values
 	(N'Ngày lẻ', '3-5-7');
 go
 
-insert into ChiTietTD (MaThucDon, MaMonAn) values
-	(1, 1),
-	(1, 2),
-	(1, 4),
-	(1, 6),
-	(2, 1),
-	(2, 3),
-	(2, 4),
-	(2, 7);
-go
+insert into ChiTietTD (MaThucDon, MaMonAn)
+values
+    (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
+    (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
+    (1, 11), (1, 12), (1, 13), (1, 14), (1, 15),
+    (1, 16), (1, 17), (1, 18), (1, 19), (1, 20),
+    (1, 21), (1, 22), (1, 23), (1, 24), (1, 25),
+    (1, 26), (1, 27), (1, 28), (1, 29), (1, 30);
 
 insert into DanhGia (DanhGia) values
 	(N'Tệ'),
@@ -391,21 +389,9 @@ go
 insert into HoaDon (NgayLap, TienMonAn, TienGiamDiemThuong, TienGiamKhuyenMai, TongTien, PhuongThucThanhToan, MaPhieuDatBan, MaKhuyenMai, MaNhanVien) values
 	('2024-01-18 10:00', 160000, 0, 80000, 80000, 0, 1, 1, 2),
 	('2024-01-19 13:30', 210000, 0, 105000, 105000, 1, 2, 1, 1),
-	('2024-01-19 17:30', 110000, 0, 55000, 55000, 1, 3, 1, 2),
-	('2024-02-15 11:30', 180000, 0, 90000, 90000, 1, 2, 2, 2),
-	('2024-03-10 19:00', 250000, 0, 125000, 125000, 1, 1, 2, 2),
-	('2024-04-05 12:45', 120000, 0, 60000, 60000, 0, 1, 3, 1),
-	('2024-05-20 14:15', 190000, 0, 95000, 95000, 1, 3, 3, 2),
-	('2024-06-08 18:30', 220000, 0, 110000, 110000, 3, 3, 1, 1),
-	('2024-07-03 13:00', 200000, 0, 100000, 100000, 2, 2, 1, 2),
-	('2024-08-12 16:45', 150000, 0, 75000, 75000, 1, 2, 2, 1),
-	('2024-09-25 20:20', 260000, 0, 130000, 130000, 1, 1, 2, 1),
-	('2024-10-17 11:00', 140000, 0, 70000, 70000, 0, 2, 1, 1),
-	('2024-11-28 17:30', 180000, 0, 90000, 90000, 1, 3, 2, 2),
-	('2024-12-09 12:15', 210000, 0, 105000, 105000, 1, 1, 1, 1);
+	('2024-01-19 17:30', 110000, 0, 55000, 55000, 1, 3, 1, 2);
 go
 
-	
 /*
 	đây là những proc 
 
@@ -495,11 +481,7 @@ go
             order by thoigiandat
 
 
-SELECT ChiTietDatBan.MaPhieuDatBan, Ban.MaBan
-from ChiTietDatBan
-join PhieuDatBan on ChiTietDatBan.MaPhieuDatBan = PhieuDatBan.MaPhieuDatBan
-join Ban on ChiTietDatBan.MaBan = Ban.MaBan
-where Ban.TrangThai = N'Đang phục vụ' 
-and (ChiTietDatBan.MaPhieuDatBan not in (Select MaPhieuDatBan from HoaDon))
+
+
 
 select * from ChiTietDatBan

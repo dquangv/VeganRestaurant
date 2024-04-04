@@ -10,18 +10,18 @@ package Model;
  */
 public class ThucDon {
 
-    private String maThucDon;
+    private int maThucDon;
     private String tenThucDon;
-    private double  donGia;
-    private String ngayhPhucVu;
+//    private double  donGia;
+    private String ngayPhucVu;
     private String hinhAnh;
-    private String trangThai;
+//    private String trangThai;
 
-    public String getMaThucDon() {
+    public int getMaThucDon() {
         return maThucDon;
     }
 
-    public void setMaThucDon(String maThucDon) {
+    public void setMaThucDon(int maThucDon) {
         this.maThucDon = maThucDon;
     }
 
@@ -33,20 +33,20 @@ public class ThucDon {
         this.tenThucDon = tenThucDon;
     }
 
-    public double getDonGia() {
-        return donGia;
+//    public double getDonGia() {
+//        return donGia;
+//    }
+//
+//    public void setDonGia(double donGia) {
+//        this.donGia = donGia;
+//    }
+
+    public String getNgayPhucVu() {
+        return ngayPhucVu;
     }
 
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
-    }
-
-    public String getNgayhPhucVu() {
-        return ngayhPhucVu;
-    }
-
-    public void setNgayhPhucVu(String ngayhPhucVu) {
-        this.ngayhPhucVu = ngayhPhucVu;
+    public void setNgayPhucVu(String ngayPhucVu) {
+        this.ngayPhucVu = ngayPhucVu;
     }
 
     public String getHinhAnh() {
@@ -57,12 +57,12 @@ public class ThucDon {
         this.hinhAnh = hinhAnh;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
+//    public String getTrangThai() {
+//        return trangThai;
+//    }
+//
+//    public void setTrangThai(String trangThai) {
+//        this.trangThai = trangThai;
+//    }
     
 }
