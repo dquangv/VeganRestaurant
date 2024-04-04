@@ -25,7 +25,6 @@ import java.sql.ResultSet;
 public class JPanelMonAn extends javax.swing.JPanel {
 
     private int row = -1;
-    JFileChooser jFileChooser = new JFileChooser();
     MonAnDAO madao = new MonAnDAO();
 
     /**
@@ -171,10 +170,12 @@ public class JPanelMonAn extends javax.swing.JPanel {
 //        txtThemTrangThai.setText("");
         lblHinhAnh.setIcon(null);
         lblHinhAnh.setText("Hình Ảnh");
+        lblHinhAnh.setToolTipText(null);
     }
 
     void ChoosePicture() {
-        jFileChooser.setCurrentDirectory(new File("D:\\FPT\\tai lieu\\DuAn1\\Fpoly-VeganRestaurant\\VeganRestaurant\\Logos"));
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setCurrentDirectory(new File("\\Fpoly-VeganRestaurant\\VeganRestaurant\\Logos"));
         if (jFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             jFileChooser.setDialogTitle("Choose Image");
             File file = jFileChooser.getSelectedFile();
