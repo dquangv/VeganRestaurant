@@ -28,37 +28,41 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="lblHinhAnh" min="-2" pref="150" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHinhAnh" min="-2" pref="141" max="-2" attributes="0"/>
+                      <EmptySpace pref="54" max="32767" attributes="0"/>
                       <Component id="chk1Sao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="chk2Sao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="chk3Sao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="chk4Sao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="chk5Sao" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lblTenMon" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="lblTenMon" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <Component id="lblTenMon" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblHinhAnh" alignment="3" min="-2" pref="150" max="-2" attributes="0"/>
-                  <Component id="chk1Sao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="chk2Sao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="chk3Sao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="chk4Sao" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="chk5Sao" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="chk1Sao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chk2Sao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chk3Sao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chk4Sao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chk5Sao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="lblHinhAnh" pref="135" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>

@@ -340,12 +340,11 @@ public class ThucDon extends javax.swing.JPanel {
 
 //        loadDanhSachMonAn();
 //        loadDanhSachMonLenTable(thucDonDAO.layDanhSachAllMonAnTheoLoaiMon());
-
         cbbThucDon.setSelectedIndex(0);
         cbbLoaiMon.setSelectedIndex(0);
         txtTenMon.setText("");
         buttonGroup1.clearSelection();
-        
+        loadDanhSachMonLenTable(thucDonDAO.layDanhSachAllMonAnTheoLoaiMon());
         JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
     }//GEN-LAST:event_btnLuuActionPerformed
 

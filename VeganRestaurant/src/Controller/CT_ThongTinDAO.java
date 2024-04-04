@@ -108,13 +108,14 @@ public class CT_ThongTinDAO extends NhaHangChayDAO<CT_ThongTin, String> {
                 CT_ThongTin entity = new CT_ThongTin();
                 entity.setMaban(rs.getInt(1));
                 entity.setTenKhachHang(rs.getString(2));
-                entity.setSDT(rs.getInt(3));
+                entity.setSDT(rs.getString(3));
                 entity.setThoiGianDate(rs.getTimestamp(4));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
             return list;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

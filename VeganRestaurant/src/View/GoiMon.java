@@ -57,8 +57,11 @@ public class GoiMon extends javax.swing.JPanel {
         thucDonDAO = new ThucDonDAO(new XJdbc());
         loadThucDonToComboBox();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
+        lblNhanVien.setText(Auth.user.getTenTaiKhoan());
     }
-
+    public void setNhanVien (){
+        lblNhanVien.setText(Auth.user.getTenTaiKhoan());
+    }
     public void setBan(String maBan) {
         lbmaBan.setText("Bàn " + maBan);
     }
@@ -193,6 +196,11 @@ public class GoiMon extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Thanh toán");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         lblNhanVien.setText("Nhân viên:");
 
@@ -365,6 +373,20 @@ public class GoiMon extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        capNhatChiTietGoiMon();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        capNhatChiTietGoiMon();
+        themVaoHoaDon();
+    }//GEN-LAST:event_jButton2ActionPerformed
+    private void hienThiDanhSachMonAn(String loaiMon) {
+        List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
+        hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
+    }
+
+    private void capNhatChiTietGoiMon() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
         ctgmDAO.deleteByMaPDB(maPdb);
@@ -385,10 +407,10 @@ public class GoiMon extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Đã lưu thông tin vào bảng ChiTietGM.");
-    }//GEN-LAST:event_jButton1ActionPerformed
-    private void hienThiDanhSachMonAn(String loaiMon) {
-        List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
-        hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
+    }
+
+    private void themVaoHoaDon() {
+
     }
 
     private void hienThiDanhSachMonAnUI(List<MonAn> danhSachMonAn) {
@@ -498,7 +520,7 @@ public class GoiMon extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-
+        DecimalFormat decimalFormat = new DecimalFormat("###,### VNĐ");
         int stt = 1;
         for (ChiTietGoiMon row : listGoiMon) {
             System.out.println(row.getTenKH());
@@ -506,9 +528,10 @@ public class GoiMon extends javax.swing.JPanel {
             Object[] rowData = {
                 stt++,
                 row.getTenMonAn(),
-                row.getSoLuong()+"",
-                row.getDonGia()+"",
-                row.getThanhTien()+""
+                row.getSoLuong() + "",
+                decimalFormat.format(row.getDonGia()),
+                decimalFormat.format(row.getThanhTien()),
+                row.getGhiChu()
             };
             model.addRow(rowData);
             if (row.getTenKH() != null) {
@@ -518,6 +541,7 @@ public class GoiMon extends javax.swing.JPanel {
             }
             lblThoiGian.setText("Thời gian: " + XDate.toString(row.getThoiGianDat(), "dd-MM-yyyy / HH:mm"));
         }
+
         tinhTongTien();
     }
 

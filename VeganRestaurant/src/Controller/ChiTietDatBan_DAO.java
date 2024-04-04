@@ -16,11 +16,10 @@ public class ChiTietDatBan_DAO extends NhaHangChayDAO<ChiTietDatBan, String> {
 
     String Insert = "insert into ChiTietDatBan (MaBan, MaPhieuDatBan) values (?,?)";
 
-    @Override
-    public void insert(ChiTietDatBan entity) {
+    public void insert(String MaBan, int maPDB) {
         XJdbc.executeUpdate(Insert,
-        entity.getMaBan(),
-        entity.getMaPhieuDat()
+        MaBan,
+        maPDB
        );
     }
 
@@ -46,6 +45,11 @@ public class ChiTietDatBan_DAO extends NhaHangChayDAO<ChiTietDatBan, String> {
 
     @Override
     protected List<ChiTietDatBan> selectBySQL(String sql, Object... args) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void insert(ChiTietDatBan entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
