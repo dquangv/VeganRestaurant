@@ -18,6 +18,7 @@ import Utils.XDate;
 import java.util.Calendar;
 import java.time.LocalTime;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,9 +30,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     KhachHangDBDao khDAO = new KhachHangDBDao();
     PhieuDatBanDao pdbDao = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbDAO = new ChiTietDatBan_DAO();
-    List<KhachHang> listkh = new ArrayList<>();
-    List<PhieuDatBan> listpdb = new ArrayList<>();
+    List<Integer> maBanListAdd = new ArrayList<>();
     int maBan;
+    List<ChiTietDatBan> list;
 
     /**
      * Creates new form JDiaLogNhapThongTin
@@ -47,18 +48,19 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         Calendar cal = Calendar.getInstance();
         txtThoiGian.setCalendar(cal);
 
-        data();
-
     }
 
-    public void setBan(int maBan) {
-        lbmaBan.setText("Bàn: " + maBan);
-        this.maBan = maBan;
-    }
-
-    void data() {
-        LoadKhachHang();
-        LoadPhieuDatBan();
+    public void setBan(List<Integer> maBanList) {
+        maBanListAdd = maBanList;
+        String maBanText = "Bàn: ";
+        for (int i = 0; i < maBanList.size(); i++) {
+            maBanText += maBanList.get(i);
+            if (i != maBanList.size() - 1) {
+                maBanText += "+";
+            }
+        }
+        lbmaBan.setText(maBanText);
+//        setThongTinDatBan(maBanList); // Gọi phương thức khác nếu cần
     }
 
     /**
@@ -137,10 +139,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                         .addComponent(cbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lbmaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,12 +182,25 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
-            insert();
-            thayDoiTrangThai(maBan);
-            MsgBox.alert(this, "Đặt bàn thành công");
-            this.setVisible(false);
+            int kt = 0;
+            boolean a = insert();
+            if (a) {
+                for (Integer ma : maBanListAdd) {
+                    thayDoiTrangThai(ma.toString());
+                }
+                MsgBox.alert(this, "Đặt bàn thành công");
+                this.setVisible(false);
+                kt = 1;
+                JPanelTang1.TrangThaiBan();
+                JPanelTang2.TrangThaiBan();
+                JPanelTang3.TrangThaiBan();
+                JPanelTang1.listSo.clear();
+
+            } else {
+                this.dispose();
+            }
+            JPanelDatBan.KiemTraXacNhan(1);
         }
-        System.out.println(layThoiGian());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -270,22 +284,22 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         cbThoiGian.setModel(model);
     }
 
- public Date layThoiGian() {
-    Date date = txtThoiGian.getDate();
-    String gioPhut = (String) cbThoiGian.getSelectedItem();
-     if (date !=null) {
-         String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
-         Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
-         return NgayGio;
-     }
-    
-    return null;
-}
+    public Date layThoiGian() {
+        Date date = txtThoiGian.getDate();
+        String gioPhut = (String) cbThoiGian.getSelectedItem();
+        if (date != null) {
+            String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
+            Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
+            return NgayGio;
+        }
+
+        return null;
+    }
 
     private ChiTietDatBan getFormCTDB() {
         ChiTietDatBan ctdb = new ChiTietDatBan();
         ctdb.setMaBan(maBan);
-        ctdb.setMaPhieuDat(listpdb.size() + 1);
+//        ctdb.setMaPhieuDat(listpdb.size() + 1);
         return ctdb;
     }
 
@@ -295,7 +309,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
 
         PhieuDatBan pdb = new PhieuDatBan();
         pdb.setThoiGianDat(date);
-        pdb.setMaKhachHang(listkh.size() + 1);
+//        pdb.setMaKhachHang(max ma khach hang);
         return pdb;
     }
 
@@ -307,24 +321,50 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }
 
     void LoadPhieuDatBan() {
-        listpdb = pdbDao.selectAll();
+//        listpdb = pdbDao.selectAll();
     }
 
     void LoadKhachHang() {
-        listkh = khDAO.selectAll();
+//        listkh = khDAO.selectAll();
     }
 
-    void insert() {
-        KhachHang kh = getFormKH();
+    boolean insert() {
+        KhachHang kh = null;
         PhieuDatBan pdb = getFormPDB();
         ChiTietDatBan ctdb = getFormCTDB();
-        try {
+        KhachHangDAO khDao = new KhachHangDAO();
+
+        kh = getFormKH();
+        Model.KhachHang existingCustomer = khDao.getCustomerByPhoneNumber(kh.getSDT());
+
+        if (existingCustomer != null) {
+            int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + existingCustomer.getTenKhachHang() + ". \nBạn có muốn sử dụng thông tin của khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                int makh = existingCustomer.getMaKhachHang();
+                pdb.setMaKhachHang(makh);
+            } else {
+                this.dispose();
+                return false;
+            }
+        } else {
+            int maMaxKH = khDAO.SelectMaxkH();
+            khDAO.setMaxKh(maMaxKH);
             khDAO.insert(kh);
-            pdbDao.insert(pdb);
-            ctdbDAO.insert(ctdb);
-        } catch (Exception e) {
-            e.printStackTrace();
+            pdb.setMaKhachHang(maMaxKH + 1);
         }
+
+        int maMaxPDB = pdbDao.SelectMaxPDB();
+        pdbDao.setMaxPDB(maMaxPDB);
+        pdb.setMaPhieuDatBan(maMaxPDB + 1);
+
+        pdbDao.insert(pdb);
+
+        for (Integer maBan : maBanListAdd) {
+            ctdbDAO.insert(maBan.toString(), maMaxPDB + 1);
+        }
+
+        return true;
     }
 
     boolean Checkvalidate() {
@@ -346,7 +386,9 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-        if (txtThoiGian.getDate().getTime() < thoiGianHienTai.getTime()) {
+        System.out.println(thoiGianHienTai);
+        System.out.println(layThoiGian());
+        if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;
         }

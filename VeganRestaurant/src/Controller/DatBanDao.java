@@ -17,19 +17,23 @@ import Utils.XJdbc;
  */
 public class DatBanDao {
 
-    public static final String Trong = "Hoạt động";
+    public static final String Trong = "Trống";
     public static final String DANG_PHUC_VU = "Đang phục vụ";
     public static final String DA_DAT = "Đã đặt";
     public static final String BAO_TRI = "Đang bảo trì";
 
     public static final String Update_TrangThai = "update ban set TrangThai =? where MaBan = ?";
     String SELECT_ALL_SQL = "select * from Ban";
-
-    static String Select_Thongtin = "select MaBan, TenKhachHang,SDT,ThoiGianDat from ChiTietDatBan db "
-            + " inner join PhieuDatBan pdb on pdb.MaPhieuDatBan = db.MaPhieuDatBan "
-            + " inner join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang "
-            + " where ThoiGianDat > GETDATE() and (TenKhachHang like ? or SDT like ?)"
-            + " order by thoigiandat ";
+    static String Select_Thongtin = "SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai "
+            + "FROM ChiTietDatBan db "
+            + "INNER JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan "
+            + "RIGHT JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang "
+            + "INNER JOIN Ban b ON b.MaBan = db.MaBan "
+            + "WHERE ((TenKhachHang LIKE ? OR SDT LIKE ?) "
+            + "OR (TenKhachHang IS NULL OR SDT IS NULL)) "
+            + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
+            + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon)) "
+            + "ORDER BY ThoiGianDat;";
 
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
@@ -103,7 +107,7 @@ public class DatBanDao {
 
     public List<Object[]> LoadThongTin(String keyword) {
         String keyTimKiem = "%" + keyword + "%";
-        String cols[] = {"MaBan", "TenKhachHang", "SDT", "ThoiGianDat"};
+        String cols[] = {"MaPhieuDatBan", "MaBan", "TenKhachHang", "SDT", "ThoiGianDat", "TrangThai"};
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
 

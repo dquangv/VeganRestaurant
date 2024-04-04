@@ -99,7 +99,7 @@ public class MonAnDAO {
     }
 
     public List<String> selectCBMonAn() {
-        String sql = "select distinct ma.maloaimon, tenloaimon from monan ma join loaimon lm on ma.maloaimon = lm.maloaimon;";
+        String sql = "select distinct ma.maloaimon, tenloaimon from monan ma right join loaimon lm on ma.maloaimon = lm.maloaimon;";
         List<String> monAnList = new ArrayList<>();
         try (ResultSet rs = xJdbc.executeQuery(sql)) {
             while (rs.next()) {

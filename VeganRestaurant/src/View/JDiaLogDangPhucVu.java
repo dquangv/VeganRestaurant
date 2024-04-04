@@ -6,7 +6,9 @@ package View;
 
 import Controller.ChuyenManHinh;
 import Controller.DatBanDao;
+import Controller.PhieuDatBanDao;
 import Utils.MsgBox;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 
 /**
@@ -119,25 +121,51 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         String maBan = lbmaBan.getText().substring(5);
         System.out.println(maBan);
         this.setVisible(false);
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+        int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
+        boolean foundButton = false;
+        JButton button;
+        button = JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan));
+        if (button != null) {
+            button.setToolTipText(MaPDB + "");
+            MaPDB = Integer.parseInt(button.getToolTipText());
+            foundButton = true;
+        }
+
+        if (!foundButton) {
+            button = JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+                foundButton = true;
+            }
+        }
+
+        if (!foundButton) {
+            button = JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+            }
+        }
+
         GoiMon dialogGoiMon = new GoiMon();
         JDialog dialog = new JDialog();
         dialog.getContentPane().add(dialogGoiMon);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
+//        dialogGoiMon.filltableCoSan(MaPDB);
+        dialogGoiMon.setKHvaTG(MaPDB);
         dialogGoiMon.setBan(maBan);
+        dialogGoiMon.filltableCoSan(MaPDB);
     }//GEN-LAST:event_lbThemMonMouseClicked
 
     private void lbThanhToansMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThanhToansMouseClicked
-        String maBan = lbmaBan.getText().substring(5);
-        MsgBox.alert(this,"Đã thanh toán");
-//        Main main = new Main();
-//        main.
-//                ChuyenManHinh control = new ChuyenManHinh();
-
-        thayDoiTrangThai(maBan);
+        int daBam = 0;
         this.setVisible(false);
-        
+        daBam++;
+        Main.ChuyenThanhToan(daBam);
     }//GEN-LAST:event_lbThanhToansMouseClicked
 
     /**

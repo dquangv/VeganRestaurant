@@ -7,10 +7,10 @@ package View;
 import Controller.CT_ThongTinDAO;
 import Controller.DatBanDao;
 import static Controller.DatBanDao.Trong;
+import Controller.PhieuDatBanDao;
 import Model.CT_ThongTin;
 import Utils.MsgBox;
 import Utils.XDate;
-import java.awt.Color;
 import java.util.List;
 import javax.swing.JButton;
 
@@ -20,21 +20,40 @@ import javax.swing.JButton;
  */
 public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
 
-    DatBanDao dbDAO = new DatBanDao();
-    CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
-  
+    static DatBanDao dbDAO = new DatBanDao();
+    static CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
+    int maBan;
+
     /**
      * Creates new form JDialogTrangThaiDatBan
      */
-    public JDialogTrangThaiDatBan(java.awt.Frame parent, boolean modal) {
+    public JDialogTrangThaiDatBan(java.awt.Frame parent, boolean modal, int mb) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        layMaBan(mb);
     }
-     public void setBan(int maBan) {
-        lbMaBan.setText("Bàn: " + maBan);
-        setThongTinDatBan(maBan);
+
+    public void layMaBan(int maBan) {
+        this.maBan = maBan;
+        String maBanString = String.valueOf(maBan);
+        int pdb = getMaPDB(maBanString);
+        setThongTinDatBan(pdb);
     }
+
+    public void setBan(List<Integer> maBanList) {
+        if (!maBanList.isEmpty()) {
+            String maBanText = "Bàn: ";
+            for (Integer maBan : maBanList) {
+                maBanText += maBan + " ";
+            }
+            lbMaBan.setText(maBanText);
+        } else {
+
+        }
+//        layMaBan(maBan);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,8 +157,11 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     private void lbHuyDatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHuyDatBanMouseClicked
         String maBan = lbMaBan.getText().substring(5);
         MsgBox.alert(this, "Đã hũy bàn thành công");
-        thayDoiTrangThai(maBan);
+        thayDoiTrangThai(JPanelTang1.listSo);
         this.setVisible(false);
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
@@ -147,6 +169,10 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         MsgBox.alert(this, "Bất đầu  phục vụ");
         thayDoiTrangThaiBDPV(maBan);
         this.setVisible(false);
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBDPVMouseClicked
 
     /**
@@ -182,7 +208,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true);
+                JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -194,6 +220,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbBDPV;
     private javax.swing.JLabel lbHuyDatBan;
@@ -203,24 +230,61 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbThoiGian;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
-     public void thayDoiTrangThai(String maBan) {
-        dbDAO.updateTrangThai(Trong, maBan);
+     public void thayDoiTrangThai(List<Integer> maBan) {
+        dbDAO.updateTrangThai(Trong, maBan.toString());
     }
-     public void thayDoiTrangThaiBDPV(String maBan) {
+
+    public void thayDoiTrangThaiBDPV(String maBan) {
         dbDAO.updateTrangThai(DatBanDao.DANG_PHUC_VU, maBan);
     }
-   public void setThongTinDatBan(int maBan) {
-    List<CT_ThongTin> list = CTDAO.selectAllKH(maBan);
-    if (!list.isEmpty()) {
-        CT_ThongTin cttt = list.get(list.size()-1);
-        lbMaBan.setText("Bàn: " + cttt.getMaban());
-        lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
-        lbSDT.setText("SDT: " + cttt.getSDT());
-        lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
 
-    } 
-}
+    public void setThongTinDatBan(int maPDB) {
 
+        List<CT_ThongTin> list = CTDAO.selectKHDat(maPDB);
+        if (!list.isEmpty()) {
+            CT_ThongTin cttt = list.get(list.size() - 1);
+            lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
+            lbSDT.setText("SDT: " + cttt.getSDT());
+            lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+            System.out.println(lbTenKhachHang.getText()+ "font");
+            System.out.println(cttt.getTenKhachHang() + "ten");
+            System.out.println(cttt.getSDT() + "sdt");
+            System.out.println(XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+            System.out.println(maPDB);
+            this.revalidate();
+            this.repaint();
+        }
+    }
 
-     
+    public int getMaPDB(String maBan) {
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+        int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
+        boolean foundButton = false;
+        JButton button;
+        button = JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan));
+        if (button != null) {
+            button.setToolTipText(MaPDB + "");
+            MaPDB = Integer.parseInt(button.getToolTipText());
+            foundButton = true;
+        }
+
+        if (!foundButton) {
+            button = JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+                foundButton = true;
+            }
+        }
+
+        if (!foundButton) {
+            button = JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan));
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+            }
+        }
+        return MaPDB;
+    }
+
 }

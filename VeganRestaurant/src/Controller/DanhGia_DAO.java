@@ -16,6 +16,10 @@ import java.sql.*;
  */
 public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
 
+    String UPDATE = """
+                    
+                    """;
+    
     String SELECT_ALL = """
                         select MaHoaDon,NgayLap,TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,TenKhachHang from DanhGia dg
                         right join ChiTietGM ctgm on ctgm.MaDanhGia = dg.MaDanhGia
@@ -23,6 +27,7 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
                         join HoaDon hd on hd.MaPhieuDatBan=pdb.MaPhieuDatBan
                         join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
                         join KhachHang kh on pdb.MaKhachHang = kh.MaKhachHang""";
+    
 
     @Override
     public void insert(DanhGia entity) {
@@ -71,4 +76,74 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
         }
     }
 
+//    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+//        try {
+//            List<Object[]> list = new ArrayList<>();
+//            ResultSet rs = XJdbc.executeQuery(sql, args);
+//            while (rs.next()) {
+//                Object[] vals = new Object[cols.length];
+//                for (int i = 0; i < cols.length; i++) {
+//                    vals[i] = rs.getObject(cols[i]);
+//                }
+//                list.add(vals);
+//            }
+//            rs.getStatement().getConnection().close();
+//            return list;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//    
+//    public List<Object[]> loadDanhGia(int mahd) {
+//        String SQL = """
+//                     select TenMonAn,HinhAnh,dg.MaDanhGia,MaHoaDon from DanhGia dg
+//                     right join ChiTietGM ctgm on ctgm.MaDanhGia=dg.MaDanhGia
+//                     join MonAn ma on ma.MaMonAn=ctgm.MaMonAn
+//                     join PhieuDatBan pbd on pbd.MaPhieuDatBan=ctgm.MaPhieuDatBan
+//                     join HoaDon hd on hd.MaPhieuDatBan=pbd.MaPhieuDatBan
+//                     where MaHoaDon = ?
+//                     """;
+//        String[] columns = {"TenMonAn","HinhAnh","MaDanhGia","MaHoaDon"};
+//        return getListOfArray(SQL, columns,mahd);
+//    }
+    
+    public List<DanhGia> selectByMaHD(Integer maHD) {
+    String sql = """
+                select TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,MaHoaDon,TenKhachHang,pdb.MaPhieuDatBan from ChiTietGM ctgm
+                left join DanhGia dg on dg.MaDanhGia = ctgm.MaDanhGia
+                join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+                join PhieuDatBan pdb on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
+                join HoaDon hd on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang
+                where MaHoaDon = ?""";
+
+    List<DanhGia> list = new ArrayList<>();
+    try (Connection conn = XJdbc.getConnection(); 
+         PreparedStatement ps = conn.prepareStatement(sql)) { 
+
+        ps.setInt(1, maHD);
+
+        ResultSet rs = ps.executeQuery(); 
+
+        while (rs.next()) {
+            DanhGia entity = new DanhGia();
+            
+            entity.setTenMonAn(rs.getString("TenMonAn"));
+            entity.setHinhAnh(rs.getString("HinhAnh"));
+            entity.setMaDanhGia(rs.getInt("MaDanhGia"));
+            entity.setDanhGia(rs.getString("DanhGia"));
+            entity.setMaHoaDon(rs.getInt("MaHoaDon"));
+            entity.setTenKhachHang(rs.getString("TenKhachHang"));
+            entity.setMaPhieuDatBan(rs.getInt("MaPhieuDatBan"));
+
+            list.add(entity);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return null;
+    }
+    return list;
+}
+    
 }

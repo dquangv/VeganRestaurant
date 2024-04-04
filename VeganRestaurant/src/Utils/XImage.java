@@ -15,14 +15,16 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import javax.swing.ImageIcon;
 
-
+/**
+ *
+ * @author balis
+ */
 public class XImage {
 
-    public static Image getAppIcon() {
-        URL url = XImage.class.getResource("/com/edusys/icons/Edu.png");
-        return new ImageIcon(url).getImage();
+    public static ImageIcon getAppIcon() {
+        URL url = XImage.class.getResource("/com/edusys/icons/fpt.png");
+        return new ImageIcon(url);
     }
-  
 
     public static void save(File src) {
         File dir = new File("logos", src.getName());
@@ -41,6 +43,7 @@ public class XImage {
 
     public static ImageIcon read(String filename) {
         File path = new File("logos", filename);
-        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(180, 180, Image.SCALE_DEFAULT));
+        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
     }
 }
+
