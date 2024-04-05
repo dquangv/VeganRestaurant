@@ -16,6 +16,7 @@ import Model.PhieuDatBan;
 import Model.KhachHang;
 import Utils.MsgBox;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -29,6 +30,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
     ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
     int maBan;
+    private List<Integer> listSo;
 
     /**
      * Creates new form JDiaLogDatBan
@@ -159,17 +161,17 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     }//GEN-LAST:event_lbBaoTriMouseClicked
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
-        String maBan = lbMaBan.getText().substring(5);
-
-        MsgBox.alert(this, "Bất đầu phục vụ");
-        thayDoiTrangThaiBatDauPhucVu(maBan);
-        insert(this.maBan);
-        this.setVisible(false);
-       
-        JPanelDatBan.fillToTable();
-        JPanelTang1.TrangThaiBan();
-        JPanelTang2.TrangThaiBan();
-        JPanelTang3.TrangThaiBan();
+//        String maBan = lbMaBan.getText().substring(5);
+//
+//        MsgBox.alert(this, "Bất đầu phục vụ");
+//        thayDoiTrangThaiBatDauPhucVu(listSo);
+//        insert(this.maBan);
+//        this.setVisible(false);
+//
+//        JPanelDatBan.fillToTable();
+//        JPanelTang1.TrangThaiBan();
+//        JPanelTang2.TrangThaiBan();
+//        JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbBDPVMouseClicked
 
     /**
@@ -225,13 +227,9 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbMaBan;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
-     void insert(int maBan) {
-        KhachHang kh = new KhachHang();
+     public void insert(int maMaxKH, int maBan) {
         PhieuDatBan pdb = new PhieuDatBan();
         ChiTietDatBan ctdb = new ChiTietDatBan();
-        int maMaxKH = khDBDAO.SelectMaxkH();
-        khDBDAO.setMaxKh(maMaxKH);
-        khDAO.insertNull(kh);
         int maMaxPbd = pdbDAO.SelectMaxPDB();
         pdbDAO.setMaxPDB(maMaxPbd);
         pdb.setThoiGianDat(new Date());
@@ -242,11 +240,22 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         ctdbdao.insert(ctdb);
     }
 
+    public int insertKHnull() {
+        KhachHang kh = new KhachHang();
+        int maMaxKH = khDBDAO.SelectMaxkH();
+        khDBDAO.setMaxKh(maMaxKH);
+        khDAO.insertNull(kh);
+        return maMaxKH;
+    }
+
     public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(BAO_TRI, maBan);
     }
 
-    public void thayDoiTrangThaiBatDauPhucVu(String maBan) {
-        dbDAO.updateTrangThai(DANG_PHUC_VU, maBan);
+    public void thayDoiTrangThaiBatDauPhucVu(List<Integer> listSo) {
+
+        for (Integer maBan : listSo) {
+            dbDAO.updateTrangThai(DANG_PHUC_VU, maBan + "");
+        }
     }
 }

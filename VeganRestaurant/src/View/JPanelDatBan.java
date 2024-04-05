@@ -4,7 +4,13 @@
  */
 package View;
 
+import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
+import Controller.KhachHangDAO;
+import Controller.KhachHangDBDao;
+import Controller.PhieuDatBanDao;
+import Model.ChiTietDatBan;
+import Model.PhieuDatBan;
 import Utils.MsgBox;
 import static View.JPanelTang1.timButtonByMaBan;
 import java.awt.Color;
@@ -12,6 +18,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -29,7 +36,11 @@ import org.bridj.objc.NSNumber;
 public class JPanelDatBan extends javax.swing.JPanel {
 
     static DatBanDao dBDao = new DatBanDao();
-    
+    KhachHangDBDao khDBDAO = new KhachHangDBDao();
+    KhachHangDAO khDAO = new KhachHangDAO();
+    PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
+    ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
+
 //    public static List<JButton> list = new ArrayList<>();
 //   
 //    public static void thayDoiMauButton(JButton btn[]) {
@@ -55,7 +66,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
 //    } else {
 //        System.out.println("Không tìm thấy button với mã bàn " + maBan);
 //    }
-
 //        for (JButton jButton : list) {
 //            jButton.addActionListener(new ActionListener() {
 //            @Override
@@ -345,13 +355,35 @@ public class JPanelDatBan extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if (JPanelTang1.listSo.isEmpty()) {
+            MsgBox.alert(this, "Bạn chưa chọn bàn để phục vụ");
+        } else {
+
+            JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
+            for (Integer so : JPanelTang1.listSo) {
+                System.out.println("");
+                System.out.print(" " + so);
+            }
+            JDiaLogDatBan dialog = new JDiaLogDatBan(parentFrame, true); // Tạo dialog với JFrame cha
+            MsgBox.alert(this, "Bất đầu phục vụ");
+            dialog.thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
+            int maKHMax = insertKHnull();
+            int maPDBMax = insertPDB(maKHMax);
+            for(Integer maBan : JPanelTang1.listSo){
+                insert(maKHMax, maPDBMax, maBan );
+            }
+            JPanelDatBan.fillToTable();
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatBanActionPerformed
         if (JPanelTang1.listSo.isEmpty()) {
             MsgBox.alert(this, "Bạn chưa chọn bàn để đặt");
         } else {
-    
+
             JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
             for (Integer so : JPanelTang1.listSo) {
                 System.out.println("");
@@ -365,7 +397,29 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDatBanActionPerformed
 
+    public void insert(int maMaxKH,int maMaxPbd, int maBan) {
+        ChiTietDatBan ctdb = new ChiTietDatBan();
+        ctdb.setMaBan(maBan);
+        ctdb.setMaPhieuDat(maMaxPbd + 1);
+        ctdbdao.insert(ctdb.getMaBan()+"", ctdb.getMaPhieuDat());
+    }
+    public int insertPDB(int maMaxKH){
+        PhieuDatBan pdb = new PhieuDatBan();
+        int maMaxPbd = pdbDAO.SelectMaxPDB();
+        pdbDAO.setMaxPDB(maMaxPbd);
+        pdb.setThoiGianDat(new Date());
+        pdb.setMaKhachHang(maMaxKH + 1);
+        pdbDAO.insert_null(pdb);
+        return maMaxPbd;
+    }
 
+    public int insertKHnull() {
+        Model.KhachHang kh = new Model.KhachHang();
+        int maMaxKH = khDBDAO.SelectMaxkH();
+        khDBDAO.setMaxKh(maMaxKH);
+        khDAO.insertNull(kh);
+        return maMaxKH;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatBan;
     private javax.swing.JComboBox<String> cbTang;
