@@ -22,12 +22,12 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
     String SELECT_ALL_SQL = """
                             select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
                             join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                            join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
+                            left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
 
     String SELECT_BY_IDKhach_SQL = """
                                    select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
                                    join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                                   join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
+                                   left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
                                    where MaHoaDon = ? """;
 
     //thêm
@@ -129,18 +129,18 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
         return null;
     }
 
-    public List<HoaDon> selectByMaKH(Integer maKhachHang) {
+    public List<HoaDon> selectByMaKH(Integer maHoaDon) {
     String sql = """
             select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
                                  join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                                 join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
+                                 left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
                                  where MaHoaDon = ?""";
 
     List<HoaDon> list = new ArrayList<>();
     try (Connection conn = XJdbc.getConnection(); 
          PreparedStatement ps = conn.prepareStatement(sql)) { 
 
-        ps.setInt(1, maKhachHang);
+        ps.setInt(1, maHoaDon);
 
         ResultSet rs = ps.executeQuery(); 
 
@@ -173,7 +173,7 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
         String sql = """
                      select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
                      join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                     join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
+                     left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
         return this.selectBySQL(sql);
     }
 

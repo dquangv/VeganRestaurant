@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hoadongiay" pageWidth="300" pageHeight="700" columnWidth="260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="35b8232b-8b4b-4fd3-95b5-35beb6e63858">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NhaHangChay"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="P_MaHD" class="java.lang.String"/>
-	<queryString>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="NhaHangChay"/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <parameter name="P_MaHD" class="java.lang.String"/>
+    <queryString>
 		<![CDATA[select 
 	MaHoaDon,
 	NgayLap,
@@ -40,287 +40,287 @@ group by
 	PhieuDatBan.MaPhieuDatBan,
 	TenNhanVien,
 	TenKhachHang]]>
-	</queryString>
-	<field name="MaHoaDon" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="MaHoaDon"/>
-		<property name="com.jaspersoft.studio.field.label" value="MaHoaDon"/>
-	</field>
-	<field name="NgayLap" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.name" value="NgayLap"/>
-		<property name="com.jaspersoft.studio.field.label" value="NgayLap"/>
-	</field>
-	<field name="TienMonAn" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TienMonAn"/>
-		<property name="com.jaspersoft.studio.field.label" value="TienMonAn"/>
-	</field>
-	<field name="TienGiamDiemThuong" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TienGiamDiemThuong"/>
-		<property name="com.jaspersoft.studio.field.label" value="TienGiamDiemThuong"/>
-	</field>
-	<field name="TienGiamKhuyenMai" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TienGiamKhuyenMai"/>
-		<property name="com.jaspersoft.studio.field.label" value="TienGiamKhuyenMai"/>
-	</field>
-	<field name="TongTien" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TongTien"/>
-		<property name="com.jaspersoft.studio.field.label" value="TongTien"/>
-	</field>
-	<field name="TenMonAn" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="TenMonAn"/>
-		<property name="com.jaspersoft.studio.field.label" value="TenMonAn"/>
-	</field>
-	<field name="SoLuong" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="SoLuong"/>
-		<property name="com.jaspersoft.studio.field.label" value="SoLuong"/>
-	</field>
-	<field name="DonGia" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="DonGia"/>
-		<property name="com.jaspersoft.studio.field.label" value="DonGia"/>
-	</field>
-	<field name="ThanhTien" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="ThanhTien"/>
-		<property name="com.jaspersoft.studio.field.label" value="ThanhTien"/>
-	</field>
-	<field name="MaPhieuDatBan" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="MaPhieuDatBan"/>
-		<property name="com.jaspersoft.studio.field.label" value="MaPhieuDatBan"/>
-	</field>
-	<field name="TenNhanVien" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="TenNhanVien"/>
-		<property name="com.jaspersoft.studio.field.label" value="TenNhanVien"/>
-	</field>
-	<field name="TenKhachHang" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="TenKhachHang"/>
-		<property name="com.jaspersoft.studio.field.label" value="TenKhachHang"/>
-	</field>
-	<variable name="TienMonAn1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
-		<variableExpression><![CDATA[$F{TienMonAn}]]></variableExpression>
-	</variable>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="80" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="260" height="80" uuid="0187faaa-3b9e-4be6-ad04-280c1b65410e"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Tên của hàng
+    </queryString>
+    <field name="MaHoaDon" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.name" value="MaHoaDon"/>
+        <property name="com.jaspersoft.studio.field.label" value="MaHoaDon"/>
+    </field>
+    <field name="NgayLap" class="java.sql.Timestamp">
+        <property name="com.jaspersoft.studio.field.name" value="NgayLap"/>
+        <property name="com.jaspersoft.studio.field.label" value="NgayLap"/>
+    </field>
+    <field name="TienMonAn" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="TienMonAn"/>
+        <property name="com.jaspersoft.studio.field.label" value="TienMonAn"/>
+    </field>
+    <field name="TienGiamDiemThuong" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="TienGiamDiemThuong"/>
+        <property name="com.jaspersoft.studio.field.label" value="TienGiamDiemThuong"/>
+    </field>
+    <field name="TienGiamKhuyenMai" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="TienGiamKhuyenMai"/>
+        <property name="com.jaspersoft.studio.field.label" value="TienGiamKhuyenMai"/>
+    </field>
+    <field name="TongTien" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="TongTien"/>
+        <property name="com.jaspersoft.studio.field.label" value="TongTien"/>
+    </field>
+    <field name="TenMonAn" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="TenMonAn"/>
+        <property name="com.jaspersoft.studio.field.label" value="TenMonAn"/>
+    </field>
+    <field name="SoLuong" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.name" value="SoLuong"/>
+        <property name="com.jaspersoft.studio.field.label" value="SoLuong"/>
+    </field>
+    <field name="DonGia" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="DonGia"/>
+        <property name="com.jaspersoft.studio.field.label" value="DonGia"/>
+    </field>
+    <field name="ThanhTien" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="ThanhTien"/>
+        <property name="com.jaspersoft.studio.field.label" value="ThanhTien"/>
+    </field>
+    <field name="MaPhieuDatBan" class="java.lang.Integer">
+        <property name="com.jaspersoft.studio.field.name" value="MaPhieuDatBan"/>
+        <property name="com.jaspersoft.studio.field.label" value="MaPhieuDatBan"/>
+    </field>
+    <field name="TenNhanVien" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="TenNhanVien"/>
+        <property name="com.jaspersoft.studio.field.label" value="TenNhanVien"/>
+    </field>
+    <field name="TenKhachHang" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="TenKhachHang"/>
+        <property name="com.jaspersoft.studio.field.label" value="TenKhachHang"/>
+    </field>
+    <variable name="TienMonAn1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+        <variableExpression><![CDATA[$F{TienMonAn}]]></variableExpression>
+    </variable>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="80" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="260" height="80" uuid="0187faaa-3b9e-4be6-ad04-280c1b65410e"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Tên của hàng
 Trường Cao đăng FPT Polytechnic CS3
          Công Viên PMQT, Quận 12
 Holine: 0909090909
 www.ProjectPRO1041.com]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="64" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="1" width="50" height="17" uuid="d7dfa52e-3c17-4e2f-8e85-e19383d88aa9"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Thời gian:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="148" y="1" width="52" height="17" uuid="2e04995a-12b5-40cb-a60e-415cbecc34d9"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Hóa Đơn:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="148" y="21" width="32" height="20" uuid="088d4980-0799-4910-97e9-02aeba04594e"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Bàn:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="18" width="50" height="20" uuid="49d2f7b3-b458-45bb-af25-95cd433ede95"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Thu Ngân:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="38" width="60" height="20" uuid="dfd88dbf-2c9d-4dd2-8636-b271b317f3d8"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Khách Hàng:]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement x="-20" y="60" width="298" height="1" uuid="91d2c3e8-ecfa-4d50-987c-d12fe7f036a5"/>
-				<graphicElement>
-					<pen lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
-			<textField>
-				<reportElement x="50" y="0" width="80" height="18" uuid="15920a0f-c874-435c-9a1c-027b1b77ba30"/>
-				<textFieldExpression><![CDATA[$F{NgayLap}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="200" y="1" width="76" height="17" uuid="62ef0d81-38f5-45b2-9c14-860f9e1bffa8"/>
-				<textFieldExpression><![CDATA["HD"+$F{MaHoaDon}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="21" width="96" height="20" uuid="580705df-d723-46c3-a0cf-113e346b9b1b"/>
-				<textFieldExpression><![CDATA["PDB"+$F{MaPhieuDatBan}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="50" y="18" width="80" height="20" uuid="134cfea0-6c20-44c8-adf5-b92a5b93349c"/>
-				<textFieldExpression><![CDATA[$F{TenNhanVien}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="60" y="38" width="88" height="20" uuid="2a052226-6c5f-4ee9-9c4d-4f8316772c9b"/>
-				<textFieldExpression><![CDATA[$F{TenKhachHang}]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="26" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="60" height="26" uuid="64dfaf13-2f1d-4d78-9cb3-45cba0927cce">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1dc3dc51-5e2e-42eb-9496-0376642bba84"/>
-				</reportElement>
-				<text><![CDATA[Tên Món]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="70" y="0" width="70" height="26" uuid="6326ff83-bc02-4537-a535-bb07339a0891">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ceab913f-29f2-4c50-87ff-abd4ded0a653"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Số Lượng]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="150" y="0" width="60" height="26" uuid="daa958e7-73ed-4906-917c-c72cf9473614">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4269dc5a-a165-46bb-94bb-6b51e7d66d45"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Đơn Giá]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="220" y="0" width="58" height="26" uuid="fbe8596a-fcdb-4b24-9d36-954c9aed2b41">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="35d1031a-c23f-4296-a39c-57ccf0aece55"/>
-				</reportElement>
-				<text><![CDATA[Thành Tiền]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="53" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="60" height="20" uuid="86238fdb-5752-402f-b3a7-117e946d40ac">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1dc3dc51-5e2e-42eb-9496-0376642bba84"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{TenMonAn}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="70" y="0" width="70" height="20" uuid="b082be2b-2e9f-46cc-b69d-68011d59ff7f">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ceab913f-29f2-4c50-87ff-abd4ded0a653"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{SoLuong}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="150" y="0" width="60" height="20" uuid="da1bb951-e97d-4b14-b53a-96f8650d83f8">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4269dc5a-a165-46bb-94bb-6b51e7d66d45"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{DonGia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="220" y="0" width="58" height="20" uuid="91869fa5-16e7-4502-b853-357a8834b40d">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="35d1031a-c23f-4296-a39c-57ccf0aece55"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{ThanhTien}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
-	<columnFooter>
-		<band height="130" splitType="Stretch">
-			<rectangle>
-				<reportElement x="-20" y="0" width="298" height="1" uuid="4e999f7c-89de-49e2-9ad4-4f6cf0126f44"/>
-				<graphicElement>
-					<pen lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="0" y="10" width="70" height="20" uuid="f8135f3b-c5fa-4f0c-894f-04daa1eeafc8"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Thành tiền]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="30" width="100" height="20" uuid="0726d8a6-fd30-4a6c-a4da-dbfaf89ceadc"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Tiền giảm khuyến mãi]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement x="-20" y="80" width="298" height="1" uuid="1a043e12-4598-405c-91e0-677bb9c1968c"/>
-				<graphicElement>
-					<pen lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="0" y="90" width="70" height="18" uuid="a967dddc-3680-4b0e-a472-69bed6aaaff1"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Thanh toán]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement x="-20" y="115" width="298" height="1" uuid="2008f7b7-8325-494d-9c6a-b2b309e6a9af"/>
-				<graphicElement>
-					<pen lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
-			<textField>
-				<reportElement x="180" y="10" width="98" height="20" uuid="8e698fce-440b-4525-8fd1-76d1a174a032"/>
-				<textFieldExpression><![CDATA[$F{TienMonAn}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="30" width="98" height="20" uuid="58424491-29a9-480a-9bd1-687998d936bb"/>
-				<textFieldExpression><![CDATA[$F{TienGiamKhuyenMai}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="50" width="98" height="20" uuid="5cbde44b-e41d-4788-aa30-22cc11a2c86b"/>
-				<textFieldExpression><![CDATA[$F{TienGiamDiemThuong}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="50" width="110" height="20" uuid="5f5b4a85-6472-469c-8191-4a68978c0bfc"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Tiền giảm điểm thưởng]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="180" y="90" width="98" height="18" uuid="85a19447-0071-41b0-b224-ffe295f29b97"/>
-				<textFieldExpression><![CDATA[$F{TongTien}]]></textFieldExpression>
-			</textField>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="113" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="260" height="110" uuid="00efe747-c04d-46d6-982b-6b5a17b35707"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
-				</textElement>
-				<text><![CDATA[Tặng voucher 30% cho hóa đơn từ 1 tr và áp dụng cho lần sau.
+            </staticText>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="64" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="1" width="50" height="17" uuid="d7dfa52e-3c17-4e2f-8e85-e19383d88aa9"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Thời gian:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="148" y="1" width="52" height="17" uuid="2e04995a-12b5-40cb-a60e-415cbecc34d9"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Hóa Đơn:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="148" y="21" width="32" height="20" uuid="088d4980-0799-4910-97e9-02aeba04594e"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Bàn:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="18" width="50" height="20" uuid="49d2f7b3-b458-45bb-af25-95cd433ede95"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Thu Ngân:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="38" width="60" height="20" uuid="dfd88dbf-2c9d-4dd2-8636-b271b317f3d8"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Khách Hàng:]]></text>
+            </staticText>
+            <rectangle>
+                <reportElement x="-20" y="60" width="298" height="1" uuid="91d2c3e8-ecfa-4d50-987c-d12fe7f036a5"/>
+                <graphicElement>
+                    <pen lineStyle="Solid"/>
+                </graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="50" y="0" width="80" height="18" uuid="15920a0f-c874-435c-9a1c-027b1b77ba30"/>
+                <textFieldExpression><![CDATA[$F{NgayLap}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="200" y="1" width="76" height="17" uuid="62ef0d81-38f5-45b2-9c14-860f9e1bffa8"/>
+                <textFieldExpression><![CDATA["HD"+$F{MaHoaDon}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="180" y="21" width="96" height="20" uuid="580705df-d723-46c3-a0cf-113e346b9b1b"/>
+                <textFieldExpression><![CDATA["PDB"+$F{MaPhieuDatBan}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="50" y="18" width="80" height="20" uuid="134cfea0-6c20-44c8-adf5-b92a5b93349c"/>
+                <textFieldExpression><![CDATA[$F{TenNhanVien}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="60" y="38" width="88" height="20" uuid="2a052226-6c5f-4ee9-9c4d-4f8316772c9b"/>
+                <textFieldExpression><![CDATA[$F{TenKhachHang}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="26" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="60" height="26" uuid="64dfaf13-2f1d-4d78-9cb3-45cba0927cce">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1dc3dc51-5e2e-42eb-9496-0376642bba84"/>
+                </reportElement>
+                <text><![CDATA[Tên Món]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="70" y="0" width="70" height="26" uuid="6326ff83-bc02-4537-a535-bb07339a0891">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ceab913f-29f2-4c50-87ff-abd4ded0a653"/>
+                </reportElement>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Số Lượng]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="0" width="60" height="26" uuid="daa958e7-73ed-4906-917c-c72cf9473614">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4269dc5a-a165-46bb-94bb-6b51e7d66d45"/>
+                </reportElement>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Đơn Giá]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="220" y="0" width="58" height="26" uuid="fbe8596a-fcdb-4b24-9d36-954c9aed2b41">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="35d1031a-c23f-4296-a39c-57ccf0aece55"/>
+                </reportElement>
+                <text><![CDATA[Thành Tiền]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="53" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="60" height="20" uuid="86238fdb-5752-402f-b3a7-117e946d40ac">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1dc3dc51-5e2e-42eb-9496-0376642bba84"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{TenMonAn}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="70" y="0" width="70" height="20" uuid="b082be2b-2e9f-46cc-b69d-68011d59ff7f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ceab913f-29f2-4c50-87ff-abd4ded0a653"/>
+                </reportElement>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{SoLuong}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="60" height="20" uuid="da1bb951-e97d-4b14-b53a-96f8650d83f8">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4269dc5a-a165-46bb-94bb-6b51e7d66d45"/>
+                </reportElement>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{DonGia}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="220" y="0" width="58" height="20" uuid="91869fa5-16e7-4502-b853-357a8834b40d">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="35d1031a-c23f-4296-a39c-57ccf0aece55"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{ThanhTien}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="130" splitType="Stretch">
+            <rectangle>
+                <reportElement x="-20" y="0" width="298" height="1" uuid="4e999f7c-89de-49e2-9ad4-4f6cf0126f44"/>
+                <graphicElement>
+                    <pen lineStyle="Solid"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="0" y="10" width="70" height="20" uuid="f8135f3b-c5fa-4f0c-894f-04daa1eeafc8"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Thành tiền]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="30" width="100" height="20" uuid="0726d8a6-fd30-4a6c-a4da-dbfaf89ceadc"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Tiền giảm khuyến mãi]]></text>
+            </staticText>
+            <rectangle>
+                <reportElement x="-20" y="80" width="298" height="1" uuid="1a043e12-4598-405c-91e0-677bb9c1968c"/>
+                <graphicElement>
+                    <pen lineStyle="Solid"/>
+                </graphicElement>
+            </rectangle>
+            <staticText>
+                <reportElement x="0" y="90" width="70" height="18" uuid="a967dddc-3680-4b0e-a472-69bed6aaaff1"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Thanh toán]]></text>
+            </staticText>
+            <rectangle>
+                <reportElement x="-20" y="115" width="298" height="1" uuid="2008f7b7-8325-494d-9c6a-b2b309e6a9af"/>
+                <graphicElement>
+                    <pen lineStyle="Solid"/>
+                </graphicElement>
+            </rectangle>
+            <textField>
+                <reportElement x="180" y="10" width="98" height="20" uuid="8e698fce-440b-4525-8fd1-76d1a174a032"/>
+                <textFieldExpression><![CDATA[$F{TienMonAn}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="180" y="30" width="98" height="20" uuid="58424491-29a9-480a-9bd1-687998d936bb"/>
+                <textFieldExpression><![CDATA[$F{TienGiamKhuyenMai}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="180" y="50" width="98" height="20" uuid="5cbde44b-e41d-4788-aa30-22cc11a2c86b"/>
+                <textFieldExpression><![CDATA[$F{TienGiamDiemThuong}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="50" width="110" height="20" uuid="5f5b4a85-6472-469c-8191-4a68978c0bfc"/>
+                <textElement>
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Tiền giảm điểm thưởng]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="180" y="90" width="98" height="18" uuid="85a19447-0071-41b0-b224-ffe295f29b97"/>
+                <textFieldExpression><![CDATA[$F{TongTien}]]></textFieldExpression>
+            </textField>
+        </band>
+    </columnFooter>
+    <pageFooter>
+        <band height="113" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="260" height="110" uuid="00efe747-c04d-46d6-982b-6b5a17b35707"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[Tặng voucher 30% cho hóa đơn từ 1 tr và áp dụng cho lần sau.
 Đặt bàn trước tại www.ProjectPRO1041.com hoặc gọi 0909090909
 Phiếu thanh toán này chỉ có giá trị xuất hóa đơn GTGT trong ngày. 
 Liên hệ: 0909090909
 Cảm ơn và hẹn gặp lại!]]></text>
-			</staticText>
-		</band>
-	</pageFooter>
-	<summary>
-		<band height="34" splitType="Stretch"/>
-	</summary>
+            </staticText>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="34" splitType="Stretch"/>
+    </summary>
 </jasperReport>

@@ -59,6 +59,7 @@ public class GoiMon extends javax.swing.JPanel {
     private int maPdb;
     private Date ThoiGianDat;
     private String maBan;
+    ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
 
     public GoiMon() {
         initComponents();
@@ -381,13 +382,30 @@ public class GoiMon extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if (!checkKHtrong()) {
+        Model.KhachHang kh;
+        if (!checkKHtrong()) { 
             String SDT = JOptionPane.showInputDialog(this, "Vui lòng nhập số điện thoại khách hàng!\n Có thể bỏ qua!");
-            if(SDT.equalsIgnoreCase("")){
-                
+            if (SDT == null || SDT.trim().isEmpty()) { 
+                xoaKHwithoutInfo(ctgmDAO.getMaKHMoibyPDB(maPdb));
+            } else {
+                kh = ctgmDAO.getCustomerByPhoneNumber(SDT);
+                if (kh != null) { 
+                    int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + kh.getTenKhachHang() + ". \nBạn có muốn sử dụng thông tin của khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+                    if (option == JOptionPane.YES_OPTION) {
+                        int makh = kh.getMaKhachHang();
+                        capNhatKhCu(makh, ctgmDAO.getMaKHMoibyPDB(maPdb));
+                    } else {
+                        jButton2ActionPerformed(evt); 
+                        return;
+                    }
+                } else { 
+                    String tenKh = JOptionPane.showInputDialog(this, "Vui lòng nhập tên Khách Hàng!");
+                    capNhatKhMoi(ctgmDAO.getMaKHMoibyPDB(maPdb), tenKh, SDT);
+                }
             }
-            String tenKh = JOptionPane.showInputDialog(this, "Vui lòng nhập tên Khách Hàng!");
         }
+
         capNhatChiTietGoiMon();
         themVaoHoaDon();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -430,6 +448,19 @@ public class GoiMon extends javax.swing.JPanel {
 
     }
 
+    private void capNhatKhMoi(int maKHMoi, String TenKH, String SDT) {
+        ctgmDAO.capNhatKhachHangMoi(maKHMoi, TenKH, SDT);
+    }
+
+    private void capNhatKhCu(int maKHCu, int maKHMoi) {
+        ctgmDAO.capNhatKhachHangCu(maKHCu, maKHMoi);
+
+    }
+
+    private void xoaKHwithoutInfo(int maKHMoi) {
+        ctgmDAO.XoaKhachHangMoi(maKHMoi);
+    }
+
     private void themVaoHoaDon() {
         int mahd = 0;
         try {
@@ -445,7 +476,14 @@ public class GoiMon extends javax.swing.JPanel {
         }
         Window window = SwingUtilities.getWindowAncestor(this);
         window.dispose();
-        dbDAO.updateTrangThai(Trong, maBan);
+        List<Integer> listSoBan = ctThongTIn.dsBanTheoPDB(maPdb);
+        for (Integer maBan : listSoBan) {
+            dbDAO.updateTrangThai(Trong, maBan + "");
+        }
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
         jdialog.setVisible(true);
@@ -561,6 +599,7 @@ public class GoiMon extends javax.swing.JPanel {
     }
 
     public void filltableCoSan(int maPDB) {
+        maPdb = maPDB;
         setBan();
         ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
         List<ChiTietGoiMon> listGoiMon = ctgmDAO.selectByMaPhieuDatBan(maPDB);

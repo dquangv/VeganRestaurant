@@ -6,6 +6,7 @@ package View;
 
 import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
+import static Controller.DatBanDao.DANG_PHUC_VU;
 import Controller.KhachHangDAO;
 import Controller.KhachHangDBDao;
 import Controller.PhieuDatBanDao;
@@ -320,7 +321,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 case "Tầng 1":
                     jPanel3.removeAll();
                     jPanel3.add(new JPanelTang1());
-                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
+//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
                     jPanel3.updateUI();
                     jPanel3.setLayout(new FlowLayout());
                     break;
@@ -358,24 +359,19 @@ public class JPanelDatBan extends javax.swing.JPanel {
         if (JPanelTang1.listSo.isEmpty()) {
             MsgBox.alert(this, "Bạn chưa chọn bàn để phục vụ");
         } else {
-
-            JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
-            for (Integer so : JPanelTang1.listSo) {
-                System.out.println("");
-                System.out.print(" " + so);
-            }
-            JDiaLogDatBan dialog = new JDiaLogDatBan(parentFrame, true); // Tạo dialog với JFrame cha
             MsgBox.alert(this, "Bất đầu phục vụ");
-            dialog.thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
+            thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
             int maKHMax = insertKHnull();
             int maPDBMax = insertPDB(maKHMax);
-            for(Integer maBan : JPanelTang1.listSo){
-                insert(maKHMax, maPDBMax, maBan );
+            for (Integer maBan : JPanelTang1.listSo) {
+                insert(maKHMax, maPDBMax, maBan);
             }
             JPanelDatBan.fillToTable();
             JPanelTang1.TrangThaiBan();
             JPanelTang2.TrangThaiBan();
             JPanelTang3.TrangThaiBan();
+            JPanelTang1.listSo.clear();
+            JPanelTang1.listBT.clear();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -397,13 +393,21 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDatBanActionPerformed
 
-    public void insert(int maMaxKH,int maMaxPbd, int maBan) {
+    public void insert(int maMaxKH, int maMaxPbd, int maBan) {
         ChiTietDatBan ctdb = new ChiTietDatBan();
         ctdb.setMaBan(maBan);
         ctdb.setMaPhieuDat(maMaxPbd + 1);
-        ctdbdao.insert(ctdb.getMaBan()+"", ctdb.getMaPhieuDat());
+        ctdbdao.insert(ctdb.getMaBan() + "", ctdb.getMaPhieuDat());
     }
-    public int insertPDB(int maMaxKH){
+
+    public void thayDoiTrangThaiBatDauPhucVu(List<Integer> listSo) {
+
+        for (Integer maBan : listSo) {
+            dBDao.updateTrangThai(DANG_PHUC_VU, maBan + "");
+        }
+    }
+
+    public int insertPDB(int maMaxKH) {
         PhieuDatBan pdb = new PhieuDatBan();
         int maMaxPbd = pdbDAO.SelectMaxPDB();
         pdbDAO.setMaxPDB(maMaxPbd);

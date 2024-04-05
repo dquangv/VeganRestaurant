@@ -75,9 +75,9 @@ public class ChiTietGoiMonDAO {
 
     public int getMaKHMoibyPDB(int PDB) {
         int maKh = 0;
-        String sql = "Select MaKhachHang from PhieuDatBan where PhieuDatBan = ?";
+        String sql = "Select MaKhachHang from PhieuDatBan where MaPhieuDatBan = ?";
         try {
-            ResultSet rs = XJdbc.executeQuery(sql);
+            ResultSet rs = XJdbc.executeQuery(sql, PDB);
             if (rs.next()) {
                 maKh = rs.getInt("MaKhachHang");
             }
@@ -105,7 +105,38 @@ public class ChiTietGoiMonDAO {
         return customer;
     }
 
-    public void capNhatKhachHangCu(int maKhCu, int maKhMoi) {
+    public void capNhatKhachHangMoi(int maKhMoi, String tenKhachHangMoi, String soDienThoaiMoi) {
+        Connection conn = null;
+        PreparedStatement pstmtUpdateKhachHang = null;
+
+        try {
+            conn = XJdbc.getConnection();
+
+            String updateKhachHangQuery = "UPDATE KhachHang SET TenKhachHang = ?, SDT = ? WHERE MaKhachHang = ?";
+            pstmtUpdateKhachHang = conn.prepareStatement(updateKhachHangQuery);
+            pstmtUpdateKhachHang.setString(1, tenKhachHangMoi);
+            pstmtUpdateKhachHang.setString(2, soDienThoaiMoi);
+            pstmtUpdateKhachHang.setInt(3, maKhMoi);
+            pstmtUpdateKhachHang.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to update customer information.", e);
+        } finally {
+            try {
+                if (pstmtUpdateKhachHang != null) {
+                    pstmtUpdateKhachHang.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException("Failed to close resources.", ex);
+            }
+        }
+    }
+
+    public void capNhatKhachHangCu(Integer maKhCu, Integer maKhMoi) {
+
         Connection conn = null;
         PreparedStatement pstmtUpdatePhieuDatBan = null;
         PreparedStatement pstmtDeleteKhachHang = null;
@@ -126,18 +157,35 @@ public class ChiTietGoiMonDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to update customer information.", e);
         } finally {
+        }
+    }
+
+    public void XoaKhachHangMoi(int maKhMoi) {
+        Connection conn = null;
+        PreparedStatement pstmtUpdatePhieuDatBan = null;
+        PreparedStatement pstmtDeleteKhachHang = null;
+
+        try {
+            conn = XJdbc.getConnection();
+
+            String updatePhieuDatBanQuery = "UPDATE PhieuDatBan SET MaKhachHang = null WHERE MaKhachHang = ?";
+            pstmtUpdatePhieuDatBan = conn.prepareStatement(updatePhieuDatBanQuery);
+            pstmtUpdatePhieuDatBan.setInt(1, maKhMoi);
+            pstmtUpdatePhieuDatBan.executeUpdate();
+
+            String deleteKhachHangQuery = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
+            pstmtDeleteKhachHang = conn.prepareStatement(deleteKhachHangQuery);
+            pstmtDeleteKhachHang.setInt(1, maKhMoi);
+            pstmtDeleteKhachHang.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to update customer information.", e);
+        } finally {
             try {
-                if (pstmtUpdatePhieuDatBan != null) {
-                    pstmtUpdatePhieuDatBan.close();
-                }
-                if (pstmtDeleteKhachHang != null) {
-                    pstmtDeleteKhachHang.close();
-                }
                 if (conn != null) {
-                    conn.close();
+                    conn.close(); 
                 }
-            } catch (SQLException ex) {
-                throw new RuntimeException("Failed to close resources.", ex);
+            } catch (SQLException e) {
+                e.printStackTrace(); 
             }
         }
     }
