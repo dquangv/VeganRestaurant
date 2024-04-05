@@ -137,7 +137,7 @@ create table HoaDon (
 	TienMonAn money not null,
 	TienGiamDiemThuong money default 0,
 	TienGiamKhuyenMai money default 0,
-	TongTien money not null,
+	TongTien money,
 	PhuongThucThanhToan bit,
 	MaPhieuDatBan int,
 	MaKhuyenMai int,
@@ -437,6 +437,17 @@ where hd.MaHoaDon = @maHD
 group by TenMonAn,DonGia,ctgm.SoLuong
  go 
 
+ CREATE TRIGGER UpdateTongTien
+ON HoaDon
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE HoaDon
+    SET TongTien = (ISNULL(i.TienMonAn, 0) + ISNULL(i.TienGiamDiemThuong, 0) + ISNULL(i.TienGiamKhuyenMai, 0))
+    FROM HoaDon hd
+    INNER JOIN inserted i ON hd.MaHoaDon = i.MaHoaDon;
+END;
+go
 CREATE TRIGGER Trig_UpdateVaiTro
 ON NhanVien
 AFTER UPDATE

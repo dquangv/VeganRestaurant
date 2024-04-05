@@ -70,7 +70,103 @@ public class ChiTietGoiMonDAO {
             throw new RuntimeException(e);
         }
 
-        return chiTiet; // Trả về đối tượng ChiTietGoiMon
+        return chiTiet;
+    }
+
+    public int getMaKHMoibyPDB(int PDB) {
+        int maKh = 0;
+        String sql = "Select MaKhachHang from PhieuDatBan where PhieuDatBan = ?";
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql);
+            if (rs.next()) {
+                maKh = rs.getInt("MaKhachHang");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return maKh;
+    }
+
+    public KhachHang getCustomerByPhoneNumber(String phoneNumber) {
+        KhachHang customer = null;
+        String sql = "SELECT MaKhachHang, TenKhachHang FROM KhachHang WHERE SDT = ?";
+        try {
+            PreparedStatement ps = XJdbc.preparedStatement(sql);
+            ps.setString(1, phoneNumber);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                customer = new KhachHang();
+                customer.setMaKhachHang(rs.getInt("MaKhachHang"));
+                customer.setTenKhachHang(rs.getString("TenKhachHang"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return customer;
+    }
+
+    public void capNhatKhachHangCu(int maKhCu, int maKhMoi) {
+        Connection conn = null;
+        PreparedStatement pstmtUpdatePhieuDatBan = null;
+        PreparedStatement pstmtDeleteKhachHang = null;
+
+        try {
+            conn = XJdbc.getConnection();
+
+            String updatePhieuDatBanQuery = "UPDATE PhieuDatBan SET MaKhachHang = ? WHERE MaKhachHang = ?";
+            pstmtUpdatePhieuDatBan = conn.prepareStatement(updatePhieuDatBanQuery);
+            pstmtUpdatePhieuDatBan.setInt(1, maKhCu);
+            pstmtUpdatePhieuDatBan.setInt(2, maKhMoi);
+            pstmtUpdatePhieuDatBan.executeUpdate();
+
+            String deleteKhachHangQuery = "DELETE FROM KhachHang WHERE MaKhachHang = ?";
+            pstmtDeleteKhachHang = conn.prepareStatement(deleteKhachHangQuery);
+            pstmtDeleteKhachHang.setInt(1, maKhMoi);
+            pstmtDeleteKhachHang.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to update customer information.", e);
+        } finally {
+            try {
+                if (pstmtUpdatePhieuDatBan != null) {
+                    pstmtUpdatePhieuDatBan.close();
+                }
+                if (pstmtDeleteKhachHang != null) {
+                    pstmtDeleteKhachHang.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException("Failed to close resources.", ex);
+            }
+        }
+    }
+
+    public int insertHoaDon(Date ngayLap, double tienMonAn, int maPhieuDatBan, int maNhanVien) {
+        int maxMaHoaDon = -1;
+        try {
+            String queryInsert = "INSERT INTO HoaDon (NgayLap, TienMonAn, MaPhieuDatBan, MaNhanVien) VALUES (?, ?, ?, ?)";
+            Connection connection = XJdbc.getConnection();
+            PreparedStatement preparedStatementInsert = connection.prepareStatement(queryInsert, Statement.RETURN_GENERATED_KEYS);
+            preparedStatementInsert.setDate(1, ngayLap);
+            preparedStatementInsert.setDouble(2, tienMonAn);
+            preparedStatementInsert.setInt(3, maPhieuDatBan);
+            preparedStatementInsert.setInt(4, maNhanVien);
+            preparedStatementInsert.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatementInsert.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                maxMaHoaDon = generatedKeys.getInt(1);
+            }
+
+            generatedKeys.close();
+            preparedStatementInsert.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return maxMaHoaDon;
     }
 
     public void inserts(int maPDB, ChiTietGoiMon chiTiet) {

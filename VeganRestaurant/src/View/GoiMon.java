@@ -6,6 +6,7 @@ package View;
 
 import Controller.CT_ThongTinDAO;
 import Controller.ChiTietGoiMonDAO;
+import static Controller.DatBanDao.Trong;
 import Controller.ThucDonDAO;
 import Model.CT_ThongTin;
 import Model.ChiTietDatBan;
@@ -15,16 +16,20 @@ import Utils.Auth;
 import Utils.XDate;
 import Utils.XImage;
 import Utils.XJdbc;
+import static View.JDialogTrangThaiDatBan.dbDAO;
+import static View.JPanelTang1.ctThongTIn;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +40,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -51,19 +57,15 @@ public class GoiMon extends javax.swing.JPanel {
     private ThucDonDAO thucDonDAO;
     CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
     private int maPdb;
+    private Date ThoiGianDat;
+    private String maBan;
 
     public GoiMon() {
         initComponents();
         thucDonDAO = new ThucDonDAO(new XJdbc());
         loadThucDonToComboBox();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
-        lblNhanVien.setText(Auth.user.getTenTaiKhoan());
-    }
-    public void setNhanVien (){
-        lblNhanVien.setText(Auth.user.getTenTaiKhoan());
-    }
-    public void setBan(String maBan) {
-        lbmaBan.setText("Bàn " + maBan);
+        lblNhanVien.setText("Nhân viên: " + Auth.user.getTenTaiKhoan());
     }
 
     public void MaPDB(int MaPDB) {
@@ -374,16 +376,36 @@ public class GoiMon extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         capNhatChiTietGoiMon();
+        JOptionPane.showMessageDialog(this, "Đã lưu thông tin vào bảng ChiTietGM.");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if (!checkKHtrong()) {
+            String SDT = JOptionPane.showInputDialog(this, "Vui lòng nhập số điện thoại khách hàng!\n Có thể bỏ qua!");
+            if(SDT.equalsIgnoreCase("")){
+                
+            }
+            String tenKh = JOptionPane.showInputDialog(this, "Vui lòng nhập tên Khách Hàng!");
+        }
         capNhatChiTietGoiMon();
         themVaoHoaDon();
     }//GEN-LAST:event_jButton2ActionPerformed
     private void hienThiDanhSachMonAn(String loaiMon) {
         List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
         hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
+    }
+
+    public void setBan() {
+        List<Integer> listSoBan = ctThongTIn.dsBanTheoPDB(maPdb);
+
+        if (!listSoBan.isEmpty()) {
+            String maBanText = "Bàn: ";
+            for (Integer maBan : listSoBan) {
+                maBanText += maBan + " ";
+            }
+            lbmaBan.setText(maBanText);
+        }
     }
 
     private void capNhatChiTietGoiMon() {
@@ -406,11 +428,28 @@ public class GoiMon extends javax.swing.JPanel {
             ctgmDAO.inserts(maPdb, chiTiet);
         }
 
-        JOptionPane.showMessageDialog(this, "Đã lưu thông tin vào bảng ChiTietGM.");
     }
 
     private void themVaoHoaDon() {
-
+        int mahd = 0;
+        try {
+            java.sql.Date ngayLap = new java.sql.Date(ThoiGianDat.getTime());
+            double tienMonAn = Double.parseDouble(lblTongTien.getText().replaceAll("[^\\d.]+", ""));
+            int maPhieuDatBan = maPdb;
+            int maNhanVien = Auth.user.getMaNhanVien();
+            ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
+            mahd = ctgmDAO.insertHoaDon(ngayLap, tienMonAn, maPhieuDatBan, maNhanVien);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi thêm vào hóa đơn!");
+        }
+        Window window = SwingUtilities.getWindowAncestor(this);
+        window.dispose();
+        dbDAO.updateTrangThai(Trong, maBan);
+        ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
+        jdialog.layMaHoaDon(mahd);
+        jdialog.setVisible(true);
+        jdialog.setLocationRelativeTo(null);
     }
 
     private void hienThiDanhSachMonAnUI(List<MonAn> danhSachMonAn) {
@@ -461,6 +500,13 @@ public class GoiMon extends javax.swing.JPanel {
 
         pnlMonAn.revalidate();
         pnlMonAn.repaint();
+    }
+
+    private boolean checkKHtrong() {
+        if (lblKhachHang.getText().equalsIgnoreCase("Khách hàng: [Không rõ]")) {
+            return false;
+        }
+        return true;
     }
 
     private void hienThiThongTinMonAn(MonAn monAn) {
@@ -515,6 +561,7 @@ public class GoiMon extends javax.swing.JPanel {
     }
 
     public void filltableCoSan(int maPDB) {
+        setBan();
         ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
         List<ChiTietGoiMon> listGoiMon = ctgmDAO.selectByMaPhieuDatBan(maPDB);
 
@@ -560,6 +607,7 @@ public class GoiMon extends javax.swing.JPanel {
                 lblKhachHang.setText("Khách hàng: [Không rõ]");
             }
             lblThoiGian.setText("Thời gian: " + XDate.toString(ctgm.getThoiGianDat(), "dd-MM-yyyy / HH:mm"));
+            ThoiGianDat = ctgm.getThoiGianDat();
         } else {
             lblKhachHang.setText("Khách hàng: [Không rõ]");
             lblThoiGian.setText("Thời gian: [Không rõ]");
