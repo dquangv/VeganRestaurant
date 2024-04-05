@@ -157,7 +157,6 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         dialog.setVisible(true);
 //        dialogGoiMon.filltableCoSan(MaPDB);
         dialogGoiMon.setKHvaTG(MaPDB);
-        dialogGoiMon.setBan(maBan);
         dialogGoiMon.filltableCoSan(MaPDB);
     }//GEN-LAST:event_lbThemMonMouseClicked
 

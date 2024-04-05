@@ -124,6 +124,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
             MsgBox.alert(this, "Lưu Hóa Đơn Thành Công!");
         } catch (Exception e) {
+            e.printStackTrace();
             MsgBox.alert(this, "Lưu Hóa Đơn Thất Bại");
         }
     }

@@ -33,6 +33,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
 
     }
 
+   
     public static void thayDoiMauButton(JButton btn[]) {
         for (int i = 0; i < btn.length; i++) {
             if (listBT.contains(btn[i])) {

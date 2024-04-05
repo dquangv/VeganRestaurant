@@ -36,13 +36,35 @@ public class JPanelTang1 extends javax.swing.JPanel {
     public static List<Integer> listSo = new ArrayList<>();
     public static List<Integer> listSoBan = new ArrayList<>();
 
-    public static void thayDoiMauButton(List<JButton> btn) {
-        for (int i = 0; i < btn.size(); i++) {
-            if (listBT.contains(btn.get(i))) {
-                btn.get(i).setBackground(Color.yellow);
+    public static void thayDoiMauButton(JButton btn[]) {
+        for (int i = 0; i < btn.length; i++) {
+            if (listBT.contains(btn[i])) {
+                btn[i].setBackground(Color.yellow);
             } else {
-                btn.get(i).setBackground(Color.PINK);
+                btn[i].setBackground(Color.PINK);
             }
+        }
+    }
+
+    public static void setButton(int maBan) {
+        JButton button = timButtonByMaBan(maBan);
+        if (button != null) {
+            boolean found = false;
+            for (JButton btn : listBT) {
+                if (btn.equals(button)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                listBT.removeIf(i -> i.equals(button));
+                System.out.println("da xoa nut " + maBan);
+            } else {
+                listBT.add(button);
+                System.out.println("da them nut  " + maBan);
+            }
+            thayDoiMauButton(new JButton[]{button});
+            System.out.println(listBT.size());
         }
     }
 
@@ -77,25 +99,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         return MaPDB;
     }
 
-    public static void setButton(int maBan) {
-        JButton button = timButtonByMaBan(maBan);
-        if (button != null) {
-            boolean found = false;
-            for (JButton btn : listBT) {
-                if (btn.equals(button)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                listBT.removeIf(i -> i.equals(button));
-            } else {
-                listBT.add(button);
-            }
-            thayDoiMauButton(listBT);
-            System.out.println(listBT.size());
-        }
-    }
+  
 
     static void timMaBanByButton(Integer maBan) {
         boolean found = false;
