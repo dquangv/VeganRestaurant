@@ -8,6 +8,7 @@ import Controller.ChuyenManHinh;
 import Controller.DatBanDao;
 import Controller.PhieuDatBanDao;
 import Utils.MsgBox;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,7 +20,7 @@ import javax.swing.JDialog;
 public class JDiaLogDangPhucVu extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
-
+    List<Integer> maBan = new ArrayList<>();
     /**
      * Creates new form JDiaLogDangPhucVu
      */
@@ -30,6 +31,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     }
 
     public void setBan(List<Integer> maBanList) {
+        maBan = maBanList;
         if (!maBanList.isEmpty()) {
             String maBanText = "Bàn: ";
             for (Integer maBan : maBanList) {
@@ -120,14 +122,14 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbThemMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThemMonMouseClicked
-        String maBan = lbMaBan.getText().substring(5);
+        int maBann = maBan.get(0);
         System.out.println(maBan);
         this.setVisible(false);
         PhieuDatBanDao pdb = new PhieuDatBanDao();
-        int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
+        int MaPDB = pdb.SelectMaPDB(maBann);
         boolean foundButton = false;
         JButton button;
-        button = JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan));
+        button = JPanelTang1.timButtonByMaBan(maBann);
         if (button != null) {
             button.setToolTipText(MaPDB + "");
             MaPDB = Integer.parseInt(button.getToolTipText());
@@ -135,7 +137,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         }
 
         if (!foundButton) {
-            button = JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan));
+            button = JPanelTang2.timButtonByMaBan(maBann);
             if (button != null) {
                 button.setToolTipText(MaPDB + "");
                 MaPDB = Integer.parseInt(button.getToolTipText());
@@ -144,7 +146,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         }
 
         if (!foundButton) {
-            button = JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan));
+            button = JPanelTang3.timButtonByMaBan(maBann);
             if (button != null) {
                 button.setToolTipText(MaPDB + "");
                 MaPDB = Integer.parseInt(button.getToolTipText());
