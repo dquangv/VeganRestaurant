@@ -391,7 +391,14 @@ public class JPanelDatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDatBanActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        for (Integer ma : JPanelTang1.listSo) {
+               thayDoiTrangThai(ma.toString());
+        }
+        MsgBox.alert(this, "Các bàn "+JPanelTang1.listSo+"đã chuyên sang bảo trì");
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
+        JPanelTang1.listSo.clear();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     public void insert(int maMaxKH, int maMaxPbd, int maBan) {
@@ -414,7 +421,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         pdbDAO.setMaxPDB(maMaxPbd);
         pdb.setThoiGianDat(new Date());
         pdb.setMaKhachHang(maMaxKH + 1);
-        pdbDAO.insert_null(pdb);
+        pdbDAO.insert_null(pdb); 
         return maMaxPbd;
     }
 

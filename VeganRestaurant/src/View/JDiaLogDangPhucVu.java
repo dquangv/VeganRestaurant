@@ -8,6 +8,7 @@ import Controller.ChuyenManHinh;
 import Controller.DatBanDao;
 import Controller.PhieuDatBanDao;
 import Utils.MsgBox;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -28,10 +29,18 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
     }
 
-    public void setBan(int maBan) {
-        lbmaBan.setText("Bàn: " + maBan);
-    }
+    public void setBan(List<Integer> maBanList) {
+        if (!maBanList.isEmpty()) {
+            String maBanText = "Bàn: ";
+            for (Integer maBan : maBanList) {
+                maBanText += maBan + " ";
+            }
+            lbMaBan.setText(maBanText);
+        } else {
 
+        }
+//        layMaBan(maBan);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,16 +50,16 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbmaBan = new javax.swing.JLabel();
+        lbMaBan = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lbThemMon = new javax.swing.JLabel();
         lbThanhToans = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lbmaBan.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lbmaBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbmaBan.setText("Ban: 1");
+        lbMaBan.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lbMaBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbMaBan.setText("Ban: 1");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 255, 51));
@@ -85,27 +94,20 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbThemMon))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbThanhToans))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbThemMon)
+                    .addComponent(lbThanhToans))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lbMaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(lbmaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbThemMon)
@@ -118,7 +120,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbThemMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThemMonMouseClicked
-        String maBan = lbmaBan.getText().substring(5);
+        String maBan = lbMaBan.getText().substring(5);
         System.out.println(maBan);
         this.setVisible(false);
         PhieuDatBanDao pdb = new PhieuDatBanDao();
@@ -214,9 +216,9 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbMaBan;
     private javax.swing.JLabel lbThanhToans;
     private javax.swing.JLabel lbThemMon;
-    private javax.swing.JLabel lbmaBan;
     // End of variables declaration//GEN-END:variables
      public void thayDoiTrangThai(String maBan) {
         dbDAO.updateTrangThai(DatBanDao.Trong, maBan);
