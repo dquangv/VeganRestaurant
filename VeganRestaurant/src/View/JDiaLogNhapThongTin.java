@@ -195,6 +195,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                 JPanelTang2.TrangThaiBan();
                 JPanelTang3.TrangThaiBan();
                 JPanelTang1.listSo.clear();
+                JPanelTang1.listBT.clear();
 
             } else {
                 this.dispose();
