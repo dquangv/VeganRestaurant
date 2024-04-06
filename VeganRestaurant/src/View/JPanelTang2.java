@@ -598,7 +598,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
 
     }
 
-    void showDiaLogDangPhucVu(int maBan) {
+    void showDiaLogDangPhucVu(List<Integer> maBan) {
         JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(new javax.swing.JFrame(), true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
@@ -616,7 +616,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
                         timMaBanByButton(maBan);
                         return;
                     case DatBanDao.DANG_PHUC_VU:
-                        showDiaLogDangPhucVu(maBan);
+                        showDiaLogDangPhucVu(listSoBan);
                         break;
                     case DatBanDao.DA_DAT:
                         showDiaLogTrangThaiDaDat(listSoBan);

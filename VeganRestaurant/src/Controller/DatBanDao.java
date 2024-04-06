@@ -68,6 +68,19 @@ public class DatBanDao {
             throw new RuntimeException(e);
         }
     }
+    
+    public void huyDatBan(int maPhieuDatBan){
+        String SQLXoa1 =" Delete From ChiTietDatBan where MaPhieuDatBan = ?";
+        String SQL =" Delete From PhieuDatBan where MaPhieuDatBan = ?";
+        try {
+            XJdbc.executeUpdate(SQLXoa1, maPhieuDatBan);
+            System.out.println("Xoa CTDB");
+            XJdbc.executeUpdate(SQL, maPhieuDatBan);
+            System.out.println("Xoa PDB");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateTrangThai(String trangTrai, String maBan) {
         try {

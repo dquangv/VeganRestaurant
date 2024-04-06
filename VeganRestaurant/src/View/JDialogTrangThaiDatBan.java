@@ -23,6 +23,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     static DatBanDao dbDAO = new DatBanDao();
     static CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
     int maBan;
+    PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
 
     /**
      * Creates new form JDialogTrangThaiDatBan
@@ -156,6 +157,10 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
 
     private void lbHuyDatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHuyDatBanMouseClicked
 //        String maBan = lbMaBan.getText().substring(5);
+        int maPDB = 0;
+        maPDB = pdbDAO.SelectMaPDB(JPanelTang1.listSoBan.get(0));
+        System.out.println(maPDB);
+        dbDAO.huyDatBan(maPDB);
         for (Integer ma : JPanelTang1.listSoBan) {
             thayDoiTrangThai(ma.toString());
         }
@@ -170,7 +175,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
 //        String maBan = lbMaBan.getText().substring(5);
         for (Integer ma : JPanelTang1.listSoBan) {
-        thayDoiTrangThaiBDPV(ma.toString());
+            thayDoiTrangThaiBDPV(ma.toString());
         }
         this.setVisible(false);
         MsgBox.alert(this, "Bất đầu  phục vụ");
