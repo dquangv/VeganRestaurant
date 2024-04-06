@@ -6,28 +6,21 @@ package View;
 
 import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
+import static Controller.DatBanDao.BAO_TRI;
 import Controller.KhachHangDAO;
 import Controller.KhachHangDBDao;
 import Controller.PhieuDatBanDao;
 import Model.ChiTietDatBan;
 import Model.PhieuDatBan;
 import Utils.MsgBox;
-import static View.JPanelTang1.timButtonByMaBan;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import org.bridj.objc.NSNumber;
 
 /**
  *
@@ -270,7 +263,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                                 .addComponent(jButton1)
                                 .addGap(42, 42, 42)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -320,7 +312,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 case "Tầng 1":
                     jPanel3.removeAll();
                     jPanel3.add(new JPanelTang1());
-                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
+//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
                     jPanel3.updateUI();
                     jPanel3.setLayout(new FlowLayout());
                     break;
@@ -376,6 +368,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             JPanelTang1.TrangThaiBan();
             JPanelTang2.TrangThaiBan();
             JPanelTang3.TrangThaiBan();
+            JPanelTang1.listSo.clear();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -467,5 +460,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             kt = 0;
         }
     }
-
+      public void thayDoiTrangThai(String maBan) {
+        dBDao.updateTrangThai(BAO_TRI, maBan);
+    }
 }

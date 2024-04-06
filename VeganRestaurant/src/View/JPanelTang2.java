@@ -30,44 +30,24 @@ public class JPanelTang2 extends javax.swing.JPanel {
         initComponents();
         TrangThaiBan();
         System.out.println("tang 2");
+        thayDoiMauButton();
 
     }
 
-   
-    public static void thayDoiMauButton(JButton btn[]) {
-        for (int i = 0; i < btn.length; i++) {
-            if (listBT.contains(btn[i])) {
-                btn[i].setBackground(Color.yellow);
-            } else {
-                btn[i].setBackground(Color.PINK);
+   public static void thayDoiMauButton() {
+        for (Integer ma : listSo) {
+            if (!listSo.isEmpty()) {
+                JButton button = timButtonByMaBan(ma);
+                if (button != null) {
+                    button.setBackground(Color.yellow);
+                } 
             }
-        }
-    }
-
-    public static void setButton(int maBan) {
-        JButton button = timButtonByMaBan(maBan);
-        if (button != null) {
-            boolean found = false;
-            for (JButton btn : listBT) {
-                if (btn.equals(button)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                listBT.removeIf(i -> i.equals(button));
-                System.out.println("da xoa nut " + maBan);
-            } else {
-                listBT.add(button);
-                System.out.println("da them nut  " + maBan);
-            }
-            thayDoiMauButton(new JButton[]{button});
-            System.out.println(listBT.size());
         }
     }
 
     static void timMaBanByButton(Integer maBan) {
         boolean found = false;
+        JButton button = timButtonByMaBan(maBan);
         for (Integer indexMaBan : listSo) {
             if (indexMaBan.equals(maBan)) {
                 found = true;
@@ -76,16 +56,38 @@ public class JPanelTang2 extends javax.swing.JPanel {
         }
         if (found) {
             listSo.removeIf(i -> i.equals(maBan));
-            System.out.println("da xoa so " + maBan);
+            button.setBackground(Color.pink);
         } else {
             listSo.add(maBan);
-            System.out.println("da them so " + maBan);
-        }
-        for (Integer so : listSo) {
-            System.out.print(so + " ");
+            button.setBackground(Color.yellow);
         }
     }
 
+//    public static void setButton(int maBan) {
+//        JButton button = timButtonByMaBan(maBan);
+//        if (button != null) {
+//            boolean found = false;
+//            for (JButton btn : listBT) {
+//                if (btn.equals(button)) {
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (found) {
+//                listBT.remove(button);
+//                button.setBackground(Color.PINK);
+//                System.out.println("Đã xóa nút " + maBan);
+//            } else {
+//                listBT.add(button);
+//                button.setBackground(Color.yellow);
+//                System.out.println("Đã thêm nút " + maBan);
+//            }
+//            thayDoiMauButton(); // Cập nhật màu sắc của tất cả các JButton trong listBT
+//            System.out.println("Số lượng nút: " + listBT.size());
+//        }
+//    }
+//
+//   
     public int getMaPDB(String maBan) {
         PhieuDatBanDao pdb = new PhieuDatBanDao();
         int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
@@ -610,7 +612,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
             if ((maBan == maBanDB)) {
                 switch (trangThai) {
                     case DatBanDao.Trong:
-                        setButton(maBan);
+//                        setButton(maBan);
                         timMaBanByButton(maBan);
                         return;
                     case DatBanDao.DANG_PHUC_VU:

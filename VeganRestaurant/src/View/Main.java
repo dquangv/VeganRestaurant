@@ -33,6 +33,7 @@ import net.sf.jasperreports.engine.json.parser.JsonQueryParserTokenTypes;
  * @author Võ Thanh Tùng
  */
 public class Main {
+
     int maPDB;
 
     public int getMaPDB() {
@@ -63,6 +64,7 @@ public class Main {
 
     JPanel pnTKDoanhThu = new JPanel();
     JPanel pnTKMonAn = new JPanel();
+    JPanel pnTKDanhGia = new JPanel();
 
     JLabel lblHeThong = new JLabel("Hệ thống");
     JLabel lblQuanLy = new JLabel("Quản lý");
@@ -70,6 +72,7 @@ public class Main {
 
     JLabel lblThongKeDoanhThu = new JLabel("Doanh thu");
     JLabel lblThongKeMonAn = new JLabel("Món ăn");
+    JLabel lblThongDanhGia = new JLabel("Đánh giá");
 
     JLabel lbVaiTro = new JLabel("Quản lý: Võ Thanh Tùng");
 
@@ -518,9 +521,10 @@ public class Main {
 
 // Phương thức mở các panel
     void moCacPanelThongKe() {
-        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
-        Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
-
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK);
+        Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 2, 1, 1, Color.BLACK);
+        Border bottomBordertkdg = BorderFactory.createMatteBorder(0, 2, 2, 1, Color.BLACK);
+        
         pnTKDoanhThu.setBackground(new Color(196, 185, 185));
         pnTKDoanhThu.setOpaque(true);
         pnTKDoanhThu.setBorder(bottomBorder);
@@ -529,23 +533,33 @@ public class Main {
         pnTKMonAn.setOpaque(true);
         pnTKMonAn.setBorder(bottomBorderDanhGia);
 
+        pnTKDanhGia.setBackground(new Color(196, 185, 185));
+        pnTKDanhGia.setOpaque(true);
+        pnTKDanhGia.setBorder(bottomBordertkdg);
+        
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnTKDoanhThu);
 
         pnView.add(pnTKMonAn);
+        pnView.add(pnTKDanhGia);
 
         pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnKhachHang.getHeight());
-        pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnThongKe.getHeight());
+        pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth()+1, pnThongKe.getHeight());
+        pnTKDanhGia.setBounds(pnThongKe.getWidth() * 2, pnHeThong.getHeight() *  2+1, pnThongKe.getWidth(), pnThongKe.getHeight());
 
         pnTKDoanhThu.add(lblThongKeDoanhThu);
         pnTKMonAn.add(lblThongKeMonAn);
+        pnTKDanhGia.add(lblThongDanhGia);
 
         lblThongKeDoanhThu.setFont(new Font("Arial", Font.BOLD, 30));
         lblThongKeDoanhThu.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         lblThongKeMonAn.setFont(new Font("Arial", Font.BOLD, 30));
         lblThongKeMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+
+        lblThongDanhGia.setFont(new Font("Arial", Font.BOLD, 30));
+        lblThongDanhGia.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         // Sử dụng Thread để tạo hiệu ứng di chuyển từ trên xuống dưới
         new Thread(() -> {
@@ -557,8 +571,10 @@ public class Main {
                 }
                 pnMenuCon2.setComponentZOrder(pnTKDoanhThu, 0);
                 pnView.setComponentZOrder(pnTKMonAn, 0);
-                pnTKDoanhThu.setLocation(pnQuanLy.getWidth() * 2, y); // Di chuyển panel DoiMatKhau
-                pnTKMonAn.setLocation(pnQuanLy.getWidth() * 2, y); // Di chuyển panel DangXuat
+                pnView.setComponentZOrder(pnTKDanhGia, 0); // Thay đổi chỉ số z-order của panel Thống kê Đánh giá
+                pnTKDoanhThu.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel Thống kê Doanh thu
+                pnTKMonAn.setLocation(pnThongKe.getWidth() * 2-1, y); // Di chuyển panel Thống kê Món Ăn
+                pnTKDanhGia.setLocation(pnThongKe.getWidth() * 2-1, pnTKMonAn.getY() + pnTKMonAn.getHeight()); // Di chuyển panel Thống kê Đánh giá
             }
         }).start();
         fr.revalidate();
@@ -568,7 +584,7 @@ public class Main {
 // Phương thức mở các panel
     void moCacPanel() {
         Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
-        Border bottomBorderDangXuat = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
+        Border bottomBorderDangXuat = BorderFactory.createMatteBorder(0, 1, 2, 0, Color.BLACK);
         fr.setLayout(null);
         pnDoiMatKhau.setBackground(new Color(196, 185, 185));
         pnDoiMatKhau.setOpaque(true);
@@ -618,8 +634,8 @@ public class Main {
     }
 
     void moCacPanelQuanLy() {
-        Border bottomBorder = BorderFactory.createMatteBorder(0, 1, 0, 1, Color.BLACK);
-        Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 2, 1, Color.BLACK);
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK);
+        Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK);
 
         pnNhanVien.setBackground(new Color(196, 185, 185));
         pnNhanVien.setOpaque(true);
@@ -636,7 +652,7 @@ public class Main {
         pnView.add(pnDanhGia);
 
         pnNhanVien.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), pnKhachHang.getHeight());
-        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), pnKhachHang.getHeight());
+        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnNhanVien.getWidth()+1, pnKhachHang.getHeight());
 
         pnNhanVien.add(lblNhanVien);
         pnDanhGia.add(lblDanhGia);
@@ -658,7 +674,7 @@ public class Main {
                 pnMenuCon2.setComponentZOrder(pnNhanVien, 0);
                 pnView.setComponentZOrder(pnDanhGia, 0);
                 pnNhanVien.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DoiMatKhau
-                pnDanhGia.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DangXuat
+                pnDanhGia.setLocation(pnNhanVien.getWidth()-1, y); // Di chuyển panel DangXuat
             }
         }).start();
         fr.revalidate();
@@ -715,11 +731,13 @@ public class Main {
                 }
                 pnTKDoanhThu.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel DoiMatKhau
                 pnTKMonAn.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel DangXuat
+                pnTKDanhGia.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel DangXuat
             }
 
             // Sau khi di chuyển hoàn tất, loại bỏ các panel khỏi pnMenuCon2 và pnView
             pnMenuCon2.remove(pnTKDoanhThu);
             pnView.remove(pnTKMonAn);
+            pnView.remove(pnTKDanhGia);
         }).start();
         fr.revalidate();
         fr.repaint();
@@ -749,6 +767,7 @@ public class Main {
         panels.add(pnThongKe);
         panels.add(pnTKDoanhThu);
         panels.add(pnTKMonAn);
+        panels.add(pnTKDanhGia);
         suKienDaBamVaoHeThong(panels);
         suKienThayMauHeThong(panels);
     }
@@ -771,6 +790,7 @@ public class Main {
         panels.add(pnThongKe);
         panels.add(pnTKDoanhThu);
         panels.add(pnTKMonAn);
+        panels.add(pnTKDanhGia);
         suKienRoiChuotThanhConTro(panels);
     }
 

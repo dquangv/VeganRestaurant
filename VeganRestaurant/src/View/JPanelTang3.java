@@ -30,40 +30,59 @@ public class JPanelTang3 extends javax.swing.JPanel {
     public JPanelTang3() {
         initComponents();
         TrangThaiBan();
-
+        thayDoiMauButton();
     }
 
-    public static void thayDoiMauButton(JButton btn[]) {
-        for (int i = 0; i < btn.length; i++) {
-            if (listBT.contains(btn[i])) {
-                btn[i].setBackground(Color.yellow);
-            } else {
-                btn[i].setBackground(Color.PINK);
+    public static void thayDoiMauButton() {
+        for (Integer ma : listSo) {
+            if (!listSo.isEmpty()) {
+                JButton button = timButtonByMaBan(ma);
+                if (button != null) {
+                    button.setBackground(Color.yellow);
+                } 
             }
         }
     }
 
-    public static void setButton(int maBan) {
+    static void timMaBanByButton(Integer maBan) {
+        boolean found = false;
         JButton button = timButtonByMaBan(maBan);
-        if (button != null) {
-            boolean found = false;
-            for (JButton btn : listBT) {
-                if (btn.equals(button)) {
-                    found = true;
-                    break;
-                }
+        for (Integer indexMaBan : listSo) {
+            if (indexMaBan.equals(maBan)) {
+                found = true;
+                break;
             }
-            if (found) {
-                listBT.removeIf(i -> i.equals(button));
-                System.out.println("da xoa nut " + maBan);
-            } else {
-                listBT.add(button);
-                System.out.println("da them nut  " + maBan);
-            }
-            thayDoiMauButton(new JButton[]{button});
-            System.out.println(listBT.size());
+        }
+        if (found) {
+            listSo.removeIf(i -> i.equals(maBan));
+            button.setBackground(Color.pink);
+        } else {
+            listSo.add(maBan);
+            button.setBackground(Color.yellow);
         }
     }
+//
+//    public static void setButton(int maBan) {
+//        JButton button = timButtonByMaBan(maBan);
+//        if (button != null) {
+//            boolean found = false;
+//            for (JButton btn : listBT) {
+//                if (btn.equals(button)) {
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (found) {
+//                listBT.removeIf(i -> i.equals(button));
+//                System.out.println("da xoa nut " + maBan);
+//            } else {
+//                listBT.add(button);
+//                System.out.println("da them nut  " + maBan);
+//            }
+//            thayDoiMauButton(new JButton[]{button});
+//            System.out.println(listBT.size());
+//        }
+//    }
 
     public int getMaPDB(String maBan) {
         PhieuDatBanDao pdb = new PhieuDatBanDao();
@@ -96,26 +115,25 @@ public class JPanelTang3 extends javax.swing.JPanel {
         return MaPDB;
     }
 
-    static void timMaBanByButton(Integer maBan) {
-        boolean found = false;
-        for (Integer indexMaBan : listSo) {
-            if (indexMaBan.equals(maBan)) {
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            listSo.removeIf(i -> i.equals(maBan));
-            System.out.println("da xoa so " + maBan);
-        } else {
-            listSo.add(maBan);
-            System.out.println("da them so " + maBan);
-        }
-        for (Integer so : listSo) {
-            System.out.print(so + " ");
-        }
-    }
-
+//    static void timMaBanByButton(Integer maBan) {
+//        boolean found = false;
+//        for (Integer indexMaBan : listSo) {
+//            if (indexMaBan.equals(maBan)) {
+//                found = true;
+//                break;
+//            }
+//        }
+//        if (found) {
+//            listSo.removeIf(i -> i.equals(maBan));
+//            System.out.println("da xoa so " + maBan);
+//        } else {
+//            listSo.add(maBan);
+//            System.out.println("da them so " + maBan);
+//        }
+//        for (Integer so : listSo) {
+//            System.out.print(so + " ");
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -391,10 +409,10 @@ public class JPanelTang3 extends javax.swing.JPanel {
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, 29);
-        dialog.layMaBan(29);
-        int PDB = getMaPDB("29");
+        dialog.layMaBan(28);
+        int PDB = getMaPDB("28");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
-        kiemTraTrangThaiBan(29);
+        kiemTraTrangThaiBan(28);
 
     }//GEN-LAST:event_btnban4ActionPerformed
 
@@ -610,7 +628,7 @@ public class JPanelTang3 extends javax.swing.JPanel {
             if ((maBan == maBanDB)) {
                 switch (trangThai) {
                     case DatBanDao.Trong:
-                        setButton(maBan);
+//                        setButton(maBan);
                         timMaBanByButton(maBan);
                         return;
                     case DatBanDao.DANG_PHUC_VU:
