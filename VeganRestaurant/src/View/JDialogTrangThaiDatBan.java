@@ -155,20 +155,25 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbHuyDatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHuyDatBanMouseClicked
-        String maBan = lbMaBan.getText().substring(5);
+//        String maBan = lbMaBan.getText().substring(5);
+        for (Integer ma : JPanelTang1.listSoBan) {
+            thayDoiTrangThai(ma.toString());
+        }
         MsgBox.alert(this, "Đã hũy bàn thành công");
-        thayDoiTrangThai(JPanelTang1.listSo);
         this.setVisible(false);
+        JPanelDatBan.fillToTable();
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
     }//GEN-LAST:event_lbHuyDatBanMouseClicked
 
     private void lbBDPVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBDPVMouseClicked
-        String maBan = lbMaBan.getText().substring(5);
-        MsgBox.alert(this, "Bất đầu  phục vụ");
-        thayDoiTrangThaiBDPV(maBan);
+//        String maBan = lbMaBan.getText().substring(5);
+        for (Integer ma : JPanelTang1.listSoBan) {
+        thayDoiTrangThaiBDPV(ma.toString());
+        }
         this.setVisible(false);
+        MsgBox.alert(this, "Bất đầu  phục vụ");
         JPanelDatBan.fillToTable();
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
@@ -230,8 +235,8 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbThoiGian;
     private javax.swing.JLabel lbTrangThai;
     // End of variables declaration//GEN-END:variables
-     public void thayDoiTrangThai(List<Integer> maBan) {
-        dbDAO.updateTrangThai(Trong, maBan.toString());
+     public void thayDoiTrangThai(String maBan) {
+        dbDAO.updateTrangThai(Trong, maBan);
     }
 
     public void thayDoiTrangThaiBDPV(String maBan) {
@@ -246,11 +251,6 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
             lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
             lbSDT.setText("SDT: " + cttt.getSDT());
             lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
-            System.out.println(lbTenKhachHang.getText()+ "font");
-            System.out.println(cttt.getTenKhachHang() + "ten");
-            System.out.println(cttt.getSDT() + "sdt");
-            System.out.println(XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
-            System.out.println(maPDB);
             this.revalidate();
             this.repaint();
         }
