@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Window;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -129,6 +130,7 @@ public class GoiMon extends javax.swing.JPanel {
         cbbLoaiMon = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlMonAn = new javax.swing.JPanel();
+        txtTimKiem = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 0, 0));
 
@@ -246,7 +248,7 @@ public class GoiMon extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlThanhToanLayout.createSequentialGroup()
                         .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                             .addGroup(pnlThanhToanLayout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,7 +307,7 @@ public class GoiMon extends javax.swing.JPanel {
         pnlMonAn.setLayout(pnlMonAnLayout);
         pnlMonAnLayout.setHorizontalGroup(
             pnlMonAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 682, Short.MAX_VALUE)
+            .addGap(0, 684, Short.MAX_VALUE)
         );
         pnlMonAnLayout.setVerticalGroup(
             pnlMonAnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,6 +315,24 @@ public class GoiMon extends javax.swing.JPanel {
         );
 
         jScrollPane1.setViewportView(pnlMonAn);
+
+        txtTimKiem.setText("Tìm kiếm");
+        txtTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtTimKiemMouseExited(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -323,17 +343,25 @@ public class GoiMon extends javax.swing.JPanel {
                 .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(107, 107, 107)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(cbbLoaiMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -383,23 +411,23 @@ public class GoiMon extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         Model.KhachHang kh;
-        if (!checkKHtrong()) { 
+        if (!checkKHtrong()) {
             String SDT = JOptionPane.showInputDialog(this, "Vui lòng nhập số điện thoại khách hàng!\n Có thể bỏ qua!");
-            if (SDT == null || SDT.trim().isEmpty()) { 
+            if (SDT == null || SDT.trim().isEmpty()) {
                 xoaKHwithoutInfo(ctgmDAO.getMaKHMoibyPDB(maPdb));
             } else {
                 kh = ctgmDAO.getCustomerByPhoneNumber(SDT);
-                if (kh != null) { 
+                if (kh != null) {
                     int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + kh.getTenKhachHang() + ". \nBạn có muốn sử dụng thông tin của khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
                     if (option == JOptionPane.YES_OPTION) {
                         int makh = kh.getMaKhachHang();
                         capNhatKhCu(makh, ctgmDAO.getMaKHMoibyPDB(maPdb));
                     } else {
-                        jButton2ActionPerformed(evt); 
+                        jButton2ActionPerformed(evt);
                         return;
                     }
-                } else { 
+                } else {
                     String tenKh = JOptionPane.showInputDialog(this, "Vui lòng nhập tên Khách Hàng!");
                     capNhatKhMoi(ctgmDAO.getMaKHMoibyPDB(maPdb), tenKh, SDT);
                 }
@@ -409,6 +437,44 @@ public class GoiMon extends javax.swing.JPanel {
         capNhatChiTietGoiMon();
         themVaoHoaDon();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+//        String tuKhoa = txtTimKiem.getText().trim();
+//
+//        // Lọc danh sách món ăn theo từ khóa
+//        List<MonAn> danhSachLoc = thucDonDAO.layDanhSachMonTheoTuKhoa(tuKhoa);
+//
+//        // Hiển thị danh sách món ăn đã lọc trên giao diện
+//        hienThiDanhSachMonAnUI(danhSachLoc);
+    }//GEN-LAST:event_txtTimKiemKeyReleased
+
+    private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
+        // TODO add your handling code here:
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            // Lấy từ khóa từ ô tìm kiếm
+            String tuKhoa = txtTimKiem.getText().trim();
+
+            // Lọc danh sách món ăn theo từ khóa
+            List<MonAn> danhSachLoc = thucDonDAO.layDanhSachMonTheoTuKhoa(tuKhoa);
+
+            // Hiển thị danh sách món ăn đã lọc trên giao diện
+            hienThiDanhSachMonAnUI(danhSachLoc);
+            txtTimKiem.setText("Tìm kiếm");
+            txtTimKiem.setFocusable(false);
+        }
+    }//GEN-LAST:event_txtTimKiemKeyTyped
+
+    private void txtTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseClicked
+        // TODO add your handling code here:
+        txtTimKiem.setFocusable(true);
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_txtTimKiemMouseClicked
+
+    private void txtTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseExited
+        // TODO add your handling code here:
+//        txtTimKiem.setText("Tìm kiếmZ");
+    }//GEN-LAST:event_txtTimKiemMouseExited
     private void hienThiDanhSachMonAn(String loaiMon) {
         List<MonAn> danhSachMonTheoLoai = thucDonDAO.layDanhSachMonTheoLoai(loaiMon);
         hienThiDanhSachMonAnUI(danhSachMonTheoLoai);
@@ -487,7 +553,7 @@ public class GoiMon extends javax.swing.JPanel {
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
         jdialog.setVisible(true);
-        jdialog.setLocationRelativeTo(null);
+        jdialog.setLocationRelativeTo(this);
     }
 
     private void hienThiDanhSachMonAnUI(List<MonAn> danhSachMonAn) {
@@ -692,6 +758,7 @@ public class GoiMon extends javax.swing.JPanel {
     private javax.swing.JLabel lbmaBan;
     private javax.swing.JPanel pnlMonAn;
     private javax.swing.JPanel pnlThanhToan;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -130,6 +130,25 @@ public class ThucDonDAO {
         return danhSachMonAn;
     }
 
+    public List<MonAn> layDanhSachMonTheoTuKhoa(String tuKhoa) {
+        String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon, MonAn.HinhAnh, MonAn.TrangThai "
+                + "FROM MonAn "
+                + "JOIN LoaiMon ON MonAn.MaLoaiMon = LoaiMon.MaLoaiMon "
+                + "WHERE MonAn.TenMonAn LIKE ? AND MonAn.TrangThai = N'Hoạt Động'";
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+        try (ResultSet resultSet = xJdbc.executeQuery(sql, "%" + tuKhoa + "%")) {
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSet(resultSet);
+                danhSachMonAn.add(monAn);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    }
+
     public List<MonAn> layDanhSachMonAnTheoMaThucDon(int maThucDon) {
         String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "

@@ -6,6 +6,7 @@ package View;
 
 import Controller.ChiTietDatBan_DAO;
 import Controller.DatBanDao;
+import static Controller.DatBanDao.BAO_TRI;
 import static Controller.DatBanDao.DANG_PHUC_VU;
 import Controller.KhachHangDAO;
 import Controller.KhachHangDBDao;
@@ -229,6 +230,11 @@ public class JPanelDatBan extends javax.swing.JPanel {
         });
 
         jButton4.setText("Bảo trì");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Làm mới");
 
@@ -260,7 +266,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(71, 71, 71)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)
                                 .addGap(42, 42, 42)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,6 +389,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_btnDatBanActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     public void insert(int maMaxKH, int maMaxPbd, int maBan) {
         ChiTietDatBan ctdb = new ChiTietDatBan();

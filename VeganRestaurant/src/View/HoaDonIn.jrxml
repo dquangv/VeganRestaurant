@@ -23,7 +23,7 @@ from ChiTietGM
 join HoaDon  on HoaDon.MaPhieuDatBan= ChiTietGM.MaPhieuDatBan
 join MonAn  on MonAn.MaMonAn=ChiTietGM.MaMonAn
 join PhieuDatBan  on PhieuDatBan.MaPhieuDatBan=ChiTietGM.MaPhieuDatBan
-join KhachHang on KhachHang.MaKhachHang=PhieuDatBan.MaKhachHang
+left join KhachHang on KhachHang.MaKhachHang=PhieuDatBan.MaKhachHang
 join NhanVien  on NhanVien.MaNhanVien=HoaDon.MaNhanVien
 WHERE 
 	 "HoaDon"."MaHoaDon" = $P{P_MaHD}
