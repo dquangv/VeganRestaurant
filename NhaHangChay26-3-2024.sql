@@ -10,7 +10,12 @@
 
 DBCC CHECKIDENT ('KhachHang', RESEED, 0);
 go
- 
+
+use master;
+go
+
+drop database NhaHangChay_CohesiveStars;
+go
 
 create database NhaHangChay_CohesiveStars;
 go

@@ -5,6 +5,7 @@
 package Model;
 
 import java.util.Date;
+import java.sql.*;
 
 
 /**
@@ -13,14 +14,14 @@ import java.util.Date;
  */
 public class PhieuDatBan {
     private int maPhieuDatBan;
-    private Date thoiGianDat;
+    private Timestamp thoiGianDat;
     private int MaKhachHang;
 
 
     public PhieuDatBan() {
     }
 
-    public PhieuDatBan(int maPhieuDatBan, Date thoiGianDat, int MaKhachHang) {
+    public PhieuDatBan(int maPhieuDatBan, Timestamp thoiGianDat, int MaKhachHang) {
         this.maPhieuDatBan = maPhieuDatBan;
         this.thoiGianDat = thoiGianDat;
         this.MaKhachHang = MaKhachHang;
@@ -37,11 +38,11 @@ public class PhieuDatBan {
         this.maPhieuDatBan = maPhieuDatBan;
     }
 
-    public Date getThoiGianDat() {
+    public Timestamp getThoiGianDat() {
         return thoiGianDat;
     }
 
-    public void setThoiGianDat(Date thoiGianDat) {
+    public void setThoiGianDat(Timestamp thoiGianDat) {
         this.thoiGianDat = thoiGianDat;
     }
 

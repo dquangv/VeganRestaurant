@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.time.LocalTime;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.sql.Timestamp;
 
 /**
  *
@@ -180,22 +181,63 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
     }//GEN-LAST:event_txtTenKhachActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//        String maBan = lbmaBan.getText().substring(5);
+//        if (Checkvalidate()) {
+//            int kt = 0;
+//            boolean a = insert();
+//            if (a) {
+//                for (Integer ma : maBanListAdd) {
+//                    thayDoiTrangThai(ma.toString());
+//                }
+//                MsgBox.alert(this, "Đặt bàn thành công");
+//                this.setVisible(false);
+//                kt = 1;
+//                JPanelTang1.TrangThaiBan();
+//                JPanelTang2.TrangThaiBan();
+//                JPanelTang3.TrangThaiBan();
+//                JPanelTang1.listSo.clear();
+//                JPanelTang1.listBT.clear();
+//
+//            } else {
+//                this.dispose();
+//            }
+//            JPanelDatBan.KiemTraXacNhan(1);
+//        }
+
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
             int kt = 0;
             boolean a = insert();
             if (a) {
                 for (Integer ma : maBanListAdd) {
+                    List<Integer> listMaPDB = ctdbDAO.getListMaPhieuDatBan(ma);
+                    System.out.println(listMaPDB.size());
+                    for (int maPDB : listMaPDB) {
+//                        System.out.println("\nqưe");
+//                        System.out.println(maPDB);
+                        PhieuDatBan phieuDatBan = pdbDao.selectByPDB(maPDB);
+//                        System.out.println("\n " + phieuDatBan.getMaPhieuDatBan());
+//                        System.out.println("\n " + String.valueOf(phieuDatBan.getThoiGianDat()));
+//                        System.out.println("\n" + String.valueOf(layThoiGian()));
+
+                        if (Math.abs(phieuDatBan.getThoiGianDat().getTime() - layThoiGian().getTime()) > 3600000) {
+                            System.out.println("\nabcd");
+                        } else {
+                            System.out.println("\nbdef");
+                        }
+//                        kt++;
+//                        System.out.println(kt);
+                    }
                     thayDoiTrangThai(ma.toString());
                 }
                 MsgBox.alert(this, "Đặt bàn thành công");
                 this.setVisible(false);
                 kt = 1;
-                JPanelTang1.TrangThaiBan();
-                JPanelTang2.TrangThaiBan();
-                JPanelTang3.TrangThaiBan();
-                JPanelTang1.listSo.clear();
-
+////                JPanelTang1.TrangThaiBan();
+//                JPanelTang2.TrangThaiBan();
+////                JPanelTang3.TrangThaiBan();
+////                JPanelTang1.listSo.clear();
+////                JPanelTang1.listBT.clear();
             } else {
                 this.dispose();
             }
@@ -284,13 +326,14 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         cbThoiGian.setModel(model);
     }
 
-    public Date layThoiGian() {
+    public Timestamp layThoiGian() {
         Date date = txtThoiGian.getDate();
         String gioPhut = (String) cbThoiGian.getSelectedItem();
         if (date != null) {
             String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
             Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
-            return NgayGio;
+            Timestamp timestamp = new Timestamp(NgayGio.getTime());
+            return timestamp;
         }
 
         return null;
@@ -305,7 +348,7 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
 
     private PhieuDatBan getFormPDB() {
         // Gọi phương thức layThoiGian() để lấy đối tượng Date
-        Date date = layThoiGian();
+        Timestamp date = layThoiGian();
 
         PhieuDatBan pdb = new PhieuDatBan();
         pdb.setThoiGianDat(date);
@@ -386,8 +429,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-        System.out.println(thoiGianHienTai);
-        System.out.println(layThoiGian());
+//        System.out.println(thoiGianHienTai);
+//        System.out.println(layThoiGian());
         if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;

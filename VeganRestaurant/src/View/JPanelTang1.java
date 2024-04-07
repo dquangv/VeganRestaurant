@@ -99,8 +99,6 @@ public class JPanelTang1 extends javax.swing.JPanel {
         return MaPDB;
     }
 
-  
-
     static void timMaBanByButton(Integer maBan) {
         boolean found = false;
         for (Integer indexMaBan : listSo) {
@@ -379,7 +377,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
                     .addComponent(lbT1B10)
                     .addComponent(lbT1B11)
                     .addComponent(lbT1B12))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -568,7 +566,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
                         button.setBackground(Color.GREEN); // Đặt màu nền xanh cho bàn đang phục vụ
                         break;
                     case DatBanDao.DA_DAT:
-                        button.setBackground(Color.red); // Đặt màu nền hồng cho bàn trống
+                        button.setBackground(Color.PINK); // Đặt màu nền hồng cho bàn trống
                         break;
                     case DatBanDao.BAO_TRI:
                         button.setBackground(Color.BLACK); // Đặt màu nền đen cho bàn đang bảo trì
@@ -580,7 +578,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         }
     }
 
-    void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
+    public static void showDiaLogTrangThaiDaDat(List<Integer> maBan) {
         JDialogTrangThaiDatBan dialog = new JDialogTrangThaiDatBan(new javax.swing.JFrame(), true, maBan.get(0));
         dialog.setBan(maBan);
         dialog.setVisible(true);
@@ -606,6 +604,34 @@ public class JPanelTang1 extends javax.swing.JPanel {
         dialog.setVisible(true);
     }
 
+//    void kiemTraTrangThaiBan(int maBan) {
+//        List<Object[]> banList = dBDao.loadData();
+//        for (Object[] ban : banList) {
+//            int maBanDB = (int) ban[0];
+//            String trangThai = (String) ban[1];
+//            if ((maBan == maBanDB)) {
+//                switch (trangThai) {
+//                    case DatBanDao.Trong:
+//                        setButton(maBan);
+//                        timMaBanByButton(maBan);
+//                        return;
+//                    case DatBanDao.DANG_PHUC_VU:
+//                        showDiaLogDangPhucVu(maBan);
+//                        break;
+//                    case DatBanDao.DA_DAT:
+//                        showDiaLogTrangThaiDaDat(listSoBan);
+//                        return;
+//                    case DatBanDao.BAO_TRI:
+//                        showDiaLogBaoTri(maBan);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
+//    }
+    
+    
     void kiemTraTrangThaiBan(int maBan) {
         List<Object[]> banList = dBDao.loadData();
         for (Object[] ban : banList) {
@@ -621,7 +647,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
                         showDiaLogDangPhucVu(maBan);
                         break;
                     case DatBanDao.DA_DAT:
-                        showDiaLogTrangThaiDaDat(listSoBan);
+                        setButton(maBan);
+                        timMaBanByButton(maBan);
                         return;
                     case DatBanDao.BAO_TRI:
                         showDiaLogBaoTri(maBan);
@@ -632,5 +659,4 @@ public class JPanelTang1 extends javax.swing.JPanel {
             }
         }
     }
-
 }

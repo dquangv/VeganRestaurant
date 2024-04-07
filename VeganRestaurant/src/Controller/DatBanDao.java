@@ -111,4 +111,11 @@ public class DatBanDao {
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
 
+    public List<Object[]> getListBanTheoThoiGian(int maBan) {
+        String sql = "select ctdb.maban, thoigiandat, b.trangthai from chitietdatban ctdb join phieudatban pdb on ctdb.maphieudatban = pdb.maphieudatban join ban b on b.maban = ctdb.maban where ctdb.maban = ? and b.trangthai = N'Đã đặt' order by thoigiandat";
+        String cols[] = {"MaBan", "ThoiGianDat", "TrangThai"};
+        return this.getListOfArray(sql, cols, maBan);
+    }
+
+    
 }
