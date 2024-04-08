@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Controller.ThanhVienDAO;
 import java.sql.ResultSet;
-
+import javax.swing.ImageIcon;
 /**
  *
  * @author buimi
@@ -35,6 +35,17 @@ public class KhachHang extends javax.swing.JPanel {
         frame = new JFrame();
         khachHangList = new ArrayList<>();
         resetCustomerId(getNewCustomerId());
+        
+        
+        
+        ImageIcon iconuser = new ImageIcon("Logos/plus.png");
+        btnThem.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/edit.png");
+        btnCapNhat.setIcon(iconuser1);
+        ImageIcon iconuser2 = new ImageIcon("Logos/find.png");
+        btnTim.setIcon(iconuser2);
+        ImageIcon iconuser3 = new ImageIcon("Logos/add-user.png");
+        btnMoi.setIcon(iconuser3);
     }
 
     public JFrame getFrame() {
@@ -134,7 +145,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnThem.setBackground(new java.awt.Color(255, 102, 102));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setText("Thêm");
         btnThem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +155,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnCapNhat.setBackground(new java.awt.Color(255, 102, 102));
         btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCapNhat.setForeground(new java.awt.Color(0, 0, 0));
         btnCapNhat.setText("Cập nhật");
         btnCapNhat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +171,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnTim.setBackground(new java.awt.Color(255, 102, 102));
         btnTim.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnTim.setForeground(new java.awt.Color(0, 0, 0));
         btnTim.setText("Tìm kiếm");
         btnTim.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnTim.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +181,6 @@ public class KhachHang extends javax.swing.JPanel {
 
         btnMoi.setBackground(new java.awt.Color(255, 102, 102));
         btnMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnMoi.setForeground(new java.awt.Color(0, 0, 0));
         btnMoi.setText("Mới");
         btnMoi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
