@@ -38,7 +38,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
     DanhGia_DAO dg_DAO = new DanhGia_DAO();
     List<JLabel> ds_TenMon = new ArrayList<>();
     List<JCheckBox> ds_sao = new ArrayList<>();
-    List<Integer> sao2 = new ArrayList<>();
+    List<Integer> saoChon = new ArrayList<>();
     int selectedRow = -1;
 
     /**
@@ -260,12 +260,18 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     public void actionPerformed(ActionEvent e) {
                         for (int i = 0; i < ds_sao.size(); i++) {
                             if (ds_sao.get(i).isSelected()) {
-                                sao2.add((i % 5) + 1);
+                                saoChon.add((i % 5) + 1);
                             }
                         }
-//                        System.out.println(lblTenMon.getText()+sao2);
+                        
+//                       System.out.println(lblTenMon.getText()+saoChon);
 
-                        int maDanhGia = sao2.isEmpty() ? 0 : sao2.get(0);
+                        int maDanhGia = 0;
+                        int index = ds_TenMon.indexOf(lblTenMon);
+                        if (index != -1 && index < saoChon.size()) {
+                            maDanhGia = saoChon.get(index);
+                        }
+                        
                         String maPhieuDatBan = txtPhieuDatBan.getText().substring(3); // Extract the ID from the label
                         String tenMonAn = dg.getTenMonAn();
 
@@ -298,7 +304,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
-                        sao2.clear();
+                        saoChon.clear();
                     }
                 }
                 );
