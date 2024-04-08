@@ -22,7 +22,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" pref="336" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnBieuDo" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="btnBieuDo" min="-2" pref="167" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" pref="671" max="32767" attributes="0"/>
               </Group>

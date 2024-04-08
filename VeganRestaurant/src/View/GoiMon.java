@@ -69,6 +69,13 @@ public class GoiMon extends javax.swing.JPanel {
         loadThucDonToComboBox();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         lblNhanVien.setText("Nhân viên: " + Auth.user.getTenTaiKhoan());
+        
+          ImageIcon iconuser = new ImageIcon("Logos/delete.png");
+        jButton3.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/save.png");
+        jButton1.setIcon(iconuser1);
+        ImageIcon iconuser2 = new ImageIcon("Logos/hand.png");
+        jButton2.setIcon(iconuser2);
     }
 
     public void MaPDB(int MaPDB) {
@@ -187,11 +194,9 @@ public class GoiMon extends javax.swing.JPanel {
         }
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTongTien.setForeground(new java.awt.Color(0, 0, 0));
 
         jButton1.setBackground(new java.awt.Color(255, 0, 102));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Lưu");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +206,6 @@ public class GoiMon extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(255, 0, 102));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Thanh toán");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,7 +220,6 @@ public class GoiMon extends javax.swing.JPanel {
         lblThoiGian.setText("Thời gian:");
 
         lblTongMon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTongMon.setForeground(new java.awt.Color(0, 0, 0));
 
         jButton3.setText("Xóa");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +243,7 @@ public class GoiMon extends javax.swing.JPanel {
                                 .addComponent(lbmaBan)
                                 .addGap(232, 232, 232))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlThanhToanLayout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))
                     .addGroup(pnlThanhToanLayout.createSequentialGroup()
                         .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

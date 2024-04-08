@@ -35,6 +35,15 @@ public class JPanelMonAn extends javax.swing.JPanel {
         fillCboLoai();
         fillCboTrangThai();
         displayMonAn();
+        
+          ImageIcon iconuser = new ImageIcon("Logos/plus.png");
+        btnThemMon.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/edit.png");
+        btnCapNhat.setIcon(iconuser1);
+        ImageIcon iconuser2 = new ImageIcon("Logos/reset.png");
+        btnLamMoi.setIcon(iconuser2);
+        ImageIcon iconuser3 = new ImageIcon("Logos/search.png");
+        btnTimKiem.setIcon(iconuser3);
     }
 
     public void fillCboLoai() {
