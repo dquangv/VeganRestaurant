@@ -136,6 +136,7 @@ public class Main {
         m.VaiTro();
         m.setIconPanel();
         m.setIconLabel();
+        m.logout();
     }
 
     public static void callMain() {
@@ -151,6 +152,7 @@ public class Main {
         m.VaiTro();
         m.setIconLabel();
         m.setIconPanel();
+        m.logout();
     }
 
     void setIconPanel() {
@@ -186,7 +188,14 @@ public class Main {
             setIcon(getLabelByIndex(i), path, iconIndexes[i]);
         }
     }
-
+    void logout(){
+        pnDangXuat.addMouseListener(new MouseAdapter() {
+             public void mouseClicked(MouseEvent e) {
+                    fr.dispose();
+                    new LoginJFrame().setVisible(true);
+                }
+        });
+    }
     JLabel getLabelByIndex(int index) {
         switch (index) {
             case 0:
@@ -800,7 +809,7 @@ public class Main {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Đổi màu của panel khi chuột rơi vào
-                    panel.setBackground(Color.black); // Thay đổi màu thành màu đỏ (hoặc bất kỳ màu nào bạn muốn)
+                    panel.setBackground(Color.GRAY); // Thay đổi màu thành màu đỏ (hoặc bất kỳ màu nào bạn muốn)
                 }
 
                 @Override
@@ -818,7 +827,7 @@ public class Main {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Đổi màu của panel khi chuột rơi vào
-                    panel.setBackground(Color.RED); // Thay đổi màu thành màu đỏ (hoặc bất kỳ màu nào bạn muốn)
+                    panel.setBackground(Color.gray); // Thay đổi màu thành màu đỏ (hoặc bất kỳ màu nào bạn muốn)
                 }
 
                 @Override
@@ -855,7 +864,7 @@ public class Main {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     // Thay đổi màu của panel khi bấm vào
-                    panel.setBackground(Color.BLACK); // Thay đổi màu thành màu đen (hoặc bất kỳ màu nào bạn muốn)
+                    panel.setBackground(Color.red); // Thay đổi màu thành màu đen (hoặc bất kỳ màu nào bạn muốn)
 
                 }
 
