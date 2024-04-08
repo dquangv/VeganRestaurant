@@ -8,6 +8,7 @@ import Controller.ChuyenManHinh;
 import Controller.DatBanDao;
 import Controller.PhieuDatBanDao;
 import Utils.MsgBox;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
 
     DatBanDao dbDAO = new DatBanDao();
     List<Integer> maBan = new ArrayList<>();
+
     /**
      * Creates new form JDiaLogDangPhucVu
      */
@@ -43,6 +45,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         }
 //        layMaBan(maBan);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,10 +167,47 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     }//GEN-LAST:event_lbThemMonMouseClicked
 
     private void lbThanhToansMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThanhToansMouseClicked
-        int daBam = 0;
+        int maBann = maBan.get(0);
         this.setVisible(false);
-        daBam++;
-        Main.ChuyenThanhToan(daBam);
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+        int MaPDB = pdb.SelectMaPDB(maBann);
+        boolean foundButton = false;
+        JButton button;
+        button = JPanelTang1.timButtonByMaBan(maBann);
+        if (button != null) {
+            button.setToolTipText(MaPDB + "");
+            MaPDB = Integer.parseInt(button.getToolTipText());
+            foundButton = true;
+        }
+
+        if (!foundButton) {
+            button = JPanelTang2.timButtonByMaBan(maBann);
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+                foundButton = true;
+            }
+        }
+
+        if (!foundButton) {
+            button = JPanelTang3.timButtonByMaBan(maBann);
+            if (button != null) {
+                button.setToolTipText(MaPDB + "");
+                MaPDB = Integer.parseInt(button.getToolTipText());
+            }
+        }
+
+        GoiMon dialogGoiMon = new GoiMon();
+        JDialog dialog = new JDialog();
+        dialog.getContentPane().add(dialogGoiMon);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+//        dialogGoiMon.filltableCoSan(MaPDB);
+        dialogGoiMon.setKHvaTG(MaPDB);
+        dialogGoiMon.filltableCoSan(MaPDB);
+        ActionEvent actionEvent = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "MouseClicked");
+        dialogGoiMon.jButton2ActionPerformed(actionEvent);
     }//GEN-LAST:event_lbThanhToansMouseClicked
 
     /**

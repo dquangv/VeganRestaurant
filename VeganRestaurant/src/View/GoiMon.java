@@ -69,8 +69,8 @@ public class GoiMon extends javax.swing.JPanel {
         loadThucDonToComboBox();
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         lblNhanVien.setText("Nhân viên: " + Auth.user.getTenTaiKhoan());
-        
-          ImageIcon iconuser = new ImageIcon("Logos/delete.png");
+
+        ImageIcon iconuser = new ImageIcon("Logos/delete.png");
         jButton3.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/save.png");
         jButton1.setIcon(iconuser1);
@@ -417,8 +417,14 @@ public class GoiMon extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    public void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (model.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Danh sách món ăn đang trống! \nVui lòng chọn ít nhất 1 món ăn!");
+            return;
+        }
+
         Model.KhachHang kh;
         if (!checkKHtrong()) {
             String SDT = JOptionPane.showInputDialog(this, "Vui lòng nhập số điện thoại khách hàng!\n Có thể bỏ qua!");
@@ -552,18 +558,12 @@ public class GoiMon extends javax.swing.JPanel {
         }
         Window window = SwingUtilities.getWindowAncestor(this);
         window.dispose();
-        List<Integer> listSoBan = ctThongTIn.dsBanTheoPDB(maPdb);
-        for (Integer maBan : listSoBan) {
-            dbDAO.updateTrangThai(Trong, maBan + "");
-        }
-        JPanelDatBan.fillToTable();
-        JPanelTang1.TrangThaiBan();
-        JPanelTang2.TrangThaiBan();
-        JPanelTang3.TrangThaiBan();
+        
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
+        jdialog.setThanhToan();
         jdialog.setVisible(true);
-        jdialog.setLocationRelativeTo(this);
+        jdialog.setLocationRelativeTo(null);
     }
 
     private void hienThiDanhSachMonAnUI(List<MonAn> danhSachMonAn) {
@@ -775,7 +775,7 @@ public class GoiMon extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbbLoaiMon;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

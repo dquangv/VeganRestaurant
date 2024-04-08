@@ -4,10 +4,13 @@
  */
 package View;
 
+import static Controller.DatBanDao.Trong;
 import Controller.HoaDonDAO;
 import Model.HoaDon;
 import Utils.Auth;
 import Utils.MsgBox;
+import static View.JDialogTrangThaiDatBan.dbDAO;
+import static View.JPanelTang1.ctThongTIn;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -137,6 +140,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         }
     }
+    public void setThanhToan(){
+        btnThanhToan.setEnabled(true);
+        repaint();
+        revalidate();
+    }
 
     void themHD() {
         HoaDon hd = layForm();
@@ -225,11 +233,13 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Mã Hóa Đơn");
 
-        txtMaHoaDon.setEditable(false);
+        txtMaHoaDon.setEnabled(false);
 
         jLabel5.setText("Mã Khách Hàng");
 
-        txtNhanVien.setEditable(false);
+        txtMaKH.setEnabled(false);
+
+        txtNhanVien.setEnabled(false);
 
         jLabel4.setText("Ngày Lập");
 
@@ -312,6 +322,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel12.setText("Tiền Giảm");
 
+        txtTienGiam.setEnabled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -382,7 +394,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tblChiTiet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblChiTiet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -402,10 +413,10 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblChiTiet.setRowHeight(40);
         jScrollPane2.setViewportView(tblChiTiet);
 
         btnThanhToan.setText("Thanh Toán");
+        btnThanhToan.setEnabled(false);
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanActionPerformed(evt);
@@ -480,6 +491,14 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
+        List<Integer> listSoBan = ctThongTIn.dsBanTheoPDB(Integer.valueOf(txtBan.getText().substring(3)));
+        for (Integer maBan : listSoBan) {
+            dbDAO.updateTrangThai(Trong, maBan + "");
+        }
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
         this.themHD();
         btnInHDActionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, "In Hóa Đơn"));
     }//GEN-LAST:event_btnThanhToanActionPerformed
@@ -540,7 +559,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInHD;
-    private javax.swing.JButton btnThanhToan;
+    public javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cboPhuongThuc;
     private javax.swing.JCheckBox chkTichDiem;
     private javax.swing.JLabel jLabel10;
