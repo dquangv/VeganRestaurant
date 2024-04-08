@@ -33,8 +33,6 @@
                   <Group type="102" attributes="0">
                       <Component id="btnQuayLai" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnLuuDG" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtMaHoaDon" min="-2" max="-2" attributes="0"/>
@@ -63,7 +61,6 @@
                   <Component id="txtMaHoaDon" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtTenKhach" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnLuuDG" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPhieuDatBan" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -157,10 +154,5 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnLuuDG">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

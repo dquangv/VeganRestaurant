@@ -10,6 +10,7 @@ package View;
  */
 import Controller.HoaDonDAO;
 import Model.HoaDon;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
      * Creates new form HoaDonJPanel
      */
     HoaDonDAO hdDAO = new HoaDonDAO();
-//    ThanhToanJDialog ttJDialog = new ThanhToanJDialog(parent, true);
+    DecimalFormat giaFomat = new DecimalFormat("###,###");    
     int row = -1;
 
     public HoaDonJPanel() {
@@ -39,11 +40,11 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 Object[] row = {
                     "HD" + hd.getMaHoaDon(),
                     hd.getNgayLap(),
-                    hd.getTienMonAn(),
-                    hd.getTienGiamDiemThuong(),
-                    hd.getTienGiamKhuyenMai(),
-                    hd.getTongTien(),
-                    hd.getPhuongThuc() ? "Thanh Toán" : "Chưa Thanh Toán",
+                    giaFomat.format(hd.getTienMonAn()),
+                    giaFomat.format(hd.getTienGiamDiemThuong()),
+                    giaFomat.format(hd.getTienGiamKhuyenMai()),
+                    giaFomat.format(hd.getTongTien()),
+                    hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản",
                     "PDB" + hd.getMaPhieuDatBan(),
                     "KM" + hd.getMaKhuyenMai(),
                     "NV" + hd.getMaNhanVien(),
@@ -71,7 +72,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 hd.getTienGiamDiemThuong(),
                 hd.getTienGiamKhuyenMai(),
                 hd.getTongTien(),
-                hd.getPhuongThuc() ? "Thanh Toán" : "Chưa Thanh Toán",
+                hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản",
                 "PDB" + hd.getMaPhieuDatBan(),
                 "KM" + hd.getMaKhuyenMai(),
                 "NV" + hd.getMaNhanVien(),
@@ -330,11 +331,10 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.row = tblHoaDon.getSelectedRow();
         if (this.row >= 0) {
-
             String mahd = String.valueOf(tblHoaDon.getValueAt(row, 0));
 
             xemHoaDon(Integer.parseInt(mahd.substring(2)));
-
+            
         }else{
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }

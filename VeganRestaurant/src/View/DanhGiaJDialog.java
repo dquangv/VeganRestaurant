@@ -6,10 +6,12 @@ package View;
 
 import Controller.DanhGia_DAO;
 import Model.DanhGia;
+import Utils.XJdbc;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +26,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
+import java.sql.*;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
@@ -33,6 +36,9 @@ import javax.swing.border.LineBorder;
 public class DanhGiaJDialog extends javax.swing.JDialog {
 
     DanhGia_DAO dg_DAO = new DanhGia_DAO();
+    List<JLabel> ds_TenMon = new ArrayList<>();
+    List<JCheckBox> ds_sao = new ArrayList<>();
+    int selectedRow = -1;
 
     /**
      * Creates new form DanhGiaJDialog
@@ -63,7 +69,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlDanhGia = new javax.swing.JPanel();
-        btnLuuDG = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -120,8 +125,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane2))
         );
 
-        btnLuuDG.setText("Lưu");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,8 +136,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnQuayLai)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLuuDG)
-                        .addGap(236, 236, 236)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMaHoaDon)
@@ -159,7 +160,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     .addComponent(txtMaHoaDon)
                     .addComponent(jLabel5)
                     .addComponent(txtTenKhach)
-                    .addComponent(btnLuuDG)
                     .addComponent(txtPhieuDatBan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -186,8 +186,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
     void chiTietDanhGia(int mahd) {
         List<DanhGia> ds_DanhGia = dg_DAO.selectByMaHD(mahd);
-        List<JLabel> ds_TenMon = new ArrayList<>();
-        List<JCheckBox> ds_sao = new ArrayList<>();
 
         pnlDanhGia.setLayout(new GridLayout(1, 2));
         //pnlDanhGia.setBorder(new LineBorder(Color.yellow));
@@ -227,10 +225,8 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     JCheckBox chkSao = new JCheckBox(i + " Sao");
                     ds_sao.add(chkSao);
 
-                    if (dg.getMaDanhGia() != null) {
-                        if (i == dg.getMaDanhGia()) {
-                            chkSao.setSelected(true); // Chọn checkbox nếu giá trị checkbox trùng với MaDanhGia
-                        }
+                    if (dg.getMaDanhGia() != null && i == dg.getMaDanhGia()) {
+                        chkSao.setSelected(true); // Chọn checkbox nếu giá trị checkbox trùng với MaDanhGia
                     }
 
                     btnGroup.add(chkSao);
@@ -256,34 +252,20 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
                 pnlTrai.add(pnlConT);
                 pnlPhai.add(pnlConP);
-            } catch (IOException ex) {
-                Logger.getLogger(DanhGiaJDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
-        for (JLabel lbl : ds_TenMon) {
-            System.out.println(lbl.getText());
-        }
+                btnNew.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    }
+                });
 
-        for (JCheckBox chk : ds_sao) {
-            if (ds_DanhGia.isEmpty()) {
-                return;
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            else{
-            if (chk.isSelected()) {
-                // Xử lý khi checkbox được chọn ở đây
-                System.out.println(chk.getText().substring(0, 2));
-            } else {
-                // Xử lý khi checkbox không được chọn ở đây 
-                System.out.println(chk);
-            }
-            }
-
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLuuDG;
     private javax.swing.JButton btnQuayLai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -295,4 +277,11 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel txtPhieuDatBan;
     private javax.swing.JLabel txtTenKhach;
     // End of variables declaration//GEN-END:variables
+//                        StringBuilder selectedOptions = new StringBuilder();
+//                        for (int i = 0; i < ds_sao.size(); i++) {
+//                            if (ds_sao.get(i).isSelected()) {
+//                                selectedOptions.append(i + 1).append(" Sao\n"); // Index bắt đầu từ 0, nên cần cộng thêm 1
+//                            }
+//                        }
+//                        System.out.println(lblTenMon.getText() + ": " + selectedOptions.toString());
 }

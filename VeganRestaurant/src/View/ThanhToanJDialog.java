@@ -10,6 +10,7 @@ import Utils.MsgBox;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     HoaDonDAO hdDAO = new HoaDonDAO();
     
+    DecimalFormat giaFomat = new DecimalFormat("###,###");
+    
+    
     /**
      * Creates new form ThanhToanJDialog
      */
@@ -38,7 +42,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.themVaoCbo();
-        
     }
 
     /**
@@ -66,7 +69,10 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         List<Object[]> list = hdDAO.getChiTiet(hd);
         for (Object[] row : list) {
             model.addRow(new Object[]{
-                row[0], row[1], row[2], row[3]
+                row[0], 
+                giaFomat.format(row[1]), 
+                row[2], 
+                giaFomat.format(row[3])
             });
         }
     }
@@ -78,11 +84,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtNhanVien.setText("NV" + String.valueOf(hd.getMaNhanVien()));
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText("KM" + String.valueOf(hd.getMaKhuyenMai()));
-        txtTienMon.setText(String.valueOf(Double.sum(hd.getTienMonAn(), 0)));
-        txtTienGiam.setText(String.valueOf(hd.getTienGiamKhuyenMai()));
-        txtDiemThuong.setText(hd.getTienGiamDiemThuong() + "");
-        cboPhuongThuc.setSelectedItem(hd.getPhuongThuc() ? "Thanh Toán" : "Chưa Thanh Toán" + "");
-        txtTongTien.setText(hd.getTongTien() + "");
+        txtTienMon.setText(giaFomat.format(hd.getTienMonAn()));
+        txtTienGiam.setText(giaFomat.format(hd.getTienGiamKhuyenMai()));
+        txtDiemThuong.setText(giaFomat.format(hd.getTienGiamDiemThuong()));
+        cboPhuongThuc.setSelectedItem(hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản" + "");
+        txtTongTien.setText(giaFomat.format(hd.getTongTien()));
     }
     
     HoaDon layForm() {
@@ -96,7 +102,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         hd.setTienMonAn(Double.parseDouble(txtTienMon.getText()));
         hd.setTienGiamKhuyenMai(Double.parseDouble(txtTienGiam.getText()));
         boolean pt;
-        pt = cboPhuongThuc.getSelectedItem().equals("Thanh Toán");
+        pt = cboPhuongThuc.getSelectedItem().equals("Tiền Mặt");
         hd.setPhuongThuc(pt);
         hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
 
@@ -109,9 +115,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         List<Boolean> list = hdDAO.selectPT();
         for (Boolean pt : list) {
             if (pt == true) {
-                cboPhuongThuc.addItem("Thanh Toán");
+                cboPhuongThuc.addItem("Tiền Mặt");
             } else {
-                cboPhuongThuc.addItem("Chưa Thanh Toán");
+                cboPhuongThuc.addItem("Chuyển Khoản");
             }
         }
     }

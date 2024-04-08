@@ -5,12 +5,15 @@
         <group>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/DanhGia_DAO.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/View/Main.java</file>
+            <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/View/GoiMon.java</file>
+            <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/View/ChiTietDanhGiaJPanel.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/View/HoaDonJPanel.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/Model/DanhGia.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/Model/HoaDon.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/View/DanhGiaJDialog.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/View/ThanhToanJDialog.java</file>
             <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/HoaDonDAO.java</file>
+            <file>file:/C:/Users/hoang/Desktop/PRO1041/Fpoly-VeganRestaurant/VeganRestaurant/src/Model/MonAn.java</file>
         </group>
     </open-files>
 </project-private>
