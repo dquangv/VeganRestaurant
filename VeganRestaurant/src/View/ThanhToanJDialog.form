@@ -177,6 +177,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaHoaDon">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -184,8 +187,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaKH">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNhanVien">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -198,6 +207,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtBan">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -205,6 +217,9 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="txtNgayLap">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -332,6 +347,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTongTien">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="chkTichDiem">
               <Properties>
@@ -351,6 +369,9 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTienMon">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>

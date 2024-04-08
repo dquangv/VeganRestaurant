@@ -153,6 +153,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
         lbT1B11 = new javax.swing.JLabel();
         btnban3 = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(734, 298));
+
         btnban7.setBackground(new java.awt.Color(51, 255, 0));
         btnban7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
         btnban7.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +381,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
                     .addComponent(lbT1B10)
                     .addComponent(lbT1B11)
                     .addComponent(lbT1B12))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

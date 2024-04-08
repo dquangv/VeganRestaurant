@@ -177,6 +177,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             .addGap(0, 354, Short.MAX_VALUE)
         );
 
+        tblDatBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblDatBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -193,10 +194,13 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblDatBan.setRowHeight(40);
         jScrollPane1.setViewportView(tblDatBan);
         if (tblDatBan.getColumnModel().getColumnCount() > 0) {
             tblDatBan.getColumnModel().getColumn(0).setResizable(false);
             tblDatBan.getColumnModel().getColumn(1).setMinWidth(50);
+            tblDatBan.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblDatBan.getColumnModel().getColumn(1).setMaxWidth(50);
         }
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

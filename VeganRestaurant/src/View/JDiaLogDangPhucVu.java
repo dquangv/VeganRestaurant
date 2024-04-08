@@ -123,7 +123,6 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
 
     private void lbThemMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThemMonMouseClicked
         int maBann = maBan.get(0);
-        System.out.println(maBan);
         this.setVisible(false);
         PhieuDatBanDao pdb = new PhieuDatBanDao();
         int MaPDB = pdb.SelectMaPDB(maBann);

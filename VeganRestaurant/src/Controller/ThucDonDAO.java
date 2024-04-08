@@ -27,7 +27,7 @@ public class ThucDonDAO {
     }
 
     public List<MonAn> layDanhSachMonAn() {
-        String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon,MonAn.HinhAnh, MonAn.TrangThai FROM MonAn Join LoaiMon "
+        String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon,MonAn.HinhAnh, MonAn.TrangThai, MonAn.soLuong FROM MonAn Join LoaiMon "
                 + "On MonAn.MaLoaiMon = LoaiMon.MaLoaiMon WHERE MonAn.TrangThai = N'Hoạt Động' ";
         List<MonAn> danhSachMonAn = new ArrayList<>();
         try (ResultSet resultSet = xJdbc.executeQuery(sql)) {
@@ -50,6 +50,7 @@ public class ThucDonDAO {
         monAn.setLoaiMonAn(rs.getString("TenLoaiMon"));
         monAn.setHinhAnh(rs.getString("HinhAnh"));
         monAn.setTrangThai(rs.getString("TrangThai"));
+        monAn.setSoLuong(rs.getInt("soLuong"));
         return monAn;
     }
 
@@ -64,7 +65,7 @@ public class ThucDonDAO {
     }
 
     public List<MonAn> layDanhSachMonTheoLoai(String loaiMon) {
-        String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon, MonAn.HinhAnh, MonAn.TrangThai FROM MonAn Join LoaiMon "
+        String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon, MonAn.HinhAnh, MonAn.TrangThai, MonAn.soLuong FROM MonAn Join LoaiMon "
                 + "On MonAn.MaLoaiMon = LoaiMon.MaLoaiMon WHERE LoaiMon.TenLoaiMon = ?";
         List<MonAn> danhSachMonAn = new ArrayList<>();
 
@@ -184,9 +185,8 @@ public class ThucDonDAO {
                 + "               FROM "
                 + "                    MonAn "
                 + "               left JOIN "
-                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
-                + "               left JOIN"
-                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "                   ThucDon ON MonAn.MaThucDon = MonAn.MaThucDon "
+
                 + "			right	JOIN"
                 + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
                 + "where MonAn.TrangThai = N'Hoạt động' "
@@ -248,9 +248,7 @@ public class ThucDonDAO {
                 + "               FROM "
                 + "                    MonAn "
                 + "               left JOIN "
-                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
-                + "               left JOIN"
-                + "                   ThucDon on ThucDon.MaThucDon = ChiTietTD.MaThucDon "
+                + "                   ThucDon ON MonAn.MaThucDon = ThucDon.MaThucDon "
                 + "			right	JOIN"
                 + "					LoaiMon on LoaiMon.MaLoaiMon = MonAn.MaLoaiMon "
                 + "where LoaiMon.MaLoaiMon = ? and MonAn.TrangThai = N'Hoạt động' "
