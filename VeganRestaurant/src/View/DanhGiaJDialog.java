@@ -27,6 +27,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.sql.*;
+import javax.swing.JOptionPane;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
@@ -38,6 +39,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
     DanhGia_DAO dg_DAO = new DanhGia_DAO();
     List<JLabel> ds_TenMon = new ArrayList<>();
     List<JCheckBox> ds_sao = new ArrayList<>();
+    List<Integer> saoChon = new ArrayList<>();
     int selectedRow = -1;
 
     /**
@@ -227,6 +229,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
                     if (dg.getMaDanhGia() != null && i == dg.getMaDanhGia()) {
                         chkSao.setSelected(true); // Chọn checkbox nếu giá trị checkbox trùng với MaDanhGia
+
                     }
 
                     btnGroup.add(chkSao);
@@ -256,15 +259,63 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                 btnNew.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                    }
-                });
+                        for (int i = 0; i < ds_sao.size(); i++) {
+                            if (ds_sao.get(i).isSelected()) {
+                                saoChon.add((i % 5) + 1);
+                            }
+                        }
+                        
+//                       System.out.println(lblTenMon.getText()+saoChon);
 
+                        int maDanhGia = 0;
+                        int index = ds_TenMon.indexOf(lblTenMon);
+                        if (index != -1 && index < saoChon.size()) {
+                            maDanhGia = saoChon.get(index);
+                        }
+                        
+                        String maPhieuDatBan = txtPhieuDatBan.getText().substring(3); // Extract the ID from the label
+                        String tenMonAn = dg.getTenMonAn();
+
+                        System.out.println(maDanhGia);
+                        System.out.println(maPhieuDatBan);
+                        System.out.println(tenMonAn);
+
+                        String sql = "UPDATE ChiTietGM "
+                                + "SET MaDanhGia = ? "
+                                + "WHERE MaPhieuDatBan = ? "
+                                + "AND MaMonAn = (SELECT MaMonAn FROM MonAn WHERE TenMonAn = ?)";
+
+                        try (Connection conn = XJdbc.getConnection(); // Assuming XJdbc is a utility class for database connection
+                                 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                            // Set the parameters
+                            ps.setInt(1, maDanhGia);
+                            ps.setString(2, maPhieuDatBan);
+                            ps.setString(3, tenMonAn);
+
+                            // Execute the update
+                            int rowsAffected = ps.executeUpdate();
+                            if (rowsAffected > 0) {
+                                System.out.println("Update successful!");
+                                JOptionPane.showMessageDialog(rootPane, "Đánh giá thành công");
+                                // Optionally, you can provide user feedback here
+                            } else {
+                                System.out.println("Update failed!");
+                                JOptionPane.showMessageDialog(rootPane, "Đánh giá thất bại");
+                                // Optionally, you can provide user feedback here
+                            }
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        saoChon.clear();
+                    }
+                }
+                );
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
     private javax.swing.JLabel jLabel1;
@@ -277,11 +328,4 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel txtPhieuDatBan;
     private javax.swing.JLabel txtTenKhach;
     // End of variables declaration//GEN-END:variables
-//                        StringBuilder selectedOptions = new StringBuilder();
-//                        for (int i = 0; i < ds_sao.size(); i++) {
-//                            if (ds_sao.get(i).isSelected()) {
-//                                selectedOptions.append(i + 1).append(" Sao\n"); // Index bắt đầu từ 0, nên cần cộng thêm 1
-//                            }
-//                        }
-//                        System.out.println(lblTenMon.getText() + ": " + selectedOptions.toString());
 }
