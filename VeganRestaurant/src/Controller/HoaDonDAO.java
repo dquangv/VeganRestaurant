@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
 
     String INSERT_SQl = "INSERT INTO HoaDon(NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,MaPhieuDatBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,PhuongThucThanhToan=? ,MaPhieuDatBan=? ,MaKhuyenMai=? ,MaNhanVien=? WHERE MaHoaDon =?";
+    String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,PhuongThucThanhToan=? ,MaPhieuDatBan=? ,MaKhuyenMai=? WHERE MaHoaDon =?";
     String DELETE_SQL = "DELETE FROM HoaDon WHERE MaHoaDon = ?";
     String SELECT_ALL_SQL = """
                             select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
@@ -58,7 +58,6 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                 entity.getPhuongThuc(),
                 entity.getMaPhieuDatBan(),
                 entity.getMaKhuyenMai(),
-                entity.getMaNhanVien(),
                 entity.getMaHoaDon());
     }
 

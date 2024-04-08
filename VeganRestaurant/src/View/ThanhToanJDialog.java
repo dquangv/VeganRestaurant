@@ -6,6 +6,7 @@ package View;
 
 import Controller.HoaDonDAO;
 import Model.HoaDon;
+import Utils.Auth;
 import Utils.MsgBox;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -81,7 +82,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtMaHoaDon.setText("HD" + hd.getMaHoaDon());
         txtMaKH.setText("KH" + hd.getMaKhachHang());
         txtBan.setText("PDB" + String.valueOf(hd.getMaPhieuDatBan()));
-        txtNhanVien.setText("NV" + String.valueOf(hd.getMaNhanVien()));
+        txtNhanVien.setText(Auth.user.getTenTaiKhoan());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText("KM" + String.valueOf(hd.getMaKhuyenMai()));
         txtTienMon.setText(giaFomat.format(hd.getTienMonAn()));
@@ -154,6 +155,14 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
     }
     
+    void abc(){
+        txtTienGiam.setEnabled(false);
+        txtTienMon.setEnabled(false);
+        txtTongTien.setEnabled(false);
+        txtDiemThuong.setEnabled(false);
+        btnThanhToan.setEnabled(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -200,7 +209,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Mã Hóa Đơn");
 
+        txtMaHoaDon.setEditable(false);
+
         jLabel5.setText("Mã Khách Hàng");
+
+        txtNhanVien.setEditable(false);
 
         jLabel4.setText("Ngày Lập");
 
@@ -345,6 +358,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        tblChiTiet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblChiTiet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -364,6 +378,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblChiTiet.setRowHeight(40);
         jScrollPane2.setViewportView(tblChiTiet);
 
         btnThanhToan.setText("Thanh Toán");
