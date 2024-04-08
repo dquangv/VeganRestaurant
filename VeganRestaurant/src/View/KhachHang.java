@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import Controller.ThanhVienDAO;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+
 /**
  *
  * @author buimi
@@ -35,9 +37,7 @@ public class KhachHang extends javax.swing.JPanel {
         frame = new JFrame();
         khachHangList = new ArrayList<>();
         resetCustomerId(getNewCustomerId());
-        
-        
-        
+
         ImageIcon iconuser = new ImageIcon("Logos/plus.png");
         btnThem.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/edit.png");
@@ -46,6 +46,12 @@ public class KhachHang extends javax.swing.JPanel {
         btnTim.setIcon(iconuser2);
         ImageIcon iconuser3 = new ImageIcon("Logos/add-user.png");
         btnMoi.setIcon(iconuser3);
+        
+
+        btnThem.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnCapNhat.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnTim.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnMoi.setHorizontalTextPosition(SwingConstants.RIGHT);
     }
 
     public JFrame getFrame() {
@@ -215,25 +221,25 @@ public class KhachHang extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(chkDangKy))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnTim)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnMoi))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkDangKy))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDiemThuong, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                    .addComponent(cldNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 136, Short.MAX_VALUE))
+                                    .addComponent(txtDiemThuong)
+                                    .addComponent(cldNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -274,18 +280,15 @@ public class KhachHang extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addComponent(cldNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem)
-                    .addComponent(btnCapNhat)
-                    .addComponent(btnTim)
-                    .addComponent(btnMoi))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCapNhat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCapNhat, btnThem});
-
     }// </editor-fold>//GEN-END:initComponents
 
     private void chkDangKyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDangKyActionPerformed
@@ -301,7 +304,7 @@ public class KhachHang extends javax.swing.JPanel {
         String sdt = txtSDT.getText().trim();
         Date ngaySinh = cldNgaySinh.getDate();
         KhachHangDAO khDao = new KhachHangDAO();
-        Model.KhachHang MavsTen  = khDao.getCustomerByPhoneNumber(sdt); 
+        Model.KhachHang MavsTen = khDao.getCustomerByPhoneNumber(sdt);
         if (MavsTen != null) {
             JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + MavsTen.getTenKhachHang() + MavsTen.getMaKhachHang());
             return;
@@ -568,7 +571,7 @@ public class KhachHang extends javax.swing.JPanel {
         String sql = "SELECT TOP 1 MaKhachHang FROM KhachHang ORDER BY MaKhachHang DESC;";
         int newCustomerId = 0;
 
-        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+        try ( ResultSet rs = XJdbc.executeQuery(sql)) {
             if (rs.next()) {
                 newCustomerId = rs.getInt(1);
             }

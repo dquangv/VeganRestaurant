@@ -344,11 +344,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void lblQRCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQRCodeMouseClicked
         openQRCodeDialog();
     }//GEN-LAST:event_lblQRCodeMouseClicked
-    private void openQRCodeDialog() {
-        QRCode qrCodeDialog = new QRCode(this, true);
-        qrCodeDialog.setParentLoginDialog(this);
-        qrCodeDialog.setVisible(true);
-    }
+    
 
     /**
      * @param args the command line arguments
@@ -409,7 +405,12 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-
+    private void openQRCodeDialog() {
+        QRCode qrCodeDialog = new QRCode(this, true);
+        qrCodeDialog.setParentLoginDialog(this);
+        qrCodeDialog.setVisible(true);
+    }
+    
     public boolean chkValidate() {
         if (txtUsername.getText().equals("")) {
             MsgBox.alert(this, "Tên tài khoản không được bỏ trống");

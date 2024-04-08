@@ -21,7 +21,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import se.malmin.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-
+import javax.swing.ImageIcon;
 /**
  *
  * @author Võ Thanh Tùng
@@ -36,6 +36,10 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
     public JpanelThongKeMonAn() {
         initComponents();
         fillToTable();
+        
+         ImageIcon iconuser = new ImageIcon("Logos/bar-chart.png");
+        btnBieuDo.setIcon(iconuser);
+        
     }
 
     /**
@@ -107,7 +111,7 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -191,5 +195,12 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
         chart.setBackgroundPaint(Color.white);
         chart.getTitle().setPaint(Color.BLUE);
         return chart;
+    }
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Thống kê món ăn");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new JpanelThongKeMonAn());
+        frame.pack();
+        frame.setVisible(true);
     }
 }

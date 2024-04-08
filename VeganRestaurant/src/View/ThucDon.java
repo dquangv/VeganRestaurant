@@ -34,6 +34,10 @@ public class ThucDon extends javax.swing.JPanel {
         thucDonDAO = new ThucDonDAO();
 //        loadDanhSachMonAn();
         initCombobox();
+           ImageIcon iconuser = new ImageIcon("Logos/save1.png");
+        btnLuu.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/reset.png");
+        btnMoi.setIcon(iconuser1);
     }
 
     private void loadDanhSachMonAn() {

@@ -56,6 +56,21 @@ public class NhanVien_1 extends javax.swing.JPanel {
         rdodangHoatDong.setSelected(true);
         rdonhanVien.setSelected(true);
         txtmaNhanVien.setEditable(false);
+        
+        ImageIcon iconuser = new ImageIcon("Logos/add-user.png");
+        jButton1.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/skip-trai.png");
+        btnFirst.setIcon(iconuser1);
+        ImageIcon iconuser2 = new ImageIcon("Logos/fast-forward -trai.png");
+        btnPrev.setIcon(iconuser2);
+        ImageIcon iconuser3 = new ImageIcon("Logos/fast-forward.png");
+        btnNext.setIcon(iconuser3);
+        ImageIcon iconuser4 = new ImageIcon("Logos/skip.png");
+        btnLast.setIcon(iconuser4);
+        ImageIcon iconuser5 = new ImageIcon("Logos/plus.png");
+        btnAdd.setIcon(iconuser5);
+        ImageIcon iconuser6 = new ImageIcon("Logos/edit.png");
+        btncapNhat.setIcon(iconuser6);
     }
 
 // Hàm fillTable
@@ -656,13 +671,13 @@ public class NhanVien_1 extends javax.swing.JPanel {
                 .addComponent(btnNext)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLast)
-                .addGap(107, 107, 107)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btncapNhat)
+                .addComponent(btncapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
