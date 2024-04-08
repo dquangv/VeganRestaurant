@@ -27,6 +27,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.sql.*;
+import javax.swing.JOptionPane;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
@@ -296,9 +297,11 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                             int rowsAffected = ps.executeUpdate();
                             if (rowsAffected > 0) {
                                 System.out.println("Update successful!");
+                                JOptionPane.showMessageDialog(rootPane, "Đánh giá thành công");
                                 // Optionally, you can provide user feedback here
                             } else {
                                 System.out.println("Update failed!");
+                                JOptionPane.showMessageDialog(rootPane, "Đánh giá thất bại");
                                 // Optionally, you can provide user feedback here
                             }
                         } catch (SQLException ex) {
