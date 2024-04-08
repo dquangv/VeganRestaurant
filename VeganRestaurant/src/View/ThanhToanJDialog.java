@@ -102,7 +102,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         hd.setMaHoaDon(Integer.valueOf(txtMaHoaDon.getText().substring(2)));
         hd.setMaPhieuDatBan(Integer.valueOf(txtBan.getText().substring(3)));
-        hd.setMaNhanVien(Integer.valueOf(txtNhanVien.getText().substring(2)));
+        hd.setMaNhanVien(Auth.user.getMaNhanVien());
         hd.setNgayLap(txtNgayLap.getDate());
         String maGiamGiaText = txtMaGiamGia.getText().substring(2);
         Integer maGiamGiaValue = null;
