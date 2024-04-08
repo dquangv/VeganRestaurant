@@ -17,7 +17,11 @@ import java.sql.*;
 public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
 
     String UPDATE = """
-                    
+                    update ChiTietGM
+                    set MaDanhGia = ?
+                    where 
+                    MaPhieuDatBan = ? and 
+                    MaMonAn = (select MaMonAn from MonAn where TenMonAn = ?)
                     """;
     
     String SELECT_ALL = """
@@ -35,6 +39,11 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
 
     @Override
     public void update(DanhGia entity) {
+        XJdbc.executeUpdate(UPDATE, 
+                entity.getMaDanhGia(),
+                entity.getMaPhieuDatBan(),
+                entity.getTenMonAn()
+                );
     }
 
     @Override
