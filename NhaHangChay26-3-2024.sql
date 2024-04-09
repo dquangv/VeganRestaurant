@@ -95,7 +95,8 @@ create table MonAn (
 	soLuong int,
 	HinhAnh varchar(500),
 	TrangThai nvarchar(30) not null,
-	MaLoaiMon int
+	MaLoaiMon int,
+	MaThucDon int,
 	);
 go
 
@@ -104,12 +105,6 @@ create table ThucDon (
 	TenThucDon nvarchar(50) not null,
 	NgayPhucVu nvarchar(100) not null
 );
-go
-
-create table ChiTietTD (
-	MaThucDon int not null,
-	MaMonAn int not null,
-	primary key (MaThucDon, MaMonAn));
 go
 
 create table ChiTietGM (
@@ -185,21 +180,14 @@ alter table MonAn
 add
 	constraint fk_ma_l
 	foreign key (MaLoaiMon)
-	references LoaiMon(MaLoaiMon)
-;
-go
+	references LoaiMon(MaLoaiMon),
 
-alter table ChiTietTD
-add
-	constraint fk_cttd_td
+	constraint fk_ma_td
 	foreign key (MaThucDon)
-	references ThucDon (MaThucDon),
-
-	constraint fk_cttd_ma
-	foreign key (MaMonAn)
-	references MonAn(MaMonAn)
+	references ThucDon(MaThucDon)
 ;
 go
+
 
 alter table ChiTietGM
 add
@@ -234,15 +222,21 @@ add
 go
 
 insert into NhanVien (TenNhanVien, ChucVu, TrangThai, GioiTinh, SDT, Email, HinhAnh) values
-	(N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndtps36846@fpt.edu.vn', null),
-	(N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvtps27852@fpt.edu.vn', null),
-	(N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvdps36680@fpt.edu.vn', null);
+	(N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndtps36846@fpt.edu.vn', 'CLy.jpg'),
+	(N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvtps27852@fpt.edu.vn', 'ATung.jpg'),
+	(N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvdps36680@fpt.edu.vn', 'AQuangB.png'),
+	(N'Vũ Hoàng Chương', 1, N'Hoạt động', 0, '0404040404', 'chuongvhps36806@fpt.edu.vn', 'AChuong.jpg'),
+	(N'Bùi Minh Quang', 1, N'Hoạt động', 0, '0505050505', 'quangbmps28437@fpt.edu.vn', 'AQuangN.png'),
+	(N'Phạm Ngọc Rôn', 1, N'Hoạt động', 0, '0606060606', 'ronpnps36596@fpt.edu.vn', 'Td.jpg');
 go
 
 insert into TaiKhoan (TenTaiKhoan, MatKhau, VaiTro, MaNhanVien) values
 	('LyNDT', '123', 1, 1),
 	('TungVT', '123', 1, 2),
-	('QuangVD', '123', 0, 3);
+	('QuangVD', '123', 0, 3),
+	('ChuongVH', '123', 0, 4),
+	('QuangBM', '123', 0, 5),
+	('RonPN', '123', 0, 6);
 go
 
 insert into KhachHang (TenKhachHang, SDT, NgaySinh) values
@@ -309,48 +303,49 @@ go
 insert into LoaiMon (TenLoaiMon) values
 	(N'Bún'),
 	(N'Cơm'),
-	(N'Khác'),
-	(N'Khai vị');
+	(N'Khai vị'),
+	(N'Khác');
 go
 
-
-insert into MonAn ( TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon) values
-    ( N'Salad mít non', 125000, 50, 'xa-lach-mit-non-2.png', N'Hoạt động',3),
-    ( N'Mozzarella Salad', 135000, 50,'saladmozarella.png', N'Hoạt động',3),
-    ( N'Gỏi cuốn rau củ', 90000, 50,'goicuonraucu.png', N'Hoạt động',3),
-    (N'Chả giò', 95000, 50,'chagio.png', N'Hoạt động',3),
-    ( N'Há cảo Nhật - Gyoza', 95000, 50, 'hacaonhat.png', N'Hoạt động',3),
-    (N'Chả nấm mối', 120000, 50,  'chachammuoi.png', N'Hoạt động',3),
-    (N'Bún nưa trộn', 105000, 50, 'bunnuatron.png', N'Hoạt động',3),
-    (N'Gỏi củ hủ dừa', 115000, 50,  'coicuhudua.png', N'Hoạt động',3),
-    (N'Gỏi đu đủ', 105000, 50,  'goidudu.png', N'Hoạt động',3),
-    (N'Salad Sung', 135000, 50, 'saladsung.png', N'Hoạt động',3),
-    (N'Bánh tart artiso', 105000, 50, 'banhtart.png', N'Ngừng phục vụ',3),
-    (N'Đậu hủ bó xôi sốt trứng muối', 125000, 50,  'dauhuboxoi.png', N'Hoạt động',3),
-    (N'Nấm đông cô sốt tiêu', 95000, 50, 'namdongcosottieu.png', N'Hoạt động',3),
-    (N'Đậu rồng xào tỏi đen', 90000, 50, 'dau-rong-xao-1.png', N'Hoạt động',3),
-    (N'Tàu hủ ky sốt chao', 110000, 50, 'tau-ku-ky-1.png', N'Hoạt động',3),
-    (N'Mướp xào', 90000, 50, 'muop-xao-1.png', N'Hoạt động',3),
-    (N'Nấm mối xào lá lốt', 125000, 50, 'nam-moi-xao-1.png', N'Hoạt động',3),
-    (N'Đu đủ xào', 90000, 50, 'du-du-xao-1.png', N'Hoạt động',3),
-    (N'Măng xào củ kiệu', 105000, 50, 'mang-xao-cu-kieu-1.png', N'Hoạt động',3),
-    (N'Khổ qua kho ngũ vị', 95000, 50, 'kho-qua-kho-1.png', N'Hoạt động',3),
-    (N'Đậu hủ kim chi', 95000, 50, 'dau-hu-kim-chi-1.png', N'Hoạt động',3),
-    (N'Rau củ om Thái', 110000, 50, 'rau-cu-om-thai-1.png', N'Hoạt động',3),
-    (N'Nấm kho', 105000, 50, 'nam-kho-2.png', N'Ngừng phục vụ',3),
-    (N'Cơm nếp than', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
-    (N'Cơm trắng', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
-    (N'Cơm bó xôi hạt sen', 40000, 50, 'com-cac-loai.png', N'Hoạt động',2),
-    (N'Mì Ý sốt rau củ', 150000, 50, 'mi-y-sot-rau-cu-1.png', N'Hoạt động',1),
-    (N'Bún nưa xào', 125000, 50, 'bun-nua-xao-1.png', N'Hoạt động',1),
-    (N'Mì sốt kem nấm', 150000, 50, 'mi-sot-kem-nam-2.png', N'Hoạt động',1),
-    (N'Cơm cà ri', 125000, 50, 'com-cari-1.png', N'Hoạt động',2);
-go
 insert into ThucDon (TenThucDon, NgayPhucVu) values
 	(N'Ngày chẵn', '2-4-6-CN'),
 	(N'Ngày lẻ', '3-5-7');
 go
 
+insert into MonAn ( TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon, MaThucDon) values
+    (N'Salad mít non', 125000, 50, 'xa-lach-mit-non-2.png', N'Hoạt động', 3, 1),
+    (N'Mozzarella Salad', 135000, 50,'saladmozarella.png', N'Hoạt động', 3, 2),
+    (N'Gỏi cuốn rau củ', 90000, 50,'goicuonraucu.png', N'Hoạt động', 3, 1),
+    (N'Chả giò', 95000, 50,'chagio.png', N'Hoạt động', 4, 2),
+    (N'Há cảo Nhật - Gyoza', 95000, 50, 'hacaonhat.png', N'Hoạt động', 4, 1),
+    (N'Chả nấm mối', 120000, 50,  'chachammuoi.png', N'Hoạt động', 4, 2),
+    (N'Bún nưa trộn', 105000, 50, 'bunnuatron.png', N'Hoạt động', 1, 1),
+    (N'Gỏi củ hủ dừa', 115000, 50,  'coicuhudua.png', N'Hoạt động', 3, 2),
+    (N'Gỏi đu đủ', 105000, 50,  'goidudu.png', N'Hoạt động', 3, 1),
+    (N'Salad Sung', 135000, 50, 'saladsung.png', N'Hoạt động', 3, 2),
+    (N'Bánh tart artiso', 105000, 50, 'banhtart.png', N'Ngừng phục vụ',4, 1),
+    (N'Đậu hủ bó xôi sốt trứng muối', 125000, 50,  'dauhuboxoi.png', N'Hoạt động', 4, 2),
+    (N'Nấm đông cô sốt tiêu', 95000, 50, 'namdongcosottieu.png', N'Hoạt động', 4, 1),
+    (N'Đậu rồng xào tỏi đen', 90000, 50, 'dau-rong-xao-1.png', N'Hoạt động', 3, 1),
+    (N'Tàu hủ ky sốt chao', 110000, 50, 'tau-ku-ky-1.png', N'Hoạt động',4, 2),
+    (N'Mướp xào', 90000, 50, 'muop-xao-1.png', N'Hoạt động', 4, 1),
+    (N'Nấm mối xào lá lốt', 125000, 50, 'nam-moi-xao-1.png', N'Hoạt động', 4, 1),
+    (N'Đu đủ xào', 90000, 50, 'du-du-xao-1.png', N'Hoạt động', 4, 2),
+    (N'Măng xào củ kiệu', 105000, 50, 'mang-xao-cu-kieu-1.png', N'Hoạt động', 4, 1),
+    (N'Khổ qua kho ngũ vị', 95000, 50, 'kho-qua-kho-1.png', N'Hoạt động', 4, 2),
+    (N'Đậu hủ kim chi', 95000, 50, 'dau-hu-kim-chi-1.png', N'Hoạt động', 4, 1),
+    (N'Rau củ om Thái', 110000, 50, 'rau-cu-om-thai-1.png', N'Hoạt động', 4, 2),
+    (N'Nấm kho', 105000, 50, 'nam-kho-2.png', N'Ngừng phục vụ', 3, 1),
+    (N'Cơm nếp than', 40000, 50, 'com-cac-loai.png', N'Hoạt động', 2, 1),
+    (N'Cơm trắng', 40000, 50, 'com-cac-loai.png', N'Hoạt động', 2, 2),
+    (N'Cơm bó xôi hạt sen', 40000, 50, 'com-cac-loai.png', N'Hoạt động', 2, 1),
+    (N'Mì Ý sốt rau củ', 150000, 50, 'mi-y-sot-rau-cu-1.png', N'Hoạt động', 4, 2),
+    (N'Bún nưa xào', 125000, 50, 'bun-nua-xao-1.png', N'Hoạt động',1, 1),
+    (N'Mì sốt kem nấm', 150000, 50, 'mi-sot-kem-nam-2.png', N'Hoạt động', 4, 2),
+    (N'Cơm cà ri', 125000, 50, 'com-cari-1.png', N'Hoạt động', 2, 1);
+go
+
+/*
 insert into ChiTietTD (MaThucDon, MaMonAn)
 values
     (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
@@ -359,6 +354,7 @@ values
     (1, 16), (1, 17), (1, 18), (1, 19), (1, 20),
     (1, 21), (1, 22), (1, 23), (1, 24), (1, 25),
     (1, 26), (1, 27), (1, 28), (1, 29), (1, 30);
+*/
 
 insert into DanhGia (DanhGia) values
 	(N'Tệ'),
@@ -391,7 +387,6 @@ insert into HoaDon (NgayLap, TienMonAn, TienGiamDiemThuong, TienGiamKhuyenMai, T
 	('2024-01-19 13:30', 210000, 0, 105000, 105000, 1, 2, 1, 1),
 	('2024-01-19 17:30', 110000, 0, 55000, 55000, 1, 3, 1, 2);
 go
-
 /*
 	đây là những proc 
 
@@ -443,7 +438,7 @@ AFTER INSERT, UPDATE
 AS
 BEGIN
     UPDATE HoaDon
-    SET TongTien = (ISNULL(i.TienMonAn, 0) + ISNULL(i.TienGiamDiemThuong, 0) + ISNULL(i.TienGiamKhuyenMai, 0))
+    SET TongTien = (ISNULL(i.TienMonAn, 0) - ISNULL(i.TienGiamDiemThuong, 0) - ISNULL(i.TienGiamKhuyenMai, 0))
     FROM HoaDon hd
     INNER JOIN inserted i ON hd.MaHoaDon = i.MaHoaDon;
 END;
@@ -462,6 +457,28 @@ BEGIN
                      END
         FROM TaiKhoan
         INNER JOIN inserted ON TaiKhoan.MaNhanVien = inserted.MaNhanVien
+    END
+END;
+go
+CREATE OR ALTER TRIGGER Trig_UpdateSoLuongMonAn
+ON ChiTietGM
+AFTER INSERT, DELETE
+AS
+BEGIN
+    IF EXISTS(SELECT * FROM inserted) 
+    BEGIN
+        
+        UPDATE MonAn
+        SET SoLuong = MonAn.SoLuong - (SELECT SUM(SoLuong) FROM inserted WHERE inserted.MaMonAn = MonAn.MaMonAn)
+        WHERE MonAn.MaMonAn IN (SELECT MaMonAn FROM inserted);
+    END
+
+    IF EXISTS(SELECT * FROM deleted) 
+    BEGIN
+        
+        UPDATE MonAn
+        SET SoLuong = MonAn.SoLuong + (SELECT SUM(SoLuong) FROM deleted WHERE deleted.MaMonAn = MonAn.MaMonAn)
+        WHERE MonAn.MaMonAn IN (SELECT MaMonAn FROM deleted);
     END
 END;
 go

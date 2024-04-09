@@ -18,6 +18,7 @@ import java.awt.FlowLayout;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -85,9 +86,20 @@ public class JPanelDatBan extends javax.swing.JPanel {
         initComponents();
         fillToTable();
         fillComboBoxTang();
-
+        setIcon();
     }
 
+    void setIcon() {
+
+        ImageIcon iconuser = new ImageIcon("Logos/reserve.png");
+        btnDatBan.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/serving-dish.png");
+        jButton3.setIcon(iconuser1);
+        ImageIcon iconuser2 = new ImageIcon("Logos/maintenance.png");
+        jButton4.setIcon(iconuser2);
+        ImageIcon iconuser3 = new ImageIcon("Logos/reset.png");
+        jButton1.setIcon(iconuser3);
+    }
 //    public void capNhatTable() {
 //        class TrangThaitable extends Thread {
 //
@@ -107,6 +119,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
 //        TrangThaitable thread = new TrangThaitable();
 //        thread.start();
 //    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,6 +190,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             .addGap(0, 354, Short.MAX_VALUE)
         );
 
+        tblDatBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblDatBan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -193,10 +207,13 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblDatBan.setRowHeight(40);
         jScrollPane1.setViewportView(tblDatBan);
         if (tblDatBan.getColumnModel().getColumnCount() > 0) {
             tblDatBan.getColumnModel().getColumn(0).setResizable(false);
             tblDatBan.getColumnModel().getColumn(1).setMinWidth(50);
+            tblDatBan.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblDatBan.getColumnModel().getColumn(1).setMaxWidth(50);
         }
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -261,14 +278,13 @@ public class JPanelDatBan extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDatBan)
-                                .addGap(89, 89, 89)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addGap(42, 42, 42)))))
+                                .addComponent(btnDatBan, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -293,19 +309,19 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTimKIem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDatBan)
-                            .addComponent(jButton3)
                             .addComponent(jButton4)
-                            .addComponent(jButton1))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtTimKIem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jButton1)
+                            .addComponent(jButton3))
+                        .addGap(0, 13, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -392,9 +408,9 @@ public class JPanelDatBan extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         for (Integer ma : JPanelTang1.listSo) {
-               thayDoiTrangThai(ma.toString());
+            thayDoiTrangThai(ma.toString());
         }
-        MsgBox.alert(this, "Các bàn "+JPanelTang1.listSo+"đã chuyên sang bảo trì");
+        MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
@@ -421,7 +437,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         pdbDAO.setMaxPDB(maMaxPbd);
         pdb.setThoiGianDat(new Date());
         pdb.setMaKhachHang(maMaxKH + 1);
-        pdbDAO.insert_null(pdb); 
+        pdbDAO.insert_null(pdb);
         return maMaxPbd;
     }
 
@@ -479,7 +495,8 @@ public class JPanelDatBan extends javax.swing.JPanel {
             kt = 0;
         }
     }
-      public void thayDoiTrangThai(String maBan) {
+
+    public void thayDoiTrangThai(String maBan) {
         dBDao.updateTrangThai(BAO_TRI, maBan);
     }
 }

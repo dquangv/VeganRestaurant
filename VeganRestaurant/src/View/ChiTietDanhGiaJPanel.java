@@ -45,64 +45,33 @@ public class ChiTietDanhGiaJPanel extends javax.swing.JPanel {
         lblTenMon = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(400, 150));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblHinhAnh.setText("Hình Ảnh");
+        add(lblHinhAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 22, 141, 122));
 
         buttonGroup1.add(chk1Sao);
         chk1Sao.setText("1 Sao");
+        add(chk1Sao, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, -1));
 
         buttonGroup1.add(chk2Sao);
         chk2Sao.setText("2 Sao");
+        add(chk2Sao, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, -1, -1));
 
         buttonGroup1.add(chk3Sao);
         chk3Sao.setText("3 Sao");
+        add(chk3Sao, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, -1));
 
         buttonGroup1.add(chk4Sao);
         chk4Sao.setText("4 Sao");
+        add(chk4Sao, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, -1));
 
         buttonGroup1.add(chk5Sao);
         chk5Sao.setText("5 Sao");
+        add(chk5Sao, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
 
         lblTenMon.setText("Tên Món Ăn");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(chk1Sao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chk2Sao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chk3Sao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chk4Sao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chk5Sao))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTenMon)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblTenMon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(chk1Sao)
-                        .addComponent(chk2Sao)
-                        .addComponent(chk3Sao)
-                        .addComponent(chk4Sao)
-                        .addComponent(chk5Sao))
-                    .addComponent(lblHinhAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        add(lblTenMon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

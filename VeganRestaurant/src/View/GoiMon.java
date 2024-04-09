@@ -30,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -59,8 +60,8 @@ public class GoiMon extends javax.swing.JPanel {
     CT_ThongTinDAO CTDAO = new CT_ThongTinDAO();
     private int maPdb;
     private Date ThoiGianDat;
-    private String maBan;
     ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
+    List<MonAn> dsMonAN = new ArrayList<>();
 
     public GoiMon() {
         initComponents();
@@ -76,6 +77,7 @@ public class GoiMon extends javax.swing.JPanel {
 
     private void loadThucDonToComboBox() {
         List<MonAn> danhSachMonAn = thucDonDAO.layDanhSachMonAn();
+        dsMonAN = danhSachMonAn;
 
         for (MonAn monAn : danhSachMonAn) {
             if (!kiemTraMonAnTonTai(monAn.getLoaiMonAn())) {
@@ -404,8 +406,12 @@ public class GoiMon extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        capNhatChiTietGoiMon();
-        JOptionPane.showMessageDialog(this, "Đã lưu thông tin vào bảng ChiTietGM.");
+        if (kiemTraSoLuongMonAn(dsMonAN)) {
+            capNhatChiTietGoiMon();
+            JOptionPane.showMessageDialog(this, "Đã lưu thông tin vào bảng ChiTietGM.");
+            String selectedLoaiMon = (String) cbbLoaiMon.getSelectedItem();
+            hienThiDanhSachMonAn(selectedLoaiMon);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -436,6 +442,7 @@ public class GoiMon extends javax.swing.JPanel {
 
         capNhatChiTietGoiMon();
         themVaoHoaDon();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
@@ -582,9 +589,12 @@ public class GoiMon extends javax.swing.JPanel {
                     lblTenMonAn.setFont(new java.awt.Font("Segoe UI", 1, 14));
                     JLabel lblGiaMonAn = new JLabel(monAn.getFormattedDonGia() + " VNĐ");
                     lblGiaMonAn.setFont(new java.awt.Font("Segoe UI", 0, 18));
+                    JLabel lblSoLuong = new JLabel("Số lượng: " + monAn.getSoLuong() + "");
+                    lblSoLuong.setFont(new java.awt.Font("Segoe UI", 1, 14));
                     monAnPanel.add(lblMonAn);
                     monAnPanel.add(lblTenMonAn);
                     monAnPanel.add(lblGiaMonAn);
+                    monAnPanel.add(lblSoLuong);
                     monAnPanel.setBounds((i % 3) * 250, (i / 3) * 250, 240, 250);
                     pnlMonAn.add(monAnPanel);
 
@@ -618,12 +628,12 @@ public class GoiMon extends javax.swing.JPanel {
         boolean found = false;
         DecimalFormat decimalFormat = new DecimalFormat("###,###");
         for (int i = 0; i < model.getRowCount(); i++) {
-            if (model.getValueAt(i, 1).equals(monAn.getTenMonAn())) { // Sử dụng cột "Món ăn" (cột thứ 1) để kiểm tra
+            if (model.getValueAt(i, 1).equals(monAn.getTenMonAn())) {
                 int soLuong = Integer.parseInt((String) model.getValueAt(i, 2)) + 1;
                 double donGia = Double.parseDouble(((String) model.getValueAt(i, 3)).replace(",", "").replace(" VNĐ", ""));
                 double thanhTien = soLuong * donGia;
-                model.setValueAt(String.valueOf(soLuong), i, 2); // Cập nhật số lượng
-                model.setValueAt(decimalFormat.format(thanhTien), i, 4); // Cập nhật thành tiền
+                model.setValueAt(String.valueOf(soLuong), i, 2);
+                model.setValueAt(decimalFormat.format(thanhTien), i, 4);
                 found = true;
                 break;
             }
@@ -735,6 +745,27 @@ public class GoiMon extends javax.swing.JPanel {
         }
         lblTongMon.setText("Tổng số món: " + tongMon + ".");
         lblTongTien.setText("Tổng tiền: " + decimalFormat.format(tongTien) + " VNĐ");
+    }
+
+    private boolean kiemTraSoLuongMonAn(List<MonAn> danhSachMonAn) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenMonAnTrongBang = (String) model.getValueAt(i, 1);
+            int soLuongTrongBang = Integer.parseInt((String) model.getValueAt(i, 2));
+
+            for (MonAn monAn : danhSachMonAn) {
+                if (monAn.getTenMonAn().equals(tenMonAnTrongBang)) {
+                    if (soLuongTrongBang > monAn.getSoLuong()) {
+                        JOptionPane.showMessageDialog(this, "Số lượng món ăn '" + tenMonAnTrongBang + "' đã vượt quá số lượng có sẵn!");
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+
+        return true;
     }
 
 

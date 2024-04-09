@@ -29,7 +29,7 @@ public class MonAnDAO {
 
     //Thêm món ăn
     public void themMonAn(MonAn monAn) {
-        String sql = "insert into monan values (?, ?, ?, ?, ?, ?);";
+        String sql = "insert into monan (TenMonAn, DonGia, SoLuong, HinhAnh, TrangThai, MaLoaiMon) values (?, ?, ?, ?, ?, ?);";
 
         try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
 //            pstmt.setString(1, monAn.getMaMonAn());
