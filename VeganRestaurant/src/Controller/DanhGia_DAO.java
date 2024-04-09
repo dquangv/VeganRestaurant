@@ -29,8 +29,8 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
                         right join ChiTietGM ctgm on ctgm.MaDanhGia = dg.MaDanhGia
                         join PhieuDatBan pdb on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
                         join HoaDon hd on hd.MaPhieuDatBan=pdb.MaPhieuDatBan
-                        join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
-                        join KhachHang kh on pdb.MaKhachHang = kh.MaKhachHang""";
+                        left join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+                        left join KhachHang kh on pdb.MaKhachHang = kh.MaKhachHang""";
     
 
     @Override
@@ -120,10 +120,10 @@ public class DanhGia_DAO extends NhaHangChayDAO<DanhGia, Object> {
     String sql = """
                 select TenMonAn,HinhAnh,dg.MaDanhGia,DanhGia,MaHoaDon,TenKhachHang,pdb.MaPhieuDatBan from ChiTietGM ctgm
                 left join DanhGia dg on dg.MaDanhGia = ctgm.MaDanhGia
-                join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+                left join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
                 join PhieuDatBan pdb on pdb.MaPhieuDatBan = ctgm.MaPhieuDatBan
                 join HoaDon hd on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang
+                left join KhachHang kh on kh.MaKhachHang = pdb.MaKhachHang
                 where MaHoaDon = ?""";
 
     List<DanhGia> list = new ArrayList<>();

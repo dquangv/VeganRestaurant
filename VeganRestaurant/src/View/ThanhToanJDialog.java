@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -46,8 +47,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.themVaoCbo();
-        
-         
+
         ImageIcon iconuser = new ImageIcon("Logos/printer.png");
         btnInHD.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/hand.png");
@@ -140,7 +140,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         }
     }
-    public void setThanhToan(){
+
+    public void setThanhToan() {
         btnThanhToan.setEnabled(true);
         repaint();
         revalidate();
@@ -178,15 +179,15 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         } catch (ClassNotFoundException | SQLException | JRException ex) {
         }
     }
-    
-    void abc(){
+
+    void abc() {
         txtTienGiam.setEnabled(false);
         txtTienMon.setEnabled(false);
         txtTongTien.setEnabled(false);
         txtDiemThuong.setEnabled(false);
         btnThanhToan.setEnabled(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -500,6 +501,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
         this.themHD();
+
+        String mahd = txtMaHoaDon.getText();
+
+        xemDanhGia(Integer.parseInt(mahd.substring(2)));
+
         btnInHDActionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, "In Hóa Đơn"));
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -555,6 +561,12 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    void xemDanhGia(int mahd) {
+        JOptionPane.showMessageDialog(this, "Mời quý khách đánh giá trải nghiệm về món ăn!");
+        DanhGiaJDialog jdialog = new DanhGiaJDialog(new javax.swing.JFrame(), true);
+        jdialog.layMaHoaDon(mahd);
+        jdialog.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
