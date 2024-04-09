@@ -384,6 +384,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTienGiam">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -414,10 +417,14 @@
         <Component class="javax.swing.JButton" name="btnThanhToan">
           <Properties>
             <Property name="text" type="java.lang.String" value="Thanh To&#xe1;n"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThanhToanActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="btnInHD">
           <Properties>

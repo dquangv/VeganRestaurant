@@ -4,9 +4,13 @@
  */
 package View;
 
+import static Controller.DatBanDao.Trong;
 import Controller.HoaDonDAO;
 import Model.HoaDon;
+import Utils.Auth;
 import Utils.MsgBox;
+import static View.JDialogTrangThaiDatBan.dbDAO;
+import static View.JPanelTang1.ctThongTIn;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -86,7 +90,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtMaHoaDon.setText("HD" + hd.getMaHoaDon());
         txtMaKH.setText("KH" + hd.getMaKhachHang());
         txtBan.setText("PDB" + String.valueOf(hd.getMaPhieuDatBan()));
-        txtNhanVien.setText("NV" + String.valueOf(hd.getMaNhanVien()));
+        txtNhanVien.setText(Auth.user.getTenTaiKhoan());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText("KM" + String.valueOf(hd.getMaKhuyenMai()));
         txtTienMon.setText(giaFomat.format(hd.getTienMonAn()));
@@ -101,7 +105,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         hd.setMaHoaDon(Integer.valueOf(txtMaHoaDon.getText().substring(2)));
         hd.setMaPhieuDatBan(Integer.valueOf(txtBan.getText().substring(3)));
-        hd.setMaNhanVien(Integer.valueOf(txtNhanVien.getText().substring(2)));
+        hd.setMaNhanVien(Auth.user.getMaNhanVien());
         hd.setNgayLap(txtNgayLap.getDate());
         String maGiamGiaText = txtMaGiamGia.getText().substring(2);
         Integer maGiamGiaValue = null;
@@ -136,6 +140,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         }
     }
+    public void setThanhToan(){
+        btnThanhToan.setEnabled(true);
+        repaint();
+        revalidate();
+    }
 
     void themHD() {
         HoaDon hd = layForm();
@@ -169,7 +178,15 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         } catch (ClassNotFoundException | SQLException | JRException ex) {
         }
     }
-
+    
+    void abc(){
+        txtTienGiam.setEnabled(false);
+        txtTienMon.setEnabled(false);
+        txtTongTien.setEnabled(false);
+        txtDiemThuong.setEnabled(false);
+        btnThanhToan.setEnabled(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -305,6 +322,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel12.setText("Tiền Giảm");
 
+        txtTienGiam.setEnabled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -397,6 +416,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jScrollPane2.setViewportView(tblChiTiet);
 
         btnThanhToan.setText("Thanh Toán");
+        btnThanhToan.setEnabled(false);
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanActionPerformed(evt);
@@ -471,6 +491,14 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
+        List<Integer> listSoBan = ctThongTIn.dsBanTheoPDB(Integer.valueOf(txtBan.getText().substring(3)));
+        for (Integer maBan : listSoBan) {
+            dbDAO.updateTrangThai(Trong, maBan + "");
+        }
+        JPanelDatBan.fillToTable();
+        JPanelTang1.TrangThaiBan();
+        JPanelTang2.TrangThaiBan();
+        JPanelTang3.TrangThaiBan();
         this.themHD();
         btnInHDActionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, "In Hóa Đơn"));
     }//GEN-LAST:event_btnThanhToanActionPerformed
@@ -531,7 +559,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInHD;
-    private javax.swing.JButton btnThanhToan;
+    public javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cboPhuongThuc;
     private javax.swing.JCheckBox chkTichDiem;
     private javax.swing.JLabel jLabel10;
