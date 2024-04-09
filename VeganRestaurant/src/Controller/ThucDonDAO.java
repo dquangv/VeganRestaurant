@@ -41,6 +41,24 @@ public class ThucDonDAO {
 
         return danhSachMonAn;
     }
+     public List<MonAn> layDanhSachMonTheoTuKhoa(String tuKhoa) {
+        String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon, MonAn.HinhAnh, MonAn.TrangThai, MonAn.soLuong "
+                + "FROM MonAn "
+                + "JOIN LoaiMon ON MonAn.MaLoaiMon = LoaiMon.MaLoaiMon "
+                + "WHERE MonAn.TenMonAn LIKE ? AND MonAn.TrangThai = N'Hoạt Động'";
+        List<MonAn> danhSachMonAn = new ArrayList<>();
+
+        try (ResultSet resultSet = xJdbc.executeQuery(sql, "%" + tuKhoa + "%")) {
+            while (resultSet.next()) {
+                MonAn monAn = extractMonAnFromResultSet(resultSet);
+                danhSachMonAn.add(monAn);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachMonAn;
+    }
 
     private MonAn extractMonAnFromResultSet(ResultSet rs) throws SQLException {
         MonAn monAn = new MonAn();
