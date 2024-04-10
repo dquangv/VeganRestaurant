@@ -22,6 +22,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import se.malmin.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author Võ Thanh Tùng
@@ -36,10 +37,10 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
     public JpanelThongKeMonAn() {
         initComponents();
         fillToTable();
-        
-         ImageIcon iconuser = new ImageIcon("Logos/bar-chart.png");
+
+        ImageIcon iconuser = new ImageIcon("Logos/bar-chart.png");
         btnBieuDo.setIcon(iconuser);
-        
+
     }
 
     /**
@@ -60,7 +61,7 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Top 7 món ăn bán chạy");
+        jLabel1.setText("Top món ăn bán chạy");
         jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         tblMonAnBanChay.setModel(new javax.swing.table.DefaultTableModel(
@@ -161,8 +162,18 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
     private JFreeChart createChart() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<Object[]> list = tkDAO.getMonAnBanChay();
+
+        // Sắp xếp danh sách theo số lượng bán giảm dần
+        list.sort((row1, row2) -> ((Number) row2[1]).intValue() - ((Number) row1[1]).intValue());
+
+        // Thêm vào dataset chỉ top 7 món ăn
+        int count = 0;
         for (Object[] row : list) {
             dataset.addValue((Number) row[1], "Số lượng bán", (Comparable) row[0]);
+            count++;
+            if (count >= 7) {
+                break;
+            }
         }
 
         JFreeChart chart = ChartFactory.createBarChart3D(
@@ -172,7 +183,7 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
                 dataset,
                 PlotOrientation.VERTICAL,
                 false, true, false);
- CategoryPlot plot = chart.getCategoryPlot();
+        CategoryPlot plot = chart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
 
         // Thiết lập màu sắc cho từng cột thủ công
@@ -196,6 +207,7 @@ public class JpanelThongKeMonAn extends javax.swing.JPanel {
         chart.getTitle().setPaint(Color.BLUE);
         return chart;
     }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Thống kê món ăn");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

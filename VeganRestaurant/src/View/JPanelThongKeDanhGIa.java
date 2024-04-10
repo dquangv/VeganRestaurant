@@ -69,6 +69,7 @@ public class JPanelThongKeDanhGIa extends javax.swing.JPanel {
                 {null, null},
                 {null, null},
                 {null, null},
+                {null, null},
                 {null, null}
             },
             new String [] {
@@ -83,6 +84,7 @@ public class JPanelThongKeDanhGIa extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblDanhGia.setRowHeight(50);
         tblDanhGia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDanhGiaMouseClicked(evt);
@@ -107,30 +109,40 @@ public class JPanelThongKeDanhGIa extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                        .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(btnBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDanhGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhGiaMouseClicked
+        int row = tblDanhGia.getSelectedRow();
+        if (row != -1) {
+            this.row = (int) tblDanhGia.getValueAt(row, 0);
+            JFrame parentFrame = new JFrame(); 
+            JdialogChiTietDanhGia dialog = new JdialogChiTietDanhGia(parentFrame, true); 
+            dialog.getRow(row + 1);
+            dialog.setVisible(true); 
 
+        }
 
     }//GEN-LAST:event_tblDanhGiaMouseClicked
 
@@ -169,38 +181,37 @@ public class JPanelThongKeDanhGIa extends javax.swing.JPanel {
         return danhGiaData;
     }
 
-  private void showPieChartDialog(List<Object[]> danhGiaData) {
-    DefaultPieDataset dataset = new DefaultPieDataset();
-    for (Object[] row : danhGiaData) {
-        int soSao = (int) row[0];
-        int soLuongDanhGia = (int) row[1];
-        dataset.setValue(soSao + " sao", soLuongDanhGia);
+    private void showPieChartDialog(List<Object[]> danhGiaData) {
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        for (Object[] row : danhGiaData) {
+            int soSao = (int) row[0];
+            int soLuongDanhGia = (int) row[1];
+            dataset.setValue(soSao + " sao", soLuongDanhGia);
+        }
+
+        JFreeChart chart = ChartFactory.createPieChart3D(
+                "Biểu đồ đánh giá",
+                dataset,
+                true,
+                true,
+                false
+        );
+
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:({2})", NumberFormat.getInstance(), NumberFormat.getPercentInstance()));
+        plot.setLabelFont(new Font("Arial", Font.PLAIN, 22));
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Tạo một JFrame mới và thêm ChartPanel vào đó
+        JFrame frame = new JFrame("Biểu đồ đánh giá");
+        frame.setSize(1100, 700);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Đóng frame khi bấm nút đóng
+        frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
+
+        frame.pack(); // Đảm bảo kích thước phù hợp với nội dung
+        frame.setLocationRelativeTo(null); // Hiển thị frame ở trung tâm màn hình
+        frame.setVisible(true); // Hiển thị frame
     }
-
-    JFreeChart chart = ChartFactory.createPieChart3D(
-            "Biểu đồ đánh giá",
-            dataset,
-            true,
-            true,
-            false
-    );
-
-    PiePlot plot = (PiePlot) chart.getPlot();
-    plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:({2})", NumberFormat.getInstance(), NumberFormat.getPercentInstance()));
-plot.setLabelFont(new Font("Arial", Font.PLAIN, 22));
-    ChartPanel chartPanel = new ChartPanel(chart);
-
-    // Tạo một JFrame mới và thêm ChartPanel vào đó
-    JFrame frame = new JFrame("Biểu đồ đánh giá");
-    frame.setSize(1100,700);
-    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Đóng frame khi bấm nút đóng
-    frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
-
-    frame.pack(); // Đảm bảo kích thước phù hợp với nội dung
-    frame.setLocationRelativeTo(null); // Hiển thị frame ở trung tâm màn hình
-    frame.setVisible(true); // Hiển thị frame
-}
-
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Thống kê món ăn");
