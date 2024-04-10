@@ -437,6 +437,10 @@ public class LoginJFrame extends javax.swing.JFrame {
     
     public void Login(String tentk, String pass) {
         TaiKhoan tk = dao.selectById(tentk);
+        if (tk.getTrangThai().equalsIgnoreCase("Nghỉ")) {
+            MsgBox.alert(this, "Nhân viên đã nghỉ!");
+            return;
+        }
         if (tk == null) {
             MsgBox.alert(this, "Tài khoản không tồn tại!");
             return;

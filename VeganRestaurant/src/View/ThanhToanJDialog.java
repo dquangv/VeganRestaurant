@@ -162,7 +162,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
 
     public void setThanhToan() {
-        btnInHD.setEnabled(false);
         btnThanhToan.setEnabled(true);
         repaint();
         revalidate();

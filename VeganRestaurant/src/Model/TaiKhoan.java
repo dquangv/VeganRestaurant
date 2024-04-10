@@ -13,7 +13,15 @@ public class TaiKhoan {
     private String matKhau;
     private boolean vaiTro;
     private int maNhanVien;
-//    private String trangThai;
+    private String trangThai;
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 
     public String getTenTaiKhoan() {
         return tenTaiKhoan;

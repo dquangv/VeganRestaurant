@@ -23,7 +23,7 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
     String UPDATE_SQL = "UPDATE TaiKhoan SET MatKhau=?, VaiTro=?, MaNhanVien=? WHERE TenTaiKhoan=?";
     String DELETE_SQL = "DELETE FROM TaiKhoan WHERE TenTaiKhoan=?";
     String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
-    String SELECT_BY_ID_SQL = "SELECT * FROM TaiKhoan WHERE tentaikhoan=?";
+    String SELECT_BY_ID_SQL = "SELECT TaiKhoan.*, NhanVien.TrangThai FROM TaiKhoan JOIN NhanVien ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien WHERE tentaikhoan=?";
     String SELECT_BY_MaNv_SQL = "SELECT * FROM TaiKhoan WHERE manhanvien=?";
     String CheckUser = "SELECT COUNT(*) "
             + "FROM TaiKhoan "
@@ -94,7 +94,7 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
                 entity.setMatKhau(rs.getString("MatKhau"));
                 entity.setVaiTro(rs.getBoolean("VaiTro"));
                 entity.setMaNhanVien(rs.getInt("MaNhanVien"));
-//                entity.setTrangThai(rs.getString("TrangThai"));
+                entity.setTrangThai(rs.getString("TrangThai"));
 
                 list.add(entity);
             }

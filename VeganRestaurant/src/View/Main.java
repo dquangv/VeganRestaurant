@@ -22,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import net.sf.jasperreports.engine.json.parser.JsonQueryParserTokenTypes;
@@ -568,6 +569,10 @@ public class Main {
 
 // Phương thức mở các panel
     void moCacPanelThongKe() {
+        if (!Auth.user.isVaiTro()) {
+        JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào Thống kê.");
+        return; 
+    }
         Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 2, 1, 1, Color.BLACK);
         Border bottomBordertkdg = BorderFactory.createMatteBorder(0, 2, 2, 1, Color.BLACK);
