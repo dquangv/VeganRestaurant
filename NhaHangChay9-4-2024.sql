@@ -707,7 +707,7 @@ go
 */
 -- thong ke mon an
 
-create or alter proc Sp_ThongKeMonAn
+create proc Sp_ThongKeMonAn
 as 
 begin 
 	select TenMonAn ,sum(ctgm.soluong) as Soluongmonan

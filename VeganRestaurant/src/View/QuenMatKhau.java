@@ -51,7 +51,7 @@ public class QuenMatKhau extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Forget password");
+        jLabel1.setText("Quên mật khẩu");
 
         jLabel2.setText("Email");
 
@@ -65,7 +65,7 @@ public class QuenMatKhau extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Username");
+        jLabel3.setText("Tên tài khoản");
 
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,18 +113,18 @@ public class QuenMatKhau extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-//        TaiKhoanDAO daoTK = new TaiKhoanDAO();
-//        String User = txtUserName.getText();
-//        String email = txtEmail.getText();
-//        if (!validate2()) {
-//            
-//            if (daoTK.checkUser(email,User)) {
-//                //SendMail();
-//            } else {
-//                MsgBox.alert(this, "Tên tài khoản hoặc email đã sai");
-//                return;
-//            }
-//        }
+        TaiKhoanDAO daoTK = new TaiKhoanDAO();
+        String User = txtUserName.getText();
+        String email = txtEmail.getText();
+        if (!validate2()) {
+            
+            if (daoTK.checkUser(email,User)) {
+                SendMail();
+            } else {
+                MsgBox.alert(this, "Tên tài khoản hoặc email đã sai");
+                return;
+            }
+        }
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
@@ -184,45 +184,46 @@ public class QuenMatKhau extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 
-//    public void SendMail() {
-//        try {
-//            Properties p = new Properties();
-//            p.put("mail.smtp.auth", "true");
-//            p.put("mail.smtp.starttls.enable", "true");
-//            p.put("mail.smtp.ssl.protocols", "TLSv1.2");
-//            p.put("mail.smtp.host", "smtp.gmail.com");
-//            p.put("mail.smtp.port", 587);
-//            p.put("mail.debug", "true");
-//
-//            Session s = Session.getInstance(p, new Authenticator() {
-//                protected PasswordAuthentication getPasswordAuthentication() {
-//                    return new PasswordAuthentication("vothanhtung795@gmail.com", "pgvdlrvdggkflfxn");
-//                }
-//            });
-//
-//            String username = txtUserName.getText();
-//            String email = txtEmail.getText();
-//            TaiKhoanDAO dAOTk = new TaiKhoanDAO();
-//            String password = dAOTk.selectMatKhau(username);
-//            // Tạo nội dung email
-//            String body = "Mật khẩu của bạn là: " + password;
-//
-//            // Tạo đối tượng Message
-//            Message msg = new MimeMessage(s);
-//            msg.setFrom(new InternetAddress("vothanhtung795@gmail.com"));
-//            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-//            msg.setSubject("Password Recovery");
-//            msg.setText(body);
-//
-//            Transport.send(msg);
-//
-//            MsgBox.alert(this, "Đã gửi Email thành công");
-//
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//            MsgBox.alert(this, "Quá trình gửi email bị lỗi vui lòng kiểm trả lại email.");
-//        }
-//    }
+    public void SendMail() {
+        try {
+            Properties p = new Properties();
+            p.put("mail.smtp.auth", "true");
+            p.put("mail.smtp.starttls.enable", "true");
+            p.put("mail.smtp.ssl.protocols", "TLSv1.2");
+            p.put("mail.smtp.host", "smtp.gmail.com");
+            p.put("mail.smtp.port", 587);
+            p.put("mail.debug", "true");
+
+            Session s = Session.getInstance(p, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("vothanhtung795@gmail.com", "pgvdlrvdggkflfxn");
+                }
+            });
+
+            String username = txtUserName.getText();
+            String email = txtEmail.getText();
+            TaiKhoanDAO dAOTk = new TaiKhoanDAO();
+            String password = dAOTk.selectMatKhau(username);
+            // Tạo nội dung email
+            String body = "Mật khẩu của bạn là: " + password;
+
+            // Tạo đối tượng Message
+            Message msg = new MimeMessage(s);
+            msg.setFrom(new InternetAddress("vothanhtung795@gmail.com"));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            msg.setSubject("Password Recovery");
+            msg.setText(body);
+
+            Transport.send(msg);
+
+            MsgBox.alert(this, "Đã gửi Email thành công");
+            this.dispose();
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Quá trình gửi email bị lỗi vui lòng kiểm trả lại email.");
+        }
+    }
 
     boolean validate2() {
         if (txtUserName.getText().equals("")) {

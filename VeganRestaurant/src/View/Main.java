@@ -53,7 +53,7 @@ public class Main {
     static JFrame fr = new JFrame();
 // cac tad o tren
     JPanel pnMenu = new JPanel();
-    static JPanel pnView = new JPanel();
+    JPanel pnView = new JPanel();
     JPanel pnMenuCon1 = new JPanel();
     JPanel pnMenuConTrai = new JPanel();
     JPanel pnMenuConPhai = new JPanel();
@@ -90,6 +90,7 @@ public class Main {
     JPanel pnThucDon = new JPanel();
     JPanel pnKhuyeMai = new JPanel();
     JPanel pnMonAn = new JPanel();
+    JPanel pnTrangChu = new JPanel();
 
     JLabel lblDatBan = new JLabel("Đặt bàn");
     JLabel lblThanhToan = new JLabel("Thanh toán");
@@ -107,8 +108,9 @@ public class Main {
 
     public Main() {
         ChuyenManHinh control = new ChuyenManHinh(pnView);
-        //control.setView(jpn,);
+//        control.setView(jpn,);
         List<DanhMuc> item = new ArrayList<>();
+      
         item.add(new DanhMuc("MonAn", pnMonAn, lblMonAn));
         item.add(new DanhMuc("DatBan", pnDatBan, lblDatBan));
         item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
@@ -123,12 +125,13 @@ public class Main {
 
         item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
         control.setEvent(item);
+        
+      
 
     }
 
     public static void main(String[] args) {
         Main m = new Main();
-        pnView.removeAll();
         m.GiaoDien();
         m.themSuKienChoTatCaPanel();
         m.CaiDat();
@@ -146,7 +149,6 @@ public class Main {
 
     public static void callMain() {
         Main m = new Main();
-        pnView.removeAll();
         m.GiaoDien();
         m.CaiDat();
         m.ThongKe();
@@ -156,18 +158,20 @@ public class Main {
         m.ListPanelMenu();
         m.themSuKienChoTatCaPanel();
         m.VaiTro();
-        m.setIconLabel();
         m.setIconPanel();
+        m.setIconLabel();
         m.logout();
         m.capNhatVaiTro();
     }
-
-    void setIconPanel() {
+      void setIconPanel() {
+          if (pnView!=null) {
+              pnView.removeAll();
+          }
         ImageIcon icon = new ImageIcon("Logos/TrangChu.jpg");
         JLabel lbIcon = new JLabel();
-        pnView.setLayout(null);
-        pnView.add(lbIcon);
-
+        pnTrangChu.add(lbIcon);
+        pnView.add(pnTrangChu);
+        pnView.setLayout(new GridLayout(1,1));
         // Thay đổi kích thước của biểu tượng
         Image scaledImage = icon.getImage().getScaledInstance(1550, 650, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
@@ -175,8 +179,6 @@ public class Main {
         // Đặt biểu tượng đã thay đổi kích thước cho nhãn
         lbIcon.setIcon(scaledIcon);
 
-        // Đặt vị trí và kích thước cho nhãn
-        lbIcon.setBounds(0, 0, pnView.getWidth(), pnView.getHeight());
     }
 
     public static void setIcon(JLabel label, String[] paths, int index) {
@@ -197,9 +199,7 @@ public class Main {
     }
 
     void ChamDutPanelVaLabel() {
-
-        pnView.removeAll();
-
+        setIconPanel();
     }
 
     void logout() {
@@ -275,16 +275,7 @@ public class Main {
         }
     }
 
-    static public void ChuyenThanhToan(int daBam) {
-        if (daBam == 1) {
-            HoaDonJPanel hd = new HoaDonJPanel();
-            pnView.removeAll();
-            pnView.add(hd);
-            pnView.revalidate();
-            pnView.repaint();
-            daBam = 0;
-        }
-    }
+   
 
     void VaiTro() {
         ImageIcon icon = new ImageIcon("Logos/user.png");
@@ -312,7 +303,8 @@ public class Main {
         fr.add(pnView, BorderLayout.CENTER);
 
         // Cài đặt layout cho pnView thành null
-        pnView.setLayout(null);
+        
+        
 
         // add pnMenuCon1 vao pnMenu
         pnMenu.add(pnMenuCon1, BorderLayout.NORTH);
@@ -519,7 +511,7 @@ public class Main {
                         TrangThaiThongKe = true;
                     } else {
                         dongCacPanelThongKe();
-                        TrangThaiThongKe = false;
+                        TrangThaiThongKe = true;
                     }
                 }
             }
@@ -546,6 +538,7 @@ public class Main {
         panels.add(pnDangXuat);
         panels.add(pnTKDoanhThu);
         panels.add(pnTKMonAn);
+        panels.add(pnTKDanhGia);
         panels.add(pnDatBan);
         panels.add(pnThanhToan);
         panels.add(pnKhachHang);
@@ -767,7 +760,7 @@ public class Main {
                     ex.printStackTrace();
                 }
                 pnNhanVien.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DoiMatKhau
-                pnDanhGia.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DangXuat
+//                pnDanhGia.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DangXuat
             }
 
             // Sau khi di chuyển hoàn tất, loại bỏ các panel khỏi pnMenuCon2 và pnView
@@ -803,7 +796,6 @@ public class Main {
 
     void ListPanelMenu() {
         List<JPanel> panels = new ArrayList<>();
-        panels.add(pnTKMonAn);
         panels.add(pnDatBan);
         panels.add(pnThanhToan);
         panels.add(pnKhachHang);
@@ -831,7 +823,6 @@ public class Main {
 
     void ListAllPanel() {
         List<JPanel> panels = new ArrayList<>();
-        panels.add(pnTKMonAn);
         panels.add(pnDatBan);
         panels.add(pnThanhToan);
         panels.add(pnKhachHang);

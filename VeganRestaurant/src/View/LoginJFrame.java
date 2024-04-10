@@ -50,8 +50,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         lblUsername.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/pass.png");
         lblPass.setIcon(iconuser1);
-        ImageIcon iconuser2 = new ImageIcon("Logos/face-id.png");
-        lblFaceid.setIcon(iconuser2);
+//        ImageIcon iconuser2 = new ImageIcon("Logos/face-id.png");
+//        lblFaceid.setIcon(iconuser2);
         ImageIcon iconuser3 = new ImageIcon("Logos/qr-scan.png");
         lblQRCode.setIcon(iconuser3);
         ImageIcon lblPhaiIcon = new ImageIcon("Logos/fruit salad-cuate.png");
@@ -89,7 +89,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         lblQuenMatKhau = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        lblFaceid = new javax.swing.JLabel();
         lblQRCode = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         chkSave = new javax.swing.JCheckBox();
@@ -179,13 +178,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("HÃY ĐĂNG NHẬP TÀI KHOẢN CỦA BẠN");
 
-        lblFaceid.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblFaceid.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblFaceidMouseClicked(evt);
-            }
-        });
-
         lblQRCode.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblQRCode.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -213,9 +205,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(chkSave, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFaceid, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel2)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -261,9 +251,8 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblFaceid, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(lblQRCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblQRCode, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkSave, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
@@ -272,7 +261,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(btnCancel))
                 .addGap(18, 18, 18)
                 .addComponent(lblQuenMatKhau)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addContainerGap())
         );
@@ -332,10 +321,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void lblFaceidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFaceidMouseClicked
-//        new Home((java.awt.Frame) getParent(), true).setVisible(true);
-    }//GEN-LAST:event_lblFaceidMouseClicked
-
     private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
         openQuenMatKhau();
     }//GEN-LAST:event_lblQuenMatKhauMouseClicked
@@ -394,7 +379,6 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblBenTrai;
-    private javax.swing.JLabel lblFaceid;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblPhai;
     private javax.swing.JLabel lblQRCode;
@@ -453,7 +437,9 @@ public class LoginJFrame extends javax.swing.JFrame {
             MsgBox.alert(this, "Bạn đã nhập thành công vai trò: " + (Auth.user.isVaiTro() ? "Quản lý" : "Nhân viên"));
 
             dispose();
-            new Main().callMain();
+            Main m = new Main();
+            m.callMain();
+          
             if (chkSave.isSelected()) {
                 saveLoginInfo(tentk, pass, true);
             } else {
