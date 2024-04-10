@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
@@ -59,6 +60,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         lbThemMon = new javax.swing.JLabel();
         lbThanhToans = new javax.swing.JLabel();
+        lbChuyenBan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,31 +96,55 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
             }
         });
 
+        lbChuyenBan.setBackground(new java.awt.Color(51, 255, 0));
+        lbChuyenBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbChuyenBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ChuyenBan.png"))); // NOI18N
+        lbChuyenBan.setText("Chuyển bàn");
+        lbChuyenBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbChuyenBan.setFocusTraversalPolicyProvider(true);
+        lbChuyenBan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbChuyenBanMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbThemMon)
-                    .addComponent(lbThanhToans))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbThemMon))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbThanhToans))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbChuyenBan)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(lbMaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(7, 7, 7)
                 .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbThemMon)
                 .addGap(18, 18, 18)
                 .addComponent(lbThanhToans)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbChuyenBan)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,6 +235,15 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         dialogGoiMon.jButton2ActionPerformed(actionEvent);
     }//GEN-LAST:event_lbThanhToansMouseClicked
 
+    private void lbChuyenBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbChuyenBanMouseClicked
+          
+        JFrame fr = new JFrame();
+        JDiaLOgChuyenBan dialog = new JDiaLOgChuyenBan(fr,true);
+        dialog.setBan(maBan);
+        dialog.setVisible(true);
+        
+    }//GEN-LAST:event_lbChuyenBanMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -256,6 +291,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbChuyenBan;
     private javax.swing.JLabel lbMaBan;
     private javax.swing.JLabel lbThanhToans;
     private javax.swing.JLabel lbThemMon;

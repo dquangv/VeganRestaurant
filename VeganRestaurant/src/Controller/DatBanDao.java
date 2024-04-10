@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Utils.XJdbc;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -34,6 +35,7 @@ public class DatBanDao {
             + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
             + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon)) "
             + "ORDER BY ThoiGianDat;";
+    static String ThayDoiBan = " UPDATE ChiTietDatBan SET MaBan = ? WHERE MaBan = ? AND MaPhieuDatBan = ?;";
 
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
@@ -68,10 +70,10 @@ public class DatBanDao {
             throw new RuntimeException(e);
         }
     }
-    
-    public void huyDatBan(int maPhieuDatBan){
-        String SQLXoa1 =" Delete From ChiTietDatBan where MaPhieuDatBan = ?";
-        String SQL =" Delete From PhieuDatBan where MaPhieuDatBan = ?";
+
+    public void huyDatBan(int maPhieuDatBan) {
+        String SQLXoa1 = " Delete From ChiTietDatBan where MaPhieuDatBan = ?";
+        String SQL = " Delete From PhieuDatBan where MaPhieuDatBan = ?";
         try {
             XJdbc.executeUpdate(SQLXoa1, maPhieuDatBan);
             System.out.println("Xoa CTDB");
@@ -124,4 +126,14 @@ public class DatBanDao {
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
 
+    public void chuyenBan(int maBanCu, List<Integer> maBanMoi, int maPhieuDatBan) {
+        try {
+            // Thực hiện truy vấn cho từng giá trị trong danh sách maBanMoi
+            for (Integer ma : maBanMoi) {
+                XJdbc.executeUpdate(ThayDoiBan, maBanCu, ma, maPhieuDatBan);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
