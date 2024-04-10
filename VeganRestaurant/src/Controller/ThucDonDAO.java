@@ -41,7 +41,8 @@ public class ThucDonDAO {
 
         return danhSachMonAn;
     }
-     public List<MonAn> layDanhSachMonTheoTuKhoa(String tuKhoa) {
+
+    public List<MonAn> layDanhSachMonTheoTuKhoa(String tuKhoa) {
         String sql = "SELECT MonAn.MaMonAn, MonAn.TenMonAn, MonAn.DonGia, LoaiMon.TenLoaiMon, MonAn.HinhAnh, MonAn.TrangThai, MonAn.soLuong "
                 + "FROM MonAn "
                 + "JOIN LoaiMon ON MonAn.MaLoaiMon = LoaiMon.MaLoaiMon "
@@ -71,7 +72,6 @@ public class ThucDonDAO {
         monAn.setSoLuong(rs.getInt("soLuong"));
         return monAn;
     }
-    
 
     private MonAn extractMonAnFromResultSetThucDon(ResultSet rs) throws SQLException {
         MonAn monAn = new MonAn(null, null, null, null);
@@ -154,8 +154,8 @@ public class ThucDonDAO {
         String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
-//                + "               JOIN "
-//                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                //                + "               JOIN "
+                //                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
                 + "               JOIN "
                 + "                   ThucDon on ThucDon.MaThucDon = MonAn.MaThucDon "
                 + "				JOIN "
@@ -184,8 +184,8 @@ public class ThucDonDAO {
         String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
-//                + "               left JOIN "
-//                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                //                + "               left JOIN "
+                //                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
                 + "               left JOIN"
                 + "                   ThucDon on ThucDon.MaThucDon = MonAn.MaThucDon "
                 + "			right	JOIN"
@@ -216,8 +216,8 @@ public class ThucDonDAO {
         String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
-//                + "               left JOIN "
-//                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                //                + "               left JOIN "
+                //                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
                 + "               left JOIN"
                 + "                   ThucDon on ThucDon.MaThucDon = MonAn.MaThucDon "
                 + "			right	JOIN"
@@ -248,8 +248,8 @@ public class ThucDonDAO {
         String sql = "SELECT LoaiMon.MaLoaiMon, MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
-//                + "               left JOIN "
-//                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                //                + "               left JOIN "
+                //                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
                 + "               left JOIN"
                 + "                   ThucDon on ThucDon.MaThucDon = MonAn.MaThucDon "
                 + "			right	JOIN"
@@ -280,8 +280,8 @@ public class ThucDonDAO {
         String sql = "SELECT MonAn.TenMonAn, LoaiMon.TenLoaiMon , ThucDon.NgayPhucVu, MonAn.HinhAnh, MonAn.TrangThai "
                 + "               FROM "
                 + "                    MonAn "
-//                + "               left JOIN "
-//                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
+                //                + "               left JOIN "
+                //                + "                   ChiTietTD ON MonAn.MaMonAn = ChiTietTD.MaMonAn "
                 + "               left JOIN"
                 + "                   ThucDon on ThucDon.MaThucDon = MonAn.MaThucDon "
                 + "			right	JOIN"

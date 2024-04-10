@@ -77,7 +77,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         lbHuyDatBan.setBackground(new java.awt.Color(51, 255, 0));
         lbHuyDatBan.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbHuyDatBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/da dat.png"))); // NOI18N
-        lbHuyDatBan.setText("Hũy đặt bàn");
+        lbHuyDatBan.setText("Hủy đặt bàn");
         lbHuyDatBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbHuyDatBan.setFocusTraversalPolicyProvider(true);
         lbHuyDatBan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,7 +92,7 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
         lbBDPV.setBackground(new java.awt.Color(51, 255, 0));
         lbBDPV.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lbBDPV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Dang phuc vu.png"))); // NOI18N
-        lbBDPV.setText("Bất đầu phục vụ");
+        lbBDPV.setText("Bắt đầu phục vụ");
         lbBDPV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbBDPV.setFocusTraversalPolicyProvider(true);
         lbBDPV.addMouseListener(new java.awt.event.MouseAdapter() {

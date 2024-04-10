@@ -203,7 +203,6 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
-//        dialogGoiMon.filltableCoSan(MaPDB);
         dialogGoiMon.setKHvaTG(MaPDB);
         dialogGoiMon.filltableCoSan(MaPDB);
         ActionEvent actionEvent = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "MouseClicked");

@@ -558,7 +558,7 @@ public class GoiMon extends javax.swing.JPanel {
         }
         Window window = SwingUtilities.getWindowAncestor(this);
         window.dispose();
-        
+
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
         jdialog.setThanhToan();
