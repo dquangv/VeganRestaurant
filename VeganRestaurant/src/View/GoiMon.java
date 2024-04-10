@@ -7,6 +7,7 @@ package View;
 import Controller.CT_ThongTinDAO;
 import Controller.ChiTietGoiMonDAO;
 import static Controller.DatBanDao.Trong;
+import Controller.HoaDonDAO;
 import Controller.ThucDonDAO;
 import Model.CT_ThongTin;
 import Model.ChiTietDatBan;
@@ -546,24 +547,30 @@ public class GoiMon extends javax.swing.JPanel {
     private void themVaoHoaDon() {
         int mahd = 0;
         try {
-            java.sql.Date ngayLap = new java.sql.Date(ThoiGianDat.getTime());
-            double tienMonAn = Double.parseDouble(lblTongTien.getText().replaceAll("[^\\d.]+", ""));
-            int maPhieuDatBan = maPdb;
-            int maNhanVien = Auth.user.getMaNhanVien();
-            ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
-            mahd = ctgmDAO.insertHoaDon(ngayLap, tienMonAn, maPhieuDatBan, maNhanVien);
+            HoaDonDAO hdDAO = new HoaDonDAO();
+            mahd = hdDAO.getMaHoaDonByMaPhieuDatBan(maPdb);
+
+            if (mahd == 0) {
+                java.sql.Date ngayLap = new java.sql.Date(ThoiGianDat.getTime());
+                double tienMonAn = Double.parseDouble(lblTongTien.getText().replaceAll("[^\\d.]+", ""));
+                int maNhanVien = Auth.user.getMaNhanVien();
+                ChiTietGoiMonDAO ctgmDAO = new ChiTietGoiMonDAO();
+                mahd = ctgmDAO.insertHoaDon(ngayLap, tienMonAn, maPdb, maNhanVien);
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi thêm vào hóa đơn!");
         }
-        Window window = SwingUtilities.getWindowAncestor(this);
-        window.dispose();
 
-        ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
-        jdialog.layMaHoaDon(mahd);
-        jdialog.setThanhToan();
-        jdialog.setVisible(true);
-        jdialog.setLocationRelativeTo(null);
+        if (mahd != 0) {
+            Window window = SwingUtilities.getWindowAncestor(this);
+            window.dispose();
+
+            ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
+            jdialog.layMaHoaDon(mahd);
+            jdialog.setThanhToan();
+            jdialog.setVisible(true);
+            jdialog.setLocationRelativeTo(null);
+        }
     }
 
     private void hienThiDanhSachMonAnUI(List<MonAn> danhSachMonAn) {

@@ -25,11 +25,43 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                             left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
 
     String SELECT_BY_IDKhach_SQL = """
-                                   select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,TrangThai,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang,ctdb.MaBan from HoaDon hd
-                                        join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                                        left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
-                                   	join ChiTietDatBan ctdb on ctdb.MaPhieuDatBan = pdb.MaPhieuDatBan
-                                        where MaHoaDon = ? """;
+                                   SELECT 
+                                       hd.MaHoaDon,
+                                       hd.NgayLap,
+                                       hd.TienMonAn,
+                                       hd.TienGiamDiemThuong,
+                                       hd.TienGiamKhuyenMai,
+                                       hd.TongTien,
+                                       hd.PhuongThucThanhToan,
+                                       hd.TrangThai,
+                                       pdb.MaPhieuDatBan,
+                                       hd.MaKhuyenMai,
+                                       hd.MaNhanVien,
+                                       kh.MaKhachHang,
+                                       STRING_AGG(ctdb.MaBan, ', ') AS MaBan
+                                   FROM 
+                                       HoaDon hd
+                                   JOIN 
+                                       PhieuDatBan pdb ON hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                                   LEFT JOIN 
+                                       KhachHang kh ON pdb.MaKhachHang = kh.MaKhachHang
+                                   JOIN 
+                                       ChiTietDatBan ctdb ON ctdb.MaPhieuDatBan = pdb.MaPhieuDatBan
+                                   WHERE 
+                                       MaHoaDon = ?
+                                   GROUP BY 
+                                       hd.MaHoaDon,
+                                       hd.NgayLap,
+                                       hd.TienMonAn,
+                                       hd.TienGiamDiemThuong,
+                                       hd.TienGiamKhuyenMai,
+                                       hd.TongTien,
+                                       hd.PhuongThucThanhToan,
+                                       hd.TrangThai,
+                                       pdb.MaPhieuDatBan,
+                                       hd.MaKhuyenMai,
+                                       hd.MaNhanVien,
+                                       kh.MaKhachHang; """;
 
     //thêm
     @Override
@@ -132,7 +164,7 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
         }
         return null;
     }
-    
+
     public List<Boolean> selectTT() {
         String sql = "select distinct TrangThai from HoaDon";
         List<Boolean> list = new ArrayList<>();
@@ -161,7 +193,7 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                                   kh.MaKhachHang = ?""";
         List<HoaDon> list = new ArrayList<>();
         try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            
+
             ps.setInt(1, Integer.parseInt(keyword));
             ps.setInt(2, Integer.parseInt(keyword));
             ps.setInt(3, Integer.parseInt(keyword));
@@ -233,13 +265,45 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
 //        }
 //        return list;
 //    }
-
     public List<HoaDon> selectHD() {
         String sql = """
-                    select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,TrangThai,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang,ctdb.MaBan from HoaDon hd
-                    join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                    left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
-                    join ChiTietDatBan ctdb on ctdb.MaPhieuDatBan = pdb.MaPhieuDatBan""";
+                    SELECT 
+                        hd.MaHoaDon,
+                        hd.NgayLap,
+                        hd.TienMonAn,
+                        hd.TienGiamDiemThuong,
+                        hd.TienGiamKhuyenMai,
+                        hd.TongTien,
+                        hd.PhuongThucThanhToan,
+                        hd.TrangThai,
+                        pdb.MaPhieuDatBan,
+                        hd.MaNhanVien,
+                        kh.MaKhachHang,
+                        STRING_AGG(ctdb.MaBan, ', ') AS MaBan,
+                        hd.MaKhuyenMai
+                    FROM 
+                        HoaDon hd
+                    JOIN 
+                        PhieuDatBan pdb ON hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                    LEFT JOIN 
+                        KhachHang kh ON pdb.MaKhachHang = kh.MaKhachHang
+                    JOIN 
+                        ChiTietDatBan ctdb ON ctdb.MaPhieuDatBan = pdb.MaPhieuDatBan
+                    GROUP BY 
+                        hd.MaHoaDon,
+                        hd.NgayLap,
+                        hd.TienMonAn,
+                        hd.TienGiamDiemThuong,
+                        hd.TienGiamKhuyenMai,
+                        hd.TongTien,
+                        hd.PhuongThucThanhToan,
+                        hd.TrangThai,
+                        pdb.MaPhieuDatBan,
+                        hd.MaNhanVien,
+                        kh.MaKhachHang,
+                        hd.MaKhuyenMai
+                    ORDER BY 
+                        hd.MaHoaDon;""";
         return this.selectBySQL(sql);
     }
 
@@ -276,6 +340,23 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Integer getMaHoaDonByMaPhieuDatBan(Integer maPhieuDatBan) {
+        String sql = "SELECT MaHoaDon FROM HoaDon WHERE MaPhieuDatBan = ?";
+        try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, maPhieuDatBan);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("MaHoaDon");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }

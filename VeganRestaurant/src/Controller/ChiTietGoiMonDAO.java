@@ -22,7 +22,7 @@ public class ChiTietGoiMonDAO {
             + "FROM MonAn "
             + "RIGHT JOIN ChiTietGM ON MonAn.MaMonAn = ChiTietGM.MaMonAn "
             + "JOIN PhieuDatBan ON ChiTietGM.MaPhieuDatBan = PhieuDatBan.MaPhieuDatBan "
-            + "JOIN KhachHang ON KhachHang.MaKhachHang = PhieuDatBan.MaKhachHang "
+            + "left JOIN KhachHang ON KhachHang.MaKhachHang = PhieuDatBan.MaKhachHang "
             + "WHERE ChiTietGM.MaPhieuDatBan = ?";
 
     String SELECT_KH_TG_SQL = "SELECT KhachHang.TenKhachHang, PhieuDatBan.ThoiGianDat "
@@ -252,20 +252,18 @@ public class ChiTietGoiMonDAO {
             pstmt.setInt(1, maPDB);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete data.", e);
+            e.printStackTrace();
         } finally {
             if (pstmt != null) {
                 try {
                     pstmt.close();
                 } catch (SQLException ex) {
-                    // Log or handle exception
                 }
             }
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    // Log or handle exception
                 }
             }
         }

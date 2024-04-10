@@ -27,12 +27,12 @@ public class DatBanDao {
     static String Select_Thongtin = "SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai "
             + "FROM ChiTietDatBan db "
             + "INNER JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan "
-            + "RIGHT JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang "
+            + "left JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang "
             + "INNER JOIN Ban b ON b.MaBan = db.MaBan "
             + "WHERE ((TenKhachHang LIKE ? OR SDT LIKE ?) "
             + "OR (TenKhachHang IS NULL OR SDT IS NULL)) "
             + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
-            + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon)) "
+            + "AND (db.MaPhieuDatBan Not IN (SELECT MaPhieuDatBan FROM HoaDon Where TrangThai = 1)) "
             + "ORDER BY ThoiGianDat;";
 
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
@@ -68,10 +68,10 @@ public class DatBanDao {
             throw new RuntimeException(e);
         }
     }
-    
-    public void huyDatBan(int maPhieuDatBan){
-        String SQLXoa1 =" Delete From ChiTietDatBan where MaPhieuDatBan = ?";
-        String SQL =" Delete From PhieuDatBan where MaPhieuDatBan = ?";
+
+    public void huyDatBan(int maPhieuDatBan) {
+        String SQLXoa1 = " Delete From ChiTietDatBan where MaPhieuDatBan = ?";
+        String SQL = " Delete From PhieuDatBan where MaPhieuDatBan = ?";
         try {
             XJdbc.executeUpdate(SQLXoa1, maPhieuDatBan);
             System.out.println("Xoa CTDB");

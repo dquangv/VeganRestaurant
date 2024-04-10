@@ -6,6 +6,7 @@ package View;
 
 import static Controller.DatBanDao.Trong;
 import Controller.HoaDonDAO;
+import Controller.PhieuDatBanDao;
 import Model.HoaDon;
 import Utils.Auth;
 import Utils.MsgBox;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,9 +106,24 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     HoaDon layForm() {
         HoaDon hd = new HoaDon();
-
         hd.setMaHoaDon(Integer.valueOf(txtMaHoaDon.getText().substring(2)));
-        hd.setMaPhieuDatBan(Integer.valueOf(txtBan.getText().substring(3)));
+        PhieuDatBanDao pdb = new PhieuDatBanDao();
+        String danhSachBan = txtBan.getText();
+        List<Integer> listSoBan = new ArrayList<>();
+        if (!danhSachBan.isEmpty()) {
+            String[] mangBan = danhSachBan.split(",");
+            for (String maBanStr : mangBan) {
+                maBanStr = maBanStr.trim();
+                try {
+                    int maBan = Integer.parseInt(maBanStr);
+                    listSoBan.add(maBan);
+                } catch (NumberFormatException e) {
+                }
+            }
+        }
+        System.out.println(listSoBan.get(0) + "MaBan");
+        int MaPDB = pdb.SelectMaPDB(listSoBan.get(0));
+        hd.setMaPhieuDatBan(MaPDB);
         hd.setMaNhanVien(Auth.user.getMaNhanVien());
         hd.setNgayLap(txtNgayLap.getDate());
         String maGiamGiaText = txtMaGiamGia.getText().substring(2);
@@ -125,12 +142,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         boolean pt;
         pt = cboPhuongThuc.getSelectedItem().equals("Tiền Mặt");
         hd.setPhuongThuc(pt);
-        
-        boolean tt;
-        tt = cboTrangThai.getSelectedItem().equals("Thanh Toán");
-        hd.setTrangThai(tt);
-        
-//        hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
+        hd.setTrangThai(true);
 
         return hd;
     }
@@ -147,7 +159,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         }
     }
-    
+
     void themVaoCboTT() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboTrangThai.getModel();
         model.removeAllElements();
@@ -201,9 +213,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
     }
 
-    String tienKhach(){
+    String tienKhach() {
         String input = JOptionPane.showInputDialog(rootPane, "Nhập tiền khách đưa", "In Hóa Đơn", JOptionPane.QUESTION_MESSAGE);
-        return input;  
+        return input;
     }
 
     @SuppressWarnings("unchecked")
@@ -344,6 +356,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jLabel12.setText("Tiền Giảm");
 
         txtTienGiam.setEnabled(false);
+
+        cboTrangThai.setEnabled(false);
 
         jLabel1.setText("Trạng Thái");
 
@@ -519,7 +533,23 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        List<Integer> listSoBan = ctThongTIn.dsBanTheoPDB(Integer.valueOf(txtBan.getText().substring(3)));
+        String danhSachBan = txtBan.getText();
+        List<Integer> listSoBan = new ArrayList<>();
+        if (!danhSachBan.isEmpty()) {
+            String[] mangBan = danhSachBan.split(",");
+            for (String maBanStr : mangBan) {
+                maBanStr = maBanStr.trim();
+                try {
+                    int maBan = Integer.parseInt(maBanStr);
+                    listSoBan.add(maBan);
+                } catch (NumberFormatException e) {
+                }
+            }
+        }
+
+        this.themHD();
+
+        String mahd = txtMaHoaDon.getText();
         for (Integer maBan : listSoBan) {
             dbDAO.updateTrangThai(Trong, maBan + "");
         }
@@ -527,10 +557,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
-        this.themHD();
-
-        String mahd = txtMaHoaDon.getText();
-
         xemDanhGia(Integer.parseInt(mahd.substring(2)));
 
         btnInHDActionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, "In Hóa Đơn"));
@@ -589,6 +615,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         });
     }
+
     void xemDanhGia(int mahd) {
         JOptionPane.showMessageDialog(this, "Mời quý khách đánh giá trải nghiệm về món ăn!");
         DanhGiaJDialog jdialog = new DanhGiaJDialog(new javax.swing.JFrame(), true);

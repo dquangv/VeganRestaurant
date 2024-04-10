@@ -25,7 +25,7 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
             + "JOIN PhieuDatBan ON ChiTietDatBan.MaPhieuDatBan = PhieuDatBan.MaPhieuDatBan "
             + "JOIN Ban ON ChiTietDatBan.MaBan = Ban.MaBan "
             + "WHERE (Ban.TrangThai = N'Đang phục vụ' OR Ban.TrangThai = N'Đã đặt') "
-            + "AND (ChiTietDatBan.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon)) "
+            + "AND (ChiTietDatBan.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon where TrangThai = 1)) "
             + "AND Ban.MaBan = ?";
 
     String SelectMaPhieuDatBanMax = "select max(MaPhieuDatBan) max from PhieuDatBan";

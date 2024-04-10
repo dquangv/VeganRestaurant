@@ -127,7 +127,7 @@ go
 create table HoaDon (
 	MaHoaDon int identity(1, 1) primary key,
 	NgayLap datetime not null default getdate(),
-	TienMonAn money not null,
+	TienMonAn money ,
 	TienGiamDiemThuong money default 0,
 	TienGiamKhuyenMai money default 0,
 	TongTien money,
@@ -848,6 +848,36 @@ go
 	 group by TenMonAn
 	 order by soluongdanhgia desc
  end 
+ go
+
+
+ CREATE OR ALTER TRIGGER Trig_UpdateTienMonAn
+ON ChiTietGM
+AFTER INSERT, DELETE
+AS
+BEGIN
+    IF EXISTS(SELECT * FROM inserted) 
+    BEGIN
+        UPDATE HoaDon
+        SET TienMonAn = (SELECT SUM(MonAn.DonGia * ChiTietGM.SoLuong) 
+                         FROM ChiTietGM 
+                         INNER JOIN MonAn ON ChiTietGM.MaMonAn = MonAn.MaMonAn 
+                         WHERE ChiTietGM.MaPhieuDatBan = HoaDon.MaPhieuDatBan)
+        WHERE HoaDon.MaPhieuDatBan IN (SELECT MaPhieuDatBan FROM inserted);
+    END
+
+    IF EXISTS(SELECT * FROM deleted) 
+    BEGIN
+        UPDATE HoaDon
+        SET TienMonAn = (SELECT SUM(MonAn.DonGia * ChiTietGM.SoLuong) 
+                         FROM ChiTietGM 
+                         INNER JOIN MonAn ON ChiTietGM.MaMonAn = MonAn.MaMonAn 
+                         WHERE ChiTietGM.MaPhieuDatBan = HoaDon.MaPhieuDatBan)
+        WHERE HoaDon.MaPhieuDatBan IN (SELECT MaPhieuDatBan FROM deleted);
+    END
+END;
+go
+
 
  
  
