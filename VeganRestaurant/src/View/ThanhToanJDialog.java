@@ -46,7 +46,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     public ThanhToanJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.themVaoCbo();
+        this.themVaoCboPT();
+        this.themVaoCboTT();
 
         ImageIcon iconuser = new ImageIcon("Logos/printer.png");
         btnInHD.setIcon(iconuser);
@@ -89,7 +90,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     void thietLapForm(HoaDon hd) {
         txtMaHoaDon.setText("HD" + hd.getMaHoaDon());
         txtMaKH.setText("KH" + hd.getMaKhachHang());
-        txtBan.setText("PDB" + String.valueOf(hd.getMaPhieuDatBan()));
+        txtBan.setText(String.valueOf(hd.getTenBan()));
         txtNhanVien.setText(Auth.user.getTenTaiKhoan());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText("KM" + String.valueOf(hd.getMaKhuyenMai()));
@@ -97,6 +98,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtTienGiam.setText(giaFomat.format(hd.getTienGiamKhuyenMai()));
         txtDiemThuong.setText(giaFomat.format(hd.getTienGiamDiemThuong()));
         cboPhuongThuc.setSelectedItem(hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản" + "");
+        cboTrangThai.setSelectedItem(hd.getTrangThai() ? "Thanh Toán" : "Chưa Thanh Toán" + "");
         txtTongTien.setText(giaFomat.format(hd.getTongTien()));
     }
 
@@ -123,12 +125,17 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         boolean pt;
         pt = cboPhuongThuc.getSelectedItem().equals("Tiền Mặt");
         hd.setPhuongThuc(pt);
+        
+        boolean tt;
+        tt = cboTrangThai.getSelectedItem().equals("Thanh Toán");
+        hd.setTrangThai(tt);
+        
 //        hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
 
         return hd;
     }
 
-    void themVaoCbo() {
+    void themVaoCboPT() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboPhuongThuc.getModel();
         model.removeAllElements();
         List<Boolean> list = hdDAO.selectPT();
@@ -137,6 +144,19 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 cboPhuongThuc.addItem("Tiền Mặt");
             } else {
                 cboPhuongThuc.addItem("Chuyển Khoản");
+            }
+        }
+    }
+    
+    void themVaoCboTT() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboTrangThai.getModel();
+        model.removeAllElements();
+        List<Boolean> list = hdDAO.selectTT();
+        for (Boolean tt : list) {
+            if (tt == true) {
+                cboTrangThai.addItem("Thanh Toán");
+            } else {
+                cboTrangThai.addItem("Chưa Thanh Toán");
             }
         }
     }
@@ -171,6 +191,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
                 Map<String, Object> parameters = new HashMap<>();
                 parameters.put("P_MaHD", mahd);
+                parameters.put("P_TienKhach", tienKhach());
 
                 JasperReport jcomp = JasperCompileManager.compileReport(reportPath);
                 JasperPrint jprint = JasperFillManager.fillReport(jcomp, parameters, con);
@@ -181,12 +202,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
     }
 
-    void abc() {
-        txtTienGiam.setEnabled(false);
-        txtTienMon.setEnabled(false);
-        txtTongTien.setEnabled(false);
-        txtDiemThuong.setEnabled(false);
-        btnThanhToan.setEnabled(false);
+    String tienKhach(){
+        String input = JOptionPane.showInputDialog(rootPane, "Nhập tiền khách đưa", "In Hóa Đơn", JOptionPane.QUESTION_MESSAGE);
+        return input;  
     }
 
     @SuppressWarnings("unchecked")
@@ -219,6 +237,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtTienGiam = new javax.swing.JTextField();
+        cboTrangThai = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblChiTiet = new javax.swing.JTable();
         btnThanhToan = new javax.swing.JButton();
@@ -245,7 +265,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel4.setText("Ngày Lập");
 
-        jLabel10.setText("Phiếu Bàn");
+        jLabel10.setText("Bàn");
 
         txtBan.setEnabled(false);
 
@@ -326,6 +346,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         txtTienGiam.setEnabled(false);
 
+        jLabel1.setText("Trạng Thái");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -342,12 +364,14 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                                 .addComponent(cboPhuongThuc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTongTien)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtTongTien)
-                                .addContainerGap())))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMaGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,7 +391,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                                 .addComponent(txtDiemThuong, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chkTichDiem)))
-                        .addContainerGap(12, Short.MAX_VALUE))))
+                        .addGap(0, 6, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,14 +411,16 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                     .addComponent(txtTienMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTienGiam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboPhuongThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboPhuongThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         tblChiTiet.setModel(new javax.swing.table.DefaultTableModel(
@@ -474,9 +501,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             .addGap(0, 1074, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(26, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(27, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,7 +601,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnInHD;
     public javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cboPhuongThuc;
+    private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JCheckBox chkTichDiem;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -48,7 +48,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     "PDB" + hd.getMaPhieuDatBan(),
                     "KM" + hd.getMaKhuyenMai(),
                     "NV" + hd.getMaNhanVien(),
-                    "KH" + hd.getMaKhachHang()
+                    "KH" + hd.getMaKhachHang(),
                 };
 
                 model.addRow(row);
@@ -59,11 +59,36 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         }
     }
 
+    String timKiem() {
+        String input = txtTimID.getText();
+        if (input.startsWith("HD")) {
+            String maHD = input.substring(2);
+            return maHD;
+        }
+        if (input.startsWith("PDB")) {
+            String maPDB = input.substring(3);
+            return maPDB;
+        }
+        if (input.startsWith("KM")) {
+            String maKM = input.substring(2);
+            return maKM;
+        }
+        if (input.startsWith("NV")) {
+            String maNV = input.substring(2);
+            return maNV;
+        }
+        if (input.startsWith("KH")) {
+            String maKH = input.substring(2);
+            return maKH;
+        }
+        return null;
+    }
+
     void timTheoMaKH() {
         DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
         model.setRowCount(0);
-        String id = txtTimID.getText();
-        List<HoaDon> list = hdDAO.selectByMaKH(Integer.valueOf(id.substring(2)));
+
+        List<HoaDon> list = hdDAO.selectByMuti(timKiem());
         for (HoaDon hd : list) {
             model.addRow(new Object[]{
                 "HD" + hd.getMaHoaDon(),
