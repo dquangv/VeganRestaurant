@@ -9,6 +9,7 @@ import View.DanhGia2JPanel;
 import View.DoiMatKhauPanel;
 import View.HoaDonJPanel;
 import View.JPanelDatBan;
+import View.JPanelKhuyenMai;
 import View.JPanelMonAn;
 import View.JPanelTang2;
 import View.JPanelThongKeDanhGIa;
@@ -110,8 +111,8 @@ public class ChuyenManHinh {
                     case "KhachHang":
                         node = new KhachHang();
                         break;
-                    case "NguyenVatLieu":
-                        node = new NguyenVatLieu();
+                    case "KhuyenMai":
+                        node = new JPanelKhuyenMai();
                         break;
                     case "ThucDon":
                         node = new ThucDon();
