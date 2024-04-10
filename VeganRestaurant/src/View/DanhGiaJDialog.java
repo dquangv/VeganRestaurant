@@ -8,6 +8,7 @@ import Controller.DanhGia_DAO;
 import Model.DanhGia;
 import Utils.XJdbc;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -71,6 +72,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlDanhGia = new javax.swing.JPanel();
+        btnDanhGia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -127,6 +129,13 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane2))
         );
 
+        btnDanhGia.setText("Đánh Giá");
+        btnDanhGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhGiaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,6 +146,8 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnQuayLai)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDanhGia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -162,7 +173,8 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                     .addComponent(txtMaHoaDon)
                     .addComponent(jLabel5)
                     .addComponent(txtTenKhach)
-                    .addComponent(txtPhieuDatBan))
+                    .addComponent(txtPhieuDatBan)
+                    .addComponent(btnDanhGia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -182,6 +194,11 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
+    private void btnDanhGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhGiaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnDanhGiaActionPerformed
+
     void layMaHoaDon(int mahd) {
         txtMaHoaDon.setText("HD" + mahd);
     }
@@ -194,14 +211,17 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
         JPanel pnlTrai = new JPanel();
         JPanel pnlPhai = new JPanel();
+        //JButton btnDanhGia = new JButton("Đánh giá");
 
         pnlTrai.setLayout(new GridLayout(ds_DanhGia.size(), 1));
         pnlPhai.setLayout(new GridLayout(ds_DanhGia.size(), 1));
+        //btnDanhGia.setBounds(90, 12, 100, 30);
 
         //pnlTrai.setBackground(Color.red);
         //pnlPhai.setBackground(Color.BLUE);
         pnlDanhGia.add(pnlTrai);
         pnlDanhGia.add(pnlPhai);
+        //this.add(btnDanhGia);
 
         for (DanhGia dg : ds_DanhGia) {
             try {
@@ -216,7 +236,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                 //pnlConP.setBackground(Color.BLUE);
                 pnlConP.setLayout(new GridLayout(1, 1));
 
-                JButton btnNew = new JButton("Đánh giá");
                 JLabel lblTenMon = new JLabel(dg.getTenMonAn());
                 JLabel lblHinh = new JLabel();
 
@@ -251,12 +270,12 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
                 pnlConT.add(lblTenMon, BorderLayout.NORTH);
                 pnlConT.add(lblHinh, BorderLayout.CENTER);
-                pnlConT.add(btnNew, BorderLayout.WEST);
+                //pnlConT.add(btnNew, BorderLayout.WEST);
 
                 pnlTrai.add(pnlConT);
                 pnlPhai.add(pnlConP);
 
-                btnNew.addActionListener(new ActionListener() {
+                btnDanhGia.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         for (int i = 0; i < ds_sao.size(); i++) {
@@ -264,15 +283,14 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                                 saoChon.add((i % 5) + 1);
                             }
                         }
-                        
-//                       System.out.println(lblTenMon.getText()+saoChon);
 
+//                       System.out.println(lblTenMon.getText()+saoChon);
                         int maDanhGia = 0;
                         int index = ds_TenMon.indexOf(lblTenMon);
                         if (index != -1 && index < saoChon.size()) {
                             maDanhGia = saoChon.get(index);
                         }
-                        
+
                         String maPhieuDatBan = txtPhieuDatBan.getText().substring(3); // Extract the ID from the label
                         String tenMonAn = dg.getTenMonAn();
 
@@ -317,6 +335,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDanhGia;
     private javax.swing.JButton btnQuayLai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

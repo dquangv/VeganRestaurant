@@ -188,14 +188,16 @@ public class Main {
             setIcon(getLabelByIndex(i), path, iconIndexes[i]);
         }
     }
-    void logout(){
+
+    void logout() {
         pnDangXuat.addMouseListener(new MouseAdapter() {
-             public void mouseClicked(MouseEvent e) {
-                    fr.dispose();
-                    new LoginJFrame().setVisible(true);
-                }
+            public void mouseClicked(MouseEvent e) {
+                fr.dispose();
+                new LoginJFrame().setVisible(true);
+            }
         });
     }
+
     JLabel getLabelByIndex(int index) {
         switch (index) {
             case 0:
@@ -533,7 +535,7 @@ public class Main {
         Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 2, 1, 1, Color.BLACK);
         Border bottomBordertkdg = BorderFactory.createMatteBorder(0, 2, 2, 1, Color.BLACK);
-        
+
         pnTKDoanhThu.setBackground(new Color(196, 185, 185));
         pnTKDoanhThu.setOpaque(true);
         pnTKDoanhThu.setBorder(bottomBorder);
@@ -545,7 +547,7 @@ public class Main {
         pnTKDanhGia.setBackground(new Color(196, 185, 185));
         pnTKDanhGia.setOpaque(true);
         pnTKDanhGia.setBorder(bottomBordertkdg);
-        
+
         pnMenuCon2.setLayout(null);
         pnView.setLayout(null);
         pnMenuCon2.add(pnTKDoanhThu);
@@ -554,8 +556,8 @@ public class Main {
         pnView.add(pnTKDanhGia);
 
         pnTKDoanhThu.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth(), pnKhachHang.getHeight());
-        pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth()+1, pnThongKe.getHeight());
-        pnTKDanhGia.setBounds(pnThongKe.getWidth() * 2, pnHeThong.getHeight() *  2+1, pnThongKe.getWidth(), pnThongKe.getHeight());
+        pnTKMonAn.setBounds(pnThongKe.getWidth() * 2, 0, pnThongKe.getWidth() + 1, pnThongKe.getHeight());
+        pnTKDanhGia.setBounds(pnThongKe.getWidth() * 2, pnHeThong.getHeight() * 2 + 1, pnThongKe.getWidth(), pnThongKe.getHeight());
 
         pnTKDoanhThu.add(lblThongKeDoanhThu);
         pnTKMonAn.add(lblThongKeMonAn);
@@ -582,8 +584,8 @@ public class Main {
                 pnView.setComponentZOrder(pnTKMonAn, 0);
                 pnView.setComponentZOrder(pnTKDanhGia, 0); // Thay đổi chỉ số z-order của panel Thống kê Đánh giá
                 pnTKDoanhThu.setLocation(pnThongKe.getWidth() * 2, y); // Di chuyển panel Thống kê Doanh thu
-                pnTKMonAn.setLocation(pnThongKe.getWidth() * 2-1, y); // Di chuyển panel Thống kê Món Ăn
-                pnTKDanhGia.setLocation(pnThongKe.getWidth() * 2-1, pnTKMonAn.getY() + pnTKMonAn.getHeight()); // Di chuyển panel Thống kê Đánh giá
+                pnTKMonAn.setLocation(pnThongKe.getWidth() * 2 - 1, y); // Di chuyển panel Thống kê Món Ăn
+                pnTKDanhGia.setLocation(pnThongKe.getWidth() * 2 - 1, pnTKMonAn.getY() + pnTKMonAn.getHeight()); // Di chuyển panel Thống kê Đánh giá
             }
         }).start();
         fr.revalidate();
@@ -661,7 +663,7 @@ public class Main {
         pnView.add(pnDanhGia);
 
         pnNhanVien.setBounds(pnQuanLy.getWidth(), 0, pnQuanLy.getWidth(), pnKhachHang.getHeight());
-        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnNhanVien.getWidth()+1, pnKhachHang.getHeight());
+        pnDanhGia.setBounds(pnQuanLy.getWidth(), 0, pnNhanVien.getWidth() + 1, pnKhachHang.getHeight());
 
         pnNhanVien.add(lblNhanVien);
         pnDanhGia.add(lblDanhGia);
@@ -683,7 +685,7 @@ public class Main {
                 pnMenuCon2.setComponentZOrder(pnNhanVien, 0);
                 pnView.setComponentZOrder(pnDanhGia, 0);
                 pnNhanVien.setLocation(pnQuanLy.getWidth(), y); // Di chuyển panel DoiMatKhau
-                pnDanhGia.setLocation(pnNhanVien.getWidth()-1, y); // Di chuyển panel DangXuat
+                pnDanhGia.setLocation(pnNhanVien.getWidth() - 1, y); // Di chuyển panel DangXuat
             }
         }).start();
         fr.revalidate();
