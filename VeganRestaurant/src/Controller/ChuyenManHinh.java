@@ -11,6 +11,7 @@ import View.HoaDonJPanel;
 import View.JPanelDatBan;
 import View.JPanelMonAn;
 import View.JPanelTang2;
+import View.JPanelThongKeDanhGIa;
 import View.JPanelThongKeDoanhThu;
 import View.JpanelThongKeMonAn;
 import View.KhachHang;
@@ -22,6 +23,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,14 +37,28 @@ public class ChuyenManHinh {
     private JPanel root;
     private String kindSelected = "";
     private List<DanhMuc> listItem = null;
+    private JPanel currentNode;
 
     public ChuyenManHinh(JPanel jpnRoot) {
         this.root = jpnRoot;
     }
 
+    private void animatePanel(final JPanel panel) {
+        new Thread(() -> {
+            for (int y = -panel.getHeight() + 20; y <= 0; y += 40) {
+                try {
+                    Thread.sleep(10); // Wait for 10 milliseconds before moving
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                panel.setLocation(panel.getX(), y + 20);
+            }
+        }).start();
+    }
+
     //Hàm show trang đầu tiên xuất hiện khi mới truy cập vào ứng dụng
     public void setView(JPanel jpnItem, JLabel jlbItem) {
-        kindSelected = "DatBan";
+        
 //        jpnItem.setBackground(new Color(23, 70, 162));
 //        jlbItem.setBackground(new Color(23, 70, 162));
 
@@ -68,100 +84,103 @@ public class ChuyenManHinh {
         private String kind;
         private JPanel jpnItem;
         private JLabel jlbItem;
+        private String currentKind = ""; // Biến lưu trữ loại tab hiện tại
 
         public LabelEvent(String kind, JPanel jpnItem, JLabel jlbItem) {
             this.kind = kind;
             this.jpnItem = jpnItem;
             this.jlbItem = jlbItem;
         }
+        List<String> list = new ArrayList<>();
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            // Thêm kind vào cuối danh sách
             if (e.getClickCount() == 1) {
                 switch (kind) {
-                case "NhanVien":
-                    node = new NhanVien_1();
-                    break;
-                case "MonAn":
-                    node = new JPanelMonAn();
-                    break;
-                case "DatBan":
-                    node = new JPanelDatBan();
-                    break;
-                case "KhachHang":
-                    node = new KhachHang();
-                    break;
-                case "NguyenVatLieu":
-                    node = new NguyenVatLieu();
-                    break;
-                case "ThucDon":
-                    node = new ThucDon();
-                    break;
-                case "ThongKeMonAn":
-                    node = new JpanelThongKeMonAn();
-                    break;
-                case "ThongKeDoanhThu":
-                    node = new JPanelThongKeDoanhThu();
-                    break;
-                case "DanhGia":
-                    node = new DanhGia2JPanel();
-                    break;
-                case "HoaDon":
-                    node = new HoaDonJPanel();
-                    break;
-                case "DoiMatKhau":
-                    node = new DoiMatKhauPanel();
-                    break;
-                default:
-                    node = new JPanelDatBan();
+                    case "NhanVien":
+                        node = new NhanVien_1();
+                        break;
+                    case "MonAn":
+                        node = new JPanelMonAn();
+                        break;
+                    case "DatBan":
+                        node = new JPanelDatBan();
+                        break;
+                    case "KhachHang":
+                        node = new KhachHang();
+                        break;
+                    case "NguyenVatLieu":
+                        node = new NguyenVatLieu();
+                        break;
+                    case "ThucDon":
+                        node = new ThucDon();
+                        break;
+                    case "ThongKeMonAn":
+                        node = new JpanelThongKeMonAn();
+                        break;
+                    case "ThongKeDoanhThu":
+                        node = new JPanelThongKeDoanhThu();
+                        break;
+                    case "TKDanhGia":
+                        node = new JPanelThongKeDanhGIa();
+                        break;
+                    case "HoaDon":
+                        node = new HoaDonJPanel();
+                        break;
+                    case "DoiMatKhau":
+                        node = new DoiMatKhauPanel();
+                        break;
+                    default:
+                        node = new JPanelDatBan();
+                }
+            } else {
+                switch (kind) {
+                    case "NhanVien":
+                        node = new NhanVien_1();
+                        break;
+                    case "MonAn":
+                        node = new JPanelMonAn();
+                        break;
+                    case "DatBan":
+                        node = new JPanelDatBan();
+                        break;
+                    case "KhachHang":
+                        node = new KhachHang();
+                        break;
+                    case "NguyenVatLieu":
+                        node = new NguyenVatLieu();
+                        break;
+                    case "ThucDon":
+                        node = new ThucDon();
+                        break;
+                    case "ThongKeMonAn":
+                        node = new JpanelThongKeMonAn();
+                        break;
+                    case "ThongKeDoanhThu":
+                        node = new JPanelThongKeDoanhThu();
+                        break;
+                    case "DanhGia":
+                        node = new DanhGia2JPanel();
+                        break;
+                    case "HoaDon":
+                        node = new HoaDonJPanel();
+                        break;
+                    case "DoiMatKhau":
+                        node = new DoiMatKhauPanel();
+                        break;
+                    default:
+                        node = new JPanelDatBan();
+                }
             }
-            }
-            else{
-            switch (kind) {
-                case "NhanVien":
-                    node = new NhanVien_1();
-                    break;
-                case "MonAn":
-                    node = new JPanelMonAn();
-                    break;
-                case "DatBan":
-                    node = new JPanelDatBan();
-                    break;
-                case "KhachHang":
-                    node = new KhachHang();
-                    break;
-                case "NguyenVatLieu":
-                    node = new NguyenVatLieu();
-                    break;
-                case "ThucDon":
-                    node = new ThucDon();
-                    break;
-                case "ThongKeMonAn":
-                    node = new JpanelThongKeMonAn();
-                    break;
-                case "ThongKeDoanhThu":
-                    node = new JPanelThongKeDoanhThu();
-                    break;
-                case "DanhGia":
-                    node = new DanhGia2JPanel();
-                    break;
-                case "HoaDon":
-                    node = new HoaDonJPanel();
-                    break;
-                case "DoiMatKhau":
-                    node = new DoiMatKhauPanel();
-                    break;
-                default:
-                    node = new JPanelDatBan();
-            }
-            }
-            
+
             root.removeAll();
             root.setLayout(new BorderLayout());
             root.add(node);
             root.validate();
             root.repaint();
 //            changeBackGroundColor(kind);
+           
         }
 
         @Override

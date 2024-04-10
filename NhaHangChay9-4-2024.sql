@@ -1,4 +1,5 @@
 
+ 
 /*
 1 create datatabase 
 2 create table 
@@ -6,7 +7,6 @@
 4 create pro and trigger
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
-
 
  
 
@@ -452,14 +452,14 @@ go
 
 insert into ChiTietGM (MaPhieuDatBan, MaMonAn, SoLuong, GhiChu, MaDanhGia) values
 	(1, 1, 1, N'Làm mặn xíu', 5),
-	(1, 14, 1, null, 4),
+	(1, 14, 1, null, 1),
 	(1, 7, 2, N'Thêm tương ớt', 5),
-	(2, 21, 1, null, 3),
-	(2, 2, 1, null, 2),
+	(2, 21, 1, null, 1),
+	(2, 2, 1, null, 1),
 	(2, 4, 1, null, null),
 	(2, 16, 2, null, 4),
 	(3, 1, 1, N'Không hành', 4),
-	(3, 24, 1, null, 4),
+	(3, 24, 1, null, 1),
 	(4, 30, 1, N'Cần thêm nước sốt', 3),
     (4, 15, 1, null, 4),
     (4, 28, 2, N'Đặc biệt yêu cầu chảo sôi', 5),
@@ -469,20 +469,20 @@ insert into ChiTietGM (MaPhieuDatBan, MaMonAn, SoLuong, GhiChu, MaDanhGia) value
     (6, 1, 1, N'Thêm tiêu và ớt', 4),
     (6, 4, 1, null, 3),
     (6, 27, 2, N'Đặc biệt không muối', 2),
-    (7, 2, 1, null, 5),
-    (7, 5, 1, null, 3),
-    (7, 8, 1, null, 4),
+    (7, 2, 1, null, 1),
+    (7, 5, 1, null, 1),
+    (7, 8, 1, null, 1),
     (8, 11, 1, N'Loại bỏ hành', 3),
     (8, 3, 1, null, 4),
     (8, 6, 2, N'Không thêm gia vị', 5),
-    (9, 22, 1, null, 2),
-    (9, 4, 1, null, 3),
-    (9, 7, 1, null, 4),
-    (10, 11, 1, null, 5),
-    (10, 30, 1, null, 4),
-    (10, 6, 1, null, 3),
-    (11, 2, 1, null, 2),
-    (11, 25, 1, null, 3),
+    (9, 22, 1, null, 1),
+    (9, 4, 1, null, 1),
+    (9, 7, 1, null, 1),
+    (10, 11, 1, null, 1),
+    (10, 30, 1, null, 1),
+    (10, 6, 1, null, 1),
+    (11, 2, 1, null, 1),
+    (11, 25, 1, null,1),
     (11, 8, 1, null, 4),
     (12, 1, 1, null, 5),
     (12, 14, 1, null, 4),
@@ -716,7 +716,6 @@ begin
 	order by Soluongmonan desc	
 end 
 go
-
 -- thong ke doanh thu
 CREATE PROCEDURE SP_DoanhThuThang (@nam int)
 AS
@@ -812,8 +811,27 @@ END
 go
 
 
+-- thong ke danh gia 
+create or alter proc Sp_soluongdanhgia
+as 
+begin
+	SELECT top 5 COALESCE(COUNT(ctgm.MaDanhGia), 0) AS soluongdanhgia
+FROM DanhGia ad
+LEFT JOIN ChiTietGM ctgm ON ctgm.MaDanhGia = ad.MaDanhGia
+GROUP BY ad.MaDanhGia
+ORDER BY ad.MaDanhGia;
+end
+go
+-- lay danh gia 
 
+ create or alter proc sp_laySao
+ as 
+ begin
+	 
+	 select dg.MaDanhGia maDanhGia, COUNT(ctgm.madanhgia) soluongdanhgia
+ from ChiTietGM ctgm
+ inner join DanhGia dg on dg.MaDanhGia = ctgm.MaDanhGia
+ group by dg.MaDanhGia
 
- 
-
-
+ end
+ go
