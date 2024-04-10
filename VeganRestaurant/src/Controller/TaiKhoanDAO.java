@@ -22,9 +22,9 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
     String INSERT_SQL = "INSERT INTO TaiKhoan(TenTaiKhoan, MatKhau, VaiTro, MaNhanVien) VALUES(?,?,?,?)";
     String UPDATE_SQL = "UPDATE TaiKhoan SET MatKhau=?, VaiTro=?, MaNhanVien=? WHERE TenTaiKhoan=?";
     String DELETE_SQL = "DELETE FROM TaiKhoan WHERE TenTaiKhoan=?";
-    String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
+    String SELECT_ALL_SQL = "SELECT TaiKhoan.*, NhanVien.TrangThai FROM TaiKhoan JOIN NhanVien ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien";
     String SELECT_BY_ID_SQL = "SELECT TaiKhoan.*, NhanVien.TrangThai FROM TaiKhoan JOIN NhanVien ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien WHERE tentaikhoan=?";
-    String SELECT_BY_MaNv_SQL = "SELECT * FROM TaiKhoan WHERE manhanvien=?";
+    String SELECT_BY_MaNv_SQL = "SELECT TaiKhoan.*, NhanVien.TrangThai FROM TaiKhoan JOIN NhanVien ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien WHERE NhanVien.MaNhanVien=?";
     String CheckUser = "SELECT COUNT(*) "
             + "FROM TaiKhoan "
             + "INNER JOIN NhanVien ON TaiKhoan.MaNhanVien = NhanVien.MaNhanVien "
