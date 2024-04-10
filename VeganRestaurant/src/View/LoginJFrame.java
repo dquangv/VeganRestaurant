@@ -58,8 +58,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         lblPhai.setIcon(lblPhaiIcon);
         ImageIcon lblTraiIcon = new ImageIcon("Logos/giphy.gif");
         lblBenTrai.setIcon(lblTraiIcon);
-        
-      
+
     }
 
 //    public String getTenNhanVienByTaiKhoan(String tenTaiKhoan) {
@@ -304,7 +303,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtUsernameKeyPressed
-   
+
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
@@ -344,7 +343,6 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void lblQRCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQRCodeMouseClicked
         openQRCodeDialog();
     }//GEN-LAST:event_lblQRCodeMouseClicked
-    
 
     /**
      * @param args the command line arguments
@@ -410,7 +408,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         qrCodeDialog.setParentLoginDialog(this);
         qrCodeDialog.setVisible(true);
     }
-    
+
     public boolean chkValidate() {
         if (txtUsername.getText().equals("")) {
             MsgBox.alert(this, "Tên tài khoản không được bỏ trống");
@@ -422,7 +420,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         }
         return true;
     }
-     void login() {
+
+    void login() {
         String UserName = txtUsername.getText();
         String Pass = (new String(txtPassword.getPassword()));
         if (chkValidate()) {
@@ -434,7 +433,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         txtUsername.setText(username);
         txtPassword.setText(token);
     }
-    
+
     public void Login(String tentk, String pass) {
         TaiKhoan tk = dao.selectById(tentk);
         if (tk.getTrangThai().equalsIgnoreCase("Nghỉ")) {
@@ -470,7 +469,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
             }
-            try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
+            try (FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
                 Properties properties = new Properties();
                 properties.setProperty("username", username);
                 properties.setProperty("password", password);
@@ -483,7 +482,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }
 
     public void loadLoginInfo() {
-        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
+        try (FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
             Properties properties = new Properties();
             properties.load(fis);
 

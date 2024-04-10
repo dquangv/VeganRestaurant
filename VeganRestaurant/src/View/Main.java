@@ -195,24 +195,26 @@ public class Main {
             setIcon(getLabelByIndex(i), path, iconIndexes[i]);
         }
     }
-    void ChamDutPanelVaLabel(){
-      
-         pnView.removeAll();
+
+    void ChamDutPanelVaLabel() {
+
+        pnView.removeAll();
 
     }
+
     void logout() {
         pnDangXuat.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 fr.dispose();
-                
+
                 new LoginJFrame().setVisible(true);
                 ChamDutPanelVaLabel();
             }
         });
     }
 
-    void capNhatVaiTro(){
-        class vaiTro extends Thread{
+    void capNhatVaiTro() {
+        class vaiTro extends Thread {
 
             @Override
             public void run() {
@@ -231,10 +233,11 @@ public class Main {
     }
 
     void init() {
-         TaiKhoan tk = tkDAO.selectById(Auth.user.getTenTaiKhoan());
-         Auth.user = tk;
+        TaiKhoan tk = tkDAO.selectById(Auth.user.getTenTaiKhoan());
+        Auth.user = tk;
         lbVaiTro.setText((Auth.isManager() ? "Quản lý" : "Nhân viên") + ": " + Auth.user.getTenTaiKhoan());
     }
+
     JLabel getLabelByIndex(int index) {
         switch (index) {
             case 0:
@@ -570,9 +573,9 @@ public class Main {
 // Phương thức mở các panel
     void moCacPanelThongKe() {
         if (!Auth.user.isVaiTro()) {
-        JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào Thống kê.");
-        return; 
-    }
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào Thống kê.");
+            return;
+        }
         Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 2, 1, 1, Color.BLACK);
         Border bottomBordertkdg = BorderFactory.createMatteBorder(0, 2, 2, 1, Color.BLACK);

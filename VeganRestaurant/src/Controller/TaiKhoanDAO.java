@@ -95,7 +95,6 @@ public class TaiKhoanDAO extends VeganDAO<TaiKhoan, String> {
                 entity.setVaiTro(rs.getBoolean("VaiTro"));
                 entity.setMaNhanVien(rs.getInt("MaNhanVien"));
                 entity.setTrangThai(rs.getString("TrangThai"));
-
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

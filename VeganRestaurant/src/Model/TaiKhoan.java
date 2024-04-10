@@ -9,6 +9,7 @@ package Model;
  * @author Quang
  */
 public class TaiKhoan {
+
     private String tenTaiKhoan;
     private String matKhau;
     private boolean vaiTro;
@@ -54,5 +55,5 @@ public class TaiKhoan {
     public void setMaNhanVien(int maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
-    
+
 }
