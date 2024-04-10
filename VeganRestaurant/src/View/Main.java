@@ -88,14 +88,14 @@ public class Main {
     JPanel pnThanhToan = new JPanel();
     JPanel pnKhachHang = new JPanel();
     JPanel pnThucDon = new JPanel();
-    JPanel pnNguyenLieu = new JPanel();
+    JPanel pnKhuyeMai = new JPanel();
     JPanel pnMonAn = new JPanel();
 
     JLabel lblDatBan = new JLabel("Đặt bàn");
     JLabel lblThanhToan = new JLabel("Thanh toán");
     JLabel lblKhachHang = new JLabel("Khách hàng");
     JLabel lblThucDon = new JLabel("Thực đơn");
-    JLabel lblNguyenLieu = new JLabel("Nguyên liệu");
+    JLabel lblKhuyeMai = new JLabel("Khuyến mại");
     JLabel lblMonAn = new JLabel("Món ăn");
 
     // pn quan ly 
@@ -118,7 +118,7 @@ public class Main {
         item.add(new DanhMuc("NhanVien", pnNhanVien, lblNhanVien));
         item.add(new DanhMuc("HoaDon", pnThanhToan, lblThanhToan));
         item.add(new DanhMuc("TKDanhGia", pnTKDanhGia, lblThongDanhGia));
-        item.add(new DanhMuc("NguyenVatLieu", pnNguyenLieu, lblNguyenLieu));
+        item.add(new DanhMuc("KhuyenMai", pnKhuyeMai, lblKhuyeMai));
         item.add(new DanhMuc("DoiMatKhau", pnDoiMatKhau, lblDoiMatKhau));
 
         item.add(new DanhMuc("KhachHang", pnKhachHang, lblKhachHang));
@@ -247,7 +247,7 @@ public class Main {
             case 2:
                 return lblKhachHang;
             case 3:
-                return lblNguyenLieu;
+                return lblKhuyeMai;
             case 4:
                 return lblThucDon;
             case 5:
@@ -375,28 +375,28 @@ public class Main {
         pnMenuCon2.add(pnThanhToan);
         pnMenuCon2.add(pnKhachHang);
         pnMenuCon2.add(pnThucDon);
-        pnMenuCon2.add(pnNguyenLieu);
+        pnMenuCon2.add(pnKhuyeMai);
         pnMenuCon2.add(pnMonAn);
         // them dua ke ben phai
         pnDatBan.setBorder(RightBorder);
         pnThanhToan.setBorder(RightBorder);
         pnKhachHang.setBorder(RightBorder);
         pnThucDon.setBorder(RightBorder);
-        pnNguyenLieu.setBorder(RightBorder);
+        pnKhuyeMai.setBorder(RightBorder);
         pnMonAn.setBorder(RightBorder);
         // them mau nen
         pnDatBan.setBackground(new Color(240, 187, 187));
         pnThanhToan.setBackground(new Color(240, 187, 187));
         pnKhachHang.setBackground(new Color(240, 187, 187));
         pnThucDon.setBackground(new Color(240, 187, 187));
-        pnNguyenLieu.setBackground(new Color(240, 187, 187));
+        pnKhuyeMai.setBackground(new Color(240, 187, 187));
         pnMonAn.setBackground(new Color(240, 187, 187));
         // them Jlabel vao cac panel
         pnDatBan.add(lblDatBan);
         pnThanhToan.add(lblThanhToan);
         pnKhachHang.add(lblKhachHang);
         pnThucDon.add(lblThucDon);
-        pnNguyenLieu.add(lblNguyenLieu);
+        pnKhuyeMai.add(lblKhuyeMai);
         pnMonAn.add(lblMonAn);
         // them font chu va margin 30 px
         lblDatBan.setFont(new Font("Arial", Font.BOLD, 30));
@@ -411,8 +411,8 @@ public class Main {
         lblThucDon.setFont(new Font("Arial", Font.BOLD, 30));
         lblThucDon.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
-        lblNguyenLieu.setFont(new Font("Arial", Font.BOLD, 30));
-        lblNguyenLieu.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        lblKhuyeMai.setFont(new Font("Arial", Font.BOLD, 30));
+        lblKhuyeMai.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 
         lblMonAn.setFont(new Font("Arial", Font.BOLD, 30));
         lblMonAn.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
@@ -550,7 +550,7 @@ public class Main {
         panels.add(pnThanhToan);
         panels.add(pnKhachHang);
         panels.add(pnThucDon);
-        panels.add(pnNguyenLieu);
+        panels.add(pnKhuyeMai);
         panels.add(pnMonAn);
         panels.add(pnNhanVien);
         panels.add(pnDanhGia);
@@ -808,7 +808,7 @@ public class Main {
         panels.add(pnThanhToan);
         panels.add(pnKhachHang);
         panels.add(pnThucDon);
-        panels.add(pnNguyenLieu);
+        panels.add(pnKhuyeMai);
         panels.add(pnMonAn);
         suKienDaBamVao(panels);
         suKienThayDoiMauPanel(panels);
@@ -836,7 +836,7 @@ public class Main {
         panels.add(pnThanhToan);
         panels.add(pnKhachHang);
         panels.add(pnThucDon);
-        panels.add(pnNguyenLieu);
+        panels.add(pnKhuyeMai);
         panels.add(pnMonAn);
         panels.add(pnHeThong);
         panels.add(pnDoiMatKhau);

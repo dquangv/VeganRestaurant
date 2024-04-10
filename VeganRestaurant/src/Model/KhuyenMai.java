@@ -1,22 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Model;
 
 import java.util.Date;
 
-/**
- *
- * @author Võ Thanh Tùng
- */
+
 public class KhuyenMai {
+    
     private String maKhuyenMai;
-    private String moTa;
-    private int phanTram;
-    private int soLuong;
+    private String tenKhuyenMai;
+    private Integer phanTram;
+    private Integer soLuong;
+    private String loaiMa;    
     private Date ngayBatDau;
-    private Date ngayThucKet;
+    private Date ngayKetThuc;
+
+    public KhuyenMai() {
+    }
 
     public String getMaKhuyenMai() {
         return maKhuyenMai;
@@ -26,28 +25,36 @@ public class KhuyenMai {
         this.maKhuyenMai = maKhuyenMai;
     }
 
-    public String getMoTa() {
-        return moTa;
+    public String getTenKhuyenMai() {
+        return tenKhuyenMai;
     }
 
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
+    public void setTenKhuyenMai(String tenKhuyenMai) {
+        this.tenKhuyenMai = tenKhuyenMai;
     }
 
-    public int getPhanTram() {
+    public Integer getPhanTram() {
         return phanTram;
     }
 
-    public void setPhanTram(int phanTram) {
+    public void setPhanTram(Integer phanTram) {
         this.phanTram = phanTram;
     }
 
-    public int getSoLuong() {
+    public Integer getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) {
+    public void setSoLuong(Integer soLuong) {
         this.soLuong = soLuong;
+    }
+
+    public String getLoaiMa() {
+        return loaiMa;
+    }
+
+    public void setLoaiMa(String loaiMa) {
+        this.loaiMa = loaiMa;
     }
 
     public Date getNgayBatDau() {
@@ -58,12 +65,11 @@ public class KhuyenMai {
         this.ngayBatDau = ngayBatDau;
     }
 
-    public Date getNgayThucKet() {
-        return ngayThucKet;
+    public Date getNgayKetThuc() {
+        return ngayKetThuc;
     }
 
-    public void setNgayThucKet(Date ngayThucKet) {
-        this.ngayThucKet = ngayThucKet;
+    public void setNgayThucKet(Date ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
     }
-    
 }
