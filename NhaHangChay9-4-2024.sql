@@ -706,10 +706,10 @@ go
 */
 -- thong ke mon an
 
-create   proc Sp_ThongKeMonAn
+create or alter proc Sp_ThongKeMonAn
 as 
 begin 
-	select top 7 TenMonAn ,sum(ctgm.soluong) as Soluongmonan
+	select TenMonAn ,sum(ctgm.soluong) as Soluongmonan
 	from MonAn ma
 	join ChiTietGM ctgm on ctgm.MaMonAn = ma.MaMonAn
 	group by TenMonAn
@@ -835,3 +835,18 @@ go
 
  end
  go
+ -- proc chi tiet danh gia
+ create proc sp_chitietDanhGia(@MaDanhGia int)
+ as 
+ begin
+	 select TenMonAn,COUNT(ctgm.MaDanhGia) soluongdanhgia
+	 from ChiTietGM ctgm 
+	 inner join MonAn ma on ma.MaMonAn = ctgm.MaMonAn
+	 inner join DanhGia dg on dg.MaDanhGia = ctgm.MaDanhGia
+	 where dg.MaDanhGia = @MaDanhGia
+	 group by TenMonAn
+	 order by soluongdanhgia desc
+ end 
+
+ 
+ 

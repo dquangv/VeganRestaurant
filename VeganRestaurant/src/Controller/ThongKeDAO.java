@@ -56,6 +56,11 @@ public class ThongKeDAO {
         String[] cols = {"maDanhGia", "soluongdanhgia"};
         return this.getListOfArray(sql, cols);
     }
+       public List<Object[]> getCTDanhGia(int maDanhGia) {
+        String sql = "{CALL sp_chitietDanhGia(?)}";
+        String[] cols = {"TenMonAn", "soluongdanhgia"};
+        return this.getListOfArray(sql, cols, maDanhGia);
+    }
       public List<Integer> selectYears() {
         String SQL = "SELECT DISTINCT year(NgayLap) Year FROM hoadon ORDER BY Year DESC";
         List<Integer> list = new ArrayList<>();
