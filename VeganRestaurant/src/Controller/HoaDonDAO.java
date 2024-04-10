@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
 
-    String INSERT_SQl = "INSERT INTO HoaDon(NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,MaPhieuDatBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,PhuongThucThanhToan=? ,MaPhieuDatBan=? ,MaKhuyenMai=? WHERE MaHoaDon =?";
+    String INSERT_SQl = "INSERT INTO HoaDon(NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,TrangThai,MaPhieuDatBan,MaKhuyenMai,MaNhanVien) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE HoaDon SET NgayLap=? ,TienMonAn=? ,TienGiamDiemThuong=? ,TienGiamKhuyenMai=? ,TongTien=? ,PhuongThucThanhToan=? ,TrangThai = ? ,MaPhieuDatBan=? ,MaKhuyenMai=? WHERE MaHoaDon =?";
     String DELETE_SQL = "DELETE FROM HoaDon WHERE MaHoaDon = ?";
     String SELECT_ALL_SQL = """
                             select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
@@ -25,10 +25,11 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                             left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
 
     String SELECT_BY_IDKhach_SQL = """
-                                   select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
-                                   join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                                   left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
-                                   where MaHoaDon = ? """;
+                                   select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,TrangThai,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang,ctdb.MaBan from HoaDon hd
+                                        join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                                        left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
+                                   	join ChiTietDatBan ctdb on ctdb.MaPhieuDatBan = pdb.MaPhieuDatBan
+                                        where MaHoaDon = ? """;
 
     //thêm
     @Override
@@ -41,6 +42,7 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                 entity.getTienGiamKhuyenMai(),
                 entity.getTongTien(),
                 entity.getPhuongThuc(),
+                entity.getTrangThai(),
                 entity.getMaPhieuDatBan(),
                 entity.getMaKhuyenMai(),
                 entity.getMaNhanVien());
@@ -56,6 +58,7 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                 entity.getTienGiamKhuyenMai(),
                 entity.getTongTien(),
                 entity.getPhuongThuc(),
+                entity.getTrangThai(),
                 entity.getMaPhieuDatBan(),
                 entity.getMaKhuyenMai(),
                 entity.getMaHoaDon());
@@ -98,10 +101,12 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
                 entity.setTienGiamKhuyenMai(rs.getDouble("TienGiamKhuyenMai"));
                 entity.setTongTien(rs.getDouble("TongTien"));
                 entity.setPhuongThuc(rs.getBoolean("PhuongThucThanhToan"));
+                entity.setTrangThai(rs.getBoolean("TrangThai"));
                 entity.setMaPhieuDatBan(rs.getInt("MaPhieuDatBan"));
                 entity.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
                 entity.setMaNhanVien(rs.getInt("MaNhanVien"));
                 entity.setMaKhachHang(rs.getInt("MaKhachHang"));
+                entity.setTenBan(rs.getString("MaBan"));
 
                 list.add(entity);
             }
@@ -127,52 +132,114 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
         }
         return null;
     }
-
-    public List<HoaDon> selectByMaKH(Integer maHoaDon) {
-    String sql = """
-            select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
-                                 join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                                 left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
-                                 where MaHoaDon = ?""";
-
-    List<HoaDon> list = new ArrayList<>();
-    try (Connection conn = XJdbc.getConnection(); 
-         PreparedStatement ps = conn.prepareStatement(sql)) { 
-
-        ps.setInt(1, maHoaDon);
-
-        ResultSet rs = ps.executeQuery(); 
-
-        while (rs.next()) {
-            HoaDon entity = new HoaDon();
-            
-            entity.setMaHoaDon(rs.getInt("MaHoaDon"));
-            entity.setNgayLap(rs.getDate("NgayLap"));
-            entity.setTienMonAn(rs.getDouble("TienMonAn"));
-            entity.setTienGiamDiemThuong(rs.getDouble("TienGiamDiemThuong"));
-            entity.setTienGiamKhuyenMai(rs.getDouble("TienGiamKhuyenMai"));
-            entity.setTongTien(rs.getDouble("TongTien"));
-            entity.setPhuongThuc(rs.getBoolean("PhuongThucThanhToan"));
-            entity.setMaPhieuDatBan(rs.getInt("MaPhieuDatBan"));
-            entity.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
-            entity.setMaNhanVien(rs.getInt("MaNhanVien"));
-            entity.setMaKhachHang(rs.getInt("MaKhachHang"));
-
-            list.add(entity);
+    
+    public List<Boolean> selectTT() {
+        String sql = "select distinct PhuongThucThanhToan from HoaDon";
+        List<Boolean> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql);
+            while (rs.next()) {
+                boolean pt = rs.getBoolean(1);
+                list.add(pt);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
         return null;
     }
-    return list;
-}
+
+    public List<HoaDon> selectByMuti(String keyword) {
+        String sql = """
+                     select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
+                            join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                            left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
+                            where MaHoaDon = ? or 
+                                  pdb.MaPhieuDatBan = ? or 
+                                  MaKhuyenMai = ? or 
+                                  MaNhanVien = ? or
+                                  kh.MaKhachHang = ?""";
+        List<HoaDon> list = new ArrayList<>();
+        try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, Integer.parseInt(keyword));
+            ps.setInt(2, Integer.parseInt(keyword));
+            ps.setInt(3, Integer.parseInt(keyword));
+            ps.setInt(4, Integer.parseInt(keyword));
+            ps.setInt(5, Integer.parseInt(keyword));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                HoaDon entity = new HoaDon();
+
+                entity.setMaHoaDon(rs.getInt("MaHoaDon"));
+                entity.setNgayLap(rs.getDate("NgayLap"));
+                entity.setTienMonAn(rs.getDouble("TienMonAn"));
+                entity.setTienGiamDiemThuong(rs.getDouble("TienGiamDiemThuong"));
+                entity.setTienGiamKhuyenMai(rs.getDouble("TienGiamKhuyenMai"));
+                entity.setTongTien(rs.getDouble("TongTien"));
+                entity.setPhuongThuc(rs.getBoolean("PhuongThucThanhToan"));
+                entity.setMaPhieuDatBan(rs.getInt("MaPhieuDatBan"));
+                entity.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
+                entity.setMaNhanVien(rs.getInt("MaNhanVien"));
+                entity.setMaKhachHang(rs.getInt("MaKhachHang"));
+
+                list.add(entity);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+
+//    public List<HoaDon> selectByMaKH(Integer maHoaDon) {
+//        String sql = """
+//            select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
+//                                 join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+//                                 left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
+//                                 where MaHoaDon = ?""";
+//
+//        List<HoaDon> list = new ArrayList<>();
+//        try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+//
+//            ps.setInt(1, maHoaDon);
+//
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                HoaDon entity = new HoaDon();
+//
+//                entity.setMaHoaDon(rs.getInt("MaHoaDon"));
+//                entity.setNgayLap(rs.getDate("NgayLap"));
+//                entity.setTienMonAn(rs.getDouble("TienMonAn"));
+//                entity.setTienGiamDiemThuong(rs.getDouble("TienGiamDiemThuong"));
+//                entity.setTienGiamKhuyenMai(rs.getDouble("TienGiamKhuyenMai"));
+//                entity.setTongTien(rs.getDouble("TongTien"));
+//                entity.setPhuongThuc(rs.getBoolean("PhuongThucThanhToan"));
+//                entity.setMaPhieuDatBan(rs.getInt("MaPhieuDatBan"));
+//                entity.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
+//                entity.setMaNhanVien(rs.getInt("MaNhanVien"));
+//                entity.setMaKhachHang(rs.getInt("MaKhachHang"));
+//
+//                list.add(entity);
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//        return list;
+//    }
 
     public List<HoaDon> selectHD() {
         String sql = """
-                     select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
-                     join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                     left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang""";
+                    select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,TrangThai,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang,ctdb.MaBan from HoaDon hd
+                    join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                    left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
+                    join ChiTietDatBan ctdb on ctdb.MaPhieuDatBan = pdb.MaPhieuDatBan""";
         return this.selectBySQL(sql);
     }
 

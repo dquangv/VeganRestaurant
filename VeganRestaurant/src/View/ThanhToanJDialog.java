@@ -89,7 +89,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     void thietLapForm(HoaDon hd) {
         txtMaHoaDon.setText("HD" + hd.getMaHoaDon());
         txtMaKH.setText("KH" + hd.getMaKhachHang());
-        txtBan.setText("PDB" + String.valueOf(hd.getMaPhieuDatBan()));
+        txtBan.setText(String.valueOf(hd.getTenBan()));
         txtNhanVien.setText(Auth.user.getTenTaiKhoan());
         txtNgayLap.setDate(hd.getNgayLap());
         txtMaGiamGia.setText("KM" + String.valueOf(hd.getMaKhuyenMai()));
@@ -123,6 +123,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         boolean pt;
         pt = cboPhuongThuc.getSelectedItem().equals("Tiền Mặt");
         hd.setPhuongThuc(pt);
+        
+        hd.setTrangThai(true);
+        
 //        hd.setTongTien(Double.parseDouble(txtTongTien.getText()));
 
         return hd;
@@ -170,6 +173,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
                 Map<String, Object> parameters = new HashMap<>();
                 parameters.put("P_MaHD", mahd);
+                parameters.put("P_TienKhach", tienKhach());
 
                 JasperReport jcomp = JasperCompileManager.compileReport(reportPath);
                 JasperPrint jprint = JasperFillManager.fillReport(jcomp, parameters, con);
@@ -180,12 +184,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
     }
 
-    void abc() {
-        txtTienGiam.setEnabled(false);
-        txtTienMon.setEnabled(false);
-        txtTongTien.setEnabled(false);
-        txtDiemThuong.setEnabled(false);
-        btnThanhToan.setEnabled(false);
+    String tienKhach(){
+        String input = JOptionPane.showInputDialog(rootPane, "Nhập tiền khách đưa", "In Hóa Đơn", JOptionPane.QUESTION_MESSAGE);
+        return input;  
     }
 
     @SuppressWarnings("unchecked")
@@ -244,7 +245,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel4.setText("Ngày Lập");
 
-        jLabel10.setText("Phiếu Bàn");
+        jLabel10.setText("Bàn");
 
         txtBan.setEnabled(false);
 

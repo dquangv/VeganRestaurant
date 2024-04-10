@@ -203,7 +203,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Phi&#xea;&#x301;u Ba&#x300;n"/>
+                <Property name="text" type="java.lang.String" value="B&#xe0;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtBan">

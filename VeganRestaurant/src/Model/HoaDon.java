@@ -21,10 +21,12 @@ public class HoaDon {
     private double tongTien;
 
     private boolean phuongThuc;
+    private boolean trangThai;
     private Integer maPhieuDatBan;
     private Integer maKhuyenMai;
     private Integer maNhanVien;
     private Integer maKhachHang;
+    private String tenBan;
 
     public Integer getMaHoaDon() {
         return maHoaDon;
@@ -73,6 +75,14 @@ public class HoaDon {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
+
+    public boolean getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
     
     public boolean getPhuongThuc() {
         return phuongThuc;
@@ -114,4 +124,11 @@ public class HoaDon {
         this.maKhachHang = maKhachHang;
     }
 
+    public String getTenBan() {
+        return tenBan;
+    }
+
+    public void setTenBan(String tenBan) {
+        this.tenBan = tenBan;
+    }
 }
