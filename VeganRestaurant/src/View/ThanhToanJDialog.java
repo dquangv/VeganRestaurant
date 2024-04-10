@@ -50,7 +50,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         initComponents();
         this.themVaoCboPT();
         this.themVaoCboTT();
-
+        tinhTongTien();
         ImageIcon iconuser = new ImageIcon("Logos/printer.png");
         btnInHD.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/hand.png");
@@ -138,7 +138,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         String tienGiamText = txtTienGiam.getText().replaceAll(",", "");
         hd.setTienGiamKhuyenMai(Double.parseDouble(tienGiamText));
-        
+
         String tienDiemThuong = txtDiemThuong.getText().replaceAll(",", "");
         hd.setTienGiamDiemThuong(Double.parseDouble(tienDiemThuong));
 
@@ -360,9 +360,19 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jLabel12.setText("Tiền Giảm");
 
         txtTienGiam.setEnabled(false);
+        txtTienGiam.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTienGiamFocusLost(evt);
+            }
+        });
         txtTienGiam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTienGiamActionPerformed(evt);
+            }
+        });
+        txtTienGiam.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtTienGiamPropertyChange(evt);
             }
         });
 
@@ -603,10 +613,29 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         int maGiam = Integer.parseInt(txtMaGiamGia.getText().substring(2));
         HoaDonDAO hdDAO = new HoaDonDAO();
         int phanTram = hdDAO.PhanTram(maGiam);
-        if(phanTram == 0){
+        if (phanTram == 0) {
             JOptionPane.showMessageDialog(this, "Mã khuyến mãi không khả dụng!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Giảm " + phanTram + "%");
         }
+        double tienMon = Double.parseDouble(txtTienMon.getText().replaceAll(",", ""));
+        double phanTramDouble = (double) phanTram;
+        double TienGiam = tienMon * (phanTramDouble / 100.0);
+        System.out.println(TienGiam);
+        txtTienGiam.setText(giaFomat.format(TienGiam));
+        tinhTongTien();
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtTienGiamFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTienGiamFocusLost
+        // TODO add your handling code here:
+        tinhTongTien();
+    }//GEN-LAST:event_txtTienGiamFocusLost
+
+    private void txtTienGiamPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtTienGiamPropertyChange
+        // TODO add your handling code here:
+        tinhTongTien();
+    }//GEN-LAST:event_txtTienGiamPropertyChange
 
     /**
      * @param args the command line arguments
@@ -648,6 +677,20 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    private void tichDiem(){
+        
+    }
+
+    private void tinhTongTien() {
+        double tienGiam = txtTienGiam.getText().isEmpty() ? 0.0 : Double.parseDouble(txtTienGiam.getText().replaceAll(",", ""));
+        double diemThuong = txtDiemThuong.getText().isEmpty() ? 0.0 : Double.parseDouble(txtDiemThuong.getText().replaceAll(",", ""));
+        double tienMon = txtTienMon.getText().isEmpty() ? 0.0 : Double.parseDouble(txtTienMon.getText().replaceAll(",", ""));
+
+        double tongTien = tienMon - tienGiam - diemThuong;
+
+        txtTongTien.setText(giaFomat.format(tongTien));
+
     }
 
     void xemDanhGia(int mahd) {
