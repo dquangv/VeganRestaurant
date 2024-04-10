@@ -1,36 +1,30 @@
-
 package Model;
 
 import java.util.Date;
 
-
 public class KhuyenMai {
-    
-    private String maKhuyenMai;
-    private String tenKhuyenMai;
+
+    private int maKhuyenMai;
+    private String moTa;
     private Integer phanTram;
     private Integer soLuong;
-    private String loaiMa;    
     private Date ngayBatDau;
     private Date ngayKetThuc;
 
-    public KhuyenMai() {
-    }
-
-    public String getMaKhuyenMai() {
+    public int getMaKhuyenMai() {
         return maKhuyenMai;
     }
 
-    public void setMaKhuyenMai(String maKhuyenMai) {
+    public void setMaKhuyenMai(int maKhuyenMai) {
         this.maKhuyenMai = maKhuyenMai;
     }
 
-    public String getTenKhuyenMai() {
-        return tenKhuyenMai;
+    public String getMoTa() {
+        return moTa;
     }
 
-    public void setTenKhuyenMai(String tenKhuyenMai) {
-        this.tenKhuyenMai = tenKhuyenMai;
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
     }
 
     public Integer getPhanTram() {
@@ -49,14 +43,6 @@ public class KhuyenMai {
         this.soLuong = soLuong;
     }
 
-    public String getLoaiMa() {
-        return loaiMa;
-    }
-
-    public void setLoaiMa(String loaiMa) {
-        this.loaiMa = loaiMa;
-    }
-
     public Date getNgayBatDau() {
         return ngayBatDau;
     }
@@ -69,7 +55,8 @@ public class KhuyenMai {
         return ngayKetThuc;
     }
 
-    public void setNgayThucKet(Date ngayKetThuc) {
+    public void setNgayKetThuc(Date ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
     }
+
 }

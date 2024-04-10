@@ -71,6 +71,25 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
         return null;
     }
 
+    public boolean timKH(int MaKH) {
+        try {
+            String timKHQuery = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
+            PreparedStatement pstmt = XJdbc.getConnection().prepareStatement(timKHQuery);
+            pstmt.setInt(1, MaKH);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+            rs.close();
+            pstmt.close();
+            XJdbc.getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public KhachHang getCustomerByPhoneNumber(String phoneNumber) {
         KhachHang customer = null;

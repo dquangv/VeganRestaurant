@@ -29,7 +29,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Võ Thanh Tùng
  */
 public class JPanelKhuyenMai extends javax.swing.JPanel {
-     List<KhuyenMai> list = new ArrayList<>();
+
+    List<KhuyenMai> list = new ArrayList<>();
     KhuyenMaiDAO daoKM = new KhuyenMaiDAO() {
     };
     int row = -1;
@@ -37,13 +38,14 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
 
     String username = "sa";
     String password = "songlong";
-    String dburl = "jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_DEMO";
+    String dburl = "jdbc:sqlserver://localhost:1433;databaseName=NhaHangChay_CohesiveStars";
+
     /**
      * Creates new form JPanelKhuyenMai
      */
     public JPanelKhuyenMai() {
         initComponents();
-         TableActionEvent event = new TableActionEvent() {
+        TableActionEvent event = new TableActionEvent() {
             @Override
             public void onVoucher(int row) {
                 System.out.println("Voucher row: " + row);
@@ -52,7 +54,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                 for (String voucherID : voucherIDs) {
                     try {
                         String soLuong = "UPDATE KhuyenMai SET SoLuong = SoLuong - 1 WHERE MaKhuyenMai = ?";
-                        try ( PreparedStatement pstmt = XJdbc.preparedStatement(soLuong)) {
+                        try (PreparedStatement pstmt = XJdbc.preparedStatement(soLuong)) {
                             pstmt.setString(1, voucherID);
                             pstmt.executeUpdate();
                         } catch (SQLException ex) {
@@ -78,16 +80,14 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                 model.removeRow(row);
             }
         };
-        tblVoucher.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRender());
-        tblVoucher.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
 
         this.fillTable();
         this.updateStatus();
-        
+
         String keyword = txtSearch.getText();
         load(keyword);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,12 +103,10 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
         pnlEdit = new javax.swing.JPanel();
         lblLearnerID = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtMoTa = new javax.swing.JTextField();
         lblBirth = new javax.swing.JLabel();
         txtNumber = new javax.swing.JTextField();
         lblTelephone = new javax.swing.JLabel();
-        txtLoai = new javax.swing.JTextField();
-        lblEmail = new javax.swing.JLabel();
         btnNew = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -140,7 +138,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
 
         lblLearnerID.setText("Mã Khuyến Mãi");
 
-        lblName.setText("Tên Khuyến Mãi");
+        lblName.setText("Mô Tả");
 
         lblBirth.setText("Số Lượng");
 
@@ -151,8 +149,6 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
         });
 
         lblTelephone.setText("Phần Trăm");
-
-        lblEmail.setText("Loại");
 
         btnNew.setText("New");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +177,8 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                 btnAddActionPerformed(evt);
             }
         });
+
+        txtID.setEnabled(false);
 
         btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +210,8 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
             }
         });
 
+        txtStart.setEnabled(false);
+
         jLabel6.setText("Ngày Bắt Đầu:");
 
         jLabel7.setText("Ngày Kết Thúc:");
@@ -223,12 +223,12 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
             .addGroup(pnlEditLayout.createSequentialGroup()
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlEditLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(181, Short.MAX_VALUE)
                         .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblLearnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtName)
+                                .addComponent(txtMoTa)
                                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,9 +246,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                         .addComponent(btnNew)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtLoai)
+                    .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtStart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -270,10 +268,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlEditLayout.createSequentialGroup()
-                        .addComponent(lblEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,7 +289,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                         .addGap(13, 13, 13)
                         .addComponent(lblName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(lblTelephone)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -303,7 +298,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
                         .addComponent(lblBirth)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addGroup(pnlEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd)
                             .addComponent(btnEdit)
@@ -316,17 +311,17 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
 
         tblVoucher.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Voucher", "Tên Voucher", "Phần Trăm", "Số Lượng", "Loại", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Hành Động"
+                "Mã Voucher", "Mô tả", "Phần Trăm", "Số Lượng", "Ngày Bắt Đầu", "Ngày Kết Thúc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -462,8 +457,8 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
         //        if (deleteVoucherExpiry()){
-            //            delete();
-            //        }
+        //            delete();
+        //        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -540,7 +535,6 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBirth;
-    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblLearnerID;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTelephone;
@@ -552,8 +546,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
     private javax.swing.JTable tblVoucher;
     private com.toedter.calendar.JDateChooser txtEnd;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtLoai;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtMoTa;
     private javax.swing.JTextField txtNumber;
     private javax.swing.JTextField txtPercent;
     private javax.swing.JTextField txtSearch;
@@ -580,6 +573,7 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
             MsgBox.alert(this, "Update successfully");
         } catch (Exception e) {
             MsgBox.alert(this, "Update unsucessfully!");
+            e.printStackTrace();
         }
     }
 
@@ -609,60 +603,63 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
             for (KhuyenMai km : list) {
                 Object[] row = {
                     km.getMaKhuyenMai(),
-                    km.getTenKhuyenMai(),
+                    km.getMoTa(),
                     km.getPhanTram(),
                     km.getSoLuong(),
-                    km.getLoaiMa(),
                     XDate.toString(km.getNgayBatDau(), "dd-MM-yyyy"),
                     XDate.toString(km.getNgayKetThuc(), "dd-MM-yyyy"),};
                 model.addRow(row);
             }
         } catch (Exception e) {
-//            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            e.printStackTrace();
         }
     }
 
     void setForm(KhuyenMai km) {
-        txtID.setText(km.getMaKhuyenMai());
-        txtName.setText((String) km.getTenKhuyenMai());
+        txtID.setText(km.getMaKhuyenMai() + "");
+        txtMoTa.setText((String) km.getMoTa());
         txtPercent.setText(km.getPhanTram() + "");
         txtNumber.setText(km.getSoLuong() + "");
-
-        txtLoai.setText((String) km.getLoaiMa());
         txtStart.setDate(km.getNgayBatDau());
         txtEnd.setDate(km.getNgayKetThuc());
     }
 
     void clearForm() {
-        KhuyenMai km = new KhuyenMai();
-        txtID.setText("");
-        txtName.setText("");
+        int maKM = daoKM.getMaxKhuyenMaiId();
+        txtID.setText((maKM + 1) + "");
+
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        txtStart.setDate(calendar.getTime());
+
+        txtMoTa.setText("");
         txtPercent.setText("");
         txtNumber.setText("");
-
-        txtLoai.setText("");
-        txtStart.setDate(null);
         txtEnd.setDate(null);
-
         this.row = -1;
         this.updateStatus();
     }
 
     KhuyenMai getForm() {
         KhuyenMai km = new KhuyenMai();
-        km.setMaKhuyenMai(txtID.getText());
-        km.setTenKhuyenMai(txtName.getText());
+        km.setMaKhuyenMai(Integer.parseInt(txtID.getText()));
+        km.setMoTa(txtMoTa.getText());
         km.setPhanTram(Integer.valueOf(txtPercent.getText()));
         km.setSoLuong(Integer.valueOf(txtNumber.getText()));
-        km.setLoaiMa(txtLoai.getText());
-        km.setNgayBatDau(txtStart.getDate());
-        km.setNgayThucKet(txtEnd.getDate());
+
+        java.util.Date startDateUtil = txtStart.getDate();
+        java.sql.Date startDateSql = new java.sql.Date(startDateUtil.getTime());
+        km.setNgayBatDau(startDateSql);
+
+        java.util.Date endDateUtil = txtEnd.getDate();
+        java.sql.Date endDateSql = new java.sql.Date(endDateUtil.getTime());
+        km.setNgayKetThuc(endDateSql);
 
         return km;
     }
 
     void edit() {
-        String makm = (String) tblVoucher.getValueAt(this.row, 0);
+        String makm = String.valueOf(tblVoucher.getValueAt(this.row, 0));
         KhuyenMai km = daoKM.selectById(makm);
         this.setForm(km);
         tabs.setSelectedIndex(0);
@@ -758,7 +755,8 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-        void load(String keyword) {
+
+    void load(String keyword) {
         DefaultTableModel model = (DefaultTableModel) tblVoucher.getModel();
         model.setRowCount(0);
         try {
@@ -770,64 +768,59 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
             for (KhuyenMai km : list) {
                 Object[] row = {
                     km.getMaKhuyenMai(),
-                    km.getTenKhuyenMai(),
+                    km.getMoTa(),
                     km.getPhanTram(),
                     km.getSoLuong(),
-                    km.getLoaiMa(),
                     XDate.toString(km.getNgayBatDau(), "dd-MM-yyyy"),
                     XDate.toString(km.getNgayKetThuc(), "dd-MM-yyyy")
                 };
                 model.addRow(row);
             }
         } catch (Exception e) {
-//            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+            e.printStackTrace();
         }
     }
 
     public boolean validateForm() {
-        if (txtID.getText().equals("")) {
+        if (txtID.getText().isEmpty()) {
             MsgBox.alert(this, "Mã khuyến mãi không được bỏ trống!");
             return false;
         }
-        if (txtName.getText().equals("")) {
-            MsgBox.alert(this, "Tên khuyến mãi không được bỏ trống!");
+        if (txtMoTa.getText().isEmpty()) {
+            MsgBox.alert(this, "Mô tả khuyến mãi không được bỏ trống!");
             return false;
         }
-        if (txtPercent.getText().equals("")) {
+        if (txtPercent.getText().isEmpty()) {
             MsgBox.alert(this, "Phần trăm giảm giá không được bỏ trống!");
             return false;
         }
         try {
-            Integer.parseInt(txtPercent.getText());
-        } catch (Exception e) {
+            int percent = Integer.parseInt(txtPercent.getText());
+            if (percent < 5 || percent > 50) {
+                MsgBox.alert(this, "Phần trăm giảm giá phải nằm trong khoảng từ 5 đến 50!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
             MsgBox.alert(this, "Phần trăm không được nhập chữ!");
             return false;
         }
-        if (txtNumber.getText().equals("")) {
+        if (txtNumber.getText().isEmpty()) {
             MsgBox.alert(this, "Số lượng giảm giá không được bỏ trống!");
             return false;
         }
         try {
-            Integer.parseInt(txtNumber.getText());
-        } catch (Exception e) {
+            int number = Integer.parseInt(txtNumber.getText());
+            if (number > 500) {
+                MsgBox.alert(this, "Số lượng giảm giá không được lớn hơn 500!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
             MsgBox.alert(this, "Số lượng không được nhập chữ!");
-            return false;
-        }
-        if (txtLoai.getText().equals("")) {
-            MsgBox.alert(this, "Loại mã không được bỏ trống!");
             return false;
         }
         if (txtStart.getDate() == null) {
             MsgBox.alert(this, "Ngày bắt đầu không được bỏ trống!");
-            return false;
-        }
-
-        // Lấy ngày và giờ hiện tại
-        Date ngayHienTai = new Date();
-
-        // Kiểm tra giờ bắt đầu
-        if (txtStart.getDate().before(ngayHienTai)) {
-            MsgBox.alert(this, "Ngày bắt đầu phải sau thời gian hiện tại!");
             return false;
         }
         if (txtEnd.getDate() == null) {
@@ -836,13 +829,12 @@ public class JPanelKhuyenMai extends javax.swing.JPanel {
         }
         LocalDate startDate = txtStart.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate endDate = txtEnd.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//|| startDate.isEqual(endDate)
-// So sánh ngày
         if (startDate.isAfter(endDate)) {
             MsgBox.alert(this, "Ngày bắt đầu không được lớn hơn hoặc bằng ngày kết thúc!");
             return false;
         }
-
         return true;
     }
+
+
 }

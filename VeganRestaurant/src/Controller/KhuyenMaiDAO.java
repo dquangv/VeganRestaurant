@@ -1,4 +1,3 @@
-
 package Controller;
 
 import Model.HoaDon;
@@ -18,10 +17,10 @@ import javax.swing.table.DefaultTableModel;
 
 public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
 
-    String INSERT_SQl = "INSERT INTO KhuyenMai (MaKhuyenMai,TenKhuyenMai,PhanTram,SoLuong,Loai,NgayBatDau,NgayKetThuc) VALUES(?,?,?,?,?,?,?)";
-    String UPDATE_SQL = "UPDATE KhuyenMai SET TenKhuyenMai=? ,PhanTram=? ,SoLuong=? ,LoaiMa=? ,NgayBatDau=? ,NgayKetThuc=?  WHERE MaKhuyenMai = ? ";
+    String INSERT_SQl = "INSERT INTO KhuyenMai (MoTa,PhanTram,SoLuong,NgayBatDau,NgayKetThuc) VALUES(?,?,?,?,?)";
+    String UPDATE_SQL = "UPDATE KhuyenMai SET MoTa=? ,PhanTram=? ,SoLuong=?  ,NgayBatDau=? ,NgayKetThuc=?  WHERE MaKhuyenMai = ? ";
     String DELETE_SQL = "DELETE FROM KhuyenMai WHERE MaKhuyenMai = ?";
-    String SELECT_ALL_SQL = "SELECT * FROM KhuyenMai where NgayKetThuc >= GETDATE() ";
+    String SELECT_ALL_SQL = "SELECT * FROM KhuyenMai  ";
     String SELECT_ALL_SQL_MAKM = """
                                  select * from KhuyenMai
                                  where MaKhuyenMai = ?""";
@@ -31,29 +30,24 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
     @Override
     public void insert(KhuyenMai entity) {
         XJdbc.executeUpdate(INSERT_SQl,
-                entity.getMaKhuyenMai(),
-                entity.getTenKhuyenMai(),
+                entity.getMoTa(),
                 entity.getPhanTram(),
                 entity.getSoLuong(),
-                entity.getLoaiMa(),
                 entity.getNgayBatDau(),
                 entity.getNgayKetThuc());
     }
 
-    //update
     @Override
     public void update(KhuyenMai entity) {
         XJdbc.executeUpdate(UPDATE_SQL,
-                entity.getMaKhuyenMai(),
-                entity.getTenKhuyenMai(),
+                entity.getMoTa(),
                 entity.getPhanTram(),
                 entity.getSoLuong(),
-                entity.getLoaiMa(),
                 entity.getNgayBatDau(),
-                entity.getNgayKetThuc());
+                entity.getNgayKetThuc(),
+                entity.getMaKhuyenMai());
     }
 
-    //xóa
     @Override
     public void delete(String id) {
         XJdbc.executeUpdate(DELETE_SQL, id);
@@ -73,18 +67,16 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
         return this.select(SELECT_ALL_SQL);
     }
 
-    //Thêm món ăn
     public void themKhuyenMai(KhuyenMai km) {
         String sql = "insert into KhuyenMai values (?, ?, ?, ?, ?, ?, ?);";
 
-        try ( PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
-            pstmt.setString(1, km.getMaKhuyenMai());
-            pstmt.setString(2, km.getTenKhuyenMai());
+        try (PreparedStatement pstmt = xJdbc.preparedStatement(sql)) {
+            pstmt.setInt(1, km.getMaKhuyenMai());
+            pstmt.setString(2, km.getMoTa());
             pstmt.setInt(3, km.getPhanTram());
             pstmt.setInt(4, km.getSoLuong());
-            pstmt.setString(5,  km.getLoaiMa());
-            pstmt.setDate(6, (Date) km.getNgayBatDau());
-            pstmt.setDate(7, (Date) km.getNgayKetThuc());
+            pstmt.setDate(5, (Date) km.getNgayBatDau());
+            pstmt.setDate(6, (Date) km.getNgayKetThuc());
 
             pstmt.executeUpdate();
         } catch (SQLException ex) {
@@ -92,11 +84,10 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
         }
     }
 
-    // Câu lệnh tự xóa voucher hết hạn
     public void deleteVoucherExpiry() throws SQLException {
         String deleteVoucherExpiry = "select * from KhuyenMai where NgayKetThuc>= GETDATE();";
 
-        try ( PreparedStatement pstmt = xJdbc.preparedStatement(deleteVoucherExpiry)) {
+        try (PreparedStatement pstmt = xJdbc.preparedStatement(deleteVoucherExpiry)) {
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -110,20 +101,19 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
             while (rs.next()) {
                 KhuyenMai entity = new KhuyenMai();
 
-                entity.setMaKhuyenMai(rs.getString("MaKhuyenMai"));
-                entity.setTenKhuyenMai(rs.getString("TenKhuyenMai"));
+                entity.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
+                entity.setMoTa(rs.getString("MoTa"));
                 entity.setPhanTram(rs.getInt("PhanTram"));
                 entity.setSoLuong(rs.getInt("SoLuong"));
-                entity.setLoaiMa(rs.getString("Loai"));
                 entity.setNgayBatDau(rs.getDate("NgayBatDau"));
-                entity.setNgayThucKet(rs.getDate("NgayKetThuc"));
+                entity.setNgayKetThuc(rs.getDate("NgayKetThuc"));
 
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return list;
     }
@@ -145,7 +135,7 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
                 }
             }
         } catch (SQLException ex) {
-            // throw new RuntimeException(ex);
+            throw new RuntimeException(ex);
         }
 
         return list;
@@ -153,13 +143,12 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
 
     private KhuyenMai readFromResultSet(ResultSet rs) throws SQLException {
         KhuyenMai model = new KhuyenMai();
-        model.setMaKhuyenMai(rs.getString("MaKhuyenMai"));
-        model.setTenKhuyenMai(rs.getString("TenKhuyenMai"));
-        model.setPhanTram(rs.getInt("PhamTram"));
+        model.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
+        model.setMoTa(rs.getString("MoTa"));
+        model.setPhanTram(rs.getInt("PhanTram"));
         model.setSoLuong(rs.getInt("SoLuong"));
-        model.setLoaiMa(rs.getString("Loai"));
         model.setNgayBatDau(rs.getDate("NgayBatDau"));
-        model.setNgayThucKet(rs.getDate("NgayKetThuc"));
+        model.setNgayKetThuc(rs.getDate("NgayKetThuc"));
         return model;
     }
 
@@ -167,7 +156,7 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
         String sql = "select * from KhuyenMai where MaKhuyenMai = %" + maKhachHang + "%";
 
         List<KhuyenMai> list = new ArrayList<>();
-        try ( Connection conn = XJdbc.getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, maKhachHang);
 
@@ -176,13 +165,12 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
             while (rs.next()) {
                 KhuyenMai entity = new KhuyenMai();
 
-                entity.setMaKhuyenMai(rs.getString("MaKhuyenMai"));
-                entity.setTenKhuyenMai(rs.getString("TenKhuyenMai"));
-                entity.setPhanTram(rs.getInt("PhanTram"));
+                entity.setMaKhuyenMai(rs.getInt("MaKhuyenMai"));
+                entity.setMoTa(rs.getString("MoTa"));
+                entity.setPhanTram(rs.getInt("PhamTram"));
                 entity.setSoLuong(rs.getInt("SoLuong"));
-                entity.setLoaiMa(rs.getString("Loai"));
                 entity.setNgayBatDau(rs.getDate("NgayBatDau"));
-                entity.setNgayThucKet(rs.getDate("NgayKetThuc"));
+                entity.setNgayKetThuc(rs.getDate("NgayKetThuc"));
 
                 list.add(entity);
             }
@@ -196,22 +184,40 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
 
     public List<KhuyenMai> selectByKeyword(String keyword) {
         String SQL = "SELECT * FROM KhuyenMai "
-                + "WHERE (MaKhuyenMai LIKE ? OR TenKhuyenMai LIKE ? OR PhanTram LIKE ?) and NgayKetThuc>= GETDATE();";
+                + "WHERE (MaKhuyenMai LIKE ? OR MoTa LIKE ? OR PhanTram LIKE ?) ;";
         String searchKeyword = "%" + keyword + "%";
         return this.selectBySQL(SQL, searchKeyword, searchKeyword, searchKeyword);
     }
 
+    public void reseedKhuyenMaiId(int maxId) {
+        String sql = "DBCC CHECKIDENT ('KhuyenMai', RESEED, " + maxId + ")";
+        XJdbc.executeUpdate(sql);
+    }
+
+    public int getMaxKhuyenMaiId() {
+        int maxId = 0;
+        String sql = "SELECT MAX(MaKhuyenMai) AS MaxId FROM KhuyenMai";
+        try (ResultSet rs = XJdbc.executeQuery(sql)) {
+            if (rs.next()) {
+                maxId = rs.getInt("MaxId");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return maxId;
+    }
+
     // Câu lệnh set số lượng voucher
-    public void soLuongVoucher(String maKM){
+    public void soLuongVoucher(String maKM) {
         String soLuongVoucher = "UPDATE KhuyenMai " + "SET SoLuong = SoLuong - 1 WHERE MaKhuyenMai =?;";
 
-        try ( PreparedStatement pstmt = xJdbc.preparedStatement(soLuongVoucher,maKM)) {
+        try (PreparedStatement pstmt = xJdbc.preparedStatement(soLuongVoucher, maKM)) {
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
+
 //        public void conLai(String maKM) {
 //        String soLuongVoucher = "UPDATE KhuyenMai SET SoLuong = SoLuong - 1 WHERE MaKhuyenMai = ?";
 //        String conLai = "SELECT SoLuong FROM KhuyenMai WHERE MaKhuyenMai = ?";
@@ -224,4 +230,3 @@ public abstract class KhuyenMaiDAO extends NhaHangChayDAO<KhuyenMai, String> {
 //    
 //    }
 }
-

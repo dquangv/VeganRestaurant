@@ -6,6 +6,7 @@ package View;
 
 import static Controller.DatBanDao.Trong;
 import Controller.HoaDonDAO;
+import Controller.KhachHangDAO;
 import Controller.PhieuDatBanDao;
 import Model.HoaDon;
 import Utils.Auth;
@@ -55,6 +56,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         btnInHD.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/hand.png");
         btnThanhToan.setIcon(iconuser1);
+
     }
 
     /**
@@ -102,6 +104,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         cboPhuongThuc.setSelectedItem(hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản" + "");
         cboTrangThai.setSelectedItem(hd.getTrangThai() ? "Thanh Toán" : "Chưa Thanh Toán" + "");
         txtTongTien.setText(giaFomat.format(hd.getTongTien()));
+//        tichDiem();
+
     }
 
     HoaDon layForm() {
@@ -578,7 +582,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
 
         this.themHD();
-
         String mahd = txtMaHoaDon.getText();
         for (Integer maBan : listSoBan) {
             dbDAO.updateTrangThai(Trong, maBan + "");
@@ -678,8 +681,16 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
             }
         });
     }
-    private void tichDiem(){
-        
+
+    private void tichDiem() {
+        String maKH = txtMaKH.getText().substring(2);
+        KhachHangDAO khDAO = new KhachHangDAO();
+        Model.KhachHang kh = new Model.KhachHang();
+        kh = khDAO.getKhachHangById(maKH);
+        if (kh != null) {
+            chkTichDiem.setSelected(true);
+            txtDiemThuong.setText(giaFomat.format(kh.getDiemThuong()));
+        }
     }
 
     private void tinhTongTien() {
