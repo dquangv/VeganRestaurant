@@ -240,6 +240,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             }
         });
 
+        btnDatBan.setBackground(new java.awt.Color(204, 204, 204));
         btnDatBan.setText("Đặt bàn ");
         btnDatBan.setBorder(null);
         btnDatBan.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +264,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         });
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Làm mới");
+        jButton1.setText("Chuyển bàn");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

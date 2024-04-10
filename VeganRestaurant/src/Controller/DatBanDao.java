@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Utils.XJdbc;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -34,6 +35,7 @@ public class DatBanDao {
             + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
             + "AND (db.MaPhieuDatBan Not IN (SELECT MaPhieuDatBan FROM HoaDon Where TrangThai = 1)) "
             + "ORDER BY ThoiGianDat;";
+    static String ThayDoiBan = " UPDATE ChiTietDatBan SET MaBan = ? WHERE MaBan = ? AND MaPhieuDatBan = ?;";
 
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
@@ -124,4 +126,14 @@ public class DatBanDao {
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
 
+    public void chuyenBan(int maBanCu, List<Integer> maBanMoi, int maPhieuDatBan) {
+        try {
+            // Thực hiện truy vấn cho từng giá trị trong danh sách maBanMoi
+            for (Integer ma : maBanMoi) {
+                XJdbc.executeUpdate(ThayDoiBan, maBanCu, ma, maPhieuDatBan);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

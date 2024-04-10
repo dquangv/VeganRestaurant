@@ -689,6 +689,10 @@ public class Main {
     }
 
     void moCacPanelQuanLy() {
+         if (!Auth.user.isVaiTro()) {
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào quản lý.");
+            return;
+        }
         Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK);
         Border bottomBorderDanhGia = BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK);
 
