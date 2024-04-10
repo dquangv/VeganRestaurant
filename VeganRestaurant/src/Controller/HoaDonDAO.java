@@ -181,6 +181,23 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
         return null;
     }
 
+    public int PhanTram(int MaKhuyenMai) {
+        String sql = "SELECT PhanTram FROM KhuyenMai WHERE MaKhuyenMai = ?";
+        int phanTram = 0;
+        try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, MaKhuyenMai);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                phanTram = rs.getInt("PhanTram");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return phanTram;
+    }
+
     public List<HoaDon> selectByMuti(String keyword) {
         String sql = """
                      select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
