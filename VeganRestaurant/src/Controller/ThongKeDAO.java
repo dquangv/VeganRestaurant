@@ -39,11 +39,22 @@ public class ThongKeDAO {
         
         return getListOfArray(sql, cols);
     }
+    public List<Object[]> getDSDanhGia(){
+        String sql = "{CALL Sp_soluongdanhgia}";
+        String cols[] = {"soluongdanhgia"};
+        
+        return getListOfArray(sql, cols);
+    }
     
      public List<Object[]> getDoanhThu(Integer nam) {
         String sql = "{CALL SP_DoanhThuThang(?)}";
         String[] cols = {"Thang", "TongThanhTien"};
         return this.getListOfArray(sql, cols, nam);
+    }
+      public List<Object[]> sp_laySao() {
+        String sql = "{CALL sp_laySao}";
+        String[] cols = {"maDanhGia", "soluongdanhgia"};
+        return this.getListOfArray(sql, cols);
     }
       public List<Integer> selectYears() {
         String SQL = "SELECT DISTINCT year(NgayLap) Year FROM hoadon ORDER BY Year DESC";
@@ -70,5 +81,6 @@ public class ThongKeDAO {
           }
           return true;
       }
+       
 }
 

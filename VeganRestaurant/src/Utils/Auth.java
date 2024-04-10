@@ -4,8 +4,6 @@
  */
 package Utils;
 
-import Model.Ban;
-import Model.NhanVIen;
 import Model.TaiKhoan;
 
 /**
@@ -17,8 +15,8 @@ public class Auth {
     /**
      *
      */
-    public static TaiKhoan user = new TaiKhoan();
     
+    public static TaiKhoan user = new TaiKhoan();
     
 
     public static void clear() {

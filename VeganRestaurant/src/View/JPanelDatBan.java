@@ -101,10 +101,12 @@ public class JPanelDatBan extends javax.swing.JPanel {
         ImageIcon iconuser3 = new ImageIcon("Logos/reset.png");
         jButton1.setIcon(iconuser3);
         
-        btnDatBan.setBackground(Color.red);
+        btnDatBan.setBackground(Color.decode("#F06666"));
         jButton3.setBackground(Color.GREEN);
-        jButton4.setBackground(Color.BLACK);
-        jButton1.setBackground(Color.PINK);
+        jButton4.setBackground(Color.decode("#605E5E"));
+        
+        
+        
     }
 //    public void capNhatTable() {
 //        class TrangThaitable extends Thread {
@@ -239,6 +241,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         });
 
         btnDatBan.setText("Đặt bàn ");
+        btnDatBan.setBorder(null);
         btnDatBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDatBanActionPerformed(evt);
@@ -259,6 +262,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Làm mới");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
