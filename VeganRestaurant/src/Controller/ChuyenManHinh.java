@@ -133,7 +133,7 @@ public class ChuyenManHinh {
                         node = new DoiMatKhauPanel();
                         break;
                     default:
-                        node = new JPanelDatBan();
+              
                 }
             } else {
                 switch (kind) {
@@ -171,7 +171,7 @@ public class ChuyenManHinh {
                         node = new DoiMatKhauPanel();
                         break;
                     default:
-                        node = new JPanelDatBan();
+                        
                 }
             }
 

@@ -56,8 +56,6 @@
                                   <Component id="chkSave" min="-2" pref="21" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblFaceid" min="-2" pref="43" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -117,9 +115,8 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lblFaceid" pref="25" max="32767" attributes="0"/>
-                      <Component id="lblQRCode" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblQRCode" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="1" min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="chkSave" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -130,7 +127,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lblQuenMatKhau" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="61" max="32767" attributes="0"/>
+                  <EmptySpace pref="53" max="32767" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -267,16 +264,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="H&#xc3;Y &#x110;&#x102;NG NH&#x1eac;P T&#xc0;I KHO&#x1ea2;N C&#x1ee6;A B&#x1ea0;N"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblFaceid">
-          <Properties>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblFaceidMouseClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblQRCode">
           <Properties>
