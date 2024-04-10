@@ -134,13 +134,13 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
     }
     
     public List<Boolean> selectTT() {
-        String sql = "select distinct PhuongThucThanhToan from HoaDon";
+        String sql = "select distinct TrangThai from HoaDon";
         List<Boolean> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql);
             while (rs.next()) {
-                boolean pt = rs.getBoolean(1);
-                list.add(pt);
+                boolean tt = rs.getBoolean(1);
+                list.add(tt);
             }
             rs.getStatement().getConnection().close();
             return list;
