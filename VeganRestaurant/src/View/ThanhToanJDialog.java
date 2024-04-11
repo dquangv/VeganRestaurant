@@ -57,6 +57,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         btnInHD.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/hand.png");
         btnThanhToan.setIcon(iconuser1);
+        setLocationRelativeTo(null);
 
     }
 
@@ -195,6 +196,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
 
     public void setThanhToan() {
+        cboPhuongThuc.setEnabled(true);
         txtMaGiamGia.setEnabled(true);
         btnCheck.setEnabled(true);
         btnThanhToan.setEnabled(true);
@@ -376,6 +378,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         chkTichDiem.setEnabled(false);
 
         txtDiemThuong.setEnabled(false);
+
+        cboPhuongThuc.setEnabled(false);
 
         txtTienMon.setEnabled(false);
 
@@ -601,6 +605,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
+        setVisible(false);
         xemDanhGia(Integer.parseInt(mahd.substring(2)));
 
         btnInHDActionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, "In Hóa Đơn"));
@@ -720,6 +725,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         DanhGiaJDialog jdialog = new DanhGiaJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
         jdialog.setVisible(true);
+        jdialog.setLocationRelativeTo(this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
