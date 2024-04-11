@@ -202,16 +202,20 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B01.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B01.setText("T1B01");
+        lbT1B01.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B01.setText("Bàn 1");
 
         lbT1B02.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B02.setText("T1B02");
+        lbT1B02.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B02.setText("Bàn 2");
 
         lbT1B03.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B03.setText("T1B03");
+        lbT1B03.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B03.setText("Bàn 3");
 
         lbT1B04.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B04.setText("T1B04");
+        lbT1B04.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B04.setText("Bàn 4");
 
         btnban2.setBackground(new java.awt.Color(255, 0, 51));
         btnban2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -222,7 +226,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B05.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B05.setText("T1B05");
+        lbT1B05.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B05.setText("Bàn 5");
 
         btnban6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
         btnban6.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +237,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B06.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B06.setText("T1B06");
+        lbT1B06.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B06.setText("Bàn 6");
 
         btnban4.setBackground(new java.awt.Color(51, 51, 51));
         btnban4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -243,7 +249,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B12.setText("T1B12");
+        lbT1B12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B12.setText("Bàn 12");
 
         btnban5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
         btnban5.addActionListener(new java.awt.event.ActionListener() {
@@ -253,7 +260,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B07.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B07.setText("T1B07");
+        lbT1B07.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B07.setText("Bàn 7");
 
         btnban1.setBackground(new java.awt.Color(51, 255, 0));
         btnban1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -264,16 +272,20 @@ public class JPanelTang1 extends javax.swing.JPanel {
         });
 
         lbT1B08.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B08.setText("T1B08");
+        lbT1B08.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B08.setText("Bàn 8");
 
         lbT1B09.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B09.setText("T1B09");
+        lbT1B09.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B09.setText("Bàn 9");
 
         lbT1B10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B10.setText("T1B10");
+        lbT1B10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B10.setText("Bàn 10");
 
         lbT1B11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbT1B11.setText("T1B11");
+        lbT1B11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbT1B11.setText("Bàn 11");
 
         btnban3.setBackground(new java.awt.Color(255, 204, 204));
         btnban3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ban.png"))); // NOI18N
@@ -288,62 +300,60 @@ public class JPanelTang1 extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnban1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban3)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban5)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban6))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnban7)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban8)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban9)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban10)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban11)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnban12)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbT1B01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(lbT1B01, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(lbT1B02, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(lbT1B03, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(lbT1B04, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53)
-                                .addComponent(lbT1B05, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
-                                .addComponent(lbT1B06, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnban2)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnban3)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnban4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lbT1B02, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbT1B03, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbT1B04, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbT1B05, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnban6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbT1B06, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(lbT1B07, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(lbT1B08, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(lbT1B09, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(lbT1B10, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(lbT1B11, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(lbT1B12, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbT1B07, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnban8)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnban9))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lbT1B08, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbT1B09, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbT1B10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbT1B11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnban12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbT1B12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

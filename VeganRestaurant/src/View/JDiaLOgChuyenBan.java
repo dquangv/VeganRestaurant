@@ -10,8 +10,11 @@ import static Controller.DatBanDao.Trong;
 import Controller.PhieuDatBanDao;
 import Utils.MsgBox;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  *
@@ -22,13 +25,14 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
     List<Integer> maBan = new ArrayList<>();
     List<Integer> DanhSachBan = new ArrayList<>();
     DatBanDao dbDAO = new DatBanDao();
-    
+
     /**
      * Creates new form JDiaLOgChuyenBan
      */
     public JDiaLOgChuyenBan(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public void setBan(List<Integer> maBanList) {
@@ -63,6 +67,7 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lbMaBan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbMaBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMaBan.setText("Bàn: 1");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -86,9 +91,7 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaBan)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 220, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -96,13 +99,13 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btnXacNhan)))
                 .addContainerGap())
+            .addComponent(lbMaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addGap(5, 5, 5)
                 .addComponent(txtMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,8 +121,11 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         thayDoiBan();
-        MsgBox.alert(this, "Đã chuyển sáng bàn: "+DanhSachBan);
-        this.dispose();
+        MsgBox.alert(this, "Đã chuyển sáng bàn: " + DanhSachBan);
+        this.setVisible(false);
+        JFrame fr = new JFrame();
+        JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(fr, true);
+        dialog.setVisible(false);
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
@@ -175,7 +181,6 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
     private javax.swing.JLabel lbMaBan;
     private javax.swing.JTextField txtMaBan;
     // End of variables declaration//GEN-END:variables
-        
 
     void thayDoiBan() {
         int maBann = maBan.get(0);
@@ -210,13 +215,33 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
         List<Integer> danhSachSoMoi = chuyenChuoiThanhList(txtMaBan.getText());
         this.DanhSachBan = danhSachSoMoi;
         List<Integer> danhSachSoCu = maBan;
-        for (Integer ma : danhSachSoMoi) {
-           
-            dbDAO.chuyenBan(ma,danhSachSoCu, MaPDB);
-            dbDAO.updateTrangThai(DANG_PHUC_VU, ma + "");
+
+        System.out.println(danhSachSoCu + "List cu");
+        System.out.println(danhSachSoMoi + " list moi");
+        List<Integer> dsCanCapNhat = new ArrayList<>(danhSachSoMoi);
+        dsCanCapNhat.removeAll(maBan);
+        System.out.println(dsCanCapNhat + "ds Can Cap Nhat");
+        // Tạo một Map để lưu trữ các cặp mã bàn cũ và mới
+        Map<Integer, Integer> mapBan = new HashMap<>();
+
+        // Đưa các cặp mã bàn cũ và mới vào map
+        for (int i = 0; i < danhSachSoCu.size(); i++) {
+            mapBan.put(danhSachSoCu.get(i), danhSachSoMoi.get(i));
         }
+
+        // Duyệt qua từng cặp mã bàn trong map và thực hiện chuyển đổi
         for (Integer ma : maBan) {
             dbDAO.updateTrangThai(Trong, ma + "");
+            System.out.println(" " + ma);
+        }
+        for (Map.Entry<Integer, Integer> entry : mapBan.entrySet()) {
+            int maCu = entry.getKey();
+            System.out.println(maCu);
+            int maMoi = entry.getValue();
+            System.out.println(maMoi);
+
+            dbDAO.chuyenBan(maMoi, maCu, MaPDB); // Thực hiện chuyển đổi chỉ một lần
+            dbDAO.updateTrangThai(DANG_PHUC_VU, maMoi + ""); // Cập nhật trạng thái
         }
 
     }

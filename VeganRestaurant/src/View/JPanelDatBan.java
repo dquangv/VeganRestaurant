@@ -98,8 +98,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jButton3.setIcon(iconuser1);
         ImageIcon iconuser2 = new ImageIcon("Logos/maintenance.png");
         jButton4.setIcon(iconuser2);
-        ImageIcon iconuser3 = new ImageIcon("Logos/reset.png");
-        jButton1.setIcon(iconuser3);
+
         
         btnDatBan.setBackground(Color.decode("#F06666"));
         jButton3.setBackground(Color.GREEN);
@@ -151,7 +150,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
         btnDatBan = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         cbTang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbTang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tầng 1" }));
@@ -263,9 +261,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Chuyển bàn");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -294,9 +289,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -326,8 +319,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDatBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnDatBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 34, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTimKIem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,7 +459,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatBan;
     private javax.swing.JComboBox<String> cbTang;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

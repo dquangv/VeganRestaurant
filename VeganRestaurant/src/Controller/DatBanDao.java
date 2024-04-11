@@ -126,12 +126,10 @@ public class DatBanDao {
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
 
-    public void chuyenBan(int maBanCu, List<Integer> maBanMoi, int maPhieuDatBan) {
+    public void chuyenBan(int maBanMoi, int maBanCu, int maPhieuDatBan) {
         try {
-            // Thực hiện truy vấn cho từng giá trị trong danh sách maBanMoi
-            for (Integer ma : maBanMoi) {
-                XJdbc.executeUpdate(ThayDoiBan, maBanCu, ma, maPhieuDatBan);
-            }
+            XJdbc.executeUpdate(ThayDoiBan, maBanMoi, maBanCu, maPhieuDatBan);
+            System.out.println("da chay sql");
         } catch (Exception e) {
             e.printStackTrace();
         }
