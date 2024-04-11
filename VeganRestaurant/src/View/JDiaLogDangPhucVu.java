@@ -73,7 +73,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         jLabel2.setText("Trạng thái: Đang Phục vụ");
 
         lbThemMon.setBackground(new java.awt.Color(51, 255, 0));
-        lbThemMon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbThemMon.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lbThemMon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/da dat.png"))); // NOI18N
         lbThemMon.setText("Thêm món");
         lbThemMon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -85,7 +85,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         });
 
         lbThanhToans.setBackground(new java.awt.Color(51, 255, 0));
-        lbThanhToans.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbThanhToans.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lbThanhToans.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/bao tri.png"))); // NOI18N
         lbThanhToans.setText("Thanh Toán");
         lbThanhToans.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -97,7 +97,7 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         });
 
         lbChuyenBan.setBackground(new java.awt.Color(51, 255, 0));
-        lbChuyenBan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbChuyenBan.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lbChuyenBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ChuyenBan.png"))); // NOI18N
         lbChuyenBan.setText("Chuyển bàn");
         lbChuyenBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -113,38 +113,29 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbThemMon))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbThanhToans))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbChuyenBan)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbThemMon, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lbChuyenBan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbThanhToans, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(146, Short.MAX_VALUE))
+            .addComponent(lbMaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbMaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbThemMon)
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(lbThanhToans)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(lbChuyenBan)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();

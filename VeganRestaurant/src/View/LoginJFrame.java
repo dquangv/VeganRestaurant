@@ -454,7 +454,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             if (!configFile.exists()) {
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
-            }
+            }   
             try (FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
                 Properties properties = new Properties();
                 properties.setProperty("username", username);
