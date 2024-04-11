@@ -209,7 +209,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
                 Map<String, Object> parameters = new HashMap<>();
                 parameters.put("P_MaHD", mahd);
-                parameters.put("P_TienKhach", tienKhach());
+//                parameters.put("P_TienKhach", tienKhach());
 
                 JasperReport jcomp = JasperCompileManager.compileReport(reportPath);
                 JasperPrint jprint = JasperFillManager.fillReport(jcomp, parameters, con);
@@ -220,10 +220,10 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         }
     }
 
-    String tienKhach() {
-        String input = JOptionPane.showInputDialog(rootPane, "Nhập tiền khách đưa", "In Hóa Đơn", JOptionPane.QUESTION_MESSAGE);
-        return input;
-    }
+//    String tienKhach() {
+////        String input = JOptionPane.showInputDialog(rootPane, "Nhập tiền khách đưa", "In Hóa Đơn", JOptionPane.QUESTION_MESSAGE);
+////        return input;
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
