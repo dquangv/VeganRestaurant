@@ -20,6 +20,7 @@ public class ThanhVienDAO {
     private final String INSERT_TV = "INSERT INTO ThanhVien(NgayDangKy, DiemThuong, MaKhachHang) VALUES (?, ?, ?)";
     private final String SELECT_BY_ID = "SELECT * FROM ThanhVien WHERE MaKhachHang = ?";
     private final String UPDATE_BY_ID = "UPDATE ThanhVien SET NgayDangKy = ? WHERE MaKhachHang = ?";
+    private final String UPDATE_Bonus_BY_ID = "UPDATE ThanhVien SET DiemThuong = ? WHERE MaKhachHang = ?";
 
     public void addThanhVien(ThanhVien thanhVien) {
         try (
@@ -55,6 +56,17 @@ public class ThanhVienDAO {
         try (
                 Connection conn = XJdbc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(UPDATE_BY_ID);) {
             pstmt.setDate(1, new java.sql.Date(thanhVien.getNgayDkThanhVien().getTime()));
+            pstmt.setString(2, thanhVien.getMaKhachHang());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateThanhVienDiemThuong (ThanhVien thanhVien) {
+        try (
+                Connection conn = XJdbc.getConnection(); PreparedStatement pstmt = conn.prepareStatement(UPDATE_Bonus_BY_ID);) {
+            pstmt.setDouble(1, thanhVien.getDiemThuong());
             pstmt.setString(2, thanhVien.getMaKhachHang());
             pstmt.executeUpdate();
         } catch (SQLException e) {

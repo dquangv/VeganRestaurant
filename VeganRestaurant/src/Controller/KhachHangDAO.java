@@ -129,7 +129,7 @@ public class KhachHangDAO extends NhaHangChayDAO<KhachHang, Object> {
 
     // Lấy thông tin khách hàng dựa trên mã khách hàng
     public KhachHang getKhachHangById(String maKhachHang) {
-        String sql = "SELECT * FROM KhachHang WHERE MaKhachHang = ?";
+        String sql = "SELECT KhachHang.MaKhachHang, KhachHang.TenKhachHang, KhachHang.SDT, KhachHang.NgaySinh, ThanhVien.NgayDangKy, ThanhVien.DiemThuong  FROM ThanhVien Join KhachHang on ThanhVien.MaKhachHang = KhachHang.MaKhachHang WHERE KhachHang.MaKhachHang = ?";
         KhachHang khachHang = null;
 
         try (PreparedStatement pstmt = xJdbc.preparedStatement(sql, maKhachHang); ResultSet rs = pstmt.executeQuery()) {
