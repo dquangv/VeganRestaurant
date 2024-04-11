@@ -256,6 +256,11 @@ public class JDialogTrangThaiDatBan extends javax.swing.JDialog {
             lbTenKhachHang.setText("Tên khách hàng: " + cttt.getTenKhachHang());
             lbSDT.setText("SDT: " + cttt.getSDT());
             lbThoiGian.setText("Thời gian: " + XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+//            System.out.println(lbTenKhachHang.getText()+ "font");
+//            System.out.println(cttt.getTenKhachHang() + "ten");
+//            System.out.println(cttt.getSDT() + "sdt");
+//            System.out.println(XDate.toString(cttt.getThoiGianDate(), "dd-MM-yyyy / HH:mm"));
+//            System.out.println(maPDB);
             this.revalidate();
             this.repaint();
         }
