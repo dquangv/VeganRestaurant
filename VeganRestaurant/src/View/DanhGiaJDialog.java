@@ -196,7 +196,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
     private void btnDanhGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhGiaActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnDanhGiaActionPerformed
 
     void layMaHoaDon(int mahd) {
@@ -313,7 +313,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
                             // Execute the update
                             int rowsAffected = ps.executeUpdate();
-                            if (rowsAffected > 0) {
+                            if (rowsAffected > 0 ) {
                                 System.out.println("Update successful!");
                                 JOptionPane.showMessageDialog(rootPane, "Đánh giá thành công");
                                 // Optionally, you can provide user feedback here
