@@ -329,13 +329,15 @@ public class ThucDon extends javax.swing.JPanel {
         int maThucDon357 = 2;
 
         if (chk246.isSelected()) {
-            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon246, tenMon);
-            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon357, tenMon);
-            thucDonDAO.themMonAnVaoThucDon(maThucDon246, tenMon);
+//            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon246, tenMon);
+//            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon357, tenMon);
+//            thucDonDAO.themMonAnVaoThucDon(maThucDon246, tenMon);
+            thucDonDAO.updateMonAnVaoThucDon(maThucDon246, tenMon);
         } else if (chk357.isSelected()) {
-            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon246, tenMon);
-            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon357, tenMon);
-            thucDonDAO.themMonAnVaoThucDon(maThucDon357, tenMon);
+//            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon246, tenMon);
+//            thucDonDAO.xoaMonAnKhoiThucDon(maThucDon357, tenMon);
+//            thucDonDAO.themMonAnVaoThucDon(maThucDon357, tenMon);
+            thucDonDAO.updateMonAnVaoThucDon(maThucDon357, tenMon);
         }
 
 //        loadDanhSachMonAn();

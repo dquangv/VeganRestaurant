@@ -28,7 +28,7 @@ public class ChiTietDatBan_DAO extends NhaHangChayDAO<ChiTietDatBan, String> {
     
     public List<Integer> getListMaPhieuDatBan(int maBan) {
         List<Integer> list = new ArrayList<>();
-        String sql = "select * from chitietdatban where maban = ?";
+        String sql = "select * from chitietdatban where maban = ? and maphieudatban not in (select maphieudatban from hoadon)";
         try {
             ResultSet rs = XJdbc.executeQuery(sql, maBan);
             while (rs.next()) {

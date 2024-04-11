@@ -132,7 +132,7 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
         String sql = "select top 1 pdb.* from phieudatban pdb\n"
                 + "  join chitietdatban ctdb on pdb.maphieudatban = ctdb.maphieudatban \n"
                 + "  join ban b on b.maban = ctdb.maban \n"
-                + "  where ctdb.maban = ? and b.trangthai = N'Đã đặt' \n"
+                + "  where ctdb.maban = ? and b.trangthai = N'Đã đặt' and ctdb.maphieudatban not in (select maphieudatban from hoadon)\n"
                 + "  order by thoigiandat";
         PhieuDatBan pdb = new PhieuDatBan();
 

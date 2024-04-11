@@ -122,6 +122,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main m = new Main();
+        
         m.GiaoDien();
         m.themSuKienChoTatCaPanel();
         m.CaiDat();
@@ -137,6 +138,7 @@ public class Main {
 
     public static void callMain() {
         Main m = new Main();
+        
         m.GiaoDien();
         m.CaiDat();
         m.ThongKe();

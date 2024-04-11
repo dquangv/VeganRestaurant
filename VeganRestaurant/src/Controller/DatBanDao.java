@@ -117,5 +117,4 @@ public class DatBanDao {
         return this.getListOfArray(sql, cols, maBan);
     }
 
-    
 }

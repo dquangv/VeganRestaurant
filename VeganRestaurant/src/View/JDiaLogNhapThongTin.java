@@ -207,40 +207,60 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
             int kt = 0;
-            boolean a = insert();
-            if (a) {
-                for (Integer ma : maBanListAdd) {
-                    List<Integer> listMaPDB = ctdbDAO.getListMaPhieuDatBan(ma);
-                    System.out.println(listMaPDB.size());
-                    for (int maPDB : listMaPDB) {
-//                        System.out.println("\nqưe");
-//                        System.out.println(maPDB);
-                        PhieuDatBan phieuDatBan = pdbDao.selectByPDB(maPDB);
-//                        System.out.println("\n " + phieuDatBan.getMaPhieuDatBan());
-//                        System.out.println("\n " + String.valueOf(phieuDatBan.getThoiGianDat()));
-//                        System.out.println("\n" + String.valueOf(layThoiGian()));
+            boolean checkThoiGianDat = false;
 
-                        if (Math.abs(phieuDatBan.getThoiGianDat().getTime() - layThoiGian().getTime()) > 3600000) {
-                            System.out.println("\nabcd");
-                        } else {
-                            System.out.println("\nbdef");
+            int checkPDBDaDat = 0;
+
+            for (Integer ma : maBanListAdd) {
+                List<Integer> listMaPDB = ctdbDAO.getListMaPhieuDatBan(ma);
+
+                if (checkPDBDaDat == 0) {
+
+                    if (listMaPDB.size() > 0) {
+
+                        for (int maPDB : listMaPDB) {
+//                        
+                            PhieuDatBan phieuDatBan = pdbDao.selectByPDB(maPDB);
+//                       
+                            if (Math.abs(phieuDatBan.getThoiGianDat().getTime() - layThoiGian().getTime()) > 3600000) {
+                                checkThoiGianDat = true;
+
+                            } else {
+                                checkThoiGianDat = false;
+                                checkPDBDaDat += 1;
+                                MsgBox.alert(this, "Bàn này đã được đặt vào khung giờ này");
+                                break;
+                            }
                         }
-//                        kt++;
-//                        System.out.println(kt);
+
+                    } else {
+                        boolean a = insert();
+                        if (a) {
+                            MsgBox.alert(this, "Đặt bàn thành công");
+                            this.setVisible(false);
+                            kt = 1;
+                            thayDoiTrangThai(ma.toString());
+                        } else {
+                            this.dispose();
+                        }
                     }
-                    thayDoiTrangThai(ma.toString());
+                } else if (checkPDBDaDat > 0) {
+                    break;
                 }
-                MsgBox.alert(this, "Đặt bàn thành công");
-                this.setVisible(false);
-                kt = 1;
-////                JPanelTang1.TrangThaiBan();
-//                JPanelTang2.TrangThaiBan();
-////                JPanelTang3.TrangThaiBan();
-////                JPanelTang1.listSo.clear();
-////                JPanelTang1.listBT.clear();
-            } else {
-                this.dispose();
+
+                if (checkThoiGianDat) {
+                    boolean a = insert();
+                    if (a) {
+                        MsgBox.alert(this, "Đặt bàn thành công");
+                        this.setVisible(false);
+                        kt = 1;
+                        thayDoiTrangThai(ma.toString());
+                    } else {
+                        this.dispose();
+                    }
+                }
             }
+
             JPanelDatBan.KiemTraXacNhan(1);
         }
 
@@ -260,16 +280,24 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

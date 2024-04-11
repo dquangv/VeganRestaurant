@@ -7,11 +7,14 @@ package View;
 import Controller.CT_ThongTinDAO;
 import Controller.DatBanDao;
 import Controller.PhieuDatBanDao;
+import Utils.MsgBox;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
@@ -22,6 +25,8 @@ public class JPanelTang1 extends javax.swing.JPanel {
 
     static DatBanDao dBDao = new DatBanDao();
     static CT_ThongTinDAO ctThongTIn = new CT_ThongTinDAO();
+//    Color mau = Color.pink;
+    public static List<Object[]> colorBan = new ArrayList<>();
 
     /**
      * Creates new form JPanelTang1
@@ -35,13 +40,30 @@ public class JPanelTang1 extends javax.swing.JPanel {
     public static List<JButton> listBT = new ArrayList<>();
     public static List<Integer> listSo = new ArrayList<>();
     public static List<Integer> listSoBan = new ArrayList<>();
+    public static List<Color> listColor = new ArrayList<>();
 
-    public static void thayDoiMauButton(JButton btn[]) {
-        for (int i = 0; i < btn.length; i++) {
-            if (listBT.contains(btn[i])) {
-                btn[i].setBackground(Color.yellow);
-            } else {
-                btn[i].setBackground(Color.PINK);
+//    public static void thayDoiMauButton(JButton btn[]) {
+//        List<Color> listMau = new ArrayList<Color>();
+//        for (int i = 0; i < btn.length; i++) {
+//            if (listBT.contains(btn[i])) {
+//                listMau.add(btn[i].getBackground());
+//                btn[i].setBackground(Color.yellow);
+//                System.out.println(listMau);
+//            } else {
+//                System.out.println(listMau);
+//                btn[i].setBackground(btn[i].getBackground());
+//                listMau.add(btn[i].getBackground());
+////                btn[i].setBackground(Color.PINK);
+//            }
+//        }
+//    }
+    public static void thayDoiMauButton() {
+        for (Integer ma : listSo) {
+            if (!listSo.isEmpty()) {
+                JButton btn = timButtonByMaBan(ma);
+                if (btn != null) {
+                    btn.setBackground(Color.yellow);
+                }
             }
         }
     }
@@ -58,15 +80,37 @@ public class JPanelTang1 extends javax.swing.JPanel {
             }
             if (found) {
                 listBT.removeIf(i -> i.equals(button));
-                System.out.println("da xoa nut " + maBan);
+//                System.out.println("da xoa nut " + maBan);
             } else {
                 listBT.add(button);
-                System.out.println("da them nut  " + maBan);
+//                System.out.println("da them nut  " + maBan);
             }
-            thayDoiMauButton(new JButton[]{button});
-            System.out.println(listBT.size());
+//            thayDoiMauButton(new JButton[]{button});
+//            thayDoiMauButton();
+//            System.out.println(listBT.size());
         }
     }
+
+//    public void addANDremoveColorList(int maBan) {
+//        JButton btn = timButtonByMaBan(maBan);
+//
+//        if (btn != null) {
+//            if (colorBan.size() > 0) {
+//                for (Object[] color : colorBan) {
+//                    int maBAN = (int) color[0];
+//                    Color mauBan = (Color) color[1];
+//                    if (maBan == maBAN) {
+//                        colorBan.remove(color);
+//                    }
+//                }
+//            } else {
+//                colorBan.add(new Object[]{maBan, btn.getBackground()});
+//            }
+//        }
+//
+////        System.out.println(colorBan.get(0)[0]);
+////        System.out.println(colorBan.get(0)[1]);
+//    }
 
     public int getMaPDB(String maBan) {
         PhieuDatBanDao pdb = new PhieuDatBanDao();
@@ -101,20 +145,30 @@ public class JPanelTang1 extends javax.swing.JPanel {
 
     static void timMaBanByButton(Integer maBan) {
         boolean found = false;
+//        JButton btn = timButtonByMaBan(maBan);
         for (Integer indexMaBan : listSo) {
             if (indexMaBan.equals(maBan)) {
                 found = true;
                 break;
             }
         }
+
         if (found) {
             listSo.removeIf(i -> i.equals(maBan));
+//            listColor.removeIf(i -> i.equals(maBan));
+//            btn.setBackground(Color.pink);
+//            System.out.println(listColor);
         } else {
             listSo.add(maBan);
+//            listColor.add(btn.getBackground());
+//            System.out.println(listColor);
+
+//            btn.setBackground(Color.yellow);
         }
-        for (Integer so : listSo) {
-            System.out.print(so + " ");
-        }
+
+//        for (Integer so : listSo) {
+//            System.out.print(so + " ");
+//        }
     }
 
     /**
@@ -386,7 +440,9 @@ public class JPanelTang1 extends javax.swing.JPanel {
         dialog.layMaBan(9);
         int PDB = getMaPDB("9");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
+//        addANDremoveColorList(9);
         kiemTraTrangThaiBan(9);
+        timMaBanByButton(9);
     }//GEN-LAST:event_btnban9ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
@@ -394,8 +450,9 @@ public class JPanelTang1 extends javax.swing.JPanel {
         dialog.layMaBan(3);
         int PDB = getMaPDB("3");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
+//        addANDremoveColorList(3);
         kiemTraTrangThaiBan(3);
-//        timMaBanByButton(3);
+        timMaBanByButton(3);
 
     }//GEN-LAST:event_btnban3ActionPerformed
 
@@ -405,7 +462,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("6");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(6);
-//        timMaBanByButton(6);
+        timMaBanByButton(6);
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
@@ -414,7 +471,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("8");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(8);
-//        timMaBanByButton(8);
+        timMaBanByButton(8);
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
@@ -423,7 +480,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("7");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(7);
-//        timMaBanByButton(7);
+        timMaBanByButton(7);
     }//GEN-LAST:event_btnban7ActionPerformed
 
 
@@ -433,7 +490,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("2");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(2);
-//        timMaBanByButton(2);
+        timMaBanByButton(2);
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
@@ -442,7 +499,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("1");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(1);
-//        timMaBanByButton(1);
+        timMaBanByButton(1);
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
@@ -451,7 +508,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("5");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(5);
-//        timMaBanByButton(5);
+        timMaBanByButton(5);
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
@@ -461,7 +518,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("12");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(12);
-//        timMaBanByButton(12);
+        timMaBanByButton(12);
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
@@ -470,7 +527,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("11");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(11);
-//        timMaBanByButton(11);
+        timMaBanByButton(11);
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
@@ -479,7 +536,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("4");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(4);
-//        timMaBanByButton(4);
+        timMaBanByButton(4);
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban10ActionPerformed
@@ -489,7 +546,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
         int PDB = getMaPDB("10");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(10);
-//        timMaBanByButton(10);
+        timMaBanByButton(10);
     }//GEN-LAST:event_btnban10ActionPerformed
 
 
@@ -630,33 +687,117 @@ public class JPanelTang1 extends javax.swing.JPanel {
 //            }
 //        }
 //    }
-    
-    
     void kiemTraTrangThaiBan(int maBan) {
-        List<Object[]> banList = dBDao.loadData();
-        for (Object[] ban : banList) {
-            int maBanDB = (int) ban[0];
-            String trangThai = (String) ban[1];
-            if ((maBan == maBanDB)) {
-                switch (trangThai) {
-                    case DatBanDao.Trong:
-                        setButton(maBan);
-                        timMaBanByButton(maBan);
-                        return;
-                    case DatBanDao.DANG_PHUC_VU:
-                        showDiaLogDangPhucVu(maBan);
-                        break;
-                    case DatBanDao.DA_DAT:
-                        setButton(maBan);
-                        timMaBanByButton(maBan);
-                        return;
-                    case DatBanDao.BAO_TRI:
-                        showDiaLogBaoTri(maBan);
-                        break;
-                    default:
-                        break;
-                }
+//        List<Object[]> banList = dBDao.loadData();
+//        for (Object[] ban : banList) {
+//            int maBanDB = (int) ban[0];
+//            String trangThai = (String) ban[1];
+//            if ((maBan == maBanDB)) {
+//                switch (trangThai) {
+//                    case DatBanDao.Trong:
+//                        setButton(maBan);
+//                        timMaBanByButton(maBan);
+//                        return;
+//                    case DatBanDao.DANG_PHUC_VU:
+////                        showDiaLogDangPhucVu(maBan);
+//                        break;
+//                    case DatBanDao.DA_DAT:
+//                        setButton(maBan);
+//                        timMaBanByButton(maBan);
+//                        return;
+//                    case DatBanDao.BAO_TRI:
+//                        showDiaLogBaoTri(maBan);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
+
+//        TEST SOLUTION 1
+//        JButton btn = timButtonByMaBan(maBan);
+//        Color mauBtn = btn.getBackground();
+//        Color mau = Color.pink;
+//        System.out.println(mauBtn);
+//        if (mauBtn == Color.pink) {
+//            mau = mauBtn;
+//            btn.setBackground(Color.yellow);
+//        } else if (mauBtn == Color.red) {
+//            mau = mauBtn;
+//            btn.setBackground(Color.yellow);
+//        } else if (mauBtn == Color.GREEN) {
+//            JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
+//
+//            JDiaLogDatBan dialog = new JDiaLogDatBan(parentFrame, true); // Tạo dialog với JFrame cha
+//            MsgBox.alert(this, "Bất đầu phục vụ");
+//            dialog.thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
+//
+//            int maKHMax = JPanelDatBan.insertKHnull();
+//            int maPDBMax = JPanelDatBan.insertPDB(maKHMax);
+//
+//            for (Integer maBanDS : JPanelTang1.listSo) {
+//                JPanelDatBan.insert(maKHMax, maPDBMax, maBanDS);
+//            }
+//
+//            JPanelDatBan.fillToTable();
+//            JPanelTang1.TrangThaiBan();
+//            JPanelTang2.TrangThaiBan();
+//            JPanelTang3.TrangThaiBan();
+//            JPanelTang1.listSo.clear();
+//            JPanelTang1.listBT.clear();
+//        } else if (mauBtn == Color.BLACK) {
+//            JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
+//
+//            JDiaLogNhapThongTin dialog = new JDiaLogNhapThongTin(parentFrame, true); // Tạo dialog với JFrame cha
+//            dialog.setBan(JPanelTang1.listSo);
+//
+//            dialog.setVisible(true);
+//        } else if (mauBtn == Color.YELLOW) {
+//            btn.setBackground(mau);
+//        }
+//       TEST SOLUTION 2
+        JButton btn = timButtonByMaBan(maBan);
+        boolean found = false;
+
+//        if (btn != null) {
+//            System.out.println(colorBan.size());
+//            if (colorBan.size() == 0) {
+//            colorBan.add(new Object[]{maBan, btn.getBackground()});
+//            btn.setBackground(Color.yellow);
+//            } else {
+        for (Object[] color : colorBan) {
+            int maBAN = (int) color[0];
+//            Color mauBan = (Color) color[1];
+            if (maBan == maBAN) {
+                found = true;
+                break;
+//                btn.setBackground(mauBan);
+//                colorBan.remove(color);
+//                System.out.println(maBan);
+//                System.out.println(mauBan);
+//            } else {
+//                colorBan.add(new Object[]{maBan, btn.getBackground()});
+//                btn.setBackground(Color.yellow);
+//            }
             }
         }
+
+        if (found) {
+            for (Object[] color : colorBan) {
+                int maBAN = (int) color[0];
+                Color mauBan = (Color) color[1];
+                if (maBan == maBAN) {
+                    btn.setBackground(mauBan);
+                    colorBan.remove(color);
+                    break;
+                }
+            }
+        } else {
+            colorBan.add(new Object[]{maBan, btn.getBackground()});
+            btn.setBackground(Color.yellow);
+        }
+//            }
+//        }
+
     }
 }
