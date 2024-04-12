@@ -50,7 +50,7 @@ public class Main {
     boolean TrangThaiThietLap = false;
     boolean TrangThaiThongKe = false;
     boolean TrangThaiQuanLy = false;
-    static JFrame fr = new JFrame();
+    public JFrame fr = new JFrame();
 // cac tad o tren
     JPanel pnMenu = new JPanel();
     JPanel pnView = new JPanel();
@@ -139,7 +139,6 @@ public class Main {
         m.ListPanelHeThong();
         m.ThongKe();
         m.QuanLy();
-//        m.VaiTro();
         m.init();
         m.setIconPanel();
         m.setIconLabel();
@@ -147,7 +146,7 @@ public class Main {
 //        m.capNhatVaiTro();
     }
 
-    public static void callMain() {
+    public void callMain() {
         Main m = new Main();
         
         m.GiaoDien();
@@ -158,7 +157,6 @@ public class Main {
         m.QuanLy();
         m.ListPanelMenu();
         m.themSuKienChoTatCaPanel();
-//        m.VaiTro();
         m.init();
         m.setIconPanel();
         m.setIconLabel();
@@ -170,9 +168,13 @@ public class Main {
         if (pnView != null) {
             pnView.removeAll();
         }
-        ImageIcon icon = new ImageIcon("Logos/TrangChu.jpg");
-        JLabel lbIcon = new JLabel();
-        pnTrangChu.add(lbIcon);
+
+        ImageIcon icon = new ImageIcon("Logos/TrangChu4.jpg");
+        JLabel lbIcon = new JLabel(icon);
+
+        pnTrangChu.setLayout(new BorderLayout()); // Set layout manager for pnTrangChu
+        pnTrangChu.add(lbIcon, BorderLayout.CENTER); // Add lbIcon to pnTrangChu at the center
+
         pnView.add(pnTrangChu);
         pnView.setLayout(new GridLayout(1, 1));
         // Thay đổi kích thước của biểu tượng
@@ -209,7 +211,7 @@ public class Main {
         pnDangXuat.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 Auth.clear();
-                fr.dispose();
+                fr.setVisible(false);
                 new LoginJFrame().setVisible(true);
                 ChamDutPanelVaLabel();
             }
@@ -236,6 +238,7 @@ public class Main {
     }
 
     void init() {
+        lbVaiTro.setText("");
         lbVaiTro.revalidate();
         lbVaiTro.repaint();
         pnMenuConPhai.add(lbVaiTro, BorderLayout.CENTER);
@@ -283,17 +286,6 @@ public class Main {
         }
     }
 
-    void VaiTro() {
-        JLabel lbVaiTro = new JLabel();
-        pnMenuConPhai.add(lbVaiTro);
-        lbVaiTro.setFont(new Font("Arial", Font.BOLD, 30));
-        lbVaiTro.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-        lbVaiTro.setText("");
-        ImageIcon icon = new ImageIcon("Logos/user.png");
-        lbVaiTro.setIcon(icon);
-        lbVaiTro.setText((Auth.user.isVaiTro() ? "Quản lý: " : "Nhân viên: ") + Auth.user.getTenTaiKhoan());
-    }
-
     void GiaoDien() {
 
         fr.setExtendedState(fr.MAXIMIZED_BOTH);
@@ -304,7 +296,6 @@ public class Main {
 
         // add cac pn vao fr chinh 
         //add menu vao fr
-        
         pnMenu.setPreferredSize(new Dimension(fr.getWidth(), 200));
         pnMenu.setLayout(new GridLayout(2, 1));
 

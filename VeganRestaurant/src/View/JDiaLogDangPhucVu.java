@@ -227,12 +227,13 @@ public class JDiaLogDangPhucVu extends javax.swing.JDialog {
     }//GEN-LAST:event_lbThanhToansMouseClicked
 
     private void lbChuyenBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbChuyenBanMouseClicked
-          
+
         JFrame fr = new JFrame();
-        JDiaLOgChuyenBan dialog = new JDiaLOgChuyenBan(fr,true);
+        JDiaLOgChuyenBan dialog = new JDiaLOgChuyenBan(fr, true);
         dialog.setBan(maBan);
         dialog.setVisible(true);
-        
+        this.setVisible(false);
+
     }//GEN-LAST:event_lbChuyenBanMouseClicked
 
     /**

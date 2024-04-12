@@ -30,6 +30,31 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
 
     String SelectMaPhieuDatBanMax = "select max(MaPhieuDatBan) max from PhieuDatBan";
 
+    public PhieuDatBan getPhieuDatBanTheoThoiGian(int maBan) {
+        String sql = "select top 1 pdb.* from phieudatban pdb\n"
+                + "  join chitietdatban ctdb on pdb.maphieudatban = ctdb.maphieudatban \n"
+                + "  join ban b on b.maban = ctdb.maban \n"
+                + "  where ctdb.maban = ? and b.trangthai = N'Đã đặt' and ctdb.maphieudatban not in (select maphieudatban from hoadon where trangthai = 1)\n"
+                + "  order by thoigiandat";
+        PhieuDatBan pdb = new PhieuDatBan();
+
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, maBan);
+            if (rs.next()) {
+                pdb.setMaPhieuDatBan(rs.getInt("MaPhieuDatBan"));
+                pdb.setThoiGianDat(rs.getTimestamp("ThoiGianDat"));
+                pdb.setMaKhachHang(rs.getInt("MaKhachHang"));
+                return pdb;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pdb;
+    }
+
     public void setMaxPDB(int maPhieuDatBan) {
         String sql = "{call SP_ReSetMaPhieuDatBan(?)}";
         try {
@@ -37,6 +62,10 @@ public class PhieuDatBanDao extends NhaHangChayDAO<PhieuDatBan, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public PhieuDatBan selectByPDB(int maPhieuDatBan) {
+        return this.selectBySQL("select * from phieudatban where maphieudatban = ?", maPhieuDatBan).get(0);
     }
 
     public int SelectMaPDB(int maBan) {

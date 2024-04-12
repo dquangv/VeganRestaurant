@@ -36,7 +36,7 @@ public class DatBanDao {
             + "AND (db.MaPhieuDatBan Not IN (SELECT MaPhieuDatBan FROM HoaDon Where TrangThai = 1)) "
             + "ORDER BY ThoiGianDat;";
     static String ThayDoiBan = " UPDATE ChiTietDatBan SET MaBan = ? WHERE MaBan = ? AND MaPhieuDatBan = ?;";
-
+    static String checkTrung = "select TrangThai from Ban where  MaBan = ?";
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
             List<Object[]> list = new ArrayList<>();
@@ -135,9 +135,21 @@ public class DatBanDao {
     public void chuyenBan(int maBanMoi, int maBanCu, int maPhieuDatBan) {
         try {
             XJdbc.executeUpdate(ThayDoiBan, maBanMoi, maBanCu, maPhieuDatBan);
-            System.out.println("da chay sql");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public String checkTonTai(int maBan){
+        String TrangThai = "";
+       try {
+            ResultSet rs = XJdbc.executeQuery(checkTrung, maBan);
+            if (rs.next()) {
+                TrangThai = rs.getString("TrangThai");
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       return TrangThai;
     }
 }

@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.time.LocalTime;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import java.sql.Timestamp;
+import java.sql.*;
 
 /**
  *
@@ -202,25 +202,13 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
 //                this.dispose();
 //            }
 //            JPanelDatBan.KiemTraXacNhan(1);
-//        }
+//        }   Code Master
 
+//Code anhQuang
         String maBan = lbmaBan.getText().substring(5);
         if (Checkvalidate()) {
             int kt = 0;
             boolean checkThoiGianDat = false;
-            boolean a = insert();
-            if (a) {
-                for (Integer ma : maBanListAdd) {
-                    thayDoiTrangThai(ma.toString());
-                }
-                MsgBox.alert(this, "Đặt bàn thành công");
-                this.setVisible(false);
-                kt = 1;
-                JPanelTang1.TrangThaiBan();
-                JPanelTang2.TrangThaiBan();
-                JPanelTang3.TrangThaiBan();
-                JPanelTang1.listSo.clear();
-                JPanelTang1.listBT.clear();
 
             int checkPDBDaDat = 0;
 
@@ -232,9 +220,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                     if (listMaPDB.size() > 0) {
 
                         for (int maPDB : listMaPDB) {
-//                        
                             PhieuDatBan phieuDatBan = pdbDao.selectByPDB(maPDB);
-//                       
+
                             if (Math.abs(phieuDatBan.getThoiGianDat().getTime() - layThoiGian().getTime()) > 3600000) {
                                 checkThoiGianDat = true;
 
@@ -293,24 +280,16 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDiaLogNhapThongTin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -367,6 +346,17 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         cbThoiGian.setModel(model);
     }
 
+//    public Date layThoiGian() {
+//        Date date = txtThoiGian.getDate();
+//        String gioPhut = (String) cbThoiGian.getSelectedItem();
+//        if (date != null) {
+//            String DateStr = XDate.toString(date, "yyyy-MM-dd ") + gioPhut;
+//            Date NgayGio = XDate.toDate(DateStr, "yyyy-MM-dd HH:mm");
+//            return NgayGio;
+//        }
+//
+//        return null;
+//    }
     public Timestamp layThoiGian() {
         Date date = txtThoiGian.getDate();
         String gioPhut = (String) cbThoiGian.getSelectedItem();
@@ -387,6 +377,15 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
         return ctdb;
     }
 
+//    private PhieuDatBan getFormPDB() {
+//        // Gọi phương thức layThoiGian() để lấy đối tượng Date
+//        Date date = layThoiGian();
+//
+//        PhieuDatBan pdb = new PhieuDatBan();
+//        pdb.setThoiGianDat(date);
+////        pdb.setMaKhachHang(max ma khach hang);
+//        return pdb;
+//    }
     private PhieuDatBan getFormPDB() {
         // Gọi phương thức layThoiGian() để lấy đối tượng Date
         Timestamp date = layThoiGian();
@@ -470,8 +469,8 @@ public class JDiaLogNhapThongTin extends javax.swing.JDialog {
             MsgBox.alert(this, "Thời gian không được bỏ trống");
             return false;
         }
-//        System.out.println(thoiGianHienTai);
-//        System.out.println(layThoiGian());
+        System.out.println(thoiGianHienTai);
+        System.out.println(layThoiGian());
         if (layThoiGian().getTime() < thoiGianHienTai.getTime()) {
             MsgBox.alert(this, "Thời gian lớn hơn hoặc bằng thời gian hiện tại");
             return false;

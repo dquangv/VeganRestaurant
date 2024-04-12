@@ -5,11 +5,10 @@
 package Controller;
 
 import Model.ChiTietDatBan;
-import Model.PhieuDatBan;
 import Utils.XJdbc;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 
 /**
  *
@@ -19,13 +18,6 @@ public class ChiTietDatBan_DAO extends NhaHangChayDAO<ChiTietDatBan, String> {
 
     String Insert = "insert into ChiTietDatBan (MaBan, MaPhieuDatBan) values (?,?)";
 
-    public void insert(String MaBan, int maPDB) {
-        XJdbc.executeUpdate(Insert,
-        MaBan,
-        maPDB
-       );
-    }
-    
     public List<Integer> getListMaPhieuDatBan(int maBan) {
         List<Integer> list = new ArrayList<>();
         String sql = "select * from chitietdatban where maban = ? and maphieudatban not in (select maphieudatban from hoadon)";
@@ -37,8 +29,15 @@ public class ChiTietDatBan_DAO extends NhaHangChayDAO<ChiTietDatBan, String> {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+
         return list;
+    }
+
+    public void insert(String MaBan, int maPDB) {
+        XJdbc.executeUpdate(Insert,
+                MaBan,
+                maPDB
+        );
     }
 
     @Override

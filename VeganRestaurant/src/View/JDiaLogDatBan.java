@@ -17,7 +17,7 @@ import Model.KhachHang;
 import Utils.MsgBox;
 import java.util.Date;
 import java.util.List;
-import java.sql.*;
+import java.sql.Timestamp;
 
 /**
  *

@@ -14,9 +14,6 @@ import Controller.PhieuDatBanDao;
 import Model.ChiTietDatBan;
 import Model.PhieuDatBan;
 import Utils.MsgBox;
-import static View.JPanelTang1.colorBan;
-import static View.JPanelTang1.listSoBan;
-import static View.JPanelTang1.timButtonByMaBan;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.Date;
@@ -27,10 +24,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import org.bridj.objc.NSNumber;
-import java.sql.*;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import java.sql.Timestamp;
+import javax.swing.JButton;
 
 /**
  *
@@ -92,7 +87,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
      */
     public JPanelDatBan() {
         initComponents();
-
         jPanel3.removeAll();
         jPanel3.add(new JPanelTang2());
 
@@ -102,79 +96,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jPanel3.add(new JPanelTang1());
         jPanel3.updateUI();
         jPanel3.setLayout(new FlowLayout());
-
-        fillToTable();
-
-        fillComboBoxTang();
-    }
-
-    public void updateRedColorForButton1stFloor() {
-        jPanel3.removeAll();
-        jPanel3.add(new JPanelTang1());
-//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
-        jPanel3.updateUI();
-        jPanel3.setLayout(new FlowLayout());
-
-//                    DoiTrangThaiBanDaDatTheoThoiGian();
-        for (int i = 1; i <= 12; i++) {
-            JButton btn = JPanelTang1.timButtonByMaBan(i);
-            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
-
-            if (btn.getBackground() != Color.GREEN) {
-                if (pdb != null) {
-                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
-                        btn.setBackground(Color.red);
-//                                    System.out.println(pdb.getThoiGianDat());
-//                JPanelTang1.showDiaLogTrangThaiDaDat(listSoBan);
-                    }
-                }
-            }
-        }
-    }
-
-    public void updateRedColorForButton2ndFloor() {
-        jPanel3.removeAll();
-        jPanel3.add(new JPanelTang2());
-//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
-        jPanel3.updateUI();
-        jPanel3.setLayout(new FlowLayout());
-
-//                    DoiTrangThaiBanDaDatTheoThoiGian();
-        for (int i = 13; i <= 24; i++) {
-            JButton btn = JPanelTang2.timButtonByMaBan(i);
-            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
-
-            if (btn.getBackground() != Color.GREEN) {
-                if (pdb != null) {
-                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
-                        btn.setBackground(Color.red);
-//                    JPanelTang2.showDiaLogTrangThaiDaDat(listSoBan);
-                    }
-                }
-            }
-        }
-    }
-
-    public void updateRedColorForButton3rdFloor() {
-        jPanel3.removeAll();
-        jPanel3.add(new JPanelTang3());
-        jPanel3.updateUI();
-        jPanel3.setLayout(new FlowLayout());
-
-//                    DoiTrangThaiBanDaDatTheoThoiGian();
-        for (int i = 25; i <= 36; i++) {
-            JButton btn = JPanelTang3.timButtonByMaBan(i);
-//            System.out.println(btn.getBackground());
-            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
-            if (btn.getBackground() != Color.GREEN) {
-                if (pdb != null) {
-                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
-                        btn.setBackground(Color.red);
-//                JPanelTang3.showDiaLogTrangThaiDaDat(listSoBan);
-                    }
-                }
-            }
-        }
         fillToTable();
         fillComboBoxTang();
         setIcon();
@@ -189,13 +110,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
         ImageIcon iconuser2 = new ImageIcon("Logos/maintenance.png");
         jButton4.setIcon(iconuser2);
 
-        
         btnDatBan.setBackground(Color.decode("#F06666"));
         jButton3.setBackground(Color.GREEN);
         jButton4.setBackground(Color.decode("#605E5E"));
-        
-        
-        
+
     }
 //    public void capNhatTable() {
 //        class TrangThaitable extends Thread {
@@ -238,11 +156,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtTimKIem = new javax.swing.JTextField();
         btnDatBan = new javax.swing.JButton();
-        btnPhucVu = new javax.swing.JButton();
-        btnBaoTri = new javax.swing.JButton();
-        btnGoiMon = new javax.swing.JButton();
-        btnThanhToan = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -284,7 +197,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,34 +255,13 @@ public class JPanelDatBan extends javax.swing.JPanel {
             }
         });
 
-        btnPhucVu.setText("Phục vụ");
-        btnPhucVu.setPreferredSize(new java.awt.Dimension(94, 23));
-        btnPhucVu.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Phục vụ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPhucVuActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        btnBaoTri.setText("Bảo trì");
-        btnBaoTri.setPreferredSize(new java.awt.Dimension(94, 23));
-        btnBaoTri.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBaoTriActionPerformed(evt);
-            }
-        });
-
-        btnGoiMon.setText("Gộp bàn");
-        btnGoiMon.setPreferredSize(new java.awt.Dimension(94, 23));
-        btnGoiMon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGoiMonActionPerformed(evt);
-            }
-        });
-
-        btnThanhToan.setText("Chuyển bàn");
-
-        jButton1.setText("Huỷ bàn");
-        jButton1.setPreferredSize(new java.awt.Dimension(94, 23));
         jButton4.setText("Bảo trì");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -382,8 +274,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,24 +291,14 @@ public class JPanelDatBan extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDatBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnPhucVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnBaoTri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnGoiMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                                 .addGap(11, 11, 11)
                                 .addComponent(btnDatBan, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -443,17 +324,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDatBan)
-                            .addComponent(btnPhucVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGoiMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBaoTri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThanhToan)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -476,11 +346,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
             switch (selectedTang) {
                 case "Tầng 1":
                     updateRedColorForButton1stFloor();
-                    jPanel3.removeAll();
-                    jPanel3.add(new JPanelTang1());
-//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
-                    jPanel3.updateUI();
-                    jPanel3.setLayout(new FlowLayout());
                     break;
                 case "Tầng 2":
                     updateRedColorForButton2ndFloor();
@@ -488,14 +353,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
                 case "Tầng 3":
                     updateRedColorForButton3rdFloor();
                     break;
-                // Thêm các case khác tương ứng với các tầng khác
                 default:
                     break;
             }
-
         }
-
-//        DoiTrangThaiBanDaDatTheoThoiGian();
     }//GEN-LAST:event_cbTangActionPerformed
 
     private void txtTimKIemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKIemActionPerformed
@@ -506,154 +367,28 @@ public class JPanelDatBan extends javax.swing.JPanel {
         fillToTable();
     }//GEN-LAST:event_txtTimKIemKeyReleased
 
-    private void btnPhucVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhucVuActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         if (JPanelTang1.listSo.isEmpty()) {
             MsgBox.alert(this, "Bạn chưa chọn bàn để phục vụ");
         } else {
-            boolean checkColor = false;
-            int checkRedButton = 0;
-            int checkPinkButton = 0;
-            int checkBlackGreenButton = 0;
-            JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
-
-            for (Integer so : JPanelTang1.listSo) {
-//                System.out.println("");
-//                System.out.print(" " + so);
-
-                if (checkBlackGreenButton == 0) {
-
-                    for (Object[] color : colorBan) {
-                        int maBAN = (int) color[0];
-                        Color mauBan = (Color) color[1];
-                        if (so == maBAN) {
-                            if (mauBan == Color.BLACK) {
-                                JOptionPane.showMessageDialog(this, "Bàn này đang được bảo trì.\nVui lòng chọn bàn khác.");
-                                checkColor = true;
-                                checkBlackGreenButton += 1;
-                                break;
-                            } else if (mauBan == Color.GREEN) {
-                                JOptionPane.showMessageDialog(this, "Bàn này đang phục vụ.\nVui lòng chọn bàn khác.");
-                                checkColor = true;
-                                checkBlackGreenButton += 1;
-
-                                break;
-                            } else if (mauBan == Color.red) {
-                                checkRedButton += 1;
-//                            checkColor = true;
-                            } else if (mauBan == Color.pink) {
-                                checkPinkButton += 1;
-                            }
-//                        } else if (mauBan == Color.PINK || mauBan == Color.red) {
-//                            checkColor = false;
-//                        }
-                        }
-                    }
-                }
-
-//                if (!checkColor) {
-//                    for (Object[] color : colorBan) {
-//                        int maBAN = (int) color[0];
-//                        Color mauBan = (Color) color[1];
-//                        if (so == maBAN) {
-//                            if (mauBan == Color.PINK) {
-//                                JDiaLogDatBan dialog = new JDiaLogDatBan(parentFrame, true); // Tạo dialog với JFrame cha
-//                                MsgBox.alert(this, "Bất đầu phục vụ");
-//                                dialog.thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
-//
-//                                int maKHMax = insertKHnull();
-//                                int maPDBMax = insertPDB(maKHMax);
-//
-//                                for (Integer maBan : JPanelTang1.listSo) {
-//                                    insert(maKHMax, maPDBMax, maBan);
-//                                }
-//
-//                                JPanelDatBan.fillToTable();
-////                            JPanelTang1.listSo.clear();
-////                            JPanelTang1.listBT.clear();
-//                            } else if (mauBan == Color.red) {
-//                                System.out.println("b");
-//                            }
-//                        }
-//                    }
-//                }
-//            JDiaLogDatBan dialog = new JDiaLogDatBan(parentFrame, true); // Tạo dialog với JFrame cha
-//            MsgBox.alert(this, "Bất đầu phục vụ");
-//            dialog.thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
-//            
-//            int maKHMax = insertKHnull();
-//            int maPDBMax = insertPDB(maKHMax);
-//            
-//            for (Integer maBan : JPanelTang1.listSo) {
-//                insert(maKHMax, maPDBMax, maBan);
-//            }
-//            
-//            JPanelDatBan.fillToTable();
-//            JPanelTang1.TrangThaiBan();
-//            JPanelTang2.TrangThaiBan();
-//            JPanelTang3.TrangThaiBan();
-//            JPanelTang1.listSo.clear();
-//            JPanelTang1.listBT.clear();
-            }
-//            System.out.println(checkColor);
-
-            if (!checkColor) {
-                if (checkPinkButton == 0) {
-                    for (Integer maBan : JPanelTang1.listSo) {
-                        dBDao.updateTrangThai(DatBanDao.DANG_PHUC_VU, String.valueOf(maBan));
-                        MsgBox.alert(this, "Bắt đầu phục vụ");
-                        JButton btn = JPanelTang1.timButtonByMaBan(maBan);
-                        btn.setBackground(Color.green);
-                        fillToTable();
-                    }
-//                    JPanelTang1.TrangThaiBan();
-//                    JPanelTang2.TrangThaiBan();
-//                    JPanelTang3.TrangThaiBan();
-
-                    JPanelTang1.listSo.clear();
-                    JPanelTang1.listBT.clear();
-                } else if (checkRedButton == 0) {
-                    for (Object[] color : colorBan) {
-                        int maBAN = (int) color[0];
-                        Color mauBan = (Color) color[1];
-                        if (mauBan == Color.PINK) {
-                            JDiaLogDatBan dialog = new JDiaLogDatBan(parentFrame, true); // Tạo dialog với JFrame cha
-                            MsgBox.alert(this, "Bắt đầu phục vụ");
-                            dialog.thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
-
-                            int maKHMax = insertKHnull();
-                            int maPDBMax = insertPDB(maKHMax);
-
-                            for (Integer maBan : JPanelTang1.listSo) {
-                                insert(maKHMax, maPDBMax, maBan);
-                                JButton btn = JPanelTang1.timButtonByMaBan(maBan);
-                                btn.setBackground(Color.green);
-                            }
-
-                            JPanelDatBan.fillToTable();
-                            JPanelTang1.listSo.clear();
-                            JPanelTang1.listBT.clear();
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Bàn này sắp được phục vụ.\nVui lòng chọn bàn khác.");
-                }
-            }
             MsgBox.alert(this, "Bất đầu phục vụ");
             thayDoiTrangThaiBatDauPhucVu(JPanelTang1.listSo);
             int maKHMax = insertKHnull();
             int maPDBMax = insertPDB(maKHMax);
             for (Integer maBan : JPanelTang1.listSo) {
                 insert(maKHMax, maPDBMax, maBan);
+                JButton btn = JPanelTang1.timButtonByMaBan(maBan);
+                btn.setBackground(Color.green);
             }
             JPanelDatBan.fillToTable();
-            JPanelTang1.TrangThaiBan();
-            JPanelTang2.TrangThaiBan();
-            JPanelTang3.TrangThaiBan();
+//            JPanelTang1.TrangThaiBan();
+//            JPanelTang2.TrangThaiBan();
+//            JPanelTang3.TrangThaiBan();
             JPanelTang1.listSo.clear();
             JPanelTang1.listBT.clear();
         }
-    }//GEN-LAST:event_btnPhucVuActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnDatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatBanActionPerformed
         if (JPanelTang1.listSo.isEmpty()) {
@@ -665,86 +400,26 @@ public class JPanelDatBan extends javax.swing.JPanel {
 //                System.out.println("");
 //                System.out.print(" " + so);
 //            }
-
             JDiaLogNhapThongTin dialog = new JDiaLogNhapThongTin(parentFrame, true); // Tạo dialog với JFrame cha
             dialog.setBan(JPanelTang1.listSo);
 
             dialog.setVisible(true);
+
         }
     }//GEN-LAST:event_btnDatBanActionPerformed
 
-    private void btnBaoTriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaoTriActionPerformed
-        JPanelTang1.listSo.clear();
-        JPanelTang1.listBT.clear();
-    }//GEN-LAST:event_btnBaoTriActionPerformed
-
-    private void btnGoiMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoiMonActionPerformed
-        if (JPanelTang1.listSo.isEmpty()) {
-            MsgBox.alert(this, "Bạn chưa chọn bàn để gọi món");
-        } else {
-            if (JPanelTang1.listSo.size() == 1) {
-//            String maBan = lbmaBan.getText().substring(5);
-//            System.out.println(maBan);
-//                this.setVisible(false);
-                String maBan = String.valueOf(JPanelTang1.listSo.get(0));
-                PhieuDatBanDao pdb = new PhieuDatBanDao();
-                int MaPDB = pdb.SelectMaPDB(Integer.parseInt(maBan));
-                boolean foundButton = false;
-                JButton button;
-                button = JPanelTang1.timButtonByMaBan(Integer.parseInt(maBan));
-                if (button != null) {
-                    button.setToolTipText(MaPDB + "");
-                    MaPDB = Integer.parseInt(button.getToolTipText());
-                    foundButton = true;
-                }
-
-                if (!foundButton) {
-                    button = JPanelTang2.timButtonByMaBan(Integer.parseInt(maBan));
-                    if (button != null) {
-                        button.setToolTipText(MaPDB + "");
-                        MaPDB = Integer.parseInt(button.getToolTipText());
-                        foundButton = true;
-                    }
-                }
-
-                if (!foundButton) {
-                    button = JPanelTang3.timButtonByMaBan(Integer.parseInt(maBan));
-                    if (button != null) {
-                        button.setToolTipText(MaPDB + "");
-                        MaPDB = Integer.parseInt(button.getToolTipText());
-                    }
-                }
-
-                GoiMon dialogGoiMon = new GoiMon();
-                JDialog dialog = new JDialog();
-                dialog.getContentPane().add(dialogGoiMon);
-                dialog.pack();
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-//        dialogGoiMon.filltableCoSan(MaPDB);
-                dialogGoiMon.setKHvaTG(MaPDB);
-                dialogGoiMon.filltableCoSan(MaPDB);
-            } else {
-                MsgBox.alert(this, "Vui lòng chỉ chọn 1 bàn để gọi món");
-                JPanelTang1.listSo.clear();
-                JPanelTang1.listBT.clear();
-            }
-        }
-    }//GEN-LAST:event_btnGoiMonActionPerformed
-
-    public static void insert(int maMaxKH, int maMaxPbd, int maBan) {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (JPanelTang1.listSo.isEmpty()) {
             MsgBox.alert(this, "Bạn chưa chọn bàn để bảo trì");
         } else {
-        for (Integer ma : JPanelTang1.listSo) {
-            thayDoiTrangThai(ma.toString());
-        }
-        MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
-        JPanelTang1.TrangThaiBan();
-        JPanelTang2.TrangThaiBan();
-        JPanelTang3.TrangThaiBan();
-        JPanelTang1.listSo.clear();
+            for (Integer ma : JPanelTang1.listSo) {
+                thayDoiTrangThai(ma.toString());
+            }
+            MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
+            JPanelTang1.listSo.clear();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -755,7 +430,6 @@ public class JPanelDatBan extends javax.swing.JPanel {
         ctdbdao.insert(ctdb.getMaBan() + "", ctdb.getMaPhieuDat());
     }
 
-    public static int insertPDB(int maMaxKH) {
     public void thayDoiTrangThaiBatDauPhucVu(List<Integer> listSo) {
 
         for (Integer maBan : listSo) {
@@ -774,7 +448,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         return maMaxPbd;
     }
 
-    public static int insertKHnull() {
+    public int insertKHnull() {
         Model.KhachHang kh = new Model.KhachHang();
         int maMaxKH = khDBDAO.SelectMaxkH();
         khDBDAO.setMaxKh(maMaxKH);
@@ -782,13 +456,8 @@ public class JPanelDatBan extends javax.swing.JPanel {
         return maMaxKH;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBaoTri;
     private javax.swing.JButton btnDatBan;
-    private javax.swing.JButton btnGoiMon;
-    private javax.swing.JButton btnPhucVu;
-    private javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cbTang;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -833,50 +502,66 @@ public class JPanelDatBan extends javax.swing.JPanel {
         }
     }
 
-//    void DoiTrangThaiBanDaDatTheoThoiGian() {
-//        for (int i = 1; i <= 12; i++) {
-//            JButton btn = JPanelTang1.timButtonByMaBan(i);
-//            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
-//
-//            if (btn.getBackground() != Color.GREEN) {
-//                if (pdb != null) {
-//                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
-//                        btn.setBackground(Color.red);
-////                JPanelTang1.showDiaLogTrangThaiDaDat(listSoBan);
-//                    }
-//                }
-//            }
-//        }
-//
-//        for (int i = 13; i <= 24; i++) {
-//            JButton btn = JPanelTang2.timButtonByMaBan(i);
-//            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
-//
-//            if (btn.getBackground() != Color.GREEN) {
-//                if (pdb != null) {
-//                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
-//                        btn.setBackground(Color.red);
-////                    JPanelTang2.showDiaLogTrangThaiDaDat(listSoBan);
-//                    }
-//                }
-//            }
-//        }
-//
-//        for (int i = 25; i <= 36; i++) {
-//            JButton btn = JPanelTang3.timButtonByMaBan(i);
-////            System.out.println(btn.getBackground());
-//            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
-//            if (btn.getBackground() != Color.GREEN) {
-//                if (pdb != null) {
-//                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
-//                        btn.setBackground(Color.red);
-////                JPanelTang3.showDiaLogTrangThaiDaDat(listSoBan);
-//                    }
-//                }
-//            }
-//        }
-//    }
     public void thayDoiTrangThai(String maBan) {
         dBDao.updateTrangThai(BAO_TRI, maBan);
+    }
+
+    public void updateRedColorForButton1stFloor() {
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang1());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
+
+        for (int i = 1; i <= 12; i++) {
+            JButton btn = JPanelTang1.timButtonByMaBan(i);
+            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
+
+            if (btn.getBackground() != Color.GREEN) {
+                if (pdb != null) {
+                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
+                        btn.setBackground(Color.red);
+                    }
+                }
+            }
+        }
+    }
+
+    public void updateRedColorForButton2ndFloor() {
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang2());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
+
+        for (int i = 13; i <= 24; i++) {
+            JButton btn = JPanelTang2.timButtonByMaBan(i);
+            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
+
+            if (btn.getBackground() != Color.GREEN) {
+                if (pdb != null) {
+                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
+                        btn.setBackground(Color.red);
+                    }
+                }
+            }
+        }
+    }
+
+    public void updateRedColorForButton3rdFloor() {
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang3());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
+
+        for (int i = 25; i <= 36; i++) {
+            JButton btn = JPanelTang3.timButtonByMaBan(i);
+            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
+            if (btn.getBackground() != Color.GREEN) {
+                if (pdb != null) {
+                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
+                        btn.setBackground(Color.red);
+                    }
+                }
+            }
+        }
     }
 }
