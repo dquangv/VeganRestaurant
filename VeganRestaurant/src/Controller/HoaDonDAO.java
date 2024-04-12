@@ -200,22 +200,24 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
 
     public List<HoaDon> selectByMuti(String keyword) {
         String sql = """
-                     select MaHoaDon,NgayLap,TienMonAn,TienGiamDiemThuong,TienGiamKhuyenMai,TongTien,PhuongThucThanhToan,pdb.MaPhieuDatBan,MaKhuyenMai,MaNhanVien,kh.MaKhachHang from HoaDon hd
-                            join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
-                            left join KhachHang kh on pdb.MaKhachHang= kh.MaKhachHang
-                            where MaHoaDon = ? or 
-                                  pdb.MaPhieuDatBan = ? or 
-                                  MaKhuyenMai = ? or 
-                                  MaNhanVien = ? or
-                                  kh.MaKhachHang = ?""";
+                 select MaHoaDon, NgayLap, TienMonAn, TienGiamDiemThuong, TienGiamKhuyenMai, TongTien, PhuongThucThanhToan, pdb.MaPhieuDatBan, MaKhuyenMai, MaNhanVien, kh.MaKhachHang 
+                 from HoaDon hd
+                        join PhieuDatBan pdb on hd.MaPhieuDatBan = pdb.MaPhieuDatBan
+                        left join KhachHang kh on pdb.MaKhachHang = kh.MaKhachHang
+                        """;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            String condition = getCondition(keyword);
+            if (!condition.isEmpty()) {
+                sql += " where " + condition;
+            }
+        }
+
         List<HoaDon> list = new ArrayList<>();
         try (Connection conn = XJdbc.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, Integer.parseInt(keyword));
-            ps.setInt(2, Integer.parseInt(keyword));
-            ps.setInt(3, Integer.parseInt(keyword));
-            ps.setInt(4, Integer.parseInt(keyword));
-            ps.setInt(5, Integer.parseInt(keyword));
+            if (keyword != null && !keyword.isEmpty()) {
+                setParameter(ps, keyword);
+            }
 
             ResultSet rs = ps.executeQuery();
 
@@ -238,10 +240,36 @@ public class HoaDonDAO extends NhaHangChayDAO<HoaDon, Integer> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
         return list;
+    }
+
+    private String getCondition(String keyword) {
+        String condition = "";
+        if (keyword.startsWith("HD")) {
+            condition = "MaHoaDon like ?";
+        } else if (keyword.startsWith("PDB")) {
+            condition = "pdb.MaPhieuDatBan like ?";
+        } else if (keyword.startsWith("KM")) {
+            condition = "MaKhuyenMai like ?";
+        } else if (keyword.startsWith("NV")) {
+            condition = "MaNhanVien like ?";
+        } else if (keyword.startsWith("KH")) {
+            condition = "kh.MaKhachHang like ?";
+        }
+        return condition;
+    }
+
+    private void setParameter(PreparedStatement ps, String keyword) throws SQLException {
+        if (keyword.startsWith("HD") || keyword.startsWith("KM") || keyword.startsWith("NV") || keyword.startsWith("KH")) {
+            ps.setString(1, "%" + keyword.substring(2) + "%");
+        }else if(keyword.startsWith("PDB")){
+            ps.setString(1, "%" + keyword.substring(3) + "%");
+        }else {
+            ps.setString(1, "%" + keyword + "%");
+        }
     }
 
 //    public List<HoaDon> selectByMaKH(Integer maHoaDon) {

@@ -93,10 +93,11 @@ public class JPanelDatBan extends javax.swing.JPanel {
         fillComboBoxTang();
         setIcon();
         // Tạo renderer cho nội dung của ô
-       formartTable();
+        formartTable();
     }
-    void formartTable(){
-         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+
+    void formartTable() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Tạo renderer cho tiêu đề của các cột
@@ -111,6 +112,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
             columnModel.getColumn(columnIndex).setHeaderRenderer(headerRenderer);
         }
     }
+
     void setIcon() {
         ImageIcon iconuser = new ImageIcon("Logos/reserve.png");
         btnDatBan.setIcon(iconuser);
@@ -388,7 +390,12 @@ public class JPanelDatBan extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKIemActionPerformed
 
     private void txtTimKIemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKIemKeyReleased
-        fillToTable();
+        String test = txtTimKIem.getText();
+        if (test.equalsIgnoreCase("")) {
+            fillToTable();
+        }else{
+            fillToTableTimKiem();
+        }
     }//GEN-LAST:event_txtTimKIemKeyReleased
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -496,8 +503,22 @@ public class JPanelDatBan extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblDatBan.getModel();
         model.setRowCount(0);
         try {
+            List<Object[]> list = dBDao.LoadThongTin("");
+            for (Object[] obj : list) {
+                model.addRow(obj);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static public void fillToTableTimKiem() {
+        DefaultTableModel model = (DefaultTableModel) tblDatBan.getModel();
+        model.setRowCount(0);
+        try {
             String key = txtTimKIem.getText();
-            List<Object[]> list = dBDao.LoadThongTin(key);
+            List<Object[]> list = dBDao.LoadThongTinTimKiem(key);
             for (Object[] obj : list) {
                 model.addRow(obj);
             }

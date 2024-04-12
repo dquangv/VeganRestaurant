@@ -35,8 +35,20 @@ public class DatBanDao {
             + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
             + "AND (db.MaPhieuDatBan Not IN (SELECT MaPhieuDatBan FROM HoaDon Where TrangThai = 1)) "
             + "ORDER BY ThoiGianDat;";
+    static String Select_ThongTin_TimKiem = "SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai \n"
+            + "FROM ChiTietDatBan db \n"
+            + "INNER JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan \n"
+            + "LEFT JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang \n"
+            + "INNER JOIN Ban b ON b.MaBan = db.MaBan \n"
+            + "WHERE ((TenKhachHang LIKE ? OR SDT LIKE ?) \n"
+            + "OR (TenKhachHang IS NULL OR SDT IS NULL)) \n"
+            + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') \n"
+            + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon WHERE TrangThai = 1)) \n"
+            + "AND (TenKhachHang IS NOT NULL AND SDT IS NOT NULL)  -- Loại bỏ dòng có dữ liệu null\n"
+            + "ORDER BY ThoiGianDat";
     static String ThayDoiBan = " UPDATE ChiTietDatBan SET MaBan = ? WHERE MaBan = ? AND MaPhieuDatBan = ?;";
     static String checkTrung = "select TrangThai from Ban where  MaBan = ?";
+
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
             List<Object[]> list = new ArrayList<>();
@@ -125,6 +137,11 @@ public class DatBanDao {
         String cols[] = {"MaPhieuDatBan", "MaBan", "TenKhachHang", "SDT", "ThoiGianDat", "TrangThai"};
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
+    public List<Object[]> LoadThongTinTimKiem(String keyword) {
+        String keyTimKiem = "%" + keyword + "%";
+        String cols[] = {"MaPhieuDatBan", "MaBan", "TenKhachHang", "SDT", "ThoiGianDat", "TrangThai"};
+        return this.getListOfArray(Select_ThongTin_TimKiem, cols, keyTimKiem, keyTimKiem);
+    }
 
     public void chuyenBan(int maBanMoi, int maBanCu, int maPhieuDatBan) {
         try {
@@ -133,17 +150,18 @@ public class DatBanDao {
             e.printStackTrace();
         }
     }
-    public String checkTonTai(int maBan){
+
+    public String checkTonTai(int maBan) {
         String TrangThai = "";
-       try {
+        try {
             ResultSet rs = XJdbc.executeQuery(checkTrung, maBan);
             if (rs.next()) {
                 TrangThai = rs.getString("TrangThai");
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-       return TrangThai;
+        return TrangThai;
     }
 }

@@ -33,8 +33,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         initComponents();
         this.themVaoTableHD();
 //        this.themVaoCbo();
-        ImageIcon iconuser = new ImageIcon("Logos/search.png");
-        btnTim.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/view.png");
         btnXemHD.setIcon(iconuser1);
         ImageIcon iconuser2 = new ImageIcon("Logos/binoculars.png");
@@ -89,27 +87,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
     String timKiem() {
         String input = txtTimID.getText();
-        if (input.startsWith("HD")) {
-            String maHD = input.substring(2);
-            return maHD;
-        }
-        if (input.startsWith("PDB")) {
-            String maPDB = input.substring(3);
-            return maPDB;
-        }
-        if (input.startsWith("KM")) {
-            String maKM = input.substring(2);
-            return maKM;
-        }
-        if (input.startsWith("NV")) {
-            String maNV = input.substring(2);
-            return maNV;
-        }
-        if (input.startsWith("KH")) {
-            String maKH = input.substring(2);
-            return maKH;
-        }
-        return null;
+        return input;
     }
 
     void timTheoMaKH() {
@@ -121,10 +99,10 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 "HD" + hd.getMaHoaDon(),
                 hd.getNgayLap(),
-                hd.getTienMonAn(),
-                hd.getTienGiamDiemThuong(),
-                hd.getTienGiamKhuyenMai(),
-                hd.getTongTien(),
+                giaFomat.format(hd.getTienMonAn()),
+                giaFomat.format(hd.getTienGiamDiemThuong()),
+                giaFomat.format(hd.getTienGiamKhuyenMai()),
+                giaFomat.format(hd.getTongTien()),
                 hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản",
                 "PDB" + hd.getMaPhieuDatBan(),
                 "KM" + hd.getMaKhuyenMai(),
@@ -274,7 +252,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtTimID = new javax.swing.JTextField();
-        btnTim = new javax.swing.JButton();
         btnXemHD = new javax.swing.JButton();
         btnXemDG = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -289,12 +266,8 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtTimIDKeyPressed(evt);
             }
-        });
-
-        btnTim.setText("Tìm");
-        btnTim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimActionPerformed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimIDKeyReleased(evt);
             }
         });
 
@@ -354,13 +327,11 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtTimID, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnTim)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnXemHD)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnXemDG)))
-                        .addGap(0, 74, Short.MAX_VALUE)))
+                        .addGap(0, 170, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -372,7 +343,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTimID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(btnTim)
                     .addComponent(btnXemHD)
                     .addComponent(btnXemDG))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -394,15 +364,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnXemHDActionPerformed
 
-    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        // TODO add your handling code here:
-        if (txtTimID.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Mã Hóa Đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        } else {
-            this.timTheoMaKH();
-        }
-    }//GEN-LAST:event_btnTimActionPerformed
-
     private void btnXemDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDGActionPerformed
         // TODO add your handling code here:
         this.row = tblHoaDon.getSelectedRow();
@@ -418,12 +379,16 @@ public class HoaDonJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXemDGActionPerformed
 
     private void txtTimIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimIDKeyPressed
-        
+
     }//GEN-LAST:event_txtTimIDKeyPressed
+
+    private void txtTimIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimIDKeyReleased
+        // TODO add your handling code here:
+        timTheoMaKH();
+    }//GEN-LAST:event_txtTimIDKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXemDG;
     private javax.swing.JButton btnXemHD;
     private javax.swing.JLabel jLabel1;

@@ -57,7 +57,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         Image SizeIcon = iconuser.getImage().getScaledInstance(35, 23, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(SizeIcon);
         btnDanhGia.setIcon(resizedIcon);
-       
+
         ImageIcon iconuser1 = new ImageIcon("Logos/return.png");
 
         btnQuayLai.setIcon(iconuser1);
@@ -215,6 +215,10 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
 
     void layMaHoaDon(int mahd) {
         txtMaHoaDon.setText("HD" + mahd);
+        ImageIcon iconuser = new ImageIcon("Logos/danhgia.png");
+        Image SizeIcon = iconuser.getImage().getScaledInstance(35, 23, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(SizeIcon);
+        btnDanhGia.setIcon(resizedIcon);
     }
 
     void chiTietDanhGia(int mahd) {
@@ -313,8 +317,8 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                                 + "WHERE MaPhieuDatBan = ? "
                                 + "AND MaMonAn = (SELECT MaMonAn FROM MonAn WHERE TenMonAn = ?)";
 
-                        try ( Connection conn = XJdbc.getConnection(); // Assuming XJdbc is a utility class for database connection
-                                  PreparedStatement ps = conn.prepareStatement(sql)) {
+                        try (Connection conn = XJdbc.getConnection(); // Assuming XJdbc is a utility class for database connection
+                                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
                             ps.setInt(1, maDanhGia);
                             ps.setString(2, maPhieuDatBan);
