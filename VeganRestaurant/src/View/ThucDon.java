@@ -10,6 +10,7 @@ package View;
  */
 import Controller.ThucDonDAO;
 import Model.MonAn;
+import Utils.Auth;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
@@ -38,9 +39,14 @@ public class ThucDon extends javax.swing.JPanel {
         btnLuu.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/reset.png");
         btnMoi.setIcon(iconuser1);
+         thietLapNut();
     }
-
-    private void loadDanhSachMonAn() {
+    void thietLapNut(){
+        if (!Auth.user.isVaiTro()) {
+            btnLuu.setEnabled(false);
+            btnMoi.setEnabled(false);
+        }
+    }    private void loadDanhSachMonAn() {
         List<MonAn> danhSachMonAn = thucDonDAO.layDanhSachThucDon();
         loadDanhSachMonLenTable(danhSachMonAn);
     }

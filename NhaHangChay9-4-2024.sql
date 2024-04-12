@@ -227,9 +227,9 @@ insert into NhanVien (TenNhanVien, ChucVu, TrangThai, GioiTinh, SDT, Email, Hinh
 	(N'Nguyễn Dương Thiên Lý', 1, N'Hoạt động', 1, '0101010101', 'lyndtps36846@fpt.edu.vn', 'CLy.jpg'),
 	(N'Võ Thanh Tùng', 1, N'Hoạt động', 0, '0202020202', 'tungvtps27852@fpt.edu.vn', 'ATung.jpg'),
 	(N'Vũ Đăng Quang', 0, N'Nghỉ', 0, '0303030303', 'quangvdps36680@fpt.edu.vn', 'AQuangB.png'),
-	(N'Vũ Hoàng Chương', 1, N'Hoạt động', 0, '0404040404', 'chuongvhps36806@fpt.edu.vn', 'AChuong.jpg'),
-	(N'Bùi Minh Quang', 1, N'Hoạt động', 0, '0505050505', 'quangbmps28437@fpt.edu.vn', 'AQuangN.png'),
-	(N'Phạm Ngọc Rôn', 1, N'Hoạt động', 0, '0606060606', 'ronpnps36596@fpt.edu.vn', 'Td.jpg');
+	(N'Vũ Hoàng Chương', 0, N'Hoạt động', 0, '0404040404', 'chuongvhps36806@fpt.edu.vn', 'AChuong.jpg'),
+	(N'Bùi Minh Quang', 0, N'Hoạt động', 0, '0505050505', 'quangbmps28437@fpt.edu.vn', 'AQuangN.png'),
+	(N'Phạm Ngọc Rôn', 0, N'Hoạt động', 0, '0606060606', 'ronpnps36596@fpt.edu.vn', 'Td.jpg');
 go
 
 insert into TaiKhoan (TenTaiKhoan, MatKhau, VaiTro, MaNhanVien) values

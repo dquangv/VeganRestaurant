@@ -583,7 +583,7 @@ public class JPanelTang1 extends javax.swing.JPanel {
                         button.setBackground(Color.red); // Đặt màu nền hồng cho bàn trống
                         break;
                     case DatBanDao.BAO_TRI:
-                        button.setBackground(Color.BLACK); // Đặt màu nền đen cho bàn đang bảo trì
+                        button.setBackground(Color.gray); // Đặt màu nền đen cho bàn đang bảo trì
                         break;
                     default:
                         break;

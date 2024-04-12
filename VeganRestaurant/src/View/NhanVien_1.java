@@ -794,7 +794,7 @@ public class NhanVien_1 extends javax.swing.JPanel {
 
     private void tblnhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnhanVienMouseClicked
 
-        if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 1) {
             this.current = tblnhanVien.getSelectedRow();
             this.edit();
         }
