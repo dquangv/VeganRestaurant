@@ -8,6 +8,7 @@ import static Controller.DatBanDao.Trong;
 import Controller.HoaDonDAO;
 import Controller.KhachHangDAO;
 import Controller.PhieuDatBanDao;
+import Controller.ThanhVienDAO;
 import Model.HoaDon;
 import Utils.Auth;
 import Utils.MsgBox;
@@ -56,6 +57,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         btnInHD.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/hand.png");
         btnThanhToan.setIcon(iconuser1);
+        setLocationRelativeTo(null);
 
     }
 
@@ -104,8 +106,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         cboPhuongThuc.setSelectedItem(hd.getPhuongThuc() ? "Tiền Mặt" : "Chuyển Khoản" + "");
         cboTrangThai.setSelectedItem(hd.getTrangThai() ? "Thanh Toán" : "Chưa Thanh Toán" + "");
         txtTongTien.setText(giaFomat.format(hd.getTongTien()));
-//        tichDiem();
-
+        tichDiem();
+        tinhTongTien();
     }
 
     HoaDon layForm() {
@@ -150,6 +152,19 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         pt = cboPhuongThuc.getSelectedItem().equals("Tiền Mặt");
         hd.setPhuongThuc(pt);
         hd.setTrangThai(true);
+        if (chkTichDiem.isSelected()) {
+            ThanhVienDAO tvDAO = new ThanhVienDAO();
+            Model.ThanhVien tv = tvDAO.getThanhVienByMaKhachHang(txtMaKH.getText().substring(2));
+            tv.setDiemThuong(Double.parseDouble(txtTongTien.getText().replaceAll(",", "")) * 0.1);
+            tvDAO.updateThanhVienDiemThuong(tv);
+
+        }
+        if (!txtDiemThuong.getText().replaceAll(",", "").equals("0")) {
+            ThanhVienDAO tvDAO = new ThanhVienDAO();
+            Model.ThanhVien tv = tvDAO.getThanhVienByMaKhachHang(txtMaKH.getText().substring(2));
+            tv.setDiemThuong(0);
+            tvDAO.updateThanhVienDiemThuong(tv);
+        }
 
         return hd;
     }
@@ -181,6 +196,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
     }
 
     public void setThanhToan() {
+        cboPhuongThuc.setEnabled(true);
+        txtMaGiamGia.setEnabled(true);
+        btnCheck.setEnabled(true);
         btnThanhToan.setEnabled(true);
         repaint();
         revalidate();
@@ -224,7 +242,6 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 ////        String input = JOptionPane.showInputDialog(rootPane, "Nhập tiền khách đưa", "In Hóa Đơn", JOptionPane.QUESTION_MESSAGE);
 ////        return input;
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -257,7 +274,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtTienGiam = new javax.swing.JTextField();
         cboTrangThai = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCheck = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblChiTiet = new javax.swing.JTable();
         btnThanhToan = new javax.swing.JButton();
@@ -349,6 +366,8 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel9.setText("Phương Thức");
 
+        txtMaGiamGia.setEnabled(false);
+
         lblDiemThuong.setText("Điểm thưởng:");
 
         jLabel6.setText("Tổng tiền");
@@ -356,6 +375,11 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtTongTien.setEnabled(false);
 
         chkTichDiem.setText("Tích điểm");
+        chkTichDiem.setEnabled(false);
+
+        txtDiemThuong.setEnabled(false);
+
+        cboPhuongThuc.setEnabled(false);
 
         txtTienMon.setEnabled(false);
 
@@ -364,19 +388,9 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         jLabel12.setText("Tiền Giảm");
 
         txtTienGiam.setEnabled(false);
-        txtTienGiam.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTienGiamFocusLost(evt);
-            }
-        });
         txtTienGiam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTienGiamActionPerformed(evt);
-            }
-        });
-        txtTienGiam.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtTienGiamPropertyChange(evt);
             }
         });
 
@@ -384,11 +398,12 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Trạng Thái");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jButton1.setText("Check");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCheck.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btnCheck.setText("Check");
+        btnCheck.setEnabled(false);
+        btnCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCheckActionPerformed(evt);
             }
         });
 
@@ -421,7 +436,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(txtMaGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTienMon, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,7 +471,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
                         .addComponent(txtDiemThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTienMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTienGiam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnCheck, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -590,6 +605,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         JPanelTang1.TrangThaiBan();
         JPanelTang2.TrangThaiBan();
         JPanelTang3.TrangThaiBan();
+        setVisible(false);
         xemDanhGia(Integer.parseInt(mahd.substring(2)));
 
         btnInHDActionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, "In Hóa Đơn"));
@@ -611,7 +627,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTienGiamActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
         int maGiam = Integer.parseInt(txtMaGiamGia.getText().substring(2));
         HoaDonDAO hdDAO = new HoaDonDAO();
@@ -628,7 +644,7 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         txtTienGiam.setText(giaFomat.format(TienGiam));
         tinhTongTien();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCheckActionPerformed
 
     private void txtTienGiamFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTienGiamFocusLost
         // TODO add your handling code here:
@@ -709,15 +725,16 @@ public class ThanhToanJDialog extends javax.swing.JDialog {
         DanhGiaJDialog jdialog = new DanhGiaJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
         jdialog.setVisible(true);
+        jdialog.setLocationRelativeTo(this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheck;
     private javax.swing.JButton btnInHD;
     public javax.swing.JButton btnThanhToan;
     private javax.swing.JComboBox<String> cboPhuongThuc;
     private javax.swing.JComboBox<String> cboTrangThai;
     private javax.swing.JCheckBox chkTichDiem;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

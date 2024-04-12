@@ -41,7 +41,8 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
     List<JLabel> ds_TenMon = new ArrayList<>();
     List<JCheckBox> ds_sao = new ArrayList<>();
     List<Integer> saoChon = new ArrayList<>();
-    int selectedRow = -1;
+    private boolean daHienThiThongBao = false;
+    private int soMon = 0;
 
     /**
      * Creates new form DanhGiaJDialog
@@ -49,7 +50,8 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
     public DanhGiaJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        setLocationRelativeTo(null);
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
         //chiTietDanhGia();
     }
 
@@ -276,6 +278,7 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                 pnlPhai.add(pnlConP);
 
                 btnDanhGia.addActionListener(new ActionListener() {
+
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         for (int i = 0; i < ds_sao.size(); i++) {
@@ -284,7 +287,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                             }
                         }
 
-//                       System.out.println(lblTenMon.getText()+saoChon);
                         int maDanhGia = 0;
                         int index = ds_TenMon.indexOf(lblTenMon);
                         if (index != -1 && index < saoChon.size()) {
@@ -294,10 +296,6 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                         String maPhieuDatBan = txtPhieuDatBan.getText().substring(3); // Extract the ID from the label
                         String tenMonAn = dg.getTenMonAn();
 
-                        System.out.println(maDanhGia);
-                        System.out.println(maPhieuDatBan);
-                        System.out.println(tenMonAn);
-
                         String sql = "UPDATE ChiTietGM "
                                 + "SET MaDanhGia = ? "
                                 + "WHERE MaPhieuDatBan = ? "
@@ -306,29 +304,32 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
                         try (Connection conn = XJdbc.getConnection(); // Assuming XJdbc is a utility class for database connection
                                  PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                            // Set the parameters
                             ps.setInt(1, maDanhGia);
                             ps.setString(2, maPhieuDatBan);
                             ps.setString(3, tenMonAn);
 
-                            // Execute the update
                             int rowsAffected = ps.executeUpdate();
-                            if (rowsAffected > 0 ) {
-                                System.out.println("Update successful!");
-                                JOptionPane.showMessageDialog(rootPane, "Đánh giá thành công");
-                                // Optionally, you can provide user feedback here
+                            if (rowsAffected > 0) {
+                                soMon++;
+                                if (!daHienThiThongBao) {
+                                    JOptionPane.showMessageDialog(rootPane, "Đánh giá thành công.");
+                                    daHienThiThongBao = true;
+                                }
+                                if (soMon == ds_TenMon.size()) {
+                                    dispose();
+                                }
                             } else {
-                                System.out.println("Update failed!");
                                 JOptionPane.showMessageDialog(rootPane, "Đánh giá thất bại");
-                                // Optionally, you can provide user feedback here
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
                         saoChon.clear();
                     }
+
                 }
                 );
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

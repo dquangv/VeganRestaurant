@@ -8,6 +8,7 @@ import Controller.CT_ThongTinDAO;
 import Controller.ChiTietGoiMonDAO;
 import static Controller.DatBanDao.Trong;
 import Controller.HoaDonDAO;
+import Controller.ThanhVienDAO;
 import Controller.ThucDonDAO;
 import Model.CT_ThongTin;
 import Model.ChiTietDatBan;
@@ -435,7 +436,6 @@ public class GoiMon extends javax.swing.JPanel {
                 kh = ctgmDAO.getCustomerByPhoneNumber(SDT);
                 if (kh != null) {
                     int option = JOptionPane.showConfirmDialog(this, "Số điện thoại đã tồn tại trong cơ sở dữ liệu của khách hàng: " + kh.getTenKhachHang() + ". \nBạn có muốn sử dụng thông tin của khách hàng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-
                     if (option == JOptionPane.YES_OPTION) {
                         int makh = kh.getMaKhachHang();
                         capNhatKhCu(makh, ctgmDAO.getMaKHMoibyPDB(maPdb));
@@ -446,6 +446,17 @@ public class GoiMon extends javax.swing.JPanel {
                 } else {
                     String tenKh = JOptionPane.showInputDialog(this, "Vui lòng nhập tên Khách Hàng!");
                     capNhatKhMoi(ctgmDAO.getMaKHMoibyPDB(maPdb), tenKh, SDT);
+                    int option = JOptionPane.showConfirmDialog(this, "Có đăng ký thành viên không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.YES_OPTION) {
+                        Date ngayDkThanhVien = new Date();
+                        Model.ThanhVien tv = new Model.ThanhVien();
+                        tv.setNgayDkThanhVien(ngayDkThanhVien);
+                        tv.setDiemThuong(0);
+                        tv.setMaKhachHang(ctgmDAO.getMaKHMoibyPDB(maPdb) + "");
+                        ThanhVienDAO tvDAO = new ThanhVienDAO();
+                        tvDAO.addThanhVien(tv);
+                    }
+
                 }
             }
         }
