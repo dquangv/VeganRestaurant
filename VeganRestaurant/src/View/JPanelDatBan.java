@@ -24,6 +24,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Timestamp;
+import javax.swing.JButton;
 
 /**
  *
@@ -32,10 +34,10 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelDatBan extends javax.swing.JPanel {
 
     static DatBanDao dBDao = new DatBanDao();
-    KhachHangDBDao khDBDAO = new KhachHangDBDao();
-    KhachHangDAO khDAO = new KhachHangDAO();
-    PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
-    ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
+    static KhachHangDBDao khDBDAO = new KhachHangDBDao();
+    static KhachHangDAO khDAO = new KhachHangDAO();
+    static PhieuDatBanDao pdbDAO = new PhieuDatBanDao();
+    static ChiTietDatBan_DAO ctdbdao = new ChiTietDatBan_DAO();
 
 //    public static List<JButton> list = new ArrayList<>();
 //   
@@ -85,6 +87,15 @@ public class JPanelDatBan extends javax.swing.JPanel {
      */
     public JPanelDatBan() {
         initComponents();
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang2());
+
+        jPanel3.add(new JPanelTang3());
+
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang1());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
         fillToTable();
         fillComboBoxTang();
         setIcon();
@@ -99,13 +110,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
         ImageIcon iconuser2 = new ImageIcon("Logos/maintenance.png");
         jButton4.setIcon(iconuser2);
 
-        
         btnDatBan.setBackground(Color.decode("#F06666"));
         jButton3.setBackground(Color.GREEN);
         jButton4.setBackground(Color.decode("#605E5E"));
-        
-        
-        
+
     }
 //    public void capNhatTable() {
 //        class TrangThaitable extends Thread {
@@ -337,30 +345,17 @@ public class JPanelDatBan extends javax.swing.JPanel {
             String selectedTang = (String) comboBox.getSelectedItem();
             switch (selectedTang) {
                 case "Tầng 1":
-                    jPanel3.removeAll();
-                    jPanel3.add(new JPanelTang1());
-//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
-                    jPanel3.updateUI();
-                    jPanel3.setLayout(new FlowLayout());
+                    updateRedColorForButton1stFloor();
                     break;
                 case "Tầng 2":
-                    jPanel3.removeAll();
-                    jPanel3.add(new JPanelTang2());
-//                    JPanelTang1.thayDoiMauButton(JPanelTang1.listBT);
-                    jPanel3.updateUI();
-                    jPanel3.setLayout(new FlowLayout());
+                    updateRedColorForButton2ndFloor();
                     break;
                 case "Tầng 3":
-                    jPanel3.removeAll();
-                    jPanel3.add(new JPanelTang3());
-                    jPanel3.updateUI();
-                    jPanel3.setLayout(new FlowLayout());
+                    updateRedColorForButton3rdFloor();
                     break;
-                // Thêm các case khác tương ứng với các tầng khác
                 default:
                     break;
             }
-
         }
     }//GEN-LAST:event_cbTangActionPerformed
 
@@ -383,11 +378,13 @@ public class JPanelDatBan extends javax.swing.JPanel {
             int maPDBMax = insertPDB(maKHMax);
             for (Integer maBan : JPanelTang1.listSo) {
                 insert(maKHMax, maPDBMax, maBan);
+                JButton btn = JPanelTang1.timButtonByMaBan(maBan);
+                btn.setBackground(Color.green);
             }
             JPanelDatBan.fillToTable();
-            JPanelTang1.TrangThaiBan();
-            JPanelTang2.TrangThaiBan();
-            JPanelTang3.TrangThaiBan();
+//            JPanelTang1.TrangThaiBan();
+//            JPanelTang2.TrangThaiBan();
+//            JPanelTang3.TrangThaiBan();
             JPanelTang1.listSo.clear();
             JPanelTang1.listBT.clear();
         }
@@ -399,10 +396,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
         } else {
 
             JFrame parentFrame = (JFrame) SwingUtilities.getRoot(this); // Tìm JFrame cha của JPanel
-            for (Integer so : JPanelTang1.listSo) {
-                System.out.println("");
-                System.out.print(" " + so);
-            }
+//            for (Integer so : JPanelTang1.listSo) {
+//                System.out.println("");
+//                System.out.print(" " + so);
+//            }
             JDiaLogNhapThongTin dialog = new JDiaLogNhapThongTin(parentFrame, true); // Tạo dialog với JFrame cha
             dialog.setBan(JPanelTang1.listSo);
 
@@ -415,14 +412,14 @@ public class JPanelDatBan extends javax.swing.JPanel {
         if (JPanelTang1.listSo.isEmpty()) {
             MsgBox.alert(this, "Bạn chưa chọn bàn để bảo trì");
         } else {
-        for (Integer ma : JPanelTang1.listSo) {
-            thayDoiTrangThai(ma.toString());
-        }
-        MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
-        JPanelTang1.TrangThaiBan();
-        JPanelTang2.TrangThaiBan();
-        JPanelTang3.TrangThaiBan();
-        JPanelTang1.listSo.clear();
+            for (Integer ma : JPanelTang1.listSo) {
+                thayDoiTrangThai(ma.toString());
+            }
+            MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
+            JPanelTang1.listSo.clear();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -444,7 +441,8 @@ public class JPanelDatBan extends javax.swing.JPanel {
         PhieuDatBan pdb = new PhieuDatBan();
         int maMaxPbd = pdbDAO.SelectMaxPDB();
         pdbDAO.setMaxPDB(maMaxPbd);
-        pdb.setThoiGianDat(new Date());
+//        pdb.setThoiGianDat(new Date());
+        pdb.setThoiGianDat(new Timestamp(System.currentTimeMillis()));
         pdb.setMaKhachHang(maMaxKH + 1);
         pdbDAO.insert_null(pdb);
         return maMaxPbd;
@@ -506,5 +504,64 @@ public class JPanelDatBan extends javax.swing.JPanel {
 
     public void thayDoiTrangThai(String maBan) {
         dBDao.updateTrangThai(BAO_TRI, maBan);
+    }
+
+    public void updateRedColorForButton1stFloor() {
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang1());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
+
+        for (int i = 1; i <= 12; i++) {
+            JButton btn = JPanelTang1.timButtonByMaBan(i);
+            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
+
+            if (btn.getBackground() != Color.GREEN) {
+                if (pdb != null) {
+                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
+                        btn.setBackground(Color.red);
+                    }
+                }
+            }
+        }
+    }
+
+    public void updateRedColorForButton2ndFloor() {
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang2());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
+
+        for (int i = 13; i <= 24; i++) {
+            JButton btn = JPanelTang2.timButtonByMaBan(i);
+            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
+
+            if (btn.getBackground() != Color.GREEN) {
+                if (pdb != null) {
+                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
+                        btn.setBackground(Color.red);
+                    }
+                }
+            }
+        }
+    }
+
+    public void updateRedColorForButton3rdFloor() {
+        jPanel3.removeAll();
+        jPanel3.add(new JPanelTang3());
+        jPanel3.updateUI();
+        jPanel3.setLayout(new FlowLayout());
+
+        for (int i = 25; i <= 36; i++) {
+            JButton btn = JPanelTang3.timButtonByMaBan(i);
+            PhieuDatBan pdb = pdbDAO.getPhieuDatBanTheoThoiGian(i);
+            if (btn.getBackground() != Color.GREEN) {
+                if (pdb != null) {
+                    if (pdb.getThoiGianDat().getTime() - new Timestamp(System.currentTimeMillis()).getTime() <= 3600000) {
+                        btn.setBackground(Color.red);
+                    }
+                }
+            }
+        }
     }
 }

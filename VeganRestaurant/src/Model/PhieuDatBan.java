@@ -5,30 +5,33 @@
 package Model;
 
 import java.util.Date;
-
+import java.sql.Timestamp;
 
 /**
  *
  * @author Võ Thanh Tùng
  */
 public class PhieuDatBan {
-    private int maPhieuDatBan;
-    private Date thoiGianDat;
-    private int MaKhachHang;
 
+    private int maPhieuDatBan;
+//    private Date thoiGianDat;
+    private Timestamp thoiGianDat;
+
+    private int MaKhachHang;
 
     public PhieuDatBan() {
     }
 
-    public PhieuDatBan(int maPhieuDatBan, Date thoiGianDat, int MaKhachHang) {
-        this.maPhieuDatBan = maPhieuDatBan;
-        this.thoiGianDat = thoiGianDat;
-        this.MaKhachHang = MaKhachHang;
-    }
-       @Override
+//    public PhieuDatBan(int maPhieuDatBan, Date thoiGianDat, int MaKhachHang) {
+//        this.maPhieuDatBan = maPhieuDatBan;
+//        this.thoiGianDat = thoiGianDat;
+//        this.MaKhachHang = MaKhachHang;
+//    }
+    @Override
     public String toString() {
-        return" (" + this.thoiGianDat + ")";
+        return " (" + this.thoiGianDat + ")";
     }
+
     public int getMaPhieuDatBan() {
         return maPhieuDatBan;
     }
@@ -37,11 +40,18 @@ public class PhieuDatBan {
         this.maPhieuDatBan = maPhieuDatBan;
     }
 
-    public Date getThoiGianDat() {
+    public Timestamp getThoiGianDat() {
         return thoiGianDat;
     }
 
-    public void setThoiGianDat(Date thoiGianDat) {
+//    public Date getThoiGianDat() {
+//        return thoiGianDat;
+//    }
+//
+//    public void setThoiGianDat(Date thoiGianDat) {
+//        this.thoiGianDat = thoiGianDat;
+//    }
+    public void setThoiGianDat(Timestamp thoiGianDat) {
         this.thoiGianDat = thoiGianDat;
     }
 
@@ -52,5 +62,5 @@ public class PhieuDatBan {
     public void setMaKhachHang(int MaKhachHang) {
         this.MaKhachHang = MaKhachHang;
     }
-    
+
 }

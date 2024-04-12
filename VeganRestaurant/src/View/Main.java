@@ -35,7 +35,7 @@ import net.sf.jasperreports.engine.json.parser.JsonQueryParserTokenTypes;
  *
  * @author Võ Thanh Tùng
  */
-public class Main{
+public class Main {
 
     int maPDB;
 
@@ -50,7 +50,7 @@ public class Main{
     boolean TrangThaiThietLap = false;
     boolean TrangThaiThongKe = false;
     boolean TrangThaiQuanLy = false;
-    public  JFrame fr = new JFrame();
+    public JFrame fr = new JFrame();
 // cac tad o tren
     JPanel pnMenu = new JPanel();
     JPanel pnView = new JPanel();
@@ -145,7 +145,7 @@ public class Main{
 //        m.capNhatVaiTro();
     }
 
-    public  void callMain() {
+    public void callMain() {
         Main m = new Main();
         m.GiaoDien();
         m.CaiDat();

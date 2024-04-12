@@ -6,6 +6,7 @@ package View;
 
 import Controller.DatBanDao;
 import Controller.PhieuDatBanDao;
+import static View.JPanelTang1.colorBan;
 import static View.JPanelTang1.ctThongTIn;
 import static View.JPanelTang1.listBT;
 import static View.JPanelTang1.listSo;
@@ -29,25 +30,23 @@ public class JPanelTang2 extends javax.swing.JPanel {
     public JPanelTang2() {
         initComponents();
         TrangThaiBan();
-        System.out.println("tang 2");
         thayDoiMauButton();
 
     }
 
-   public static void thayDoiMauButton() {
+    public static void thayDoiMauButton() {
         for (Integer ma : listSo) {
             if (!listSo.isEmpty()) {
                 JButton button = timButtonByMaBan(ma);
                 if (button != null) {
                     button.setBackground(Color.yellow);
-                } 
+                }
             }
         }
     }
 
     static void timMaBanByButton(Integer maBan) {
         boolean found = false;
-        JButton button = timButtonByMaBan(maBan);
         for (Integer indexMaBan : listSo) {
             if (indexMaBan.equals(maBan)) {
                 found = true;
@@ -56,10 +55,8 @@ public class JPanelTang2 extends javax.swing.JPanel {
         }
         if (found) {
             listSo.removeIf(i -> i.equals(maBan));
-            button.setBackground(Color.pink);
         } else {
             listSo.add(maBan);
-            button.setBackground(Color.yellow);
         }
     }
 
@@ -302,6 +299,35 @@ public class JPanelTang2 extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbT1B07, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnban8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbT1B08, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbT1B09, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnban9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnban10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(lbT1B10, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbT1B11, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnban11))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnban12)
+                            .addComponent(lbT1B12, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lbT1B01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnban1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
@@ -323,34 +349,8 @@ public class JPanelTang2 extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnban6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbT1B06, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lbT1B07, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnban7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnban8)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnban9)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnban10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lbT1B08, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbT1B09, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbT1B10, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbT1B11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnban11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnban12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbT1B12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addComponent(lbT1B06, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(54, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,10 +383,12 @@ public class JPanelTang2 extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbT1B07)
                     .addComponent(lbT1B08)
-                    .addComponent(lbT1B09)
-                    .addComponent(lbT1B10)
-                    .addComponent(lbT1B11)
-                    .addComponent(lbT1B12))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbT1B09)
+                        .addComponent(lbT1B10))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbT1B11)
+                        .addComponent(lbT1B12)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -398,7 +400,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("22");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(22);
-
+        timMaBanByButton(10);
     }//GEN-LAST:event_btnban10ActionPerformed
 
     private void btnban4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban4ActionPerformed
@@ -407,7 +409,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("16");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(16);
-
+        timMaBanByButton(16);
     }//GEN-LAST:event_btnban4ActionPerformed
 
     private void btnban11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban11ActionPerformed
@@ -416,7 +418,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("23");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(23);
-
+        timMaBanByButton(23);
     }//GEN-LAST:event_btnban11ActionPerformed
 
     private void btnban12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban12ActionPerformed
@@ -425,7 +427,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("24");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(24);
-
+        timMaBanByButton(24);
     }//GEN-LAST:event_btnban12ActionPerformed
 
     private void btnban5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban5ActionPerformed
@@ -434,7 +436,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("17");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(17);
-
+        timMaBanByButton(17);
     }//GEN-LAST:event_btnban5ActionPerformed
 
     private void btnban1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban1ActionPerformed
@@ -443,7 +445,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("13");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(13);
-
+        timMaBanByButton(13);
     }//GEN-LAST:event_btnban1ActionPerformed
 
     private void btnban2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban2ActionPerformed
@@ -452,7 +454,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("14");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(14);
-
+        timMaBanByButton(14);
     }//GEN-LAST:event_btnban2ActionPerformed
 
     private void btnban7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban7ActionPerformed
@@ -461,7 +463,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("19");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(19);
-
+        timMaBanByButton(19);
     }//GEN-LAST:event_btnban7ActionPerformed
 
     private void btnban8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban8ActionPerformed
@@ -470,7 +472,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("20");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(20);
-
+        timMaBanByButton(20);
     }//GEN-LAST:event_btnban8ActionPerformed
 
     private void btnban6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban6ActionPerformed
@@ -479,7 +481,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("18");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(18);
-
+        timMaBanByButton(18);
     }//GEN-LAST:event_btnban6ActionPerformed
 
     private void btnban3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban3ActionPerformed
@@ -488,7 +490,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("15");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(15);
-
+        timMaBanByButton(15);
     }//GEN-LAST:event_btnban3ActionPerformed
 
     private void btnban9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnban9ActionPerformed
@@ -497,7 +499,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
         int PDB = getMaPDB("21");
         listSoBan = ctThongTIn.dsBanTheoPDB(PDB);
         kiemTraTrangThaiBan(21);
-
+        timMaBanByButton(21);
     }//GEN-LAST:event_btnban9ActionPerformed
 
 
@@ -574,7 +576,7 @@ public class JPanelTang2 extends javax.swing.JPanel {
                         button.setBackground(Color.GREEN); // Đặt màu nền xanh cho bàn đang phục vụ
                         break;
                     case DatBanDao.DA_DAT:
-                        button.setBackground(Color.red); // Đặt màu nền hồng cho bàn trống
+                        button.setBackground(Color.PINK); // Đặt màu nền hồng cho bàn trống
                         break;
                     case DatBanDao.BAO_TRI:
                         button.setBackground(Color.BLACK); // Đặt màu nền đen cho bàn đang bảo trì
@@ -613,30 +615,31 @@ public class JPanelTang2 extends javax.swing.JPanel {
     }
 
     void kiemTraTrangThaiBan(int maBan) {
-        List<Object[]> banList = dBDao.loadData();
-        for (Object[] ban : banList) {
-            int maBanDB = (int) ban[0];
-            String trangThai = (String) ban[1];
-            if ((maBan == maBanDB)) {
-                switch (trangThai) {
-                    case DatBanDao.Trong:
-//                        setButton(maBan);
-                        timMaBanByButton(maBan);
-                        return;
-                    case DatBanDao.DANG_PHUC_VU:
-                        showDiaLogDangPhucVu(listSoBan);
-                        break;
-                    case DatBanDao.DA_DAT:
-                        showDiaLogTrangThaiDaDat(listSoBan);
-                        return;
-                    case DatBanDao.BAO_TRI:
-                        showDiaLogBaoTri(maBan);
-                        break;
-                    default:
-                        break;
-                }
+        JButton btn = timButtonByMaBan(maBan);
+        boolean found = false;
+
+        for (Object[] color : colorBan) {
+            int maBAN = (int) color[0];
+            if (maBan == maBAN) {
+                found = true;
+                break;
+
             }
         }
-    }
 
+        if (found) {
+            for (Object[] color : colorBan) {
+                int maBAN = (int) color[0];
+                Color mauBan = (Color) color[1];
+                if (maBan == maBAN) {
+                    btn.setBackground(mauBan);
+                    colorBan.remove(color);
+                    break;
+                }
+            }
+        } else {
+            colorBan.add(new Object[]{maBan, btn.getBackground()});
+            btn.setBackground(Color.yellow);
+        }
+    }
 }

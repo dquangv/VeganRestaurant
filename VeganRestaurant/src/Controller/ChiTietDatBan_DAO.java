@@ -6,7 +6,9 @@ package Controller;
 
 import Model.ChiTietDatBan;
 import Utils.XJdbc;
+import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 
 /**
  *
@@ -16,11 +18,26 @@ public class ChiTietDatBan_DAO extends NhaHangChayDAO<ChiTietDatBan, String> {
 
     String Insert = "insert into ChiTietDatBan (MaBan, MaPhieuDatBan) values (?,?)";
 
+    public List<Integer> getListMaPhieuDatBan(int maBan) {
+        List<Integer> list = new ArrayList<>();
+        String sql = "select * from chitietdatban where maban = ? and maphieudatban not in (select maphieudatban from hoadon)";
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, maBan);
+            while (rs.next()) {
+                list.add(rs.getInt("maphieudatban"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
+    }
+
     public void insert(String MaBan, int maPDB) {
         XJdbc.executeUpdate(Insert,
-        MaBan,
-        maPDB
-       );
+                MaBan,
+                maPDB
+        );
     }
 
     @Override

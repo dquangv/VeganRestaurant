@@ -21,6 +21,44 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="lbT1B07" max="32767" attributes="0"/>
+                          <Component id="btnban7" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnban8" max="32767" attributes="0"/>
+                          <Component id="lbT1B08" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbT1B09" max="32767" attributes="0"/>
+                          <Component id="btnban9" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnban10" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="lbT1B10" min="-2" pref="58" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lbT1B11" min="-2" pref="72" max="-2" attributes="0"/>
+                          <Component id="btnban11" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnban12" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbT1B12" min="-2" pref="72" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="lbT1B01" max="32767" attributes="0"/>
                           <Component id="btnban1" max="32767" attributes="0"/>
                       </Group>
@@ -49,42 +87,9 @@
                           <Component id="btnban6" max="32767" attributes="0"/>
                           <Component id="lbT1B06" max="32767" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="lbT1B07" max="32767" attributes="0"/>
-                          <Component id="btnban7" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnban8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnban9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnban10" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="lbT1B08" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lbT1B09" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lbT1B10" min="-2" pref="99" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lbT1B11" max="32767" attributes="0"/>
-                          <Component id="btnban11" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnban12" max="32767" attributes="0"/>
-                          <Component id="lbT1B12" max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace pref="54" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -122,10 +127,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lbT1B07" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lbT1B08" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbT1B09" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbT1B10" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbT1B11" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbT1B12" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="lbT1B09" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbT1B10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="lbT1B11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbT1B12" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>

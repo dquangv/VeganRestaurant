@@ -17,6 +17,7 @@ import Model.KhachHang;
 import Utils.MsgBox;
 import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 
 /**
  *
@@ -232,7 +233,7 @@ public class JDiaLogDatBan extends javax.swing.JDialog {
         ChiTietDatBan ctdb = new ChiTietDatBan();
         int maMaxPbd = pdbDAO.SelectMaxPDB();
         pdbDAO.setMaxPDB(maMaxPbd);
-        pdb.setThoiGianDat(new Date());
+        pdb.setThoiGianDat(new Timestamp(System.currentTimeMillis()));
         pdb.setMaKhachHang(maMaxKH + 1);
         pdbDAO.insert_null(pdb);
         ctdb.setMaBan(maBan);
