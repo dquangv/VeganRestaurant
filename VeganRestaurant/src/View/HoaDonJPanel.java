@@ -12,8 +12,13 @@ import Controller.HoaDonDAO;
 import Model.HoaDon;
 import java.text.DecimalFormat;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 
 public class HoaDonJPanel extends javax.swing.JPanel {
 
@@ -21,13 +26,37 @@ public class HoaDonJPanel extends javax.swing.JPanel {
      * Creates new form HoaDonJPanel
      */
     HoaDonDAO hdDAO = new HoaDonDAO();
-    DecimalFormat giaFomat = new DecimalFormat("###,###");    
+    DecimalFormat giaFomat = new DecimalFormat("###,###");
     int row = -1;
 
     public HoaDonJPanel() {
         initComponents();
         this.themVaoTableHD();
 //        this.themVaoCbo();
+        ImageIcon iconuser = new ImageIcon("Logos/search.png");
+        btnTim.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/view.png");
+        btnXemHD.setIcon(iconuser1);
+        ImageIcon iconuser2 = new ImageIcon("Logos/binoculars.png");
+        btnXemDG.setIcon(iconuser2);
+        formatTable();
+    }
+
+    void formatTable() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Tạo renderer cho tiêu đề của các cột
+        JTableHeader header = tblHoaDon.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Lặp qua tất cả các cột và thiết lập renderer cho nội dung và tiêu đề của mỗi cột
+        TableColumnModel columnModel = tblHoaDon.getColumnModel();
+        for (int columnIndex = 0; columnIndex < columnModel.getColumnCount(); columnIndex++) {
+            columnModel.getColumn(columnIndex).setCellRenderer(centerRenderer);
+            columnModel.getColumn(columnIndex).setHeaderRenderer(headerRenderer);
+        }
     }
 
     //fill vào hóa đơn
@@ -48,8 +77,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
                     "PDB" + hd.getMaPhieuDatBan(),
                     "KM" + hd.getMaKhuyenMai(),
                     "NV" + hd.getMaNhanVien(),
-                    "KH" + hd.getMaKhachHang(),
-                };
+                    "KH" + hd.getMaKhachHang(),};
 
                 model.addRow(row);
             }
@@ -105,7 +133,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             });
         }
     }
-    
+
 //    void thietLapForm(HoaDon hd) {
 //        txtMaHoaDon.setText("HD" + hd.getMaHoaDon());
 //        txtMaKH.setText("KH" + hd.getMaKhachHang());
@@ -119,7 +147,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //        cboPhuongThuc.setSelectedItem(hd.getPhuongThuc() ? "Thanh Toán" : "Chưa Thanh Toán" + "");
 //        txtTongTien.setText(hd.getTongTien() + "");
 //    }
-
 //    void thietLapTableCT(Integer hd) {
 //        DefaultTableModel model = (DefaultTableModel) tblChiTiet.getModel();
 //        model.setRowCount(0);
@@ -131,7 +158,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //            });
 //        }
 //    }
-
 //    HoaDon layForm() {
 //        HoaDon hd = new HoaDon();
 //
@@ -149,7 +175,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //
 //        return hd;
 //    }
-
 //    void chinhSuaForm() {
 //        String maHD = (String) tblHoaDon.getValueAt(this.row, 0);
 //
@@ -161,7 +186,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //        this.thietLapTableCT(Integer.valueOf(maHD.substring(2)));
 //        tpane.setSelectedIndex(0);
 //    }
-
 //    void themHD() {
 //        HoaDon hd = layForm();
 //        try {
@@ -173,7 +197,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //            MsgBox.alert(this, "Lưu Hóa Đơn Thất Bại");
 //        }
 //    }
-
 //    File luuFile() {
 //        JFileChooser ch = new JFileChooser();
 //        int luaChon = ch.showSaveDialog(this);
@@ -207,7 +230,6 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //            }
 //        }
 //    }
-
     //in hoa đơn theo mẫu
 //    void inHoaDon() {
 //        try {
@@ -228,13 +250,12 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 //        } catch (ClassNotFoundException | SQLException | JRException ex) {
 //        }
 //    }
-
     void xemHoaDon(int mahd) {
         ThanhToanJDialog jdialog = new ThanhToanJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
         jdialog.setVisible(true);
     }
-    
+
     void xemDanhGia(int mahd) {
         DanhGiaJDialog jdialog = new DanhGiaJDialog(new javax.swing.JFrame(), true);
         jdialog.layMaHoaDon(mahd);
@@ -361,17 +382,17 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             String mahd = String.valueOf(tblHoaDon.getValueAt(row, 0));
 
             xemHoaDon(Integer.parseInt(mahd.substring(2)));
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnXemHDActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
-        if(txtTimID.getText().length()==0){
+        if (txtTimID.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập Mã Hóa Đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             this.timTheoMaKH();
         }
     }//GEN-LAST:event_btnTimActionPerformed
@@ -385,7 +406,7 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
             xemDanhGia(Integer.parseInt(mahd.substring(2)));
 
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnXemDGActionPerformed

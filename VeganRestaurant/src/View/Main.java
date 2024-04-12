@@ -35,7 +35,7 @@ import net.sf.jasperreports.engine.json.parser.JsonQueryParserTokenTypes;
  *
  * @author Võ Thanh Tùng
  */
-public class Main{
+public class Main {
 
     int maPDB;
 
@@ -50,7 +50,7 @@ public class Main{
     boolean TrangThaiThietLap = false;
     boolean TrangThaiThongKe = false;
     boolean TrangThaiQuanLy = false;
-    public  JFrame fr = new JFrame();
+    public JFrame fr = new JFrame();
 // cac tad o tren
     JPanel pnMenu = new JPanel();
     JPanel pnView = new JPanel();
@@ -91,7 +91,7 @@ public class Main{
     JPanel pnTrangChu = new JPanel();
 
     JLabel lblDatBan = new JLabel("Đặt bàn");
-    JLabel lblThanhToan = new JLabel("Thanh toán");
+    JLabel lblThanhToan = new JLabel("Hóa đơn");
     JLabel lblKhachHang = new JLabel("Khách hàng");
     JLabel lblThucDon = new JLabel("Thực đơn");
     JLabel lblKhuyeMai = new JLabel("Khuyến mại");
@@ -145,7 +145,7 @@ public class Main{
 //        m.capNhatVaiTro();
     }
 
-    public  void callMain() {
+    public void callMain() {
         Main m = new Main();
         m.GiaoDien();
         m.CaiDat();
@@ -187,14 +187,16 @@ public class Main{
     public static void setIcon(JLabel label, String[] paths, int index) {
         if (index >= 0 && index < paths.length) {
             ImageIcon icon = new ImageIcon(paths[index]);
-            label.setIcon(icon);
+            Image SizeIcon = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            ImageIcon resizedIcon = new ImageIcon(SizeIcon);
+            label.setIcon(resizedIcon);
         }
     }
 
     void setIconLabel() {
-        String path[] = {"Logos/datban.png", "Logos/thanhtoan.png", "Logos/khachhang.png", "Logos/NguyenVatLieu.png", "Logos/thucdon.png",
+        String path[] = {"Logos/datban.png", "Logos/HoaDon.png", "Logos/KhachHang.png", "Logos/KhuyenMai.png", "Logos/thucdon.png",
             "Logos/MonAn.png", "Logos/hethong.png", "Logos/doimatkhau.png", "Logos/dangxuat.png",
-            "Logos/quanly.png", "Logos/nhanvien.png", "Logos/danhgia.png", "Logos/thongke.png", "Logos/doanhthu.png", "Logos/tkmonan.png"};
+            "Logos/quanly.png", "Logos/nhanvien1.png", "Logos/danhgia.png", "Logos/thongke.png", "Logos/doanhthu.png", "Logos/tkmonan.png"};
         int[] iconIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         for (int i = 0; i < iconIndexes.length; i++) {
             setIcon(getLabelByIndex(i), path, iconIndexes[i]);
@@ -236,9 +238,10 @@ public class Main{
     }
 
     void init() {
-        lbVaiTro.setText("");
-        lbVaiTro.revalidate();
-        lbVaiTro.repaint();
+        ImageIcon iconUser = new ImageIcon("Logos/LoginUser.png");
+        Image SizeIcon = iconUser.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(SizeIcon);
+        lbVaiTro.setIcon(resizedIcon);
         pnMenuConPhai.add(lbVaiTro, BorderLayout.CENTER);
         lbVaiTro.setFont(new Font("Arial", Font.BOLD, 30));
         lbVaiTro.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
