@@ -135,7 +135,6 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         if (CheckValiDate()) {
             thayDoiBan();
-            this.setVisible(false);
             JFrame fr = new JFrame();
             JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(fr, true);
             dialog.dispose();
@@ -143,6 +142,7 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
             JPanelTang2.TrangThaiBan();
             JPanelTang3.TrangThaiBan();
             JPanelDatBan.fillToTable();
+            this.dispose();
         }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
@@ -267,29 +267,36 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
         for (int i = 0; i < danhSachSoCu.size(); i++) {
             mapBan.put(danhSachSoCu.get(i), danhSachSoMoi.get(i));
         }
-        
+
 //        for (Integer ma : maBan) {
 //            dbDAO.updateTrangThai(Trong, ma + "");
 //        }
-
+        
         for (Map.Entry<Integer, Integer> entry : mapBan.entrySet()) {
             int maCu = entry.getKey();
             System.out.println(maCu);
             int maMoi = entry.getValue();
             System.out.println(maMoi);
             String trangThai = dbDAO.checkTonTai(maMoi);
-//            int CheckMaPDB = pdb.SelectMaPDB(maMoi);
+            int CheckMaPDBmoi = pdb.SelectMaPDB(maMoi);
 
-            // Nếu bàn mới đang phục vụ
+//             Nếu bàn mới đang phục vụ
             if (trangThai.equals(DANG_PHUC_VU)) {
-                MsgBox.alert(this, "Bàn bạn muốn chuyển đã đang phục vụ. Vui lòng chọn bàn khác.");
-                return;
+                int CheckMaPDBcu = pdb.SelectMaPDB(maCu);
+                if (CheckMaPDBcu != CheckMaPDBmoi) {
+                    MsgBox.alert(this, "Bàn bạn muốn chuyển đã đang phục vụ. Vui lòng chọn bàn khác.");
+                    return;
+                }
+
             }
+
             dbDAO.chuyenBan(maMoi, maCu, MaPDB); // Thực hiện chuyển đổi chỉ một lần
+            System.out.println(maMoi+"MaBan moi");
+            System.out.println(maCu+"MaBan cu");
             dbDAO.updateTrangThai(Trong, maCu + "");
             dbDAO.updateTrangThai(DANG_PHUC_VU, maMoi + ""); // Cập nhật trạng thái
         }
-            MsgBox.alert(this, "Đã chuyển sáng bàn: " + DanhSachBan);
+        MsgBox.alert(this, "Đã chuyển sáng bàn: " + DanhSachBan);
 
     }
 
