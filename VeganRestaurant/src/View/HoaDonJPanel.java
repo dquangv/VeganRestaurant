@@ -285,6 +285,12 @@ public class HoaDonJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Tìm kiếm:");
 
+        txtTimID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimIDKeyPressed(evt);
+            }
+        });
+
         btnTim.setText("Tìm");
         btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -410,6 +416,10 @@ public class HoaDonJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnXemDGActionPerformed
+
+    private void txtTimIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimIDKeyPressed
+        
+    }//GEN-LAST:event_txtTimIDKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

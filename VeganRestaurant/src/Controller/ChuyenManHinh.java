@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Utils.Auth;
+import Utils.MsgBox;
 import View.DanhGia1JPanel;
 import View.DanhGia2JPanel;
 import View.DoiMatKhauPanel;
@@ -62,7 +64,7 @@ public class ChuyenManHinh {
         
 //        jpnItem.setBackground(new Color(23, 70, 162));
 //        jlbItem.setBackground(new Color(23, 70, 162));
-
+        
         root.removeAll();
         root.setLayout(new BorderLayout());
         root.add(new JPanelMonAn());
@@ -112,6 +114,10 @@ public class ChuyenManHinh {
                         node = new KhachHang();
                         break;
                     case "KhuyenMai":
+                        if (!Auth.user.isVaiTro()) {
+                            MsgBox.alert(root, "Bạn không có quyền truy cập vào Khuyến mãi ");
+                            return;
+                        }
                         node = new JPanelKhuyenMai();
                         break;
                     case "ThucDon":
