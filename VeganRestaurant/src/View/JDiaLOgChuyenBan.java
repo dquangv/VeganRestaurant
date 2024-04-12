@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +34,7 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+
     }
 
     public void setBan(List<Integer> maBanList) {
@@ -62,13 +64,19 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
         txtMaBan = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnXacNhan = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lbMaBan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbMaBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbMaBan.setText("Bàn: 1");
+
+        txtMaBan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaBanKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Bàn muốn đổi");
@@ -80,7 +88,12 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Hủy");
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,7 +108,7 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
                         .addGap(0, 220, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnHuy)
                         .addGap(18, 18, 18)
                         .addComponent(btnXacNhan)))
                 .addContainerGap())
@@ -112,7 +125,7 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXacNhan)
-                    .addComponent(jButton2))
+                    .addComponent(btnHuy))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -120,17 +133,31 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        thayDoiBan();
-        MsgBox.alert(this, "Đã chuyển sáng bàn: " + DanhSachBan);
-        this.setVisible(false);
-        JFrame fr = new JFrame();
-        JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(fr, true);
-        dialog.setVisible(false);
-        JPanelTang1.TrangThaiBan();
-        JPanelTang2.TrangThaiBan();
-        JPanelTang3.TrangThaiBan();
-        JPanelDatBan.fillToTable();
+        if (CheckValiDate()) {
+            thayDoiBan();
+            this.setVisible(false);
+            JFrame fr = new JFrame();
+            JDiaLogDangPhucVu dialog = new JDiaLogDangPhucVu(fr, true);
+            dialog.dispose();
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
+            JPanelDatBan.fillToTable();
+        }
     }//GEN-LAST:event_btnXacNhanActionPerformed
+
+    private void txtMaBanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaBanKeyReleased
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            txtMaBan.setText("");
+            DanhSachBan.clear();
+            txtMaBan.setText("");
+        }
+    }//GEN-LAST:event_txtMaBanKeyReleased
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,12 +202,27 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnXacNhan;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbMaBan;
     private javax.swing.JTextField txtMaBan;
     // End of variables declaration//GEN-END:variables
+    boolean CheckValiDate() {
+        if (txtMaBan.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được bỏ trống");
+            return false;
+        }
+        List<Integer> Listmaban = chuyenChuoiThanhList(txtMaBan.getText());
+        this.DanhSachBan = Listmaban;
+        for (Integer ma : Listmaban) {
+            if (ma < 1 || ma > 36) {
+                JOptionPane.showMessageDialog(this, "Chỉ được nhập 1 - 36");
+                return false;
+            }
+        }
+        return true;
+    }
 
     void thayDoiBan() {
         int maBann = maBan.get(0);
@@ -212,15 +254,12 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
                 MaPDB = Integer.parseInt(button.getToolTipText());
             }
         }
-        List<Integer> danhSachSoMoi = chuyenChuoiThanhList(txtMaBan.getText());
-        this.DanhSachBan = danhSachSoMoi;
+        List<Integer> danhSachSoMoi = this.DanhSachBan;
+
         List<Integer> danhSachSoCu = maBan;
 
-        System.out.println(danhSachSoCu + "List cu");
-        System.out.println(danhSachSoMoi + " list moi");
         List<Integer> dsCanCapNhat = new ArrayList<>(danhSachSoMoi);
         dsCanCapNhat.removeAll(maBan);
-        System.out.println(dsCanCapNhat + "ds Can Cap Nhat");
         // Tạo một Map để lưu trữ các cặp mã bàn cũ và mới
         Map<Integer, Integer> mapBan = new HashMap<>();
 
@@ -228,21 +267,29 @@ public class JDiaLOgChuyenBan extends javax.swing.JDialog {
         for (int i = 0; i < danhSachSoCu.size(); i++) {
             mapBan.put(danhSachSoCu.get(i), danhSachSoMoi.get(i));
         }
+        
+//        for (Integer ma : maBan) {
+//            dbDAO.updateTrangThai(Trong, ma + "");
+//        }
 
-        // Duyệt qua từng cặp mã bàn trong map và thực hiện chuyển đổi
-        for (Integer ma : maBan) {
-            dbDAO.updateTrangThai(Trong, ma + "");
-            System.out.println(" " + ma);
-        }
         for (Map.Entry<Integer, Integer> entry : mapBan.entrySet()) {
             int maCu = entry.getKey();
             System.out.println(maCu);
             int maMoi = entry.getValue();
             System.out.println(maMoi);
+            String trangThai = dbDAO.checkTonTai(maMoi);
+//            int CheckMaPDB = pdb.SelectMaPDB(maMoi);
 
+            // Nếu bàn mới đang phục vụ
+            if (trangThai.equals(DANG_PHUC_VU)) {
+                MsgBox.alert(this, "Bàn bạn muốn chuyển đã đang phục vụ. Vui lòng chọn bàn khác.");
+                return;
+            }
             dbDAO.chuyenBan(maMoi, maCu, MaPDB); // Thực hiện chuyển đổi chỉ một lần
+            dbDAO.updateTrangThai(Trong, maCu + "");
             dbDAO.updateTrangThai(DANG_PHUC_VU, maMoi + ""); // Cập nhật trạng thái
         }
+            MsgBox.alert(this, "Đã chuyển sáng bàn: " + DanhSachBan);
 
     }
 

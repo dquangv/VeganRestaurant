@@ -308,8 +308,6 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordKeyPressed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String tenTaiKhoan = txtUsername.getText();
-        String matKhau = new String(txtPassword.getPassword());
 
         if (chkValidate()) {
             login();
@@ -439,7 +437,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             dispose();
             Main m = new Main();
             m.callMain();
-          
+
             if (chkSave.isSelected()) {
                 saveLoginInfo(tentk, pass, true);
             } else {
@@ -454,8 +452,8 @@ public class LoginJFrame extends javax.swing.JFrame {
             if (!configFile.exists()) {
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
-            }   
-            try (FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
+            }
+            try ( FileOutputStream fos = new FileOutputStream(CONFIG_FILE_PATH)) {
                 Properties properties = new Properties();
                 properties.setProperty("username", username);
                 properties.setProperty("password", password);
@@ -468,7 +466,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }
 
     public void loadLoginInfo() {
-        try (FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
+        try ( FileInputStream fis = new FileInputStream(CONFIG_FILE_PATH)) {
             Properties properties = new Properties();
             properties.load(fis);
 

@@ -1,14 +1,18 @@
 
  
 /*
+luu y  co cau lenh drop database tren dau tien
+luu y  co cau lenh drop database tren dau tien
+luu y  co cau lenh drop database tren dau tien
+quan trong nhac lai 3 lan 
 1 create datatabase 
 2 create table 
 3 insert into data
 4 create pro and trigger
 */
 -- reset mã tự sinh về 0 sau khi xoá toàn bộ dữ liệu (bảng khuyến mãi)
-
- 
+use master
+ drop database NhaHangChay_CohesiveStars
 
 create database NhaHangChay_CohesiveStars;
 go
@@ -874,7 +878,7 @@ BEGIN
                          INNER JOIN MonAn ON ChiTietGM.MaMonAn = MonAn.MaMonAn 
                          WHERE ChiTietGM.MaPhieuDatBan = HoaDon.MaPhieuDatBan)
         WHERE HoaDon.MaPhieuDatBan IN (SELECT MaPhieuDatBan FROM deleted);
-    END
+    END 
 END;
 go
 
