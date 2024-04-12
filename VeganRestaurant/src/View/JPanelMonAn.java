@@ -6,6 +6,7 @@ package View;
 
 import Controller.MonAnDAO;
 import Model.MonAn;
+import Utils.Auth;
 import Utils.MsgBox;
 import Utils.XImage;
 import Utils.XJdbc;
@@ -44,8 +45,18 @@ public class JPanelMonAn extends javax.swing.JPanel {
         btnLamMoi.setIcon(iconuser2);
         ImageIcon iconuser3 = new ImageIcon("Logos/search.png");
         btnTimKiem.setIcon(iconuser3);
+        
+        setRoll();
     }
 
+    
+    void setRoll(){
+        if (!Auth.user.isVaiTro()) {
+            btnCapNhat.setEnabled(false);
+            btnThemMon.setEnabled(false);
+            btnLamMoi.setEnabled(false);
+        }
+    }
     public void fillCboLoai() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiMonAn.getModel();
 

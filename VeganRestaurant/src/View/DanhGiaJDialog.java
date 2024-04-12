@@ -53,6 +53,13 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
         //chiTietDanhGia();
+         ImageIcon iconuser = new ImageIcon("Logos/danhgia.png");
+        btnDanhGia.setIcon(iconuser);
+        ImageIcon iconuser1 = new ImageIcon("Logos/return.png");
+        
+        btnQuayLai.setIcon(iconuser1);
+        
+        
     }
 
     /**
@@ -143,10 +150,12 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(btnQuayLai)
                         .addGap(18, 18, 18)
                         .addComponent(btnDanhGia)
@@ -169,14 +178,14 @@ public class DanhGiaJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnQuayLai)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(txtMaHoaDon)
                     .addComponent(jLabel5)
                     .addComponent(txtTenKhach)
                     .addComponent(txtPhieuDatBan)
-                    .addComponent(btnDanhGia))
+                    .addComponent(btnDanhGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnQuayLai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())

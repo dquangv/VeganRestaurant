@@ -46,7 +46,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         loadLoginInfo();
-        ImageIcon iconuser = new ImageIcon("Logos/nhanvien.png");
+        ImageIcon iconuser = new ImageIcon("Logos/user.png");
         lblUsername.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/pass.png");
         lblPass.setIcon(iconuser1);

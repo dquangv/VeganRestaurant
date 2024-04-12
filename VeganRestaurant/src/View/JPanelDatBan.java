@@ -24,6 +24,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -88,10 +92,26 @@ public class JPanelDatBan extends javax.swing.JPanel {
         fillToTable();
         fillComboBoxTang();
         setIcon();
+        // Tạo renderer cho nội dung của ô
+       formartTable();
     }
+    void formartTable(){
+         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Tạo renderer cho tiêu đề của các cột
+        JTableHeader header = tblDatBan.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Lặp qua tất cả các cột và thiết lập renderer cho nội dung và tiêu đề của mỗi cột
+        TableColumnModel columnModel = tblDatBan.getColumnModel();
+        for (int columnIndex = 0; columnIndex < columnModel.getColumnCount(); columnIndex++) {
+            columnModel.getColumn(columnIndex).setCellRenderer(centerRenderer);
+            columnModel.getColumn(columnIndex).setHeaderRenderer(headerRenderer);
+        }
+    }
     void setIcon() {
-
         ImageIcon iconuser = new ImageIcon("Logos/reserve.png");
         btnDatBan.setIcon(iconuser);
         ImageIcon iconuser1 = new ImageIcon("Logos/serving-dish.png");
@@ -99,13 +119,10 @@ public class JPanelDatBan extends javax.swing.JPanel {
         ImageIcon iconuser2 = new ImageIcon("Logos/maintenance.png");
         jButton4.setIcon(iconuser2);
 
-        
         btnDatBan.setBackground(Color.decode("#F06666"));
         jButton3.setBackground(Color.GREEN);
         jButton4.setBackground(Color.decode("#605E5E"));
-        
-        
-        
+
     }
 //    public void capNhatTable() {
 //        class TrangThaitable extends Thread {
@@ -216,10 +233,12 @@ public class JPanelDatBan extends javax.swing.JPanel {
         tblDatBan.setRowHeight(40);
         jScrollPane1.setViewportView(tblDatBan);
         if (tblDatBan.getColumnModel().getColumnCount() > 0) {
-            tblDatBan.getColumnModel().getColumn(0).setResizable(false);
             tblDatBan.getColumnModel().getColumn(1).setMinWidth(50);
             tblDatBan.getColumnModel().getColumn(1).setPreferredWidth(50);
             tblDatBan.getColumnModel().getColumn(1).setMaxWidth(50);
+            tblDatBan.getColumnModel().getColumn(4).setMinWidth(180);
+            tblDatBan.getColumnModel().getColumn(4).setPreferredWidth(180);
+            tblDatBan.getColumnModel().getColumn(4).setMaxWidth(180);
         }
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -415,14 +434,14 @@ public class JPanelDatBan extends javax.swing.JPanel {
         if (JPanelTang1.listSo.isEmpty()) {
             MsgBox.alert(this, "Bạn chưa chọn bàn để bảo trì");
         } else {
-        for (Integer ma : JPanelTang1.listSo) {
-            thayDoiTrangThai(ma.toString());
-        }
-        MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
-        JPanelTang1.TrangThaiBan();
-        JPanelTang2.TrangThaiBan();
-        JPanelTang3.TrangThaiBan();
-        JPanelTang1.listSo.clear();
+            for (Integer ma : JPanelTang1.listSo) {
+                thayDoiTrangThai(ma.toString());
+            }
+            MsgBox.alert(this, "Các bàn " + JPanelTang1.listSo + "đã chuyên sang bảo trì");
+            JPanelTang1.TrangThaiBan();
+            JPanelTang2.TrangThaiBan();
+            JPanelTang3.TrangThaiBan();
+            JPanelTang1.listSo.clear();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
