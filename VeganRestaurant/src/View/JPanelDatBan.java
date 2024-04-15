@@ -236,8 +236,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblDatBan);
         if (tblDatBan.getColumnModel().getColumnCount() > 0) {
             tblDatBan.getColumnModel().getColumn(1).setMinWidth(50);
-            tblDatBan.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tblDatBan.getColumnModel().getColumn(1).setMaxWidth(50);
+            tblDatBan.getColumnModel().getColumn(1).setPreferredWidth(100);
             tblDatBan.getColumnModel().getColumn(4).setMinWidth(180);
             tblDatBan.getColumnModel().getColumn(4).setPreferredWidth(180);
             tblDatBan.getColumnModel().getColumn(4).setMaxWidth(180);
@@ -518,7 +517,7 @@ public class JPanelDatBan extends javax.swing.JPanel {
         model.setRowCount(0);
         try {
             String key = txtTimKIem.getText();
-            List<Object[]> list = dBDao.LoadThongTinTimKiem(key);
+            List<Object[]> list = dBDao.LoadThongTin(key);
             for (Object[] obj : list) {
                 model.addRow(obj);
             }

@@ -25,16 +25,31 @@ public class DatBanDao {
 
     public static final String Update_TrangThai = "update ban set TrangThai =? where MaBan = ?";
     String SELECT_ALL_SQL = "select * from Ban";
-    static String Select_Thongtin = "SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai "
-            + "FROM ChiTietDatBan db "
-            + "INNER JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan "
-            + "left JOIN KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang "
-            + "INNER JOIN Ban b ON b.MaBan = db.MaBan "
-            + "WHERE ((TenKhachHang LIKE ? OR SDT LIKE ?) "
-            + "OR (TenKhachHang IS NULL OR SDT IS NULL)) "
-            + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') "
-            + "AND (db.MaPhieuDatBan Not IN (SELECT MaPhieuDatBan FROM HoaDon Where TrangThai = 1)) "
-            + "ORDER BY ThoiGianDat;";
+    static String Select_Thongtin = "SELECT DISTINCT\n"
+            + "    db.MaPhieuDatBan, \n"
+            + "    STUFF((SELECT ', ' + CONVERT(VARCHAR(10), MaBan)\n"
+            + "           FROM ChiTietDatBan\n"
+            + "           WHERE MaPhieuDatBan = db.MaPhieuDatBan\n"
+            + "           FOR XML PATH('')), 1, 2, '') AS MaBan, \n"
+            + "    TenKhachHang, \n"
+            + "    SDT, \n"
+            + "    ThoiGianDat, \n"
+            + "    TrangThai\n"
+            + "FROM \n"
+            + "    ChiTietDatBan db \n"
+            + "INNER JOIN \n"
+            + "    PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan \n"
+            + "LEFT JOIN \n"
+            + "    KhachHang kh ON kh.MaKhachHang = pdb.MaKhachHang \n"
+            + "INNER JOIN \n"
+            + "    Ban b ON b.MaBan = db.MaBan \n"
+            + "WHERE \n"
+            + "    ((TenKhachHang LIKE ? OR SDT LIKE ?) \n"
+            + "    OR (TenKhachHang IS NULL OR SDT IS NULL)) \n"
+            + "    AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') \n"
+            + "    AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon WHERE TrangThai = 1)) \n"
+            + "ORDER BY \n"
+            + "    ThoiGianDat;";
     static String Select_ThongTin_TimKiem = "SELECT db.MaPhieuDatBan, db.MaBan, TenKhachHang, SDT, ThoiGianDat, TrangThai \n"
             + "FROM ChiTietDatBan db \n"
             + "INNER JOIN PhieuDatBan pdb ON pdb.MaPhieuDatBan = db.MaPhieuDatBan \n"
@@ -44,7 +59,7 @@ public class DatBanDao {
             + "OR (TenKhachHang IS NULL OR SDT IS NULL)) \n"
             + "AND (TrangThai = N'Đã đặt' OR TrangThai = N'Đang phục vụ') \n"
             + "AND (db.MaPhieuDatBan NOT IN (SELECT MaPhieuDatBan FROM HoaDon WHERE TrangThai = 1)) \n"
-            + "AND (TenKhachHang IS NOT NULL AND SDT IS NOT NULL)  -- Loại bỏ dòng có dữ liệu null\n"
+            + "AND (TenKhachHang IS NOT NULL AND SDT IS NOT NULL) \n"
             + "ORDER BY ThoiGianDat";
     static String ThayDoiBan = " UPDATE ChiTietDatBan SET MaBan = ? WHERE MaBan = ? AND MaPhieuDatBan = ?;";
     static String checkTrung = "select TrangThai from Ban where  MaBan = ?";
@@ -137,6 +152,7 @@ public class DatBanDao {
         String cols[] = {"MaPhieuDatBan", "MaBan", "TenKhachHang", "SDT", "ThoiGianDat", "TrangThai"};
         return this.getListOfArray(Select_Thongtin, cols, keyTimKiem, keyTimKiem);
     }
+
     public List<Object[]> LoadThongTinTimKiem(String keyword) {
         String keyTimKiem = "%" + keyword + "%";
         String cols[] = {"MaPhieuDatBan", "MaBan", "TenKhachHang", "SDT", "ThoiGianDat", "TrangThai"};

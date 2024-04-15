@@ -322,6 +322,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
             }
         });
 
+        tblMonAn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblMonAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -338,6 +339,7 @@ public class JPanelMonAn extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblMonAn.setRowHeight(30);
         tblMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMonAnMouseClicked(evt);
