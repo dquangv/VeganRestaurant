@@ -175,6 +175,7 @@ public class ThucDon extends javax.swing.JPanel {
             }
         });
 
+        tblThucDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblThucDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -191,6 +192,7 @@ public class ThucDon extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblThucDon.setRowHeight(30);
         tblThucDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblThucDonMouseClicked(evt);

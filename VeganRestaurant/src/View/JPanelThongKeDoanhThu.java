@@ -177,10 +177,6 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBieuDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoActionPerformed
-        drawElliottWaveChart();
-    }//GEN-LAST:event_btnBieuDoActionPerformed
-
     private void cboNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamActionPerformed
         fillToTable();
     }//GEN-LAST:event_cboNamActionPerformed
@@ -188,6 +184,10 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         fillToTableAndExportToExcel();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBieuDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBieuDoActionPerformed
+        drawElliottWaveChart();
+    }//GEN-LAST:event_btnBieuDoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,7 +214,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
     void fillToComBoBoxNam() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboNam.getModel();
         model.removeAllElements();
-        List<Integer> list = tkDAO.selectYears();
+        List<Integer> list = tkDAO.selectMonth();
         for (Integer year : list) {
             model.addElement(year);
         }

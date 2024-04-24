@@ -722,7 +722,34 @@ begin
 end 
 go
 -- thong ke doanh thu
-CREATE PROCEDURE SP_DoanhThuThang (@nam int)
+CREATE  PROCEDURE [dbo].[SP_DoanhThuThang] (@thang int)
+AS
+BEGIN
+    ;WITH AllDays AS (
+        SELECT TOP (CASE 
+                        WHEN @thang IN (1, 3, 5, 7, 8, 10, 12) THEN 31
+                        WHEN @thang = 2 THEN 28
+                        ELSE 30
+                     END)
+            DATEADD(DAY, ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) - 1, CAST(CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + CAST(@thang AS VARCHAR) + '-01' AS DATE)) AS NgayTrongThang
+        FROM 
+            sys.objects
+    )
+    SELECT 
+        DAY(ad.NgayTrongThang) AS Thang,
+        FORMAT(COALESCE(SUM(hd.TongTien), 0), '#,##0') AS TongThanhTien
+    FROM 
+        AllDays ad
+    LEFT JOIN 
+        HoaDon hd ON DAY(hd.NgayLap) = DAY(ad.NgayTrongThang) AND MONTH(hd.NgayLap) = @thang
+    GROUP BY 
+        DAY(ad.NgayTrongThang)
+    ORDER BY 
+        Thang;
+END
+go
+-- thoe nam 
+create PROCEDURE [dbo].[SP_DoanhThuNam] (@nam int)
 AS
 BEGIN
     SELECT 
@@ -736,7 +763,6 @@ BEGIN
         MONTH(hd.NgayLap);
 END
 go
-
  -- proc hoa don 
  create proc [dbo].[sp_ChiTietHD] @maHD varchar(10)
 as

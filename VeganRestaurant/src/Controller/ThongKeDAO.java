@@ -46,8 +46,13 @@ public class ThongKeDAO {
         return getListOfArray(sql, cols);
     }
     
-     public List<Object[]> getDoanhThu(Integer nam) {
+     public List<Object[]> getDoanhThuThang(Integer thang) {
         String sql = "{CALL SP_DoanhThuThang(?)}";
+        String[] cols = {"Thang", "TongThanhTien"};
+        return this.getListOfArray(sql, cols, thang);
+    }
+     public List<Object[]> getDoanhThuNam(Integer nam) {
+        String sql = "{CALL SP_DoanhThuNam(?)}";
         String[] cols = {"Thang", "TongThanhTien"};
         return this.getListOfArray(sql, cols, nam);
     }
@@ -61,8 +66,22 @@ public class ThongKeDAO {
         String[] cols = {"TenMonAn", "soluongdanhgia"};
         return this.getListOfArray(sql, cols, maDanhGia);
     }
-      public List<Integer> selectYears() {
-        String SQL = "SELECT DISTINCT year(NgayLap) Year FROM hoadon ORDER BY Year DESC";
+      public List<Integer> selectMonth() {
+        String SQL = "SELECT DISTINCT month(NgayLap) month FROM hoadon ORDER BY month";
+        List<Integer> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(SQL);
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+      public List<Integer> selectYest() {
+        String SQL = "SELECT DISTINCT Year(NgayLap) Year FROM hoadon ORDER BY Year";
         List<Integer> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(SQL);
