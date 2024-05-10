@@ -12,12 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/View/HoaDonJPanel.java</file>
-            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JPanelDatBan.java</file>
-            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/HoaDonDAO.java</file>
             <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/View/LoginJFrame.java</file>
-            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/DatBanDao.java</file>
-            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/View/Main.java</file>
+            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/Controller/ThongKeDAO.java</file>
+            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JPanelThongKeDT.java</file>
+            <file>file:/D:/FPT/tai%20lieu/DuAn1/Fpoly-VeganRestaurant/VeganRestaurant/src/View/JPanelThongKeDoanhThu.java</file>
         </group>
     </open-files>
 </project-private>
