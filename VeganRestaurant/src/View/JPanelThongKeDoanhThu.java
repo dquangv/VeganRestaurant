@@ -94,7 +94,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
                 {null, null}
             },
             new String [] {
-                "Tháng", "Tổng tiền"
+                "Ngày", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -118,7 +118,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Năm");
+        jLabel2.setText("Tháng");
 
         btnBieuDo.setBackground(new java.awt.Color(255, 0, 102));
         btnBieuDo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -204,7 +204,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
         int year = (Integer) cboNam.getSelectedItem();
-        List<Object[]> list = tkDAO.getDoanhThu(year);
+        List<Object[]> list = tkDAO.getDoanhThuThang(year);
         for (Object[] rows : list) {
             model.addRow(new Object[]{rows[0], rows[1]});
         }
@@ -223,7 +223,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
     private void drawElliottWaveChart() {
         // Lấy dữ liệu từ ComboBox
         int year = (Integer) cboNam.getSelectedItem();
-        List<Object[]> list = tkDAO.getDoanhThu(year);
+        List<Object[]> list = tkDAO.getDoanhThuThang(year);
 
         // Tạo dữ liệu cho biểu đồ
         DefaultXYDataset dataset = new DefaultXYDataset();
@@ -258,7 +258,7 @@ public class JPanelThongKeDoanhThu extends javax.swing.JPanel {
     }
      void fillToTableAndExportToExcel() {
         int year = (Integer) cboNam.getSelectedItem();
-        List<Object[]> list = tkDAO.getDoanhThu(year);
+        List<Object[]> list = tkDAO.getDoanhThuThang(year);
 
         // Tạo một workbook mới
         try ( Workbook workbook = new XSSFWorkbook()) {

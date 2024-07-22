@@ -87,7 +87,7 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="2" rowCount="12">
-                <Column editable="false" title="Th&#xe1;ng" type="java.lang.Object"/>
+                <Column editable="false" title="Ng&#xe0;y" type="java.lang.Object"/>
                 <Column editable="false" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -130,7 +130,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="N&#x103;m"/>
+        <Property name="text" type="java.lang.String" value="Th&#xe1;ng"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnBieuDo">
